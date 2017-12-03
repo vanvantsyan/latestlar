@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Services;
+use App\Models\Geo;
+use App\Models\Visa;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Session;
 
-class ServicesController extends Controller
+class VisaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class ServicesController extends Controller
      */
     public function index()
     {
-        $services = Services::all();
-        return view('admin.services.index', compact('services'));
+        $visas = Visa::select('id', 'country_id', 'time', 'amount')->with('countries')->get();
+        return view('admin.visa.index', compact('visas'));
     }
 
     /**
@@ -27,7 +27,8 @@ class ServicesController extends Controller
      */
     public function create()
     {
-        return view('admin.services.create');
+        $countries = Geo::all();
+        return view('admin.visa.create', compact('countries'));
     }
 
     /**
@@ -39,12 +40,12 @@ class ServicesController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        unset($data['_token']);
-        unset($data['files']);
-        $data['image'] = Session::pull('upload_image');
-        Services::create($data);
+        if(isset($data['add_docs'])) {
+            $data['add_docs'] = json_encode($data['add_docs']);
+        }
+        Visa::create($data);
 
-        return redirect('admin/services');
+        return redirect('admin/pages');
     }
 
     /**
@@ -63,7 +64,7 @@ class ServicesController extends Controller
             return abort(404);
         }
         $page = Page::findOrFail($id);
-        return view('admin.pages.show', compact('page'));
+        return view('admin.visa.show', compact('page'));
     }
 
     /**
@@ -74,8 +75,14 @@ class ServicesController extends Controller
      */
     public function edit($id)
     {
-        $service = Services::findOrFail($id);
-        return view('admin.services.create', compact('service'));
+        $visa = Visa::findOrFail($id);
+        $visa->amount = intval($visa->amount);
+        $visa->add_docs = !empty($visa->add_docs) ? json_decode($visa->add_docs) : [];
+        $countries = Geo::all();
+        return view('admin.visa.create', [
+            'visa' => $visa,
+            'countries' => $countries
+        ]);
     }
 
     /**
@@ -87,11 +94,15 @@ class ServicesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $service = Services::findOrFail($id);
-        $service->fill($request->all());
-        $service->save();
+        $visa = Visa::findOrFail($id);
+        $data = $request->all();
+        if(isset($data['add_docs'])) {
+            $data['add_docs'] = json_encode($data['add_docs']);
+        }
+        $visa->fill($data);
+        $visa->save();
 
-        return redirect('admin/services');
+        return redirect('admin/visa');
     }
 
     /**
@@ -102,16 +113,14 @@ class ServicesController extends Controller
      */
     public function destroy($id)
     {
-        $page = Page::findOrFail($id);
-        $page->delete();
-        return redirect()->route('admin.pages.index');
+        return abort(404);
     }
 
 
     public function delete($request){
 
-        Services::where('id', $request->get('id'))->delete();
-        return redirect('admin/services')
+        Visa::where('id', $request->get('id'))->delete();
+        return redirect('admin/visa')
             ->with('message', 'Страница успешно удалена');
 
     }

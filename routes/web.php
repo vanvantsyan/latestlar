@@ -18,6 +18,8 @@ Route::get('logout', 'Auth\LoginController@logout');
 Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'isAdmin', 'prefix' => 'admin'], function() {
 
+        Route::resource('visa', 'Admin\VisaController');
+
         Route::post('upload-images', 'ImageController@uploadImages');
 
         Route::resource('services', 'Admin\ServicesController');
