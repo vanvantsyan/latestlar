@@ -1,0 +1,14 @@
+.accountForm .form-title--auth {
+    padding-right: 35px;
+}
+
+.form-group .error {
+    color: white;
+    background-color: #e89d9d;
+    margin: 5px 0;
+    padding: 2px 4px;
+}
+
+.form_col .error {
+    font-size: 14px;
+}
