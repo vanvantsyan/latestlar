@@ -21,22 +21,25 @@
                     $link = isset($visa) ? url('admin/visa/'.$visa->id) : url('admin/visa');
                 @endphp
 
-                <form action="{{ $link }}" method="POST" class="form-horizontal">
+                <form action="{{ $link }}" method="POST" class="form-horizontal m-form">
                     {{ csrf_field() }}
                     @if(isset($visa))
                         <input type="hidden" name="_method" value="PUT">
                     @endif
 
                     @if($countries->isNotEmpty())
-                        <div class="form-group m-form__group row">
+                        <div class="form-group m-form__group row {{ $errors->has('country_id') ? ' has-danger' : '' }}">
                             <div class="col-md-6 col-xs-12">
                                 <label for="country">Выберите страну *</label>
-                                <select name="country_id" id="country" class="form-control" required>
+                                <select name="country_id" id="country" class="form-control">
                                     <option value="" selected disabled=""></option>
                                     @foreach($countries as $country)
                                         <option value="{{$country->id}}" @if(isset($visa) && $visa->country_id == $country->id) selected @endif>{{$country->country}}</option>
                                     @endforeach
                                 </select>
+                                @if($errors->has('country_id'))
+                                    <div class="form-control-feedback">{{$errors->first('country_id')}}</div>
+                                @endif
                             </div>
                         </div>
                     @else
@@ -47,18 +50,24 @@
                         </div>
                     @endif
 
-                    <div class="form-group m-form__group row">
+                    <div class="form-group m-form__group row {{ $errors->has('time') ? ' has-danger' : '' }}">
                         <div class="col-md-6 col-xs-12">
                             <label for="time">Срок оформления в рабочих днях *</label>
-                            <input type="text" class="form-control m-input m-input--square" id="time" name="time" value="{{$visa->time or ''}}">
+                            <input type="text" class="form-control m-input m-input--square" id="time" name="time" value="{{$visa->time or old('time')}}">
+                            @if($errors->has('time'))
+                                <div class="form-control-feedback">{{$errors->first('time')}}</div>
+                            @endif
                             <small>Формат заполнения: 5-7, или просто число 9</small>
                         </div>
                     </div>
 
-                    <div class="form-group m-form__group row">
+                    <div class="form-group m-form__group row {{ $errors->has('amount') ? ' has-danger' : '' }}">
                         <div class="col-md-4 col-xs-6">
                             <label for="amount">Стоимость ОТ *</label>
                             <input type="number" class="form-control m-input m-input--square" id="amount" name="amount" value="{{$visa->amount or ''}}">
+                            @if($errors->has('amount'))
+                                <div class="form-control-feedback">{{$errors->first('amount')}}</div>
+                            @endif
                             <small>Введите целое число.</small>
                         </div>
                         <div class="col-md-2 col-xs-6">
@@ -84,10 +93,13 @@
                     <h5>Необходимые документы</h5>
                     <hr>
 
-                    <div class="form-group m-form__group row">
+                    <div class="form-group m-form__group row {{ $errors->has('docs') ? ' has-danger' : '' }}">
                         <div class="col-md-6 col-xs-12">
-                            <label for="">Необходимые документы</label>
+                            <label for="">Необходимые документы *</label>
                             <textarea class="summernote" name="docs">{{$visa->docs or ''}}</textarea>
+                            @if($errors->has('docs'))
+                                <div class="form-control-feedback">{{$errors->first('docs')}}</div>
+                            @endif
                         </div>
                     </div>
 
@@ -149,10 +161,13 @@
                         </div>
                     </div>
 
-                    <div class="form-group m-form__group row">
+                    <div class="form-group m-form__group row {{ $errors->has('slug') ? ' has-danger' : '' }}">
                         <div class="col-md-6 col-xs-12">
                             <label for="slug">SLUG</label>
                             <input type="text" class="form-control m-input m-input--square" id="slug" name="slug" value="{{$visa->slug or ''}}">
+                            @if($errors->has('slug'))
+                                <div class="form-control-feedback">{{$errors->first('slug')}}</div>
+                            @endif
                         </div>
                     </div>
 

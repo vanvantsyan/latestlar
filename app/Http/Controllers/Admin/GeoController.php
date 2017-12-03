@@ -6,6 +6,7 @@ use App\Models\Cities;
 use App\Models\Geo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class GeoController extends Controller
 {
@@ -49,8 +50,9 @@ class GeoController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validateCountries($request);
         $this->model->saveCountries($request->all());
-        return redirect('admin/geo')->with('message', 'New countries has been added');
+        return redirect('admin/geo')->with('message', 'Новые страны успешно добавлены');
     }
 
     /**
@@ -91,6 +93,7 @@ class GeoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validateCountry($request);
         $this->model->updateCountry($id, $request->all());
         return redirect('admin/geo')->with('message', 'Country "' . $request->get('country') . '" has been updated');
     }
@@ -150,6 +153,29 @@ class GeoController extends Controller
         return redirect('admin/geo')
             ->with('message', 'Город "'.$request->get('city').'" успешно обновлен');
 
+    }
+
+
+    // Validations methods
+    public function validateCountries($request)
+    {
+        $rules = [
+            'countries' => 'required'
+        ];
+        return $this->validate($request, $rules, [], ['countries' => 'Страны']);
+    }
+
+    public function validateCountry($request)
+    {
+        $rules = [
+            'country' => 'required',
+            'slug' => 'required|unique:geo_countries'
+        ];
+        $fields = [
+            'cities' => 'Города',
+
+        ];
+        return $this->validate($request, $rules, [], $fields);
     }
 
 }

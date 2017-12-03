@@ -118,7 +118,7 @@
                                 '<a href="#" class="btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown">                                ' +
                                 '<i class="la la-ellipsis-h"></i>' +
                                 '</a><div class="dropdown-menu dropdown-menu-right">' +
-                                '<a class="dropdown-item" href="/admin/visa/'+e.id+'"><i class="la la-edit"></i> Редактировать</a>' +
+                                '<a class="dropdown-item" href="/admin/visa/'+e.id+'/edit"><i class="la la-edit"></i> Редактировать</a>' +
                                 '<a class="dropdown-item" href="/admin/visa/delete?id='+e.id+'" onclick="confirm(\'Вы уверены что желаете удалить визу\')"><i class="la la-trash"></i> Удалить' +
                                 '</a></div></div>' +
                                 '<a href="/admin/visa/'+e.id+'/edit" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View ">' +

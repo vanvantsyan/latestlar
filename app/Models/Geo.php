@@ -9,7 +9,7 @@ class Geo extends Model
 {
 
     protected $table = 'geo_countries';
-    protected $fillable = ['country'];
+    protected $fillable = ['country', 'description', 'slug'];
 
     public $timestamps = false;
 

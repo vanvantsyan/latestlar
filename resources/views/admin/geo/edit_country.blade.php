@@ -39,9 +39,12 @@
                         <div class="tab-pane active" id="m_tabs_1" role="tabpanel">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group m-form__group">
+                                    <div class="form-group m-form__group {{ $errors->has('country') ? ' has-danger' : '' }}">
                                         <label for="country">Название страны</label>
                                         <input id="country" class="form-control" name="country" required value="{{$country->country}}">
+                                        @if($errors->has('country'))
+                                            <div class="form-control-feedback">{{$errors->first('country')}}</div>
+                                        @endif
                                     </div>
 
                                     <div class="form-group m-form__group">
@@ -56,12 +59,15 @@
                                         @endforelse
                                     </div>
 
-                                    <div class="form-group m-form__group">
+                                    <div class="form-group m-form__group {{ $errors->has('cities') ? ' has-danger' : '' }}">
                                         <label for="cities">Добавить города - {{$country->country}}</label>
                                         <textarea id="cities" class="form-control" name="cities" rows="5"></textarea>
+                                        @if($errors->has('cities'))
+                                            <div class="form-control-feedback">{{$errors->first('cities')}}</div>
+                                        @endif
                                         <span class="m-form__help">
-                                    Введите названия городов. Каждый новый город с новой строки
-                                </span>
+                                            Введите названия городов. Каждый новый город с новой строки
+                                        </span>
                                     </div>
 
                                 </div>
@@ -129,10 +135,13 @@
                                 </div>
                             </div>
 
-                            <div class="form-group m-form__group row">
+                            <div class="form-group m-form__group row {{ $errors->has('slug') ? ' has-danger' : '' }}">
                                 <div class="col-md-6 col-xs-12">
                                     <label for="slug">SLUG</label>
                                     <input type="text" class="form-control m-input m-input--square" id="slug" name="slug" value="{{$country->slug or ''}}">
+                                    @if($errors->has('slug'))
+                                        <div class="form-control-feedback">{{$errors->first('slug')}}</div>
+                                    @endif
                                 </div>
                             </div>
 

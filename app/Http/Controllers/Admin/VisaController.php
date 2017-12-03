@@ -39,13 +39,15 @@ class VisaController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validateForm($request);
+
         $data = $request->all();
         if(isset($data['add_docs'])) {
             $data['add_docs'] = json_encode($data['add_docs']);
         }
         Visa::create($data);
 
-        return redirect('admin/pages');
+        return redirect('admin/visa');
     }
 
     /**
@@ -63,8 +65,8 @@ class VisaController extends Controller
             }
             return abort(404);
         }
-        $page = Page::findOrFail($id);
-        return view('admin.visa.show', compact('page'));
+        $visa = Visa::findOrFail($id);
+        return view('admin.visa.show', compact('visa'));
     }
 
     /**
@@ -123,6 +125,25 @@ class VisaController extends Controller
         return redirect('admin/visa')
             ->with('message', 'Страница успешно удалена');
 
+    }
+
+    public function validateForm($request)
+    {
+        $rules = [
+            'country_id' => 'required',
+            'time' => 'required|regex:/[0-9-]+$/',
+            'amount' => 'numeric|required',
+            'docs' => 'required',
+            'slug' => 'required|unique:visa'
+        ];
+        $fields = [
+            'country_id' => 'Страна',
+            'time' => 'Срок оформления',
+            'amount' => 'Стоимость',
+            'docs' => 'Необходимые документы',
+            'slug' => 'SLUG'
+        ];
+        $this->validate($request, $rules, [], $fields);
     }
 
 
