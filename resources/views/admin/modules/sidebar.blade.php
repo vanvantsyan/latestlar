@@ -42,6 +42,13 @@
                 </a>
             </li>
 
+            <li class="m-menu__item" aria-haspopup="true">
+                <a href="{{url('admin/tours')}}" class="m-menu__link">
+                    <i class="m-menu__link-icon flaticon-route"></i>
+                    <span class="m-menu__link-text">Туры</span>
+                </a>
+            </li>
+
         </ul>
     </div>
     <!-- END: Aside Menu -->
