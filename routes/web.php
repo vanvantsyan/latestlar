@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::resource('/', 'Admin\AdminController');
 
         Route::resource('tours', 'Admin\ToursController');
+        Route::resource('tours/parser', 'Admin\ToursController@parser');
     });
 });
 
