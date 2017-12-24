@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\TourHelper;
+use App\Models\GeoRelation;
+use App\Models\ModxWays;
+use App\Models\Points;
+use App\Models\ToursTags;
+use App\Models\ToursTagsRelation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Tours;
@@ -9,8 +15,12 @@ use App\Models\Worldparts;
 use App\Models\Ways;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
+use App\Http\CBRAgent;
 
+use Intervention\Image\Facades\Image;
+use Mockery\Exception;
 use Sunra\PhpSimple\HtmlDomParser;
+use Symfony\Component\Finder\SplFileInfo;
 
 class ToursController extends Controller
 {
@@ -19,79 +29,415 @@ class ToursController extends Controller
         return view('admin.tours.index', ['tours' => Tours::all()]);
     }
 
+
     public function parser()
     {
-        $client = new Client;
-        $jar = CookieJar::fromArray([
-            '__utma' => '217549706.1523632669.1514038036.1514038036.1514038036.1',
-            '__utmb' => '217549706.5.10.1514038036',
-            '__utmc' => '217549706',
-            '__utmz' => '217549706.1514038036.1.1.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided)',
-            '_ym_uid' => '1514038036220437473',
-            '_ym_visorc_37339525' => 'w',
-            '_ym_isad' => '2',
-        ], 'magput.ru');
-        $response = $client->post('https://new.magput.ru/backend/Search/SearchPrograms', [
-            'headers' => [
-                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; …) Gecko/20100101 Firefox/57.0',
-                'Accept' => '*/*',
-                'Accept-Encoding' => 'gzip, deflate, br',
-                'Accept-Language' => 'ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3',
-                'Cache-Control' => 'max-age=0',
-                'Connection' => 'keep-alive',
-                'Content-Length' => 410,
-                'Content-Type' => 'application/json; charset=utf-8',
-                'Host' => 'new.magput.ru',
-                'Origin' => 'https://magput.ru',
-                'Referer' => 'https://magput.ru/?id=1161',
-                'Cookie' => [
-                    '__utma' => '217549706.1523632669.1514038036.1514038036.1514038036.1',
-                    '__utmb' => '217549706.5.10.1514038036',
-                    '__utmc' => '217549706',
-                    '__utmz' => '217549706.1514038036.1.1.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided)',
-                    '_ym_uid' => '1514038036220437473',
-                    '_ym_visorc_37339525' => 'w',
-                    '_ym_isad' => '2',
-                ],
+        // Set default tag data_viezda
 
-            ],
-            'cookies' => $jar,
-            'json' => [
-                'Count' => 0,
-                'CountOnly' => false,
-                'ItemsPerPage' => 10,
-                'CurrentPage' => 0,
-                'Type' => 8,
-                'SubType' => -1,
-                'OptType' => -1,
-                'CityType' => -1,
-                'CityName' => -1,
-                'StartCityName' => null,
-                'ByCheckin' => false,
-                'Checkin' => null,
-                'ByRange' => false,
-                'Range' => 3,
-                'DurationMin' => 1,
-                'DurationMax' => 20,
-                'PriceMin' => null,
-                'PriceMax' => null,
-                'GuideName' => null,
-                'FilterDates' => false,
-                'OnlyHits' => false,
-                'OnlyNew' => false,
-                'ProgramIds' => [],
-                'ProgramTypes' => [0 => 50],
-                0 => 50,
-                'ProgramTypesAndLogic' => false
-            ]
-        ]);
-        dd(json_decode($response->getBody()));
+        if (!ToursTags::where('title', 'data_viezda')->exists()) {
+            $newTag = new ToursTags();
+            $newTag->title = 'data_viezda';
+            $newTag->alias = 'Дата выезда';
+            $newTag->save();
 
-        $parsingPage = file_get_contents('https://magput.ru/?id=1161');
-        die(iconv('windows-1251', 'UTF-8//IGNORE', $parsingPage));
-        $parsingPage = HtmlDomParser::file_get_html('https://magput.ru/?id=1161');
-        dd(\GuzzleHttp\json_decode($parsingPage->outertext));
+            $tagDataId = $newTag->id;
+        } else {
+            $tag = ToursTags::where('title', 'data_viezda')->select('id')->first();
+            $tagDataId = $tag->id;
+        }
 
+        // Set default tag travel_type
+
+        if (!ToursTags::where('title', 'travel_type')->exists()) {
+            $newTag = new ToursTags();
+            $newTag->title = 'travel_type';
+            $newTag->alias = 'Способ путешествия';
+            $newTag->save();
+
+            $tagTravelId = $newTag->id;
+        } else {
+            $tag = ToursTags::where('title', 'travel_type')->select('id')->first();
+            $tagTravelId = $tag->id;
+        }
+
+        // Get all wat for foreach
+
+        $ways = Ways::where(function ($query) {
+            $query->where('off', 0)->orWhereNull('off');
+        })->where('id', '>', 3)->get();
+
+        foreach ($ways as $way) {
+            echo " — — — — — — Parce way - " . $way['title'] . " — — — — — — <br>";
+            $parsingPage = file_get_contents('https://magturyview.ru/mday.php?id=' . $way['id']);
+
+            $html = HtmlDomParser::str_get_html(iconv('windows-1251', 'UTF-8//IGNORE', $parsingPage));
+
+
+            foreach ($html->find('table') as $table) {
+
+                try {
+                    $a = $table->find('h3.pr_name a');
+                    $href = $a[0]->href;
+                } catch (Exception $e) {
+                    die(var_dump($e));
+                }
+
+                preg_match('/viewprog=(\d{1,10})/', $href, $matches);
+                $id = $matches[1];
+
+
+                /* — — — — — — PARS DATA — — — — — — */
+
+                // Paps NAME
+                $name = $a[0]->plaintext;
+
+                // DURATION
+                preg_match('/(\d{1,2})[ ](дня|дней)/', $name, $matches);
+
+                if ($matches) {
+                    $duration = $matches[1];
+                } else {
+                    $duration = 1;
+                }
+
+                // TRAVEL TYPE
+                preg_match_all('/(ж\/д)|(авиа)|(автобус)/', $name, $matches);
+
+                if (count($matches[0])) {
+
+                    ToursTagsRelation::join('tours_tags AS tt', 'tt.id', '=', 'tag_id')
+                        ->where('tour_id', $id)
+                        ->where('tt.title', 'travel_type')
+                        ->delete();
+                }
+
+                foreach ($matches[0] as $travel_type) {
+
+                    if ($travel_type) {
+                        $newTagRel = new ToursTagsRelation();
+                        $newTagRel->tour_id = $id;
+                        $newTagRel->tag_id = $tagTravelId;
+                        $newTagRel->value = $travel_type;
+                        $newTagRel->save();
+                    }
+                }
+
+                // WAY POINTS
+
+                $routeBlock = $table->find('.smalldef', 1);
+
+                unset($matches);
+
+                if ($routeBlock) preg_match('/Маршрут: (.*)/u', $routeBlock->plaintext, $matches);
+
+                if (isset($matches[1]) && !empty($matches[1]) && count($matches[1])) {
+
+                    $route = $matches[1];
+
+                    try {
+                        $routePoints = explode('-->', $matches[1]);
+                    } catch (Exception $e) {
+                        echo $e . "<br> on ";
+                        var_dump($matches);
+                    }
+
+                } else {
+                    preg_match_all('/((?:([А-ЯЁ][а-яё«»]+[ ]?){1,2}([А-ЯЁа-яё«».]+[ ]?)?[-|–|—|+][ ]?)+[ ]?([.А-ЯЁа-яё«»]+[ ]?)+)/u', $name, $matches);
+
+                    if (isset($matches[0][0]) && $matches[0][0]) {
+
+                        $route = $matches[0][0];
+
+                        $routePoints = preg_split('/[ ]?[-|–|—|+]{1}[ ]?/u', $matches[0][0]);
+
+                    } else {
+                        $routePoints = array();
+                    }
+
+                }
+
+                if (count($routePoints)) {
+
+                    GeoRelation::where('sub_ess', 'tour')
+                        ->where('sub_id', $id)
+                        ->where('par_id', 'point')
+                        ->delete();
+                }
+
+                $pointOrder = 0;
+
+                foreach ($routePoints as $point) {
+                    $point = trim($point);
+
+                    $existPoint = Points::where('title', $point)->select('id')->first();
+                    if ($existPoint) {
+                        $pointId = $existPoint->id;
+                    } else {
+
+                        $newPoint = new Points();
+                        $newPoint->title = $point;
+                        $newPoint->url = \Slug::make($point);
+                        $newPoint->save();
+                        $pointId = $newPoint->id;
+
+                    }
+
+                    if (!GeoRelation::where('sub_ess', 'point')
+                        ->where('par_ess', 'way')
+                        ->where('sub_id', $pointId)
+                        ->where('par_id', $way->id)
+                        ->exists()
+                    ) {
+                        // Add geo relation way->point
+                        $geoRel = new GeoRelation();
+
+                        $geoRel->sub_ess = 'point';
+                        $geoRel->par_ess = 'way';
+                        $geoRel->sub_id = $pointId;
+                        $geoRel->par_id = $way->id;
+
+                        $geoRel->save();
+                    }
+                    // Add geo relation point->tour
+                    // Можно не удалять все точки перед парсингом а проверять перед вставкой на существование
+                    $geoRel = new GeoRelation();
+
+                    $geoRel->sub_ess = 'tour';
+                    $geoRel->par_ess = 'point';
+                    $geoRel->sub_id = $id;
+                    $geoRel->par_id = $pointId;
+                    $geoRel->order = $pointOrder;
+                    $geoRel->save();
+
+                    $pointOrder++;
+                }
+
+                // Small description
+                $smalldef = $table->find('.smalldef');
+                $desc = $smalldef[0]->plaintext;
+
+                // data_viezda
+                $data_viezda_html = $table->find('tr', 3);
+
+
+                preg_match_all('/[\d]{1,2}.[\d]{1,2}.[\d]{2,4}/', $data_viezda_html, $matchesDate);
+
+                if (count($matchesDate[0])) {
+
+                    ToursTagsRelation::join('tours_tags AS tt', 'tt.id', '=', 'tag_id')
+                        ->where('tour_id', $id)
+                        ->where('tt.title', 'data_viezda')
+                        ->delete();
+
+                    foreach ($matchesDate[0] as $dateIn) {
+                        $data_viezda = strtotime($dateIn);
+
+                        $newTagRel = new ToursTagsRelation();
+
+                        $newTagRel->tour_id = $id;
+                        $newTagRel->tag_id = $tagDataId;
+                        $newTagRel->value = $data_viezda;
+
+                        $newTagRel->save();
+                    }
+
+                }
+
+                // Min price
+                preg_match('/(\d{3,6}) ?(руб|usd|eur)/ui', $desc, $matchesPrice);
+
+                if (isset($matchesPrice[1]) && $matchesPrice[1]) {
+
+                    $cbr = new CBRAgent();
+
+                    if ($matchesPrice[2] == 'usd') {
+                        if ($cbr->load()) {
+                            $minPrice = $cbr->get('USD') * $matchesPrice[1];
+                        } else {
+                            $minPrice = 58 * $matchesPrice[1];
+                        }
+
+                    } elseif ($matchesPrice[2] == 'eur') {
+                        if ($cbr->load()) {
+                            $minPrice = $cbr->get('EUR') * $matchesPrice[1];
+                        } else {
+                            $minPrice = 68 * $matchesPrice[1];
+                        }
+                    } else {
+                        $minPrice = $matchesPrice[1];
+                    }
+
+                } else {
+                    $minPrice = 0;
+                }
+
+                // If tour already exist
+
+                if (Tours::find($id)) {
+
+                    $existTour = Tours::find($id);
+                    $existTour->price = $minPrice;
+                    $existTour->duration = $duration;
+                    $existTour->save();
+
+                    if (!GeoRelation::where('sub_ess', 'tour')
+                        ->where('par_ess', 'way')
+                        ->where('sub_id', $id)
+                        ->where('par_id', $way->id)
+                        ->exists()
+                    ) {
+                        // Add geo relation way->tour
+                        $geoRel = new GeoRelation();
+
+                        $geoRel->sub_ess = 'tour';
+                        $geoRel->par_ess = 'way';
+                        $geoRel->sub_id = $id;
+                        $geoRel->par_id = $way->id;
+
+                        $geoRel->save();
+                    }
+                    echo "Update " . $id . "<br>";
+                    continue;
+                }
+
+                // Get full tour page
+                $parcingSinglePage = file_get_contents('https://magturyview.ru/mday.php' . $href);
+                $singlePage = HtmlDomParser::str_get_html(iconv("windows-1251", "utf-8", $parcingSinglePage));
+
+
+                $head = $singlePage->find('head', 0);
+                $head->outertext = '';
+
+                $body = $singlePage->find('body');
+
+                // Cleare for text
+                $h = $body[0]->find('h1');
+                $h[0]->outertext = '';
+
+                $singlePageTable = $body[0]->find('table');
+                $singlePageTable[0]->outertext = '';
+
+                // — — — COPY IMAGE — — — \\
+
+                $imagesArr = [];
+
+                foreach ($singlePageTable[1]->find('a') as $link) {
+
+                    if ($link->href) {
+
+                        $img = $link->href;
+                        $img = preg_replace('/http:\/\/89.108.70.76/', 'https://magput.ru', $img);
+
+                        preg_match('/([\da-z]+)\.(png|jpg|jpeg|gif)/ui', $img, $matches);
+                        if (!isset($matches[1]) || empty($matches[1])) {
+                            echo "could not get image name " . $img . "<br>\n";
+                            continue;
+                        }
+
+                        $gd = @imagecreatefromstring(file_get_contents($img));
+                        if ($gd === false) {
+                            echo 'Image is corrupted<br>';
+                            continue;
+                        }
+
+                        $folder = substr($id, 0, 2);
+                        $imageName = $matches[1] . '.' . $matches[2];
+
+                        if (!is_dir(base_path('/public/img/tours/full/' . $folder))) {
+                            mkdir(base_path('/public/img/tours/full/' . $folder));
+                        }
+                        $path = base_path('/public/img/tours/full/' . $folder . '/' . $imageName);
+
+                        if (!file_exists(base_path('/public/img/tours/full/' . $folder . '/' . $imageName))) {
+                            $workingImage = Image::make($img);
+                            $workingImage->flip();
+                            $workingImage->save($path);
+                        }
+
+                        $imagesArr[] = $imageName;
+                    }
+                }
+
+                $images = json_encode($imagesArr);
+
+                // — — — COPY IMAGE END— — — \\
+
+                // Clear further
+
+                $singlePageTable[1]->outertext = '';
+
+                $singlePageHr = $body[0]->find('hr');
+                $singlePageHr[0]->outertext = '';
+                $singlePageHr[1]->outertext = '';
+
+                $text = $singlePage->save();
+
+                $blockTextParcing = HtmlDomParser::str_get_html($text);
+
+                $bodyBlockNode = $blockTextParcing->find('body', 0);
+                $text = $bodyBlockNode->innertext;
+
+                // Min price
+
+                if (!$minPrice) {
+
+                    preg_match('/(\d{3,6}) ?(руб|usd|eur)/ui', $text, $matchesPrice);
+
+                    if (isset($matchesPrice[1]) && $matchesPrice[1]) {
+
+                    }
+                    $cbr = new CBRAgent();
+
+                    if ($matchesPrice[2] == 'usd') {
+                        if ($cbr->load()) {
+                            $minPrice = $cbr->get('USD') * $matchesPrice[1];
+                        } else {
+                            $minPrice = 58 * $matchesPrice[1];
+                        }
+
+                    } elseif ($matchesPrice[2] == 'eur') {
+                        if ($cbr->load()) {
+                            $minPrice = $cbr->get('EUR') * $matchesPrice[1];
+                        } else {
+                            $minPrice = 68 * $matchesPrice[1];
+                        }
+                    } else {
+                        $minPrice = $matchesPrice[1];
+                    }
+
+                }
+
+                // VALIDATION
+
+                if (mb_strlen($name) > 250) {
+                    $name = mb_strimwidth($name, 0, 250);
+                }
+
+                $text = preg_replace("!<a.*?href=\"?'? ?([^ \"'>]+)\"?'?.*?>(.*?)<\/a>!is", "\\2", $text);
+                $text = preg_replace('/style=\"[^\"]+\"/ui', "\\", $text);
+                $text = preg_replace('/class=\'[^\"]+\'/ui', "\\", $text);
+
+                // Add row tour
+                $newTour = new Tours();
+
+                $newTour->id = $id;
+                $newTour->title = $name;
+                $newTour->description = $desc;
+                $newTour->text = $text;
+                $newTour->url = TourHelper::tour2url($name, $id);
+                $newTour->price = $minPrice;
+                $newTour->duration = $duration;
+                $newTour->source = 'magput';
+                $newTour->images = $images;
+
+                $newTour->save();
+
+                // Logging
+                echo "Add " . $id . "<br>";
+
+                break;
+            }
+        }
 
     }
 

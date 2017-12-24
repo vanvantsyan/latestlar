@@ -180,6 +180,7 @@ return [
         App\Providers\MenuServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         App\Providers\BlogServiceProvider::class,
+        Alexusmai\Ruslug\RuslugServiceProvider::class,
 
     ],
 
@@ -233,7 +234,8 @@ return [
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Menu' => App\Facades\MenuFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Blog' => App\Facades\BlogFacade::class
+        'Blog' => App\Facades\BlogFacade::class,
+        'Slug' => Alexusmai\Ruslug\RuslugFacade::class,
 
     ],
 

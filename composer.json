@@ -16,7 +16,8 @@
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "zizaco/entrust": "^1.8",
-        "sunra/php-simple-html-dom-parser": "1.5.2"
+        "sunra/php-simple-html-dom-parser": "1.5.2",
+        "alexusmai/ruslug": "~0.6"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
