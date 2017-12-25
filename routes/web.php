@@ -15,8 +15,8 @@ Auth::routes();
 
 Route::get('logout', 'Auth\LoginController@logout');
 
-Route::group(['middleware' => 'auth'], function() {
-    Route::group(['middleware' => 'isAdmin', 'prefix' => 'admin'], function() {
+Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => 'isAdmin', 'prefix' => 'admin'], function () {
 
         Route::resource('visa', 'Admin\VisaController');
 
@@ -52,8 +52,10 @@ Route::group(['middleware' => 'auth'], function() {
         Route::resource('permissions', 'Admin\PermissionsController');
         Route::resource('/', 'Admin\AdminController');
 
+        Route::get('tours/{id}/edit', 'Admin\ToursController@edit');
+        Route::get('tours/parser', 'Admin\ToursController@parser');
         Route::resource('tours', 'Admin\ToursController');
-        Route::resource('tours/parser', 'Admin\ToursController@parser');
+
     });
 });
 

@@ -49,4 +49,17 @@ class TourHelper
         }
         return self::str2url($url);
     }
+
+    public static function cutTourName($name){
+        if (strlen($name) < 50) {
+            $cutName = $name;
+        } else {
+            if (preg_match('/^(.+?)\(/iu', $name, $match)) {
+                $cutName = $match[1];
+            } else {
+                $cutName = substr($name, 0 , 200) . "...";
+            }
+        }
+        return $cutName;
+    }
 }

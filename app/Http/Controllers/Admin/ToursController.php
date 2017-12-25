@@ -26,9 +26,47 @@ class ToursController extends Controller
 {
     public function index()
     {
-        return view('admin.tours.index', ['tours' => Tours::all()]);
+        $tours = Tours::select('id', 'title', 'duration', 'url', 'source')->get();
+        return view('admin.tours.index', ['tours' => $tours]);
     }
 
+    public function edit($id)
+    {
+        $item = Tours::find($id);
+        $images = json_decode($item->images);
+        return view('admin.tours.form', [
+            'item' => $item,
+            'images' => $images,
+            'imgFolder' => substr($item->id, 0 , 2),
+        ]);
+    }
+
+    public function delete($request){
+
+        Tours::where('id', $request->get('id'))->delete();
+        return redirect('admin/tours')
+            ->with('message', 'Тур успешно удален');
+
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        unset($data['_token']);
+        unset($data['_method']);
+        unset($data['files']);
+        Tours::where('id', $request->get('id'))->update($data);
+        return redirect('admin/tours')
+            ->with('message', 'Тур "'.$request->get('title').'"успешно обновлен');
+    }
+
+    public function create()
+    { //todo
+        $categories = Tours::all();
+        return view('admin.tours.form', [
+            'categories' => $categories
+        ]);
+    }
 
     public function parser()
     {
@@ -277,6 +315,7 @@ class ToursController extends Controller
 
                     $existTour = Tours::find($id);
                     $existTour->price = $minPrice;
+                    $existTour->title = TourHelper::cutTourName(htmlspecialchars($name));
                     $existTour->duration = $duration;
                     $existTour->save();
 
@@ -381,29 +420,29 @@ class ToursController extends Controller
 
                 if (!$minPrice) {
 
-                    preg_match('/(\d{3,6}) ?(руб|usd|eur)/ui', $text, $matchesPrice);
-
+                    preg_match('/(\d{0,3}\s?\d{3,6}) ?(руб|usd|eur)/ui', $text, $matchesPrice);
                     if (isset($matchesPrice[1]) && $matchesPrice[1]) {
 
-                    }
-                    $cbr = new CBRAgent();
+                        $cbr = new CBRAgent();
 
-                    if ($matchesPrice[2] == 'usd') {
-                        if ($cbr->load()) {
-                            $minPrice = $cbr->get('USD') * $matchesPrice[1];
-                        } else {
-                            $minPrice = 58 * $matchesPrice[1];
-                        }
+                        if ($matchesPrice[2] == 'usd') {
+                            if ($cbr->load()) {
+                                $minPrice = $cbr->get('USD') * $matchesPrice[1];
+                            } else {
+                                $minPrice = 58 * $matchesPrice[1];
+                            }
 
-                    } elseif ($matchesPrice[2] == 'eur') {
-                        if ($cbr->load()) {
-                            $minPrice = $cbr->get('EUR') * $matchesPrice[1];
+                        } elseif ($matchesPrice[2] == 'eur') {
+                            if ($cbr->load()) {
+                                $minPrice = $cbr->get('EUR') * $matchesPrice[1];
+                            } else {
+                                $minPrice = 68 * $matchesPrice[1];
+                            }
                         } else {
-                            $minPrice = 68 * $matchesPrice[1];
+                            $minPrice = $matchesPrice[1];
                         }
-                    } else {
-                        $minPrice = $matchesPrice[1];
                     }
+
 
                 }
 
@@ -421,11 +460,11 @@ class ToursController extends Controller
                 $newTour = new Tours();
 
                 $newTour->id = $id;
-                $newTour->title = $name;
+                $newTour->title = TourHelper::cutTourName(htmlspecialchars($name));
                 $newTour->description = $desc;
                 $newTour->text = $text;
                 $newTour->url = TourHelper::tour2url($name, $id);
-                $newTour->price = $minPrice;
+                $newTour->price = str_replace(' ', '', $minPrice);;
                 $newTour->duration = $duration;
                 $newTour->source = 'magput';
                 $newTour->images = $images;
@@ -435,7 +474,6 @@ class ToursController extends Controller
                 // Logging
                 echo "Add " . $id . "<br>";
 
-                break;
             }
         }
 

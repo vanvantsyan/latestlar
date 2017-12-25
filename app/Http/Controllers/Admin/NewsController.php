@@ -99,7 +99,7 @@ class NewsController extends Controller
         unset($data['files']);
         News::where('id', $request->get('id'))->update($data);
         return redirect('admin/news')
-            ->with('message', 'Новость "'.$request->get('title').'"успешно обновлена');
+            ->with('message', 'Новость "' . $request->get('title') . '"успешно обновлена');
     }
 
     /**
