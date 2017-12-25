@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Console\Commands;
 
+use Illuminate\Console\Command;
 use App\Helpers\TourHelper;
 use App\Models\GeoRelation;
 use App\Models\Points;
@@ -14,58 +15,38 @@ use App\Http\CBRAgent;
 use Intervention\Image\Facades\Image;
 use Sunra\PhpSimple\HtmlDomParser;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-
-use Mockery\Exception;
-
-class ToursController extends Controller
+class ToursParser extends Command
 {
-    public function index()
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'parser:getall';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Get all tours';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        $tours = Tours::select('id', 'title', 'duration', 'url', 'source')->get();
-        return view('admin.tours.index', ['tours' => $tours]);
+        parent::__construct();
     }
 
-    public function edit($id)
-    {
-        $item = Tours::find($id);
-        $images = json_decode($item->images);
-        return view('admin.tours.form', [
-            'item' => $item,
-            'images' => $images,
-            'imgFolder' => substr($item->id, 0 , 2),
-        ]);
-    }
-
-    public function delete($request){
-
-        Tours::where('id', $request->get('id'))->delete();
-        return redirect('admin/tours')
-            ->with('message', 'Тур успешно удален');
-
-    }
-
-    public function update(Request $request, $id)
-    {
-        $data = $request->all();
-        unset($data['_token']);
-        unset($data['_method']);
-        unset($data['files']);
-        Tours::where('id', $request->get('id'))->update($data);
-        return redirect('admin/tours')
-            ->with('message', 'Тур "'.$request->get('title').'"успешно обновлен');
-    }
-
-    public function create()
-    { //todo
-        $categories = Tours::all();
-        return view('admin.tours.form', [
-            'categories' => $categories
-        ]);
-    }
-
-    public function parser()
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
     {
         // Set default tag data_viezda
 
@@ -102,7 +83,7 @@ class ToursController extends Controller
         })->where('id', '>', 3)->get();
 
         foreach ($ways as $way) {
-            echo " — — — — — — Parce way - " . $way['title'] . " — — — — — — <br>";
+            echo " — — — — — — Parce way - " . $way['title'] . " — — — — — — <br>\n";
             $parsingPage = file_get_contents('https://magturyview.ru/mday.php?id=' . $way['id']);
 
             $html = HtmlDomParser::str_get_html(iconv('windows-1251', 'UTF-8//IGNORE', $parsingPage));
@@ -332,7 +313,7 @@ class ToursController extends Controller
 
                         $geoRel->save();
                     }
-                    echo "Update " . $id . "<br>";
+                    echo "Update " . $id . "<br>\n";
                     continue;
                 }
 
@@ -469,19 +450,10 @@ class ToursController extends Controller
                 $newTour->save();
 
                 // Logging
-                echo "Add " . $id . "<br>";
+                echo "Add " . $id . "<br>\n";
 
             }
         }
 
-    }
-
-    public function show(Request $request, $id)
-    {
-        $action = camel_case($id);
-        if (method_exists($this, $action)) {
-            return $this->$action($request);
-        }
-        return abort(404);
     }
 }
