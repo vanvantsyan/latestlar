@@ -146,7 +146,7 @@
                         pageSize: 10
                     },
                     layout: {
-                        theme: "default",
+                        theme: "default" ,
                         class: "",
                         scroll: !1,
                         height: 450,

@@ -10,8 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Auth::routes();
+Route::get('/', 'Front\FrontController@index');
+    Auth::routes();
 
 Route::get('logout', 'Auth\LoginController@logout');
 
@@ -58,4 +58,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 });
+
+
+Route::get('pages', 'Front\PagesController@index');
+//*******
+
+Route::get('tours', 'Front\ToursController');
+
+Route::get('{country}/{query}', 'Front\ToursController@show');
 
