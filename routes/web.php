@@ -59,11 +59,9 @@ Route::group(['middleware' => 'auth'], function () {
     });
 });
 
+//Route::get('pages', 'Front\PagesController@index');
 
-Route::get('pages', 'Front\PagesController@index');
-//*******
+Route::get('tury', 'Front\ToursController@list');
 
-Route::get('tours', 'Front\ToursController');
-
-Route::get('{country}/{query}', 'Front\ToursController@show');
+Route::get('{country}/{slug1?}/{slug2?}/{slug3?}', 'Front\ToursController@country');
 

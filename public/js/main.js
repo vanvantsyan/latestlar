@@ -7,6 +7,17 @@ $(document).ready(function() {
 		});
 	}
 
+	if(docWidth < 767) {
+		$(".partners-items").mCustomScrollbar({
+		    axis:"x",
+		    scrollbarPosition: "inside"
+		});
+	}
+
+	$(".search-completed-item-preview").click(function() {
+		$(".search-completed-preview-right a.btn-blue").trigger("click");
+	});
+
 	$('select').styler({
 		selectSearch: true
 	});
@@ -69,7 +80,6 @@ $(document).ready(function() {
 	    dots: false,
 	    arrows: true
 	});
-
 });
 
 

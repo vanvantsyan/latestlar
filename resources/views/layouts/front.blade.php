@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{asset('css/datePicker.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap-theme.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+    @yield('css')
     <link href='{{asset('/css/style.css')}}' rel='stylesheet' type='text/css'/>
 
     <meta name="description" content="@yield('description')"/>
@@ -23,6 +24,8 @@
 <body>
 
 @include('front.modules.header')
+
+@yield('breadcrumbs')
 
 @yield('content')
 

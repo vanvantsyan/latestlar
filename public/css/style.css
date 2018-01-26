@@ -130,6 +130,7 @@ label {
 .phone span {
 	display: block;
 }
+.phone a {}
 .phone-notice {
 	font-size: 15px;
 	font-family: 'pantonlight';
@@ -157,12 +158,30 @@ label {
 	padding: 0 30px;
 	display: inline-block;
 	outline: none;
+	-webkit-transition: ease-in-out 0.2s;
+	-moz-transition: ease-in-out 0.2s;
+	-ms-transition: ease-in-out 0.2s;
+	-o-transition: ease-in-out 0.2s;
+	transition: ease-in-out 0.2s;
 }
 .btn:hover {
 	text-decoration: none;
 }
 .btn-orange {
 	background: #ff5500;
+	-webkit-transition: ease-in-out 0.2s;
+	-moz-transition: ease-in-out 0.2s;
+	-ms-transition: ease-in-out 0.2s;
+	-o-transition: ease-in-out 0.2s;
+	transition: ease-in-out 0.2s;
+}
+.btn-orange:hover {
+	background: #e14a00;
+	-webkit-transition: ease-in-out 0.2s;
+	-moz-transition: ease-in-out 0.2s;
+	-ms-transition: ease-in-out 0.2s;
+	-o-transition: ease-in-out 0.2s;
+	transition: ease-in-out 0.2s;
 }
 .header-top .btn {
 	float: right;
@@ -171,18 +190,40 @@ label {
 .header .menu {
 	height: 50px;
 	background: #007cbc;
+	border: none;
+}
+.header .menu ul {
+	font-size: 0;
 }
 .header .menu li {
 	display: inline-block;
-	margin-right: 37px;
 	position: relative;
 	line-height: 50px;
+	font-size: 15px;
 }
 .header .menu li:last-child {
 	margin-right: 0;
 }
 .header .menu li a {
 	color: #fff;
+	padding: 0 18.9px;
+	display: block;
+}
+.header .menu li a:hover {
+	text-decoration: none;
+    background: #284a76;
+    box-shadow: 0 -2px 0 0 #e74530, 0 1px 0 0 #e74530 inset;
+	-webkit-transition: ease-in-out 0.2s;
+	-moz-transition: ease-in-out 0.2s;
+	-ms-transition: ease-in-out 0.2s;
+	-o-transition: ease-in-out 0.2s;
+	transition: ease-in-out 0.2s;
+}
+.header .menu li a.hot {
+	padding-left: 37px;
+}
+.header .menu li a.hot:before {
+	left: 18.9px;
 }
 .header .menu li.submenu ul {
 	position: absolute;
@@ -224,9 +265,20 @@ label {
 	font-family: 'pantonlight';
 	font-size: 13px;
 }
+.breadcrumbs .row > div {
+	display: inline-block;
+	margin-right: 3px;
+	position: relative;
+}
+.breadcrumbs .row > div:after {
+	content: "-";
+	margin-left: 3px;
+}
+.breadcrumbs .row > div:last-child:after {
+	display: none;
+}
 .breadcrumbs a {
 	text-decoration: underline;
-	margin-right: 3px;
 }
 .breadcrumbs a:hover {
 	text-decoration: none;
@@ -267,16 +319,31 @@ label {
 	background: #f7f8fd;
 	font-family: 'pantonbold';
 }
-.sidebar-city-tour > a {
+.sidebar-city-tour > a:hover {
+	text-decoration: none;
+}
+.sidebar-city-tour .btn-rest-tours {
 	border: 1px solid #7f7f7f;
 	border-radius: 5px;
 	display: inline-block;
 	padding: 5px 16px;
 	margin: -6px 24px 21px 24px;
 	width: 230px;
+	-webkit-transition: ease-in-out 0.2s;
+	-moz-transition: ease-in-out 0.2s;
+	-ms-transition: ease-in-out 0.2s;
+	-o-transition: ease-in-out 0.2s;
+	transition: ease-in-out 0.2s;
 }
-.sidebar-city-tour > a:hover {
+.sidebar-city-tour .btn-rest-tours:hover {
 	text-decoration: none;
+	background: #3d4454;
+	color: #ffffff;
+	-webkit-transition: ease-in-out 0.2s;
+	-moz-transition: ease-in-out 0.2s;
+	-ms-transition: ease-in-out 0.2s;
+	-o-transition: ease-in-out 0.2s;
+	transition: ease-in-out 0.2s;
 }
 .new-year-icon {
 	position: relative;
@@ -305,13 +372,19 @@ label {
 	padding-left: 15px;
 	margin-bottom: 30px;
 }
+h1 {
+	font-size: 48px;
+	font-family: 'pantonbold';
+	margin: 0;
+	margin-bottom: 13px;
+}
 h2 {
 	font-size: 48px;
 	font-family: 'pantonbold';
 	margin: 0;
 	margin-bottom: 13px;
 }
-h3 {
+.info-company-title {
 	margin: 0;
 	font-size: 36px;
 	font-family: 'pantonbold';
@@ -327,6 +400,14 @@ h3 {
 }
 .btn-yellow {
 	background: #fde40e;
+}
+.btn-yellow:hover {
+	background: #eed50e;
+	-webkit-transition: ease-in-out 0.2s;
+	-moz-transition: ease-in-out 0.2s;
+	-ms-transition: ease-in-out 0.2s;
+	-o-transition: ease-in-out 0.2s;
+	transition: ease-in-out 0.2s;
 }
 .tour-filter {
 	background: #007cbc;
@@ -366,10 +447,10 @@ h3 {
 	border: none;
 	color: #000;
 }
-.tour-filter-item:nth-child(3) {
+.tour-filter-item.time-mob {
 	margin-right: 0;
 }
-.tour-filter-item:nth-child(3) .jq-selectbox {
+.tour-filter-item.time-mob .jq-selectbox {
 	width: 49%;
 }
 .jq-selectbox__select {
@@ -400,13 +481,13 @@ h3 {
 .jq-selectbox.focused .jq-selectbox__select {
 	border: none;
 }
-.tour-filter-item:nth-child(4) {
+.tour-filter-item.category {
 	width: 180px;
 }
-.tour-filter-item:nth-child(4) .jq-selectbox {
+.tour-filter-item.category .jq-selectbox {
 	width: 100%;
 }
-.tour-filter-item:nth-child(5) input {
+.tour-filter-item.value input {
 	width: 49%;
 }
 .tour-filter-more {
@@ -427,6 +508,14 @@ h3 {
 }
 .btn-blue {
 	background: #42b0eb;
+}
+.btn-blue:hover {
+	background: #099fea;
+	-webkit-transition: ease-in-out 0.2s;
+	-moz-transition: ease-in-out 0.2s;
+	-ms-transition: ease-in-out 0.2s;
+	-o-transition: ease-in-out 0.2s;
+	transition: ease-in-out 0.2s;
 }
 .popular-tours {
 	margin-top: 30px;
@@ -465,6 +554,19 @@ h3 {
 	height: 222px;
 	padding: 15px 15px 30px 25px;
 	position: relative;
+	webkit-transition: ease-in-out 0.2s;
+	-moz-transition: ease-in-out 0.2s;
+	-ms-transition: ease-in-out 0.2s;
+	-o-transition: ease-in-out 0.2s;
+	transition: ease-in-out 0.2s;
+}
+.popular-tours-item:hover {
+	background-color: rgba(0, 0, 0, 0.5);
+	webkit-transition: ease-in-out 0.2s;
+	-moz-transition: ease-in-out 0.2s;
+	-ms-transition: ease-in-out 0.2s;
+	-o-transition: ease-in-out 0.2s;
+	transition: ease-in-out 0.2s;
 }
 .popular-tours-item img {
 	position: absolute;
@@ -484,6 +586,9 @@ h3 {
 	height: 195px;
 	text-align: center;
 	padding: 58px 20px 20px 20px;
+}
+.popular-tours-item.small:hover {
+	background: none;
 }
 .popular-tours-item .price {
 	float: right;
@@ -571,6 +676,8 @@ h3 {
 .burning-tours-item {
 	border: 1px solid #e1e1e1;
 	display: inline-block;
+	width: 100%;
+	height: 100%;
 }
 .burning-tours-item-img {
 	width: 100%;
@@ -637,6 +744,11 @@ h3 {
 	line-height: 44px;
 	font-family: 'pantonlight';
 	font-size: 17px;
+	-webkit-transition: ease-in-out 0.2s;
+	-moz-transition: ease-in-out 0.2s;
+	-ms-transition: ease-in-out 0.2s;
+	-o-transition: ease-in-out 0.2s;
+	transition: ease-in-out 0.2s;
 }
 .burning-tours-filter a:last-child {
 	border-right: none;
@@ -646,6 +758,11 @@ h3 {
 	text-decoration: none;
 	background: #007cbc;
 	color: #fff;
+	-webkit-transition: ease-in-out 0.2s;
+	-moz-transition: ease-in-out 0.2s;
+	-ms-transition: ease-in-out 0.2s;
+	-o-transition: ease-in-out 0.2s;
+	transition: ease-in-out 0.2s;
 }
 .btn-more-tours {
 	display: block;
@@ -654,13 +771,27 @@ h3 {
 	background: #007cbc;
 	color: #fff;
 	text-align: center;
+	border: 1px solid transparent;
 	padding: 0 20px;
 	margin-top: 15px;
 	font-size: 17px;
 	font-family: 'pantonlight';
+	webkit-transition: ease-in-out 0.2s;
+	-moz-transition: ease-in-out 0.2s;
+	-ms-transition: ease-in-out 0.2s;
+	-o-transition: ease-in-out 0.2s;
+	transition: ease-in-out 0.2s;
 }
 .btn-more-tours:hover {
 	text-decoration: none;
+	color: #007cbc;
+	background: #ffffff;
+	border: 1px solid #007cbc;
+	-webkit-transition: ease-in-out 0.2s;
+	-moz-transition: ease-in-out 0.2s;
+	-ms-transition: ease-in-out 0.2s;
+	-o-transition: ease-in-out 0.2s;
+	transition: ease-in-out 0.2s;
 }
 .tours-notes {
 	margin-top: 65px;
@@ -695,6 +826,21 @@ h3 {
 	border: 1px solid #e1e0de;
 	display: block;
 }
+.tours-notes-item img {
+	-webkit-transition: ease-in-out 0.2s;
+	-moz-transition: ease-in-out 0.2s;
+	-ms-transition: ease-in-out 0.2s;
+	-o-transition: ease-in-out 0.2s;
+	transition: ease-in-out 0.2s;
+}
+.tours-notes-item:hover img{
+	opacity: 0.7;
+	-webkit-transition: ease-in-out 0.2s;
+	-moz-transition: ease-in-out 0.2s;
+	-ms-transition: ease-in-out 0.2s;
+	-o-transition: ease-in-out 0.2s;
+	transition: ease-in-out 0.2s;
+}
 .tours-notes-item:hover {
 	text-decoration: none;
 }
@@ -705,6 +851,7 @@ h3 {
 }
 .tours-notes-item-img img {
 	height: 100%;
+	width: 100%;
 }
 .tours-notes-item-cont {
 	padding: 25px 10px 23px 23px;
@@ -932,6 +1079,14 @@ h3 {
 	margin-right: 8px;
 	border-radius: 50%;
 }
+.soc a:hover {
+	filter: invert(1);
+    -webkit-transition: ease-in-out 0.2s;
+    -moz-transition: ease-in-out 0.2s;
+    -ms-transition: ease-in-out 0.2s;
+    -o-transition: ease-in-out 0.2s;
+    transition: ease-in-out 0.2s;
+}
 .soc a:last-child {
 	margin-right: 0;
 }
@@ -1007,7 +1162,7 @@ a.dp-choose-date {
 }
 .hot:before {
 	content: "";
-	width: 15px;
+	width: 14.8px;
 	height: 23px;
 	position: absolute;
 	left: 0;
@@ -1054,6 +1209,10 @@ a.dp-choose-date {
 	float: right;
 	margin-top: -20px;
 }
+.sorting-btn:hover {
+	color: #fff;
+	background: #e1e1e1;
+}
 .search-completed-item {
 	-webkit-box-shadow: 0px 6px 20px 0px rgba(50, 50, 50, 0.1);
 	-moz-box-shadow:    0px 6px 20px 0px rgba(50, 50, 50, 0.1);
@@ -1067,7 +1226,7 @@ a.dp-choose-date {
 .search-completed-item-more.lock {
 	display: none;
 }
-.search-completed-item-img a {
+.search-completed-item-img span {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -1079,6 +1238,10 @@ a.dp-choose-date {
     padding: 0 20px;
     background: rgba(0, 0, 0, 0.75);
     text-align: center;
+    text-decoration: underline;
+}
+.search-completed-item-img:hover span {
+	text-decoration: none;
 }
 .search-completed-item-route span {
 	position: relative;
@@ -1149,6 +1312,7 @@ a.dp-choose-date {
     align-items: stretch;
     border: 1px solid #e1e1e1;
     background: #f7f8fd;
+    cursor: pointer;
 }
 .search-completed-preview-left {
 	border-right: 1px solid #e1e1e1;
@@ -1194,7 +1358,7 @@ a.dp-choose-date {
 .search-completed-item-price {
 	display: inline-block;
 	vertical-align: middle;
-	margin-right: 25px;
+	margin-right: 15px;
 }
 .search-completed-preview-right .btn-orange {
 	margin-right: 4px;
@@ -1215,7 +1379,7 @@ a.dp-choose-date {
 }
 .search-completed-item-date a {
 	display: inline-block;
-	width: 55px;
+	/*width: 55px;*/
 	height: 33px;
 	padding: 0 10px;
 	border: 1px solid #e1e1e1;
@@ -1265,6 +1429,7 @@ a.dp-choose-date {
 .search-completed-item-img {
 	border-right: 1px solid #e1e1e1;
 	height: 100%;
+	display: block;
 }
 .search-completed-item-desc {
 	font-family: 'pantonlight';
@@ -1487,13 +1652,15 @@ div.dp-popup h2 {
 .main-page .popular-tours-items {
 	margin-top: 15px;
 }
-.main-page .popular-tours-items .title {
+.main-page .popular-tours-items h1 {
 	text-align: center;
+    font-size: 24px;
+    margin-bottom: 15px;
 }
-.main-page .popular-tours-items .title a {
+.main-page .popular-tours-items h1 a {
 	text-decoration: underline;
 }
-.main-page .popular-tours-items .title a:hover {
+.main-page .popular-tours-items h1 a:hover {
 	text-decoration: none;
 }
 .main-page .btn-more-tours {
@@ -1685,16 +1852,24 @@ div.dp-popup h2 {
 .header .menu li.dropdown li {
 	margin-right: 0;
 	display: block;
-	line-height: normal;
+}
+.header .menu li.dropdown li a {
+	padding: 5px 10px;
+}
+.header .menu li.dropdown li a:hover {
+	display: block;
+	box-shadow: none;
 }
 .header .menu li .caret {
 	margin-left: 7px;
 	margin-top: -4px;
 }
-.dropdown-menu>li>a:focus, 
-.dropdown-menu>li>a:hover {
-	background: transparent;
+.popular-tours h2,
+.burning-tours h2,
+.tours-notes h2 {
+	font-size: 24px;
+    margin-bottom: 15px;
 }
-.navbar-default .navbar-nav>.open>a {
-	background: transparent;
+.carousel-inner img{
+	margin: 0 auto;
 }
