@@ -63,5 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('tury', 'Front\ToursController@list');
 
+Route::post('moreTours', 'Front\ToursController@getMore')->name('moreTours');
+
 Route::get('{country}/{slug1?}/{slug2?}/{slug3?}', 'Front\ToursController@country');
 

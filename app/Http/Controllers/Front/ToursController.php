@@ -63,8 +63,13 @@ class ToursController extends Controller
      */
     public function list(Tours $tours)
     {
-        $list = $tours::with(['tourTags', 'tourGeoSub'])->take(15)->get();
+        $list = $tours::with(['tourTags', 'tourGeoSub'])->take(2)->get();
         return view('front.tours.tours', ['tours' => $list]);
+    }
+
+    public function getMore(Tours $tours){
+        $list = $tours::with(['tourTags', 'tourGeoSub'])->take(15)->get();
+        return view('front.tours.more',['tours' => $list]);
     }
 
     /**

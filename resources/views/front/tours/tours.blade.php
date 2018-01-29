@@ -194,7 +194,11 @@
                                             <div class="search-completed-preview-left">
                                                 <div class="search-completed-item-title">{{$tour->title}}</div>
                                                 <ul>
-                                                    <li>{{$tour->cityCount ?: 1}} {!! Gliss::numeralCase('город', $tour->cityCount ?: 1) !!}</li>
+                                                    @php
+                                                        $cityCount = $tour->cityCount;
+                                                    @endphp
+
+                                                    <li>{{$cityCount ?: 1}} {!! Gliss::numeralCase('город', $cityCount ?: 1) !!}</li>
                                                     <li>14 экскурсий</li>
                                                     <li>Поездка
                                                         на {{$tour->duration}} {!! Gliss::numeralCase('день', $tour->duration) !!}</li>
@@ -251,18 +255,18 @@
                                             <div class="search-completed-item-more-right">
                                                 <div class="search-completed-item-route">
                                                     <span>Маршрут тура:</span>
-
-                                                    @if($tour->points->count())
+                                                    @php
+                                                        $toursCount = $tour->points->count();
+                                                    @endphp
+                                                    @if($toursCount)
 
                                                         @php
                                                             $i = 1;
                                                         @endphp
                                                         @foreach($tour->points as $point)
-                                                            {{$i < $tour->points->count() ? $point->point->title . ', ' : $point->point->title}}
+                                                            {{$i < $toursCount ? $point->point->title . ', ' : $point->point->title}}
                                                             @php $i++ @endphp
                                                         @endforeach
-                                                        {{--<b>Москва</b> - Владимир, Боголюбово, Суздаль, Иваново, Кострома,--}}
-                                                        {{--Ярославль, Ростов Великий, Переславль Залесский, Сергиев Посад - <b>Москва</b>--}}
 
                                                     @else
                                                         {{$tour->ways[0]->waysPar->title}}
@@ -343,7 +347,11 @@
                                             <div class="search-completed-preview-left">
                                                 <div class="search-completed-item-title">{{$tour->title}}</div>
                                                 <ul>
-                                                    <li>{{$tour->cityCount ?: 1}} {!! Gliss::numeralCase('город', $tour->cityCount ?: 1) !!}</li>
+                                                    @php
+                                                        $cityCount = $tour->cityCount;
+                                                    @endphp
+
+                                                    <li>{{$cityCount ?: 1}} {!! Gliss::numeralCase('город', $cityCount ?: 1) !!}</li>
                                                     <li>14 экскурсий</li>
                                                     <li>Поездка
                                                         на {{$tour->duration}} {!! Gliss::numeralCase('день', $tour->duration) !!}</li>
@@ -400,18 +408,18 @@
                                             <div class="search-completed-item-more-right">
                                                 <div class="search-completed-item-route">
                                                     <span>Маршрут тура:</span>
-
-                                                    @if($tour->points->count())
+                                                    @php
+                                                        $toursCount = $tour->points->count();
+                                                    @endphp
+                                                    @if($toursCount)
 
                                                         @php
                                                             $i = 1;
                                                         @endphp
                                                         @foreach($tour->points as $point)
-                                                            {{$i < $tour->points->count() ? $point->point->title . ', ' : $point->point->title}}
+                                                            {{$i < $toursCount ? $point->point->title . ', ' : $point->point->title}}
                                                             @php $i++ @endphp
                                                         @endforeach
-                                                        {{--<b>Москва</b> - Владимир, Боголюбово, Суздаль, Иваново, Кострома,--}}
-                                                        {{--Ярославль, Ростов Великий, Переславль Залесский, Сергиев Посад - <b>Москва</b>--}}
 
                                                     @else
                                                         {{$tour->ways[0]->waysPar->title}}
@@ -868,6 +876,15 @@
 
 @section('js')
     <script>
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // See all photos of the tour
+
         $('#tourImagesModal').on('show.bs.modal', function (e) {
             var tourId = $(e.relatedTarget).attr('data-tour-id');
 
@@ -886,7 +903,34 @@
 
             $(slideContainer).html(slideBlock);
             $('.carousel-indicators').html(indicators);
-        })
+        });
+
+        // Get more tours in tour list
+
+        $('.btn-more-tours').on('click', function () {
+
+            console.log('mark-1');
+
+            var btn = $(this);
+            btn.html('<img style="padding-bottom: 8px" src="/img/preloader.svg">');
+
+            $.ajax({
+                url: "moreTours",
+                cache: false,
+                data: {offset: 10, limit: 10},
+                type: "POST",
+
+            }).done(function (html) {
+                btn.html('Показать еще туры');
+                $('.search-completed-item').last().after(html);
+            }).error(function(){
+                btn.html('Показать еще туры');
+                $('.search-completed-item').last().after('<p class="alert">ошибка</p>');
+            });
+
+            return false
+        });
+
 
     </script>
 @endsection

@@ -45,8 +45,8 @@ class Tours extends Model
     public function getCityCountAttribute()
     {
         return $this
-            ->join(DB::raw('geo_relation g'), 'tours.id', '=', 'sub_id')
-            ->join(DB::raw('points p'), 'p.id', '=', 'g.par_id')
+            ->leftJoin(DB::raw('geo_relation g'), 'tours.id', '=', 'sub_id')
+            ->leftJoin(DB::raw('points p'), 'p.id', '=', 'g.par_id')
             ->where('g.sub_ess', 'tour')
             ->where('par_ess', 'point')
             ->where('p.status','city')
