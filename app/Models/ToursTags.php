@@ -11,4 +11,5 @@ class ToursTags extends Model
     public function relationTours(){
         return $this->hasMany('App\Models\ToursTagsRelation', 'tag_id');
     }
+
 }

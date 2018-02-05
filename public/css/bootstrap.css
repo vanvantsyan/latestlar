@@ -1,4 +1,4 @@
-f/*!
+/*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -4174,7 +4174,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 @media (max-width: 1200px) {
   .header .navbar-header {
     display: block;
-    margin-right: 30px;
+    margin-right: 0;
   }
 }
 .navbar-static-top {

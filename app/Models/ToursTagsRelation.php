@@ -16,4 +16,8 @@ class ToursTagsRelation extends Model
     public function tag() {
         return $this->belongsTo('App\Models\ToursTags', 'tag_id');
     }
+
+    public function fixValue() {
+        return $this->belongsTo('App\Models\ToursTagsValues', 'value', 'id')->groupBy('id');
+    }
 }

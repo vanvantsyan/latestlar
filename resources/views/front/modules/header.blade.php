@@ -3,7 +3,7 @@
         <div class="container">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="row">
-                    <div class="logo"><a href="#"><img src="img/logo.png" alt=""></a></div>
+                    <div class="logo"><a href="#"><img src="{{asset('/img/logo.png')}}" alt=""></a></div>
                     <div class="city">
                         <span>Москва</span>
                         <div class="other-city">

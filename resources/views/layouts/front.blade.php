@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{asset('css/jquery.formstyler.theme.css')}}">
     <link rel="stylesheet" href="{{asset('css/datePicker.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap-theme.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/bootstrap.css')}}">
     @yield('css')
     <link href='{{asset('/css/style.css')}}' rel='stylesheet' type='text/css'/>
 

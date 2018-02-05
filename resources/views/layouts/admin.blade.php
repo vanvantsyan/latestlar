@@ -27,6 +27,7 @@
     <link href="{{asset('css/layout.css')}}" rel="stylesheet" type="text/css" />
     <!--end::Base Styles -->
     <link rel="shortcut icon" href="{{asset('assets/demo/default/media/img/logo/favicon.ico')}}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
 </head>
 <!-- end::Head -->
 <!-- end::Body -->

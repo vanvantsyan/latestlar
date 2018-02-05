@@ -67,11 +67,31 @@ $(document).ready(function() {
     	return false;
     });
 
-	$(".main-slider-left, .main-slider-right").slick({
+	$(".main-slider-left").slick({
 	    autoplay: true,
 	    autoplaySpeed: 2000,
 	    dots: true,
 	    arrows: false
+	});
+
+	$(".main-slider-right").slick({
+	    autoplay: true,
+	    autoplaySpeed: 2000,
+	    dots: true,
+	    arrows: false
+	});
+
+	$(".card-slider").slick({
+	    autoplay: true,
+	    autoplaySpeed: 2000,
+	    dots: true,
+	    arrows: false,
+	    responsive: [ {
+			breakpoint: 650,
+			settings: {
+				dots: false
+			}
+		} ]
 	});
 
 	$(".reviews-slider").slick({
@@ -79,6 +99,27 @@ $(document).ready(function() {
 		slidesToScroll: 1,
 	    dots: false,
 	    arrows: true
+	});
+
+	$(".card-tour-photo").mCustomScrollbar({
+	    axis:"x",
+	    scrollbarPosition: "inside"
+	});
+
+	$(".card-schedule-day").click(function() {
+		$(this).toggleClass("active");
+		$(this).next().slideToggle();
+		return false;
+	});
+
+	$(".accommodation-options-table").mCustomScrollbar({
+	    axis:"x",
+	    scrollbarPosition: "inside"
+	});
+
+	$(".card-tour-dates-item").mCustomScrollbar({
+	    axis:"x",
+	    scrollbarPosition: "inside"
 	});
 });
 

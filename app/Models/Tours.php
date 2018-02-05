@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-
 class Tours extends Model
 {
 
     protected $table = 'tours';
     protected $fillable = ['id', 'title', 'description', 'text', 'price', 'duration', 'source', 'url', 'created_at', 'updated_at'];
+
+    protected $appends = ['dates'];
 
     public function tourTags()
     {
@@ -32,27 +33,16 @@ class Tours extends Model
         return $this->hasMany('App\Models\GeoRelation', 'sub_id');
     }
 
-    public function getPointsAttribute()
+    public function parPoints()
     {
-        return $this->tourGeoSub->where('sub_ess', 'tour')->where('par_ess', '=', 'point');
+        return $this->hasMany('App\Models\GeoRelation', 'sub_id')->where('par_ess','point');
     }
 
-    public function getWaysAttribute()
+    public function parWays()
     {
-        return $this->tourGeoSub->where('sub_ess', 'tour')->where('par_ess', '=', 'way');
+        return $this->hasMany('App\Models\GeoRelation', 'sub_id')->where('par_ess','way');
     }
 
-    public function getCityCountAttribute()
-    {
-        return $this
-            ->leftJoin(DB::raw('geo_relation g'), 'tours.id', '=', 'sub_id')
-            ->leftJoin(DB::raw('points p'), 'p.id', '=', 'g.par_id')
-            ->where('g.sub_ess', 'tour')
-            ->where('par_ess', 'point')
-            ->where('p.status','city')
-            ->where('tours.id',$this->id)
-            ->count();
-    }
 
 }
 

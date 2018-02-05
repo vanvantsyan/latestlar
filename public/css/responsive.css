@@ -3,8 +3,7 @@
 		display: none;
 	}
 	.header .menu li {
-		/*margin-right: 0;*/
-		padding: 0 10px;
+		padding: 0;
 	}
 	.header .menu li.desk-hide {
 		display: inline-block;
@@ -69,6 +68,7 @@
 	.header .menu li.dropdown ul {
 		border: none;
 		width: 100%;
+		padding: 0;
 	}
 	.dropdown-menu {
 		position: relative;
@@ -337,28 +337,84 @@
 	.tours-notes-items-wrap .btn-more-tours {
 		margin-top: -20px;
 	}
-	.mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_draggerRail {
-		height: 15px;
-		margin-top: 10px;
-		margin-bottom: 0;
+	.header .menu li a {
+	    color: #fff;
+	    padding: 0 9px;
+	    display: block;
 	}
-	.mCSB_scrollTools.mCSB_scrollTools_horizontal {
-		height: 25px;
-		width: 80%;
-		margin: 0 auto;
+	.header .menu li a.hot {
+	    padding-left: 29px;
 	}
-	.mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
-		height: 15px;
-		margin-top: 10px;
-		margin-bottom: 0;
+	.header .menu li a.hot:before {
+	    left: 10px;
 	}
-	.mCSB_scrollTools .mCSB_draggerRail {
-		background: #dcdcdc;
+	.header .menu .navbar-collapse li a {
+		padding: 5px 10px;
 	}
-	.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,
-	.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar,
-	.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar {
-		background-color: #007bbc;
+	.header .menu .navbar-collapse li a.hot {
+		padding-left: 30px;
+	}
+	.header .menu .navbar-collapse li a:hover {
+	    display: block;
+	    box-shadow: none;
+	}
+	.sidebar-city-tour .btn-rest-tours {
+		margin: 0;
+	}
+	.popular-tours h2, 
+	.burning-tours h2, 
+	.tours-notes h2 {
+		padding: 0 15px;
+	}
+	.burning-tours h2 {
+		padding-left: 30px;
+	}
+	.burning-tours h2.hot:before {
+		left: 11px;
+	}
+	.search-completed-preview-left {
+		padding-right: 15px;
+	}
+	.search-completed-preview-left ul li {
+		margin-right: 14px;
+	}
+	.card-tour-filter a {
+		padding: 0 7.2px;
+		font-size: 12px;
+	}
+	.card-tour-dates-items {
+		padding: 0 10px;
+	}
+	.card-base-price {
+		padding: 0 10px;
+	}
+	.card-base-price .title {
+		padding: 0;
+	}
+	.card-schedule-day-desc {
+		padding: 0 10px;
+	}
+	.accommodation-options-table .mCSB_scrollTools.mCSB_scrollTools_horizontal {
+		width: calc(100% - 20px);
+	}
+	.card-tour-similar .search-completed-item-date >:nth-last-child(2) {
+		display: none;
+	}
+	.search-completed-item-date a.all-dates {
+		width: 119px;
+		margin-left: 0;
+	}
+	.search-completed-item-date {
+		margin-bottom: 5px;
+	}
+	.search-completed-item-desc {
+		margin-bottom: 10px;
+	}
+	.search-completed-item-more-right {
+		padding-right: 15px;
+	}
+	.search-completed-item-date a {
+		margin-bottom: 10px;
 	}
 }
 @media (max-width: 767px) {
@@ -400,6 +456,7 @@
 	}
 	.tour-preview {
 		max-width: 100%;
+		padding-right: 15px;
 	}
 	.tour-filter {
 		padding-bottom: 30px;
@@ -417,15 +474,12 @@
 		text-align: left;
 		margin-bottom: 13px;
 	}
-	.tour-filter-item.value input {
-		width: 49.75%;
-	}
-	.date-mob,
 	.time-mob {
-		width: 49%;
+		width: 57%;
 	}
 	.date-mob {
 		margin-right: 2%;
+		width: 41%;
 	}
 	.tour-filter-more {
 		font-size: 15px;
@@ -438,7 +492,7 @@
 		margin: 0 auto;
 	}
 	.tour-filter-item.time-mob .jq-selectbox {
-		width: 49.49%;
+		width: 48%;
 	}
 	.tour-filter-item label span {
 		padding-left: 0;
@@ -629,12 +683,117 @@
 	}
 	.popular-tours-item.small form .btn {
 		padding: 0 12px;
+		margin-left: 3px;
+	}
+	.phone {
+		width: auto;
+	}
+	h1 {
+		font-size: 40px;
+	}
+	.popular-tours h2, 
+	.burning-tours h2, 
+	.tours-notes h2 {
+		padding: 0 15px;
+	}
+	.sidebar-city-tour .btn-rest-tours {
+		margin-bottom: 10px;
+	}
+	.jq-selectbox__select {
+		padding-right: 33px;
+	}
+	.card-slider-item img {
+		position: relative;
+		width: auto;
+		max-width: none;
+	}
+	.card-slider-item-cont h1 {
+		font-size: 30px;
+	}
+	.card-slider-item-cont .btn {
+		padding: 0 20px;
+	}
+	.card-slider-item-cont > div > span {
+		font-size: 15px;
+	}
+	.card-slider-item-cont {
+		width: 82%;
+	}
+	.card-slider-item-cont .glyphicon-rub {
+		font-size: 12px;
+	}
+	.card-tour-dates-item {
+		white-space: nowrap;
+		margin-bottom: 30px;
+	}
+	.card-tour-dates-item .mCSB_container > div {
+		width: auto;
+	}
+	.card-tour-dates-item .mCSB_horizontal.mCSB_inside > .mCSB_container {
+		display: flex;
+	}
+	.card-tour-dates-item-day {
+		padding-left: 20px;
+	}
+	.card-schedule-day {
+		height: 40px;
+		line-height: 40px;
+	}
+	.card-schedule-day .caret {
+		margin-top: 17px;
+	}
+	.tours-card-page .title {
+		text-align: left;
+	}
+	.accommodation-options .row > p {
+		padding: 0 10px;
+	}
+	.card-tour-dates-item-day a {
+		margin-bottom: 0;
+	}
+	.search-completed-preview-left {
+		padding-top: 15px;
+	}
+	.search-completed-preview-right {
+		text-align: center;
+		padding-top: 0;
+	}
+	.search-completed-item-price {
+		display: block;
+		margin-right: 0;
+	}
+	.search-completed-item-img {
+		border: none;
+	}
+	.search-completed-preview-left ul li {
+		font-size: 13px;
+		margin-right: 4px;
+	}
+	.search-completed-item-img img {
+	    height: auto;
+	    width: 100%;
+	    max-width: none;
+	    position: relative;
+	    left: 0;
+	    transform: none;
 	}
 }
 @media (max-width: 655px) {
 	.burning-tours-filter a {
 		padding: 0 5px;
 		font-size: 12px;
+	}
+	.header .logo {
+	    width: 95px;
+	    height: 25px;
+	    margin-left: 31px;
+	    margin-right: 0;
+	}
+	.phones {
+		margin-top: 0;
+	}
+	.header .navbar-header {
+		top: -68px;
 	}
 }
 @media (max-width: 320px) {

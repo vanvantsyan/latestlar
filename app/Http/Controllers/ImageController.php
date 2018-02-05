@@ -11,7 +11,6 @@ class ImageController extends Controller
 {
 
     public function uploadImages(Request $request){
-
         $file = $request->file('file');
         $ext = $file->getClientOriginalExtension();
         $image_name = md5(time()."-".$file->getClientOriginalName()) . '.' . $ext;
@@ -22,7 +21,6 @@ class ImageController extends Controller
             'success' => 200,
             'filename' => $image_name
         ]);
-
     }
 
 }
