@@ -63,6 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('tury', 'Front\ToursController@list')->name('tourList');
 Route::post('moreTours', 'Front\ToursController@getMore')->name('moreTours');
+Route::post('filterTours', 'Front\ToursController@filters')->name('filterTours');
 
 Route::get('{country}/', 'Front\ToursController@country')->where('country','russia');
 
@@ -71,6 +72,8 @@ Route::get('{country}/{action}/{url}', 'Front\ToursController@unit')->where('url
 Route::post('tour/getImage', 'Front\ToursController@getImages')->name('getTourImages');
 Route::post('tour/uploadImage', 'Front\ToursController@uploadImage')->name('uploadTourImage');
 Route::post('tour/removeImage', 'Front\ToursController@removeImage')->name('removeTourImage');
+
+Route::get('search/autocomplete', 'Front\ToursController@autocomplete');
 
 
 

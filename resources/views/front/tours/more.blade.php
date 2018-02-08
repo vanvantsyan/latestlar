@@ -42,19 +42,17 @@
                 <div class="row">
                     <a class="search-completed-item-img">
                         @php
-                            $images = json_decode($tour['images']);
+                            $images = (array) json_decode($tour['images']);
                         @endphp
                         @if(count($images))
-                            <img src="/img/tours/full/{!! substr($tour['id'], 0,2) !!}/{{$images[0]}}"
-                                 alt="">
+                            <img src="/img/tours/full/{!! substr($tour['id'], 0, 2) !!}/{!! head($images) !!}" alt="">
                         @else
                             <img src="img/search-completed-item-1.jpg" alt="">
                         @endif
                         @if(count($images))
                             <span class="tour-images-button" data-images="{{$tour['images']}}"
                                   data-tour-id="{{$tour['id']}}" data-toggle="modal"
-                                  data-target="#tourImagesModal">Все фото ({{count($images)}}
-                                )</span>@endif</a>
+                                  data-target="#tourImagesModal">Все фото ({{count($images)}})</span>@endif</a>
                 </div>
             </div>
             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">

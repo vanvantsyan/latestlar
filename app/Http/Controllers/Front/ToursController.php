@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Models\Points;
 use App\Models\Tours;
 use App\Http\Controllers\Controller;
 use App\Helpers\BladeHelper;
 
+use App\Models\ToursTagsValues;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 use Intervention\Image\Facades\Image;
 
 class ToursController extends Controller
@@ -76,14 +80,23 @@ class ToursController extends Controller
                     ->on('tours.id', '=', 'g_rel.sub_id')
                     ->where('g_rel.sub_ess', '=', 'tour')
                     ->where('g_rel.par_ess', '=', 'country');
-            })->leftJoin('geo_countries AS countries', 'countries.id','=','g_rel.par_id')
+
+            })->leftJoin('geo_countries AS countries', 'countries.id', '=', 'g_rel.par_id')
             ->where('countries.slug', $country)
             ->take(15)
-            ->select('tours.id','tours.title','tours.description','tours.price','tours.url','tours.images','tours.duration')
+            ->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')
             ->get();
 
+
+        $tourTypes = ToursTagsValues::where('tag_id', 4)->get();
+
 //        dd($list->toArray());
-        return view('front.tours.tours', ['tours' => $list->toArray()]);
+
+        return view('front.tours.tours', [
+            'tours' => $list->toArray(),
+            'country' => $country,
+            'tourTypes' => $tourTypes,
+        ]);
     }
 
     /**
@@ -96,13 +109,133 @@ class ToursController extends Controller
         return view('front.tours.tours', ['tours' => $list->toArray()]);
     }
 
-    public function getMore(Tours $tours, Request $request)
+    public function getMore(Request $request)
     {
+        $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
+
         $limit = $request->input('limit');
         $offset = $request->input('offset');
 
-        $list = $tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])->skip($offset)->take($limit)->get();
-        return view('front.tours.more', ['tours' => $list->toArray()]);
+        $tours = $this->applyFilters($tours, $request->input('params'));
+
+        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration');
+
+        $tours->skip($offset)->take($limit);
+
+        $list = $tours->get();
+
+        return view('front.tours.more', ['tours' => $list->unique()->toArray()]);
+    }
+
+    public function filters(Request $request)
+    {
+        $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
+
+        $tours = $this->applyFilters($tours, $request->all());
+
+        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration');
+
+        $limit = $request->input('limit', 15);
+        $offset = $request->input('offset', 0);
+
+        $tours->skip($offset)->take($limit);
+        $list = $tours->get();
+
+        if ($list->count()) {
+            return view('front.tours.more', ['tours' => $list->unique()->toArray()]);
+        } else {
+            return view('front.tours.empty');
+        };
+    }
+
+    public function applyFilters($tours, $filters)
+    {
+
+        if ($country = array_get($filters, 'country', null)) {
+            $tours->leftJoin('geo_relation AS g_rel', function ($query) {
+                $query->on('g_rel.sub_id', '=', 'tours.id')
+                    ->where('sub_ess', '=', 'tour')
+                    ->where('par_ess', '=', 'country');
+            });
+            $tours->leftJoin('geo_countries AS countries', 'countries.id', '=', 'g_rel.par_id');
+            $tours->where('countries.slug', $country);
+        }
+
+        if ($tourType = array_get($filters, 'tourType', null)) {
+            $tours->leftJoin('tour_tags_relations AS ttrType', function ($query) {
+                $query->on('ttrType.tour_id', '=', 'tours.id')
+                    ->where('ttrType.tag_id', '=', 4);
+            })->where('ttrType.value', $tourType);
+        }
+
+        if ($priceFrom = array_get($filters, 'priceFrom', null)) {
+            $tours->where('tours.price', '>=', $priceFrom);
+        }
+        if ($priceTo = array_get($filters, 'priceTo', null)) {
+            $tours->where('tours.price', '<=', $priceTo);
+        }
+
+        if ($tourDate = array_get($filters, 'tourDate', null)) {
+
+            $dateArr = explode('-', $tourDate);
+            $dateFrom = trim(head($dateArr));
+            $dateTo = trim(last($dateArr));
+
+            $tours->leftJoin('tour_tags_relations AS ttrDate', function ($query) use ($dateFrom, $dateTo) {
+                $query->on('ttrDate.tour_id', '=', 'tours.id')
+                    ->where('ttrDate.tag_id', '=', 2);
+            })->where(function ($query) use ($dateFrom, $dateTo) {
+                $query->where(function ($query) use ($dateFrom, $dateTo) {
+                    $query->where('ttrDate.value', '>=', strtotime($dateFrom))
+                        ->where('ttrDate.value', '<=', strtotime($dateTo));
+                });
+                // Add no date tours to set
+                //$query->orWhereNull('ttrDate.value');
+            });
+
+            $tours->addSelect('ttrDate.value')->orderBy('ttrDate.value', "DESC");
+        }
+
+        if ($tourPoint = array_get($filters, 'tourPoint', null)) {
+
+            $point = Points::where('title', $tourPoint)->select('id')->first();
+
+            $tours->leftJoin('geo_relation AS geo_r', function ($query) {
+                $query->on('geo_r.sub_id', '=', 'tours.id')
+                    ->where('geo_r.sub_ess', 'tour')
+                    ->where('geo_r.par_ess', 'point');
+            })->where('geo_r.par_id', $point->id);
+        }
+
+        if ($sort = array_get($filters, 'sort', null)) {
+            $sortArr = explode('-', $sort);
+
+            $tours->orderBy('tours.' . head($sortArr), last($sortArr));
+        }
+
+        $durationFrom = array_get($filters, 'durationFrom', null);
+        $durationTo = array_get($filters, 'durationTo', null);
+
+        if ($durationFrom) $tours->where('duration', '>', $durationFrom);
+        if ($durationTo) $tours->where('duration', '<', $durationTo);
+
+        return $tours;
+    }
+
+    public function autocomplete(Request $request)
+    {
+        $term = $request->input('term');
+
+        $results = array();
+
+        $queries = DB::table('points')
+            ->where('title', 'LIKE', '%' . $term . '%')
+            ->take(5)->get();
+
+        foreach ($queries as $query) {
+            $results[] = ['id' => $query->id, 'value' => $query->title];
+        }
+        return Response::json($results);
     }
 
     public function getImages(Request $request)

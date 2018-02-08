@@ -2,7 +2,16 @@
 
 @section('css')
     <link rel="stylesheet" href="{{asset('css/jquery.mCustomScrollbar.css')}}">
+    <link rel="stylesheet" href="{{asset('css/daterangepicker.css')}}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
+    <style>
+        .preloader {
+            background-image: url("/img/preloader.svg");
+            background-color: rgb(66, 176, 235);
+            background-repeat: repeat;
+        }
+    </style>
 @endsection
 
 @section('breadcrumbs')
@@ -120,46 +129,60 @@
                         </div>
                     </div>
                     <div class="tour-filter">
-                        <form>
+                        <form method="POST">
                             <div class="tour-filter-item">
                                 <label>Город или достопримечательность</label>
-                                <input type="text" placeholder="Красная площадь">
+                                <input name="tourPoint" id="tourPoint" type="text" placeholder="Красная площадь">
                             </div>
                             <div class="tour-filter-item date-mob">
                                 <label>Даты поездки <span>?</span></label>
-                                <input class="date-pick dp-applied">
+                                <input name="tourDate" id="tourDate" class="date-pick dp-applied" value="">
                             </div>
                             <div class="tour-filter-item time-mob">
                                 <label>Срок поездки (дни)</label>
-                                <select>
-                                    <option>от 7</option>
-                                    <option>от 8</option>
-                                    <option>от 9</option>
-                                    <option>от 10</option>
+                                <select name="durationFrom" id="durationFrom">
+                                    <option value="1">от 1</option>
+                                    <option value="2">от 2</option>
+                                    <option value="3">от 3</option>
+                                    <option value="4">от 4</option>
+                                    <option value="5">от 5</option>
+                                    <option value="6">от 6</option>
+                                    <option value="7">от 7</option>
+                                    <option value="8">от 8</option>
+                                    <option value="9">от 9</option>
+                                    <option value="10">от 10</option>
                                 </select>
-                                <select>
-                                    <option>до 7</option>
-                                    <option>до 8</option>
-                                    <option>до 9</option>
-                                    <option>до 10</option>
+                                <select name="durationTo" id="durationTo">
+                                    <option value="2">до 2</option>
+                                    <option value="3">до 3</option>
+                                    <option value="4">до 4</option>
+                                    <option value="5">до 5</option>
+                                    <option value="6">до 6</option>
+                                    <option value="7">до 7</option>
+                                    <option value="8" selected>до 8</option>
+                                    <option value="9">до 9</option>
+                                    <option value="10">до 10</option>
                                 </select>
                             </div>
                             <div class="tour-filter-item category">
                                 <label>Категория тура</label>
-                                <select>
-                                    <option>Все варианты</option>
-                                    <option>Категория 1</option>
-                                    <option>Категория 2</option>
-                                    <option>Категория 3</option>
+                                <select name="tourType">
+                                    <option value="0">Все варианты</option>
+                                    @isset($tourTypes)
+                                        @forelse($tourTypes as $tourType)
+                                            <option value="{{$tourType->id}}">{{$tourType->alias}}</option>
+                                        @empty
+                                        @endforelse
+                                    @endisset
                                 </select>
                             </div>
                             <div class="tour-filter-item value">
                                 <label>Стоимость</label>
-                                <input type="text" placeholder="от 12000">
-                                <input type="text" placeholder="до 12000000">
+                                <input name="priceFrom" type="text" placeholder="от 12000">
+                                <input name="priceTo" type="text" placeholder="до 12000000">
                             </div>
                             <a href="#" class="tour-filter-more"><span>Расширенный поиск</span> &#9660;</a>
-                            <input type="submit" class="btn btn-blue" value="Подобрать варианты">
+                            <input id="filterTours" type="submit" class="btn btn-blue" value="Подобрать варианты">
                         </form>
                     </div>
                     <div class="search-completed">
@@ -168,17 +191,14 @@
                                 <div class="title">Туры по Золотому кольцу из г. Москва, найдено: 18</div>
                                 <a href="#" class="btn sorting-btn">Кратко</a>
                                 <div class="tours-sorting">
-                                    Сортировать по: <a href="#"><span>Стоимости тура (от большей к меньшей)</span>
+                                    Сортировать по: <a href="#" data-sort="duration-desc"><span>Длительности (от большей к меньшей)</span>
                                         <b></b></a>
                                     <div class="tours-sorting-items">
-                                        <a href="#">Стоимости тура (от меньшей к большей)</a>
-                                        <a href="#">Длительности (от меньшей к большей)</a>
-                                        <a href="#">Длительности (от большей к меньшей)</a>
+                                        <a href="#" data-sort="price-asc">Стоимости тура (от меньшей к большей)</a>
+                                        <a href="#" data-sort="price-desc">Стоимости тура (от большей к меньшей)</a>
+                                        <a href="#" data-sort="duration-asc">Длительности (от меньшей к большей)</a>
+                                        <a href="#" data-sort="duration-desc" style="display: none">Длительности (от большей к меньшей)</a>
                                     </div>
-                                </div>
-                                <div class="search-completed-items">
-
-
                                 </div>
                             </div>
                         </div>
@@ -893,6 +913,37 @@
 
 @section('js')
     <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="{{asset('/js/moment.js')}}"></script>
+    <script src="{{asset('/js/daterangepicker.js')}}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        moment.locale('ru');
+
+        $('#tourDate').daterangepicker({
+            locale: {
+                format: 'DD.MM.YYYY',
+                "monthNames": [
+                    "Январь",
+                    "Февраль",
+                    "Март",
+                    "Апрель",
+                    "Май",
+                    "Июнь",
+                    "Июль",
+                    "Август",
+                    "Сентябрь",
+                    "Октябрь",
+                    "Ноябрь",
+                    "Декабрь"
+                ],
+            },
+            startDate: moment().format('DD.MM.YYYY'),
+            endDate: moment().add(30, 'day').format('DD.MM.YYYY'),
+            "autoApply": true,
+        });
+    </script>
+
     <script>
 
         $.ajaxSetup({
@@ -932,18 +983,24 @@
 
             var countTours = $('.search-completed-item').length;
 
+            var filters = {};
+
+            $.each($('.tour-filter form').serializeArray(), function () {
+                filters[this.name] = this.value;
+            });
+
+            // Add data to params array
+            filters['country'] = '{{ $country or ""}}';
+            filters['sort'] = $('.tours-sorting-items a:first').attr('data-sort');
+
             $.ajax({
                 url: "moreTours",
                 cache: false,
-                data: {offset: countTours, limit: 15},
+                data: {offset: countTours, limit: 15, params: filters},
                 type: "POST",
-                // datatype: 'json',
+
             }).done(function (data) {
-                // var html = '';
-                // $.each($.parseJSON(data), function (key, value) {
-                //     console.log(value);
-                //     return false;
-                // });
+
                 btn.html('Показать еще туры');
 
                 $('.search-completed-item').last().after(data);
@@ -955,6 +1012,113 @@
             return false
         });
 
+        /* Tours filter apply */
 
+        $('#filterTours').on('click', function (e) {
+
+            var filterBtn = $(this);
+
+            filterBtn.removeClass('btn-blue');
+            filterBtn.addClass('preloader');
+            filterBtn.attr('value', 'Идет подбор туров...');
+
+
+            // Avoid the jump
+            e.preventDefault();
+
+            var data = $('.tour-filter form').serializeArray();
+            var toursBlock = $('.search-completed-items');
+
+            // Add data to params array
+            data.push(
+                {name: 'country', value: '{{ $country or ""}}'},
+                {name: 'sort', value: $('.tours-sorting-items a:first').attr('data-sort')}
+            );
+
+            // Request on server
+            $.ajax({
+                url: "filterTours",
+                cache: false,
+                data: data,
+                type: "POST",
+
+            }).done(function (data) {
+
+                // Remove popular tours block
+                $('.popular-tours').remove();
+
+                // Remove second tours block if it exist
+                if (toursBlock.length > 1) {
+                    toursBlock.first().remove();
+                }
+
+                // Remove tours cards
+                $('.search-completed-item').remove();
+
+                // Insert tours cards
+                toursBlock.before(data);
+
+                filterBtn.removeClass('preloader');
+                filterBtn.addClass('btn-blue');
+                filterBtn.attr('value', 'Подобрать варианты');
+
+            }).error(function () {
+                // If errors
+            });
+        });
+
+        $("#tourPoint").autocomplete({
+            source: "search/autocomplete",
+            minLength: 3,
+            select: function (event, ui) {
+                $('#tourPoint').val(ui.item.value);
+            }
+        });
+
+        $('.tours-sorting-items a').on('click', function () {
+
+            var data = $('.tour-filter form').serializeArray();
+            var toursBlock = $('.search-completed-items');
+
+            // Add data to params array
+            data.push(
+                {name: 'country', value: '{{ $country or ""}}'},
+                {name: 'sort', value: $(this).attr('data-sort')}
+            );
+
+            // Request on server
+            $.ajax({
+                url: "filterTours",
+                cache: false,
+                data: data,
+                type: "POST",
+
+            }).done(function (data) {
+
+                // Remove popular tours block
+                $('.popular-tours').remove();
+
+                // Remove second tours block if it exist
+                if (toursBlock.length > 1) {
+                    toursBlock.first().remove();
+                }
+
+                // Remove tours cards
+                $('.search-completed-item').remove();
+
+                // Insert tours cards
+                toursBlock.before(data);
+
+            }).error(function () {
+                // If errors
+            });
+
+            $('.tours-sorting-items a[data-sort=' + $('.tours-sorting a').attr('data-sort') + ']').show();
+            $(this).hide();
+
+            $('.tours-sorting span').html(this.text);
+            $('.tours-sorting a:first').attr('data-sort', $(this).attr('data-sort'));
+
+        })
     </script>
 @endsection
