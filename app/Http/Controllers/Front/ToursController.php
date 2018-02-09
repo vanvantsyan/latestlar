@@ -7,7 +7,9 @@ use App\Models\Tours;
 use App\Http\Controllers\Controller;
 use App\Helpers\BladeHelper;
 
+use App\Models\ToursTagsRelation;
 use App\Models\ToursTagsValues;
+use App\Models\Ways;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -83,19 +85,30 @@ class ToursController extends Controller
 
             })->leftJoin('geo_countries AS countries', 'countries.id', '=', 'g_rel.par_id')
             ->where('countries.slug', $country)
-            ->take(15)
-            ->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')
-            ->get();
+            ->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration');
 
+        $countTours = $list->count();
+
+        $tours = $list->take(15)->get();
 
         $tourTypes = ToursTagsValues::where('tag_id', 4)->get();
 
-//        dd($list->toArray());
+        $cities = Points::where('status', 'city')->where('off', 0)->take(10)->get();
+
+        $citiesGolden = Points::with(['geoRelationSub' => function ($query) {
+            $query->where('par_id', 319)->where('par_ess', 'way');
+        }])->where('off', 0)->take(10)->get();
+
+        $countries = Ways::where('status','country')->take(10)->get();
 
         return view('front.tours.tours', [
-            'tours' => $list->toArray(),
+            'tours' => $tours->toArray(),
             'country' => $country,
             'tourTypes' => $tourTypes,
+            'countTours' => $countTours,
+            'cities' => $cities,
+            'citiesGolden' => $citiesGolden,
+            'countries' => $countries
         ]);
     }
 
@@ -104,27 +117,58 @@ class ToursController extends Controller
      */
     public function list(Tours $tours)
     {
-        $list = $tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])->take(15)->get();
-//        dd($list->toArray());
-        return view('front.tours.tours', ['tours' => $list->toArray()]);
+        $list = $tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
+        $countTours = $list->count();
+        $tours = $list->take(15)->get();
+
+        $tourTypes = ToursTagsValues::where('tag_id', 4)->get();
+
+        $cities = Points::where('status', 'city')->where('off', 0)->take(10)->get();
+
+        $citiesGolden = Points::with(['geoRelationSub' => function ($query) {
+            $query->where('par_id', 319)->where('par_ess', 'way');
+        }])->where('off', 0)->take(10)->get();
+
+        $countries = Ways::where('status','country')->take(10)->get();
+
+        return view('front.tours.tours', [
+            'tours' => $tours->toArray(),
+            'country' => '',
+            'tourTypes' => $tourTypes,
+            'countTours' => $countTours,
+            'cities' => $cities,
+            'citiesGolden' => $citiesGolden,
+            'countries' => $countries
+        ]);
     }
 
     public function getMore(Request $request)
     {
         $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
 
+        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration', DB::raw('COUNT(tours.id) as countDate'), 'ttrDate.tour_id');
+
         $limit = $request->input('limit');
         $offset = $request->input('offset');
 
         $tours = $this->applyFilters($tours, $request->input('params'));
 
-        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration');
+        $tours->groupBy('tours.id');
 
         $tours->skip($offset)->take($limit);
 
         $list = $tours->get();
 
-        return view('front.tours.more', ['tours' => $list->unique()->toArray()]);
+        return view('front.tours.more', ['tours' => $list->toArray()]);
+    }
+
+    public function getCount(Request $request)
+    {
+        $tours = Tours::select('tours.id');
+        $tours = $this->applyFilters($tours, $request->all());
+        $tours->groupBy('tours.id');
+
+        return count($tours->get()->toArray());
     }
 
     public function filters(Request $request)
@@ -133,16 +177,18 @@ class ToursController extends Controller
 
         $tours = $this->applyFilters($tours, $request->all());
 
-        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration');
+        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration', 'ttrDate.tour_id');
 
         $limit = $request->input('limit', 15);
         $offset = $request->input('offset', 0);
+
+        $tours->groupBy('tours.id');
 
         $tours->skip($offset)->take($limit);
         $list = $tours->get();
 
         if ($list->count()) {
-            return view('front.tours.more', ['tours' => $list->unique()->toArray()]);
+            return view('front.tours.more', ['tours' => $list->toArray()]);
         } else {
             return view('front.tours.empty');
         };
@@ -150,7 +196,6 @@ class ToursController extends Controller
 
     public function applyFilters($tours, $filters)
     {
-
         if ($country = array_get($filters, 'country', null)) {
             $tours->leftJoin('geo_relation AS g_rel', function ($query) {
                 $query->on('g_rel.sub_id', '=', 'tours.id')
@@ -181,19 +226,24 @@ class ToursController extends Controller
             $dateFrom = trim(head($dateArr));
             $dateTo = trim(last($dateArr));
 
-            $tours->leftJoin('tour_tags_relations AS ttrDate', function ($query) use ($dateFrom, $dateTo) {
+            $dateRelation = ToursTagsRelation::join('tours', 'tours.id', '=', 'tour_tags_relations.tour_id', 'right outer')
+                ->where(function ($query) use ($dateFrom, $dateTo) {
+                    $query->where(function ($query) use ($dateFrom, $dateTo) {
+                        $query->where('tour_tags_relations.value', '>=', strtotime($dateFrom))
+                            ->where('tour_tags_relations.value', '<=', strtotime($dateTo));
+                    });//->orWhereNull('tour_tags_relations.value');
+                })->pluck('tours.id')->toArray();
+
+            //->pluck('tours.id','tour_tags_relations.value');
+            //->groupBy('tours.id')->pluck('tours.id')->toArray();
+
+            $tours->leftJoin('tour_tags_relations AS ttrDate', function ($query) use ($dateFrom, $dateTo, $dateRelation) {
                 $query->on('ttrDate.tour_id', '=', 'tours.id')
                     ->where('ttrDate.tag_id', '=', 2);
-            })->where(function ($query) use ($dateFrom, $dateTo) {
-                $query->where(function ($query) use ($dateFrom, $dateTo) {
-                    $query->where('ttrDate.value', '>=', strtotime($dateFrom))
-                        ->where('ttrDate.value', '<=', strtotime($dateTo));
-                });
-                // Add no date tours to set
-                //$query->orWhereNull('ttrDate.value');
-            });
+            })->whereIn('ttrDate.tour_id', $dateRelation);
 
-            $tours->addSelect('ttrDate.value')->orderBy('ttrDate.value', "DESC");
+//            $tours->addSelect('ttrDate.value','ttrDate.tour_id');
+//            $tours->orderBy('ttrDate.value', "DESC");
         }
 
         if ($tourPoint = array_get($filters, 'tourPoint', null)) {

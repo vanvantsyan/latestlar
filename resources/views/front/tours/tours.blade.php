@@ -33,88 +33,7 @@
         <div class="container">
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                 <div class="row">
-                    <div class="sidebar-wrap">
-                        <div class="sidebar">
-                            <div class="sidebar-city-tour">
-                                <div class="sidebar-tour-title">Туры по России</div>
-                                <ul>
-                                    <li><a href="#" class="new-year-icon">Новогодние туры</a></li>
-                                    <li><a href="#">На майские праздники</a></li>
-                                    <li><a href="#">Однодневные туры</a></li>
-                                    <li><a href="#">Многодневные туры</a></li>
-                                    <li><a href="#">Золотое кольцо</a></li>
-                                    <li><a href="#">Для детей и взрослых</a></li>
-                                    <li><a href="#">Туры выходного дня</a></li>
-                                    <li><a href="#">Индивидуальные туры</a></li>
-                                    <li><a href="#">ВИП туры</a></li>
-                                    <li><a href="#">Камчатка</a></li>
-                                    <li><a href="#">Алтай</a></li>
-                                </ul>
-                            </div>
-                            <div class="sidebar-city-tour">
-                                <div class="sidebar-tour-subtitle">Города России</div>
-                                <ul>
-                                    <li><a href="#">Туры в Казань</a></li>
-                                    <li><a href="#">Туры в Екатеринбург</a></li>
-                                    <li><a href="#">Туры в Суздаль</a></li>
-                                    <li><a href="#">Туры в Санкт-Петербург</a></li>
-                                    <li><a href="#">Другие города</a></li>
-                                </ul>
-                            </div>
-                            <div class="sidebar-city-tour">
-                                <div class="sidebar-tour-subtitle">Туры по золотому кольцу</div>
-                                <ul>
-                                    <li><a href="#">Владимир</a></li>
-                                    <li><a href="#">Кострома</a></li>
-                                    <li><a href="#">Ярославль</a></li>
-                                    <li><a href="#">Ростов</a></li>
-                                    <li><a href="#">Суздаль</a></li>
-                                    <li><a href="#">Другие города</a></li>
-                                </ul>
-                            </div>
-                            <div class="sidebar-city-tour">
-                                <div class="sidebar-tour-title">Виды отдыха</div>
-                                <ul>
-                                    <li><a href="#">Гастрономические туры</a></li>
-                                    <li><a href="#">Экскурсионные туры</a></li>
-                                    <li><a href="#">Активный отдых</a></li>
-                                    <li><a href="#">Семейный отдых</a></li>
-                                    <li><a href="#">Рыбалка и охота</a></li>
-                                    <li><a href="#">Пляжный отдых</a></li>
-                                </ul>
-                            </div>
-                            <div class="sidebar-city-tour">
-                                <div class="sidebar-tour-title">Типы туров</div>
-                                <ul>
-                                    <li><a href="#">Экскурсии с животными</a></li>
-                                    <li><a href="#">Экскурсии в Москве</a></li>
-                                    <li><a href="#">Экскурсии</a></li>
-                                    <li><a href="#">Фабрики и заводы</a></li>
-                                    <li><a href="#">Усадьбы, дворцы</a></li>
-                                    <li><a href="#">Событийные туры</a></li>
-                                    <li><a href="#">Серебрянное кольцо России</a></li>
-                                </ul>
-                                <a class="btn-rest-tours" href="#">Показать остальные туры</a>
-                            </div>
-                            <div class="sidebar-city-tour">
-                                <div class="sidebar-tour-title">Другие страны</div>
-                                <ul>
-                                    <li class="with-flag"><a href="#">Туры в Чехию</a></li>
-                                    <li class="with-flag"><a href="#">Туры в Германию</a></li>
-                                    <li class="with-flag"><a href="#">Туры в Польшу</a></li>
-                                    <li class="with-flag"><a href="#">Туры в Испанию</a></li>
-                                    <li class="with-flag"><a href="#">Туры в Чехию</a></li>
-                                    <li class="with-flag"><a href="#">Туры в Германию</a></li>
-                                    <li class="with-flag"><a href="#">Туры в Польшу</a></li>
-                                    <li class="with-flag"><a href="#">Туры в Испанию</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="sidebar-notice">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat
-                            voluptatum eos harum officiis laborum reiciendis architecto ad iste eligendi, corrupti
-                            porro, similique perferendis facilis! Excepturi odit quas repellendus tempora, repellat.
-                        </div>
-                    </div>
+                    @include('front.tours.sidebar', ['cities' => $cities, 'citiesGolden' => $citiesGolden, 'tourTypes' => $tourTypes, 'countries' => $countries])
                 </div>
             </div>
             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
@@ -188,7 +107,8 @@
                     <div class="search-completed">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
-                                <div class="title">Туры по Золотому кольцу из г. Москва, найдено: 18</div>
+                                <div class="title">Туры по России из г. Москва, найдено: <span
+                                            id="countFound">{{$countTours}}</span></div>
                                 <a href="#" class="btn sorting-btn">Кратко</a>
                                 <div class="tours-sorting">
                                     Сортировать по: <a href="#" data-sort="duration-desc"><span>Длительности (от большей к меньшей)</span>
@@ -197,7 +117,8 @@
                                         <a href="#" data-sort="price-asc">Стоимости тура (от меньшей к большей)</a>
                                         <a href="#" data-sort="price-desc">Стоимости тура (от большей к меньшей)</a>
                                         <a href="#" data-sort="duration-asc">Длительности (от меньшей к большей)</a>
-                                        <a href="#" data-sort="duration-desc" style="display: none">Длительности (от большей к меньшей)</a>
+                                        <a href="#" data-sort="duration-desc" style="display: none">Длительности (от
+                                            большей к меньшей)</a>
                                     </div>
                                 </div>
                             </div>
@@ -281,7 +202,12 @@
                                                         @endphp
 
                                                         @foreach($tour['par_points'] as $point)
-                                                            {{$i < count($tour['par_points']) ?  array_get($point,'points_par.title') . ', ' : array_get($point,'points_par.title')}}
+                                                            @if($i < count($tour['par_points']))
+                                                                <a href="#">{{array_get($point,'points_par.title')}}</a>
+                                                                ,
+                                                            @else
+                                                                <a href="#">{{array_get($point,'points_par.title')}}</a>
+                                                            @endif
                                                             @php $i++ @endphp
                                                         @endforeach
 
@@ -298,7 +224,8 @@
                                                         @if ($num > 5)
                                                             @break
                                                         @endif
-                                                        <a href="#" class="green">
+                                                        <a href="#" class="green"
+                                                           data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m.Y')}}">
                                                             {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
                                                         </a>
 
@@ -442,7 +369,12 @@
                                                         @endphp
 
                                                         @foreach($tour['par_points'] as $point)
-                                                            {{$i < count($tour['par_points']) ?  array_get($point,'points_par.title') . ', ' : array_get($point,'points_par.title')}}
+                                                            @if($i < count($tour['par_points']))
+                                                                <a href="#">{{array_get($point,'points_par.title')}}</a>
+                                                                ,
+                                                            @else
+                                                                <a href="#">{{array_get($point,'points_par.title')}}</a>
+                                                            @endif
                                                             @php $i++ @endphp
                                                         @endforeach
 
@@ -923,6 +855,15 @@
         $('#tourDate').daterangepicker({
             locale: {
                 format: 'DD.MM.YYYY',
+                "daysOfWeek": [
+                    "Пн",
+                    "Вт",
+                    "Ср",
+                    "Чт",
+                    "Пт",
+                    "Сб",
+                    "Вс"
+                ],
                 "monthNames": [
                     "Январь",
                     "Февраль",
@@ -1042,7 +983,7 @@
                 data: data,
                 type: "POST",
 
-            }).done(function (data) {
+            }).done(function (resp) {
 
                 // Remove popular tours block
                 $('.popular-tours').remove();
@@ -1056,17 +997,28 @@
                 $('.search-completed-item').remove();
 
                 // Insert tours cards
-                toursBlock.before(data);
+                toursBlock.before(resp);
 
                 filterBtn.removeClass('preloader');
                 filterBtn.addClass('btn-blue');
                 filterBtn.attr('value', 'Подобрать варианты');
+
+                $.ajax({
+                    url: "getCountTours",
+                    cache: false,
+                    data: data,
+                    type: "POST",
+
+                }).done(function (data) {
+                    $('#countFound').text(data);
+                });
 
             }).error(function () {
                 // If errors
             });
         });
 
+        // Points title auto complete input
         $("#tourPoint").autocomplete({
             source: "search/autocomplete",
             minLength: 3,
@@ -1075,6 +1027,7 @@
             }
         });
 
+        // Sort tours
         $('.tours-sorting-items a').on('click', function () {
 
             var data = $('.tour-filter form').serializeArray();
@@ -1119,6 +1072,28 @@
             $('.tours-sorting span').html(this.text);
             $('.tours-sorting a:first').attr('data-sort', $(this).attr('data-sort'));
 
-        })
+        });
+
+        //Insert dates
+        $('.search-completed-item-date a').on('click', function (e) {
+            e.preventDefault();
+            var date = $(this).attr('data-date');
+
+            $('#tourDate').data('daterangepicker').setStartDate(date);
+            $('#tourDate').data('daterangepicker').setEndDate(date);
+
+            $('#filterTours').trigger('click');
+        });
+
+        // Insert point
+        $('.search-completed-item-route a').on('click', function (e) {
+            e.preventDefault();
+            var point = $(this).text();
+
+            $('#tourPoint').attr('value', point.trim(','));
+
+            $('#filterTours').trigger('click');
+        });
+
     </script>
 @endsection

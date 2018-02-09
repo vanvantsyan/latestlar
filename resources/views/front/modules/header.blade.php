@@ -32,9 +32,9 @@
                 <div class="row">
                     <ul>
                         <li><a href="#" class="hot">Горящие туры</a></li>
-                        <li><a href="#">Поиск туров</a></li>
+                        <li><a href="/tury">Поиск туров</a></li>
                         <li><a href="#">Страны</a></li>
-                        <li><a href="#">РОССИЯ</a></li>
+                        <li><a href="/russia">РОССИЯ</a></li>
                         <li><a href="#">ЕВРОПА</a></li>
                         <li><a href="#">Туры до 10 т.р</a></li>
                         <li><a href="#">Виза</a></li>

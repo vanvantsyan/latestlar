@@ -68,7 +68,12 @@
                                 @endphp
 
                                 @foreach($tour['par_points'] as $point)
-                                    {{$i < count($tour['par_points']) ?  array_get($point,'points_par.title') . ', ' : array_get($point,'points_par.title')}}
+                                    @if($i < count($tour['par_points']))
+                                        <a href="#">{{array_get($point,'points_par.title')}}</a>
+                                        ,
+                                    @else
+                                        <a href="#">{{array_get($point,'points_par.title')}}</a>
+                                    @endif
                                     @php $i++ @endphp
                                 @endforeach
 
@@ -85,7 +90,8 @@
                                 @if ($num > 5)
                                     @break
                                 @endif
-                                <a href="#" class="green">
+                                <a href="#" class="green"
+                                   data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m.Y')}}">
                                     {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
                                 </a>
 
@@ -122,3 +128,35 @@
         </div>
     </div>
 @endforeach
+
+<script>
+    $('.search-completed-preview-right a.btn-blue').click(function () {
+        $(this).closest('.search-completed-item').find('.search-completed-item-more').slideToggle();
+        return false;
+    });
+
+    $(".search-completed-item-preview").click(function () {
+        $(".search-completed-preview-right a.btn-blue").trigger("click");
+    });
+
+    //Insert dates
+    $('.search-completed-item-date a').on('click', function (e) {
+        e.preventDefault();
+        var date = $(this).attr('data-date');
+
+        $('#tourDate').data('daterangepicker').setStartDate(date);
+        $('#tourDate').data('daterangepicker').setEndDate(date);
+
+        $('#filterTours').trigger('click');
+    });
+
+    // Insert point
+    $('.search-completed-item-route a').on('click', function (e) {
+        e.preventDefault();
+        var point = $(this).text();
+
+        $('#tourPoint').attr('value', point.trim(','));
+
+        $('#filterTours').trigger('click');
+    });
+</script>

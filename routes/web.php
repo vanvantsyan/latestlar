@@ -64,6 +64,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('tury', 'Front\ToursController@list')->name('tourList');
 Route::post('moreTours', 'Front\ToursController@getMore')->name('moreTours');
 Route::post('filterTours', 'Front\ToursController@filters')->name('filterTours');
+Route::post('getCountTours', 'Front\ToursController@getCount')->name('getCountTours');
 
 Route::get('{country}/', 'Front\ToursController@country')->where('country','russia');
 
