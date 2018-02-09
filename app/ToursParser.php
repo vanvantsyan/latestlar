@@ -483,20 +483,22 @@ class ToursParser
             $images = json_decode($tour->images);
 
             foreach ($images as $image) {
+                if($image) {
+                    echo BladeHelper::tourImg($image, $tour->id) . "\n\r";
+                    $img = Image::make(BladeHelper::tourImg($image, $tour->id));
+                    $img->resize(null, 235, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
 
-                $img = Image::make(BladeHelper::tourImg($image, $tour->id));
-                $img->resize(null, 235, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+                    $folderPath = public_path('img\tours\thumbs/' . substr($tour->id, 0, 2));
 
-                $folderPath = public_path('img\tours\thumbs/' . substr($tour->id, 0, 2));
-
-                if (!File::exists($folderPath)) {
-                    File::makeDirectory($folderPath, $mode = 0777, true, true);
-                }
-                /* if thumb not exist — save picture */
-                if (!File::exists($folderPath . '/' . $image)) {
-                    $img->save($folderPath . '/' . $image, 75);
+                    if (!File::exists($folderPath)) {
+                        File::makeDirectory($folderPath, $mode = 0777, true, true);
+                    }
+                    /* if thumb not exist — save picture */
+                    if (!File::exists($folderPath . '/' . $image)) {
+                        $img->save($folderPath . '/' . $image, 75);
+                    }
                 }
 
             }
