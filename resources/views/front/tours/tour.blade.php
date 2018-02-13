@@ -32,6 +32,9 @@
     </style>
 @endsection
 
+@section('title', $seo['bTitle'])
+@section('description', $seo['metaDesc'])
+@section('keywords', $seo['metaKey'])
 
 @section('breadcrumbs')
     <div class="breadcrumbs">
@@ -40,7 +43,7 @@
                 <div class="row">
                     <a href="#">Главная страница</a> -
                     <a href="#">Поиск тура</a> -
-                    <span>Туры по России</span>
+                    <span>{{$tour->title}}</span>
                 </div>
             </div>
         </div>
@@ -52,88 +55,21 @@
         <div class="container">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
                 <div class="row">
-                    <div class="sidebar-wrap">
-                        <div class="sidebar">
-                            <div class="sidebar-city-tour">
-                                <div class="sidebar-tour-title">Отдых в России</div>
-                                <ul>
-                                    <li><a href="#" class="new-year-icon">Новогодние туры</a></li>
-                                    <li><a href="#">На майские праздники</a></li>
-                                    <li><a href="#">Однодневные туры</a></li>
-                                    <li><a href="#">Многодневные туры</a></li>
-                                    <li><a href="#">Золотое кольцо</a></li>
-                                    <li><a href="#">Для детей и взрослых</a></li>
-                                    <li><a href="#">Туры выходного дня</a></li>
-                                    <li><a href="#">Индивидуальные туры</a></li>
-                                    <li><a href="#">ВИП туры</a></li>
-                                    <li><a href="#">Камчатка</a></li>
-                                    <li><a href="#">Алтай</a></li>
-                                </ul>
-                            </div>
-                            <div class="sidebar-city-tour">
-                                <div class="sidebar-tour-subtitle">Города России</div>
-                                <ul>
-                                    <li><a href="#">Туры в Казань</a></li>
-                                    <li><a href="#">Туры в Екатеринбург</a></li>
-                                    <li><a href="#">Туры в Суздаль</a></li>
-                                    <li><a href="#">Туры в Санкт-Петербург</a></li>
-                                    <li><a href="#">Другие города</a></li>
-                                </ul>
-                            </div>
-                            <div class="sidebar-city-tour">
-                                <div class="sidebar-tour-subtitle">Туры по золотому кольцу</div>
-                                <ul>
-                                    <li><a href="#">Владимир</a></li>
-                                    <li><a href="#">Кострома</a></li>
-                                    <li><a href="#">Ярославль</a></li>
-                                    <li><a href="#">Ростов</a></li>
-                                    <li><a href="#">Суздаль</a></li>
-                                    <li><a href="#">Другие города</a></li>
-                                </ul>
-                            </div>
-                            <div class="sidebar-city-tour">
-                                <div class="sidebar-tour-title">Виды отдыха</div>
-                                <ul>
-                                    <li><a href="#">Гастрономические туры</a></li>
-                                    <li><a href="#">Экскурсионные туры</a></li>
-                                    <li><a href="#">Активный отдых</a></li>
-                                    <li><a href="#">Семейный отдых</a></li>
-                                    <li><a href="#">Рыбалка и охота</a></li>
-                                    <li><a href="#">Пляжный отдых</a></li>
-                                </ul>
-                            </div>
-                            <div class="sidebar-city-tour">
-                                <div class="sidebar-tour-title">Типы туров</div>
-                                <ul>
-                                    <li><a href="#">Экскурсии с животными</a></li>
-                                    <li><a href="#">Экскурсии в Москве</a></li>
-                                    <li><a href="#">Экскурсии</a></li>
-                                    <li><a href="#">Фабрики и заводы</a></li>
-                                    <li><a href="#">Усадьбы, дворцы</a></li>
-                                    <li><a href="#">Событийные туры</a></li>
-                                    <li><a href="#">Серебрянное кольцо России</a></li>
-                                </ul>
-                                <a class="btn-rest-tours" href="#">Показать остальные туры</a>
-                            </div>
-                            <div class="sidebar-city-tour">
-                                <div class="sidebar-tour-title">Другие страны</div>
-                                <ul>
-                                    <li class="with-flag"><a href="#">Туры в Чехию</a></li>
-                                    <li class="with-flag"><a href="#">Туры в Германию</a></li>
-                                    <li class="with-flag"><a href="#">Туры в Польшу</a></li>
-                                    <li class="with-flag"><a href="#">Туры в Испанию</a></li>
-                                    <li class="with-flag"><a href="#">Туры в Чехию</a></li>
-                                    <li class="with-flag"><a href="#">Туры в Германию</a></li>
-                                    <li class="with-flag"><a href="#">Туры в Польшу</a></li>
-                                    <li class="with-flag"><a href="#">Туры в Испанию</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="sidebar-notice">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat
-                            voluptatum eos harum officiis laborum reiciendis architecto ad iste eligendi, corrupti
-                            porro, similique perferendis facilis! Excepturi odit quas repellendus tempora, repellat.
-                        </div>
-                    </div>
+                    @include('front.tours.modules.sidebar', [
+                        'country' => 'russia',
+                        'level' => 'russia' ?: 'tury',
+                        'cities' => $cities,
+                        'citiesGolden' => $citiesGolden,
+                        'tourTypes' => $tourTypes,
+                        'countries' => $countries,
+                        'subText' => $seo['subText'],
+                        'tag' => '',
+                        'way' => isset($way) ? $way : '',
+                        'point' => isset($point) ? $point : '',
+                        'duration' => '',
+                        'month' => '',
+                        'layer' => 3,
+                     ])
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
@@ -858,7 +794,7 @@
             }
         });
 
-        $('.btn-more-dates').on('click', function(){
+        $('.btn-more-dates').on('click', function () {
 
             $('.card-tour-dates-item').removeClass('hide');
             $(this).addClass('hide');

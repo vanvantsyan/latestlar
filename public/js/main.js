@@ -6,13 +6,10 @@ $(document).ready(function() {
 		    scrollbarPosition: "inside"
 		});
 	}
-
-	if(docWidth < 767) {
-		$(".partners-items").mCustomScrollbar({
-		    axis:"x",
-		    scrollbarPosition: "inside"
-		});
-	}
+	$(".partners-items").mCustomScrollbar({
+	    axis:"x",
+	    scrollbarPosition: "inside"
+	});
 
 	$(".search-completed-item-preview").click(function() {
 		$(".search-completed-preview-right a.btn-blue").trigger("click");
@@ -35,7 +32,7 @@ $(document).ready(function() {
 		$(this).toggleClass('active');
 	});
 
-	$('.tours-sorting a').click(function() {
+	$('.tours-sorting-items a').click(function() {
 		$('.tours-sorting-items').toggleClass('active');
 		return false;
 	});
@@ -50,7 +47,7 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	// $('.date-pick').datePicker().val(new Date().asString()).trigger('change');
+	$('.date-pick').datePicker().val(new Date().asString()).trigger('change');
 
 	$(".tour-filter-tabs a").click( function () {
         $(".tour-filter-tabs a").removeClass("current");
@@ -85,13 +82,7 @@ $(document).ready(function() {
 	    autoplay: true,
 	    autoplaySpeed: 2000,
 	    dots: true,
-	    arrows: false,
-	    responsive: [ {
-			breakpoint: 650,
-			settings: {
-				dots: false
-			}
-		} ]
+	    arrows: false
 	});
 
 	$(".reviews-slider").slick({
@@ -106,10 +97,25 @@ $(document).ready(function() {
 	    scrollbarPosition: "inside"
 	});
 
-	$(".card-schedule-day").click(function() {
+	$(".card-schedule-day, .accommodation-options-day").click(function() {
 		$(this).toggleClass("active");
 		$(this).next().slideToggle();
 		return false;
+	});
+
+	$(".card-tour-dates-item").mCustomScrollbar({
+	    axis:"x",
+	    scrollbarPosition: "inside"
+	});
+
+	$(".card-tour-filter").mCustomScrollbar({
+	    axis:"x",
+	    scrollbarPosition: "outside"
+	});
+
+	$(".accommodation-options-day-cont").mCustomScrollbar({
+	    axis:"x",
+	    scrollbarPosition: "inside"
 	});
 
 	$(".accommodation-options-table").mCustomScrollbar({
@@ -117,7 +123,16 @@ $(document).ready(function() {
 	    scrollbarPosition: "inside"
 	});
 
-	$(".card-tour-dates-item").mCustomScrollbar({
+	$(".card-tour-filter a").click(function () { 
+		var elementClick = $(this).attr("href");
+		var destination = $(elementClick).offset().top;
+		$('html,body').animate( { scrollTop: destination }, 1100 );
+		$('.card-tour-filter a').removeClass('active');
+		$(this).addClass('active');
+		return false;
+	});
+
+	$(".burning-tours-filter-wrap").mCustomScrollbar({
 	    axis:"x",
 	    scrollbarPosition: "inside"
 	});

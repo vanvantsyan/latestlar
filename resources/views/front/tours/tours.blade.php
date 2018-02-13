@@ -14,103 +14,60 @@
     </style>
 @endsection
 
+@section('title', $seo['bTitle'])
+@section('description', $seo['metaDesc'])
+@section('keywords', $seo['metaKey'])
+
 @section('breadcrumbs')
     <div class="breadcrumbs">
-        <div class="container">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="row">
-                    <a href="/">Главная страница</a> -
-                    <a href="{{route('tourList')}}">Поиск тура</a> -
-                    <span>Туры по России</span>
-                </div>
-            </div>
-        </div>
+        @include('front.tours.modules.breadcrumbs', ['pTitle' => $seo['pTitle']])
     </div>
 @endsection
 
 @section('content')
-    <div class="wrapper tours-list-page">
+     <div class="wrapper tours-list-page">
         <div class="container">
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
                 <div class="row">
-                    @include('front.tours.sidebar', ['cities' => $cities, 'citiesGolden' => $citiesGolden, 'tourTypes' => $tourTypes, 'countries' => $countries])
+                    @include('front.tours.modules.sidebar', [
+                        'level' => $country ?: 'tury',
+
+                        'cities' => $cities,
+                        'citiesGolden' => $citiesGolden,
+                        'tourTypes' => $tourTypes,
+                        'countries' => $countries,
+                        'subText' => $seo['subText'],
+                        'tag' => $tag,
+                        'way' => isset($way) ? $way : '',
+                        'point' => isset($point) ? $point : '',
+                        'duration' => $duration,
+                        'layer' => $layer,
+                     ])
                 </div>
             </div>
-            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <div class="row">
                     <div class="tour-preview-wrap">
                         <div class="tour-preview">
-                            <h2>Россия</h2>
-                            <div class="tour-preview-desc">Компания Star Tour предлагает лучшие туры по России. Только
-                                самые интересные и проверенные маршруты!
+                            <h1>{{$seo['pTitle']}}</h1>
+                            <div class="tour-preview-desc">Компания Star Tour предлагает лучшие туры по России. <span>Только самые интересные и проверенные маршруты!</span>
                             </div>
-                            <a href="#" class="btn btn-yellow">Отправить заявку на подбор тура</a>
+                            <a href="#" class="btn btn-yellow">Отправить заявку<span> на подбор тура</span></a>
                         </div>
                     </div>
-                    <div class="tour-filter">
-                        <form method="POST">
-                            <div class="tour-filter-item">
-                                <label>Город или достопримечательность</label>
-                                <input name="tourPoint" id="tourPoint" type="text" placeholder="Красная площадь">
-                            </div>
-                            <div class="tour-filter-item date-mob">
-                                <label>Даты поездки <span>?</span></label>
-                                <input name="tourDate" id="tourDate" class="date-pick dp-applied" value="">
-                            </div>
-                            <div class="tour-filter-item time-mob">
-                                <label>Срок поездки (дни)</label>
-                                <select name="durationFrom" id="durationFrom">
-                                    <option value="1">от 1</option>
-                                    <option value="2">от 2</option>
-                                    <option value="3">от 3</option>
-                                    <option value="4">от 4</option>
-                                    <option value="5">от 5</option>
-                                    <option value="6">от 6</option>
-                                    <option value="7">от 7</option>
-                                    <option value="8">от 8</option>
-                                    <option value="9">от 9</option>
-                                    <option value="10">от 10</option>
-                                </select>
-                                <select name="durationTo" id="durationTo">
-                                    <option value="2">до 2</option>
-                                    <option value="3">до 3</option>
-                                    <option value="4">до 4</option>
-                                    <option value="5">до 5</option>
-                                    <option value="6">до 6</option>
-                                    <option value="7">до 7</option>
-                                    <option value="8" selected>до 8</option>
-                                    <option value="9">до 9</option>
-                                    <option value="10">до 10</option>
-                                </select>
-                            </div>
-                            <div class="tour-filter-item category">
-                                <label>Категория тура</label>
-                                <select name="tourType">
-                                    <option value="0">Все варианты</option>
-                                    @isset($tourTypes)
-                                        @forelse($tourTypes as $tourType)
-                                            <option value="{{$tourType->id}}">{{$tourType->alias}}</option>
-                                        @empty
-                                        @endforelse
-                                    @endisset
-                                </select>
-                            </div>
-                            <div class="tour-filter-item value">
-                                <label>Стоимость</label>
-                                <input name="priceFrom" type="text" placeholder="от 12000">
-                                <input name="priceTo" type="text" placeholder="до 12000000">
-                            </div>
-                            <a href="#" class="tour-filter-more"><span>Расширенный поиск</span> &#9660;</a>
-                            <input id="filterTours" type="submit" class="btn btn-blue" value="Подобрать варианты">
-                        </form>
-                    </div>
+                    @include('front.tours.modules.filters', [
+                        'tourTypes' => $tourTypes,
+                        'way' => isset($way) ? $way : '',
+                        'point' => isset($point) ? $point : '',
+                        'tag' => $tag,
+                      ])
                     <div class="search-completed">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
                                 <div class="title">Туры по России из г. Москва, найдено: <span
                                             id="countFound">{{$countTours}}</span></div>
                                 <a href="#" class="btn sorting-btn">Кратко</a>
-                                <div class="tours-sorting">
+                                <div class="tours-sorting mobile-hide">
                                     Сортировать по: <a href="#" data-sort="duration-desc"><span>Длительности (от большей к меньшей)</span>
                                         <b></b></a>
                                     <div class="tours-sorting-items">
@@ -121,148 +78,230 @@
                                             большей к меньшей)</a>
                                     </div>
                                 </div>
+                                <div class="tours-sorting desk-hide">
+                                    Сортировать по: <a href="#"><span>Стоимости тура</span> <b></b></a>
+                                    <div class="tours-sorting-items">
+                                        <a href="#">Стоимости тура</a>
+                                        <a href="#">Стоимости тура 2</a>
+                                        <a href="#">Стоимости тура 3</a>
+                                    </div>
+                                </div>
+                                @php
+                                    $half = ceil(count($tours) / 2);
+
+                                    if($half) {
+                                        $toursParts = array_chunk($tours, $half);
+                                    } else {
+                                        $toursParts = [];
+                                    }
+                                @endphp
+                                {{--<div class="search-completed-items mobile-hide">--}}
+                                {{--<div class="search-completed-item tablet-hide">--}}
+                                {{--<div class="search-completed-item-preview">--}}
+                                {{--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">--}}
+                                {{--<div class="row">--}}
+                                {{--<div class="search-completed-preview-left">--}}
+                                {{--<div class="search-completed-item-title">Легендарная Русь 4* - очень длинный заголовок очень длинный заголовок</div>--}}
+                                {{--<ul>--}}
+                                {{--<li>9 городов</li>--}}
+                                {{--<li>14 экскурсий</li>--}}
+                                {{--<li>Поездка на 4 дня</li>--}}
+                                {{--</ul>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-5">--}}
+                                {{--<div class="row">--}}
+                                {{--<div class="search-completed-preview-right">--}}
+                                {{--<div class="search-completed-item-price">--}}
+                                {{--<b>от 8200 <span class="glyphicon glyphicon-rub" aria-hidden="true"></span></b>--}}
+                                {{--<span>за человека</span>--}}
+                                {{--</div>--}}
+                                {{--<a href="#" class="btn btn-orange">Заказать</a>--}}
+                                {{--<a href="#" class="btn btn-blue">Подробнее</a>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="search-completed-item-more">--}}
+                                {{--<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">--}}
+                                {{--<div class="row">--}}
+                                {{--<a href="#" class="search-completed-item-img">--}}
+                                {{--<img src="img/search-completed-item-1.jpg" alt="">--}}
+                                {{--<span>Все фото (18)</span>--}}
+                                {{--</a>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">--}}
+                                {{--<div class="row">--}}
+                                {{--<div class="search-completed-item-more-right">--}}
+                                {{--<div class="search-completed-item-route">--}}
+                                {{--<span>Маршрут тура:</span> <b>Москва</b> - Владимир, Боголюбово, Суздаль, Иваново, Кострома, Ярославль, Ростов Великий, Переславль Залесский, Сергиев Посад - <b>Москва</b>--}}
+                                {{--</div>--}}
+                                {{--<div class="search-completed-item-date">--}}
+                                {{--<a href="#" class="red">14.12</a>--}}
+                                {{--<a href="#" class="green">22.12</a>--}}
+                                {{--<a href="#" class="red">26.12</a>--}}
+                                {{--<a href="#" class="red">14.12</a>--}}
+                                {{--<a href="#" class="green">22.12</a>--}}
+                                {{--<a href="#" class="red">26.12</a>--}}
+                                {{--<a href="#" class="green">22.12</a>--}}
+                                {{--<a href="#" class="all-dates">Все даты <b>>>></b></a>--}}
+                                {{--</div>--}}
+                                {{--<div class="search-completed-item-desc">--}}
+                                {{--Великий праздник Пасхи в одном из самых святых уголков русской земли! Знакомство со святынями былинного Мурома и Светлое Христово Воскресение...--}}
+                                {{--<a href="#">Подробнее</a>--}}
+                                {{--</div>--}}
+                                {{--<div class="search-completed-item-tags">Для детей, Золотое кольцо, Новогодние туры</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
                             </div>
                         </div>
                     </div>
-                    @php
-                        $half = ceil(count($tours) / 2);
-                        $toursParts = array_chunk($tours, $half);
-                    @endphp
-                    <div class="search-completed-items">
-                        @foreach($toursParts[0] as $tour)
-                            <div class="search-completed-item">
-                                <div class="search-completed-item-preview">
-                                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-                                        <div class="row">
-                                            <div class="search-completed-preview-left">
-                                                <div class="search-completed-item-title">{{$tour['title']}}</div>
-                                                <ul>
 
-                                                    <li>{{count($tour['par_points']) ?: 1}} {!! Gliss::numeralCase('город', count($tour['par_points']) ?: 1) !!}</li>
-                                                    <li>14 экскурсий</li>
-                                                    <li>Поездка
-                                                        на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                                        <div class="row">
-                                            <div class="search-completed-preview-right">
-                                                <div class="search-completed-item-price">
-                                                    @if($tour['price'] > 0)
-                                                        <b>от {{number_format($tour['price'], 0, '.',' ') }}
-                                                            <span class="glyphicon glyphicon-rub"
-                                                                  aria-hidden="true"></span>
-                                                        </b>
-                                                        <span>за человека</span>
-                                                    @else
-                                                        <b>Цена</b>
-                                                        <span>не указана</span>
-                                                    @endif
-
+                    <div class="search-completed-items mobile-hide">
+                        @if(count($toursParts))
+                            @foreach($toursParts[0] as $tour)
+                                <div class="search-completed-item tablet-hide">
+                                    <div class="search-completed-item-preview">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
+                                            <div class="row">
+                                                <div class="search-completed-preview-left">
+                                                    <div class="search-completed-item-title">{{$tour['title']}}</div>
+                                                    <ul>
+                                                        <li>{{count($tour['par_points']) ?: 1}} {!! Gliss::numeralCase('город', count($tour['par_points']) ?: 1) !!}</li>
+                                                        <li>14 экскурсий</li>
+                                                        <li>Поездка
+                                                            на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</li>
+                                                    </ul>
                                                 </div>
-                                                <a href="#" class="btn btn-orange">Заказать</a>
-                                                <a href="#" class="btn btn-blue">Подробнее</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-5">
+                                            <div class="row">
+                                                <div class="search-completed-preview-right">
+                                                    <div class="search-completed-item-price">
+                                                        @if($tour['price'] > 0)
+                                                            <b>от {{number_format($tour['price'], 0, '.',' ') }}
+                                                                <span class="glyphicon glyphicon-rub"
+                                                                      aria-hidden="true"></span>
+                                                            </b>
+                                                            <span>за человека</span>
+                                                        @else
+                                                            <b>Цена</b>
+                                                            <span>не указана</span>
+                                                        @endif
+                                                    </div>
+                                                    <a href="#" class="btn btn-orange">Заказать</a>
+                                                    <a href="#" class="btn btn-blue">Подробнее</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="search-completed-item-more">
-                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                        <div class="row">
-                                            <a class="search-completed-item-img">
-                                                @php
-                                                    $images = json_decode($tour['images']);
-                                                @endphp
-                                                @if(count($images))
-                                                    <img src="{{ Gliss::tourThumb($images[0], $tour['id']) }}" alt="">
-                                                @else
-                                                    <img src="{{asset('/img/search-completed-item-1.jpg')}}" alt="">
-                                                @endif
-                                                @if(count($images))
-                                                    <span class="tour-images-button" data-images="{{ $tour['images'] }}"
-                                                          data-tour-id="{{$tour['id']}}" data-toggle="modal"
-                                                          data-target="#tourImagesModal">Все фото ({{count($images)}}
-                                                        )</span>
-                                                @endif
-                                            </a>
+                                    <div class="search-completed-item-more">
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                            <div class="row">
+                                                <a href="#" class="search-completed-item-img">
+                                                    @php
+                                                        $images = (array) json_decode($tour['images']);
+                                                    @endphp
+                                                    @if(count($images))
+                                                        <img src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
+                                                             alt="">
+                                                    @else
+                                                        <img src="{{asset('/img/search-completed-item-1.jpg')}}" alt="">
+                                                    @endif
+                                                    @if(count($images))
+                                                        <span class="tour-images-button"
+                                                              data-images="{{ $tour['images'] }}"
+                                                              data-tour-id="{{$tour['id']}}" data-toggle="modal"
+                                                              data-target="#tourImagesModal">Все фото ({{count($images)}})</span>
+                                                    @endif
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                                        <div class="row">
-                                            <div class="search-completed-item-more-right">
-                                                <div class="search-completed-item-route">
-                                                    <span>Маршрут тура:</span>
+                                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                                            <div class="row">
+                                                <div class="search-completed-item-more-right">
+                                                    <div class="search-completed-item-route">
+                                                        <span>Маршрут тура:</span>
+                                                        @if(count($tour['par_points']))
 
-                                                    @if(count($tour['par_points']))
+                                                            @php
+                                                                $i = 1;
+                                                            @endphp
 
-                                                        @php
-                                                            $i = 1;
-                                                        @endphp
+                                                            @foreach($tour['par_points'] as $point)
+                                                                @if($i < count($tour['par_points']))
+                                                                    <a href="#">{{array_get($point,'points_par.title')}}</a>
+                                                                    ,
+                                                                @else
+                                                                    <a href="#">{{array_get($point,'points_par.title')}}</a>
+                                                                @endif
+                                                                @php $i++ @endphp
+                                                            @endforeach
 
-                                                        @foreach($tour['par_points'] as $point)
-                                                            @if($i < count($tour['par_points']))
-                                                                <a href="#">{{array_get($point,'points_par.title')}}</a>
-                                                                ,
-                                                            @else
-                                                                <a href="#">{{array_get($point,'points_par.title')}}</a>
+                                                        @else
+                                                            @if(count($tour['par_ways']))
+                                                                {{$tour['par_ways'][0]['ways_par']['title']}}
                                                             @endif
-                                                            @php $i++ @endphp
+                                                        @endif
+                                                    </div>
+                                                    <div class="search-completed-item-date">
+                                                        @php $num = 0; @endphp
+
+                                                        @foreach($tour['dates'] as $date)
+                                                            @if ($num > 5)
+                                                                @break
+                                                            @endif
+                                                            <a href="#" class="green">
+                                                                {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
+                                                            </a>
+
+                                                            @php $num++; @endphp
                                                         @endforeach
 
-                                                    @else
-                                                        @if(count($tour['par_ways']))
-                                                            {{$tour['par_ways'][0]['ways_par']['title']}}
+                                                        @if(count($tour['dates']) > 6)
+                                                            <a href="#" class="all-dates">Все даты <b>>>></b></a>
                                                         @endif
-                                                    @endif
-                                                </div>
-                                                <div class="search-completed-item-date">
-                                                    @php $num = 0; @endphp
-
-                                                    @foreach($tour['dates'] as $date)
-                                                        @if ($num > 5)
-                                                            @break
-                                                        @endif
-                                                        <a href="#" class="green"
-                                                           data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m.Y')}}">
-                                                            {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
-                                                        </a>
-
-                                                        @php $num++; @endphp
-                                                    @endforeach
-
-                                                    @if(count($tour['dates']) > 6)
-                                                        <a href="#" class="all-dates">Все даты <b>>>></b></a>
-                                                    @endif
-                                                </div>
-
-                                                <div class="search-completed-item-desc">
-                                                    {!! Str::words($tour['description'], 17,'...') !!}
-                                                    <a href="{{Gliss::tourLink($tour)}}">Подробнее</a>
-                                                </div>
-
-                                                <div class="search-completed-item-tags">
-                                                    @php
-                                                        $tourTypes = [];
-                                                    @endphp
-                                                    @foreach($tour['tour_tags'] as $tag)
-                                                        @if(in_array($tag['tag_id'], [3,4,5]))
-                                                            @php
-                                                                $tourTypes[] = array_get($tag, 'fix_value.alias');
-                                                            @endphp
-                                                        @endif
-                                                    @endforeach
-                                                    {!! implode(', ', $tourTypes) !!}
+                                                    </div>
+                                                    <div class="search-completed-item-desc">
+                                                        {!! Str::words($tour['description'], 17,'...') !!}
+                                                        <a href="{{Gliss::tourLink($tour)}}">Подробнее</a>
+                                                    </div>
+                                                    <div class="search-completed-item-tags">
+                                                        @php
+                                                            $tourTypes = [];
+                                                        @endphp
+                                                        @foreach($tour['tour_tags'] as $tag)
+                                                            @if(in_array($tag['tag_id'], [3,4,5]))
+                                                                @php
+                                                                    $tourTypes[] = array_get($tag, 'fix_value.alias');
+                                                                @endphp
+                                                            @endif
+                                                        @endforeach
+                                                        {!! implode(', ', $tourTypes) !!}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        @endif
                     </div>
-
+                    <div class="tours-sort-other desk-hide">
+                        <a href="#" class="tours-sort-other-item">Туры по тематике</a>
+                        <a href="#" class="tours-sort-other-item">Туры по городам России</a>
+                        <a href="#" class="tours-sort-other-item">Туры по Золотому кольцу</a>
+                        <a href="#" class="tours-sort-other-item">Санатории</a>
+                        <a href="#" class="tours-sort-other-item">Речные круизы</a>
+                        <a href="#" class="tours-sort-other-item">Другие страны</a>
+                    </div>
                     <div class="popular-tours">
                         <div class="popular-tours-items">
                             <table>
@@ -282,7 +321,7 @@
                                     </td>
                                     <td>
                                         <div class="popular-tours-item small">
-                                            <img src="img/popular-tours-item-8.jpg" alt="">
+                                            <img src="/img/popular-tours-item-8.jpg" alt="">
                                             <span class="orange">Все санатории России.</span>
                                             <span>Бронируйте он-лайн <br> через СтарТур!</span>
                                         </div>
@@ -292,316 +331,145 @@
                             </table>
                         </div>
                     </div>
-
-                    <div class="search-completed-items">
-
-                        @foreach($toursParts[1] as $tour)
-                            <div class="search-completed-item">
-                                <div class="search-completed-item-preview">
-                                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-                                        <div class="row">
-                                            <div class="search-completed-preview-left">
-                                                <div class="search-completed-item-title">{{$tour['title']}}</div>
-                                                <ul>
-
-                                                    <li>{{count($tour['par_points']) ?: 1}} {!! Gliss::numeralCase('город', count($tour['par_points']) ?: 1) !!}</li>
-                                                    <li>14 экскурсий</li>
-                                                    <li>Поездка
-                                                        на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                                        <div class="row">
-                                            <div class="search-completed-preview-right">
-                                                <div class="search-completed-item-price">
-                                                    @if($tour['price'] > 0)
-                                                        <b>от {{number_format($tour['price'], 0, '.',' ') }}
-                                                            <span class="glyphicon glyphicon-rub"
-                                                                  aria-hidden="true"></span>
-                                                        </b>
-                                                        <span>за человека</span>
-                                                    @else
-                                                        <b>Цена</b>
-                                                        <span>не указана</span>
-                                                    @endif
-
+                    <div class="search-completed-items mobile-hide">
+                        @if(count($toursParts) > 1)
+                            @forelse($toursParts[1] as $tour)
+                                <div class="search-completed-item tablet-hide">
+                                    <div class="search-completed-item-preview">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
+                                            <div class="row">
+                                                <div class="search-completed-preview-left">
+                                                    <div class="search-completed-item-title">{{$tour['title']}}</div>
+                                                    <ul>
+                                                        <li>{{count($tour['par_points']) ?: 1}} {!! Gliss::numeralCase('город', count($tour['par_points']) ?: 1) !!}</li>
+                                                        <li>14 экскурсий</li>
+                                                        <li>Поездка
+                                                            на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</li>
+                                                    </ul>
                                                 </div>
-                                                <a href="#" class="btn btn-orange">Заказать</a>
-                                                <a href="#" class="btn btn-blue">Подробнее</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-5">
+                                            <div class="row">
+                                                <div class="search-completed-preview-right">
+                                                    <div class="search-completed-item-price">
+                                                        @if($tour['price'] > 0)
+                                                            <b>от {{number_format($tour['price'], 0, '.',' ') }}
+                                                                <span class="glyphicon glyphicon-rub"
+                                                                      aria-hidden="true"></span>
+                                                            </b>
+                                                            <span>за человека</span>
+                                                        @else
+                                                            <b>Цена</b>
+                                                            <span>не указана</span>
+                                                        @endif
+                                                    </div>
+                                                    <a href="#" class="btn btn-orange">Заказать</a>
+                                                    <a href="#" class="btn btn-blue">Подробнее</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="search-completed-item-more">
-                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                        <div class="row">
-                                            <a class="search-completed-item-img">
-                                                @php
-                                                    $images = (array) json_decode($tour['images']);
-                                                @endphp
-                                                @if(count($images))
-                                                    <img src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
-                                                         alt="">
-                                                @else
-                                                    <img src="{{asset('/img/search-completed-item-1.jpg')}}" alt="">
-                                                @endif
-                                                @if(count($images))
-                                                    <span class="tour-images-button" data-images="{{ $tour['images'] }}"
-                                                          data-tour-id="{{$tour['id']}}" data-toggle="modal"
-                                                          data-target="#tourImagesModal">Все фото ({{count($images)}}
-                                                        )</span>
-                                                @endif
-                                            </a>
+                                    <div class="search-completed-item-more">
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                            <div class="row">
+                                                <a href="#" class="search-completed-item-img">
+                                                    @php
+                                                        $images = (array) json_decode($tour['images']);
+                                                    @endphp
+                                                    @if(count($images))
+                                                        <img src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
+                                                             alt="">
+                                                    @else
+                                                        <img src="{{asset('/img/search-completed-item-1.jpg')}}" alt="">
+                                                    @endif
+                                                    @if(count($images))
+                                                        <span class="tour-images-button"
+                                                              data-images="{{ $tour['images'] }}"
+                                                              data-tour-id="{{$tour['id']}}" data-toggle="modal"
+                                                              data-target="#tourImagesModal">Все фото ({{count($images)}}
+                                                            )</span>
+                                                    @endif
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                                        <div class="row">
-                                            <div class="search-completed-item-more-right">
-                                                <div class="search-completed-item-route">
-                                                    <span>Маршрут тура:</span>
+                                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                                            <div class="row">
+                                                <div class="search-completed-item-more-right">
+                                                    <div class="search-completed-item-route">
+                                                        <span>Маршрут тура:</span>
+                                                        @if(count($tour['par_points']))
 
-                                                    @if(count($tour['par_points']))
+                                                            @php
+                                                                $i = 1;
+                                                            @endphp
 
-                                                        @php
-                                                            $i = 1;
-                                                        @endphp
+                                                            @foreach($tour['par_points'] as $point)
+                                                                @if($i < count($tour['par_points']))
+                                                                    <a href="#">{{array_get($point,'points_par.title')}}</a>
+                                                                    ,
+                                                                @else
+                                                                    <a href="#">{{array_get($point,'points_par.title')}}</a>
+                                                                @endif
+                                                                @php $i++ @endphp
+                                                            @endforeach
 
-                                                        @foreach($tour['par_points'] as $point)
-                                                            @if($i < count($tour['par_points']))
-                                                                <a href="#">{{array_get($point,'points_par.title')}}</a>
-                                                                ,
-                                                            @else
-                                                                <a href="#">{{array_get($point,'points_par.title')}}</a>
+                                                        @else
+                                                            @if(count($tour['par_ways']))
+                                                                {{$tour['par_ways'][0]['ways_par']['title']}}
                                                             @endif
-                                                            @php $i++ @endphp
+                                                        @endif
+                                                    </div>
+                                                    <div class="search-completed-item-date">
+                                                        @php $num = 0; @endphp
+
+                                                        @foreach($tour['dates'] as $date)
+                                                            @if ($num > 5)
+                                                                @break
+                                                            @endif
+                                                            <a href="#" class="green">
+                                                                {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
+                                                            </a>
+
+                                                            @php $num++; @endphp
                                                         @endforeach
 
-                                                    @else
-                                                        @if(count($tour['par_ways']))
-                                                            {{$tour['par_ways'][0]['ways_par']['title']}}
+                                                        @if(count($tour['dates']) > 6)
+                                                            <a href="#" class="all-dates">Все даты <b>>>></b></a>
                                                         @endif
-                                                    @endif
-                                                </div>
-                                                <div class="search-completed-item-date">
-                                                    @php $num = 0; @endphp
-
-                                                    @foreach($tour['dates'] as $date)
-                                                        @if ($num > 5)
-                                                            @break
-                                                        @endif
-                                                        <a href="#" class="green">
-                                                            {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
-                                                        </a>
-
-                                                        @php $num++; @endphp
-                                                    @endforeach
-
-                                                    @if(count($tour['dates']) > 6)
-                                                        <a href="#" class="all-dates">Все даты <b>>>></b></a>
-                                                    @endif
-                                                </div>
-
-                                                <div class="search-completed-item-desc">
-                                                    {!! Str::words($tour['description'], 17,'...') !!}
-                                                    <a href="{{Gliss::tourLink($tour)}}">Подробнее</a>
-                                                </div>
-
-                                                <div class="search-completed-item-tags">
-                                                    @php
-                                                        $tourTypes = [];
-                                                    @endphp
-                                                    @foreach($tour['tour_tags'] as $tag)
-                                                        @if(in_array($tag['tag_id'], [3,4,5]))
-                                                            @php
-                                                                $tourTypes[] = array_get($tag, 'fix_value.alias');
-                                                            @endphp
-                                                        @endif
-                                                    @endforeach
-                                                    {!! implode(', ', $tourTypes) !!}
+                                                    </div>
+                                                    <div class="search-completed-item-desc">
+                                                        {!! Str::words($tour['description'], 17,'...') !!}
+                                                        <a href="{{Gliss::tourLink($tour)}}">Подробнее</a>
+                                                    </div>
+                                                    <div class="search-completed-item-tags">
+                                                        @php
+                                                            $tourTypes = [];
+                                                        @endphp
+                                                        @foreach($tour['tour_tags'] as $tag)
+                                                            @if(in_array($tag['tag_id'], [3,4,5]))
+                                                                @php
+                                                                    $tourTypes[] = array_get($tag, 'fix_value.alias');
+                                                                @endphp
+                                                            @endif
+                                                        @endforeach
+                                                        {!! implode(', ', $tourTypes) !!}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @empty
+                            @endforelse
+                        @endif
 
                         <a href="#" class="btn-more-tours">Показать еще туры</a>
                     </div>
 
-                    <div class="tours-notes">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <div class="row">
-                                <div class="title">Заметки для путешественников по России</div>
-                                <div class="tours-notes-items-wrap">
-                                    <div class="tours-notes-items">
-                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="row">
-                                                <a href="#" class="tours-notes-item">
-                                                    <div class="tours-notes-item-img"><img
-                                                                src="img/tours-notes-item-1.jpg" alt=""></div>
-                                                    <div class="tours-notes-item-cont">
-                                                        <b>Как не опоздать на поезд?</b>
-                                                        <p>В этой статье мы поделимся с Вами секретом о том, как быстро
-                                                            собраться в дорогу</p>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="row">
-                                                <a href="#" class="tours-notes-item">
-                                                    <div class="tours-notes-item-img"><img
-                                                                src="img/tours-notes-item-2.jpg" alt=""></div>
-                                                    <div class="tours-notes-item-cont">
-                                                        <b>Как не опоздать на поезд?</b>
-                                                        <p>В этой статье мы поделимся с Вами секретом о том, как быстро
-                                                            собраться в дорогу</p>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="row">
-                                                <a href="#" class="tours-notes-item">
-                                                    <div class="tours-notes-item-img"><img
-                                                                src="img/tours-notes-item-3.jpg" alt=""></div>
-                                                    <div class="tours-notes-item-cont">
-                                                        <b>Как не опоздать на поезд?</b>
-                                                        <p>В этой статье мы поделимся с Вами секретом о том, как быстро
-                                                            собраться в дорогу</p>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="row">
-                                                <a href="#" class="tours-notes-item">
-                                                    <div class="tours-notes-item-img"><img
-                                                                src="img/tours-notes-item-1.jpg" alt=""></div>
-                                                    <div class="tours-notes-item-cont">
-                                                        <b>Как не опоздать на поезд?</b>
-                                                        <p>В этой статье мы поделимся с Вами секретом о том, как быстро
-                                                            собраться в дорогу</p>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="row">
-                                                <a href="#" class="tours-notes-item">
-                                                    <div class="tours-notes-item-img"><img
-                                                                src="img/tours-notes-item-2.jpg" alt=""></div>
-                                                    <div class="tours-notes-item-cont">
-                                                        <b>Как не опоздать на поезд?</b>
-                                                        <p>В этой статье мы поделимся с Вами секретом о том, как быстро
-                                                            собраться в дорогу</p>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="row">
-                                                <a href="#" class="tours-notes-item">
-                                                    <div class="tours-notes-item-img"><img
-                                                                src="img/tours-notes-item-3.jpg" alt=""></div>
-                                                    <div class="tours-notes-item-cont">
-                                                        <b>Как не опоздать на поезд?</b>
-                                                        <p>В этой статье мы поделимся с Вами секретом о том, как быстро
-                                                            собраться в дорогу</p>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="btn-more-tours">Показать еще больше советов</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="popular-category">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <div class="row">
-                                <div class="title">Популярные категории</div>
-                                <div class="popular-category-items">
-                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                        <div class="row">
-                                            <a href="#" class="poular-category-item">
-                                                <div class="poular-category-item-img"><img
-                                                            src="img/poular-category-item-1.png" alt=""></div>
-                                                <span>Русские усадьбы</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                        <div class="row">
-                                            <a href="#" class="poular-category-item">
-                                                <div class="poular-category-item-img"><img
-                                                            src="img/poular-category-item-2.png" alt=""></div>
-                                                <span>Народные промыслы</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                        <div class="row">
-                                            <a href="#" class="poular-category-item">
-                                                <div class="poular-category-item-img"><img
-                                                            src="img/poular-category-item-3.png" alt=""></div>
-                                                <span>Религиозные экскурсии</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                        <div class="row">
-                                            <a href="#" class="poular-category-item">
-                                                <div class="poular-category-item-img"><img
-                                                            src="img/poular-category-item-4.png" alt=""></div>
-                                                <span>Это интересно детям</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                        <div class="row">
-                                            <a href="#" class="poular-category-item">
-                                                <div class="poular-category-item-img"><img
-                                                            src="img/poular-category-item-1.png" alt=""></div>
-                                                <span>Русские усадьбы</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                        <div class="row">
-                                            <a href="#" class="poular-category-item">
-                                                <div class="poular-category-item-img"><img
-                                                            src="img/poular-category-item-2.png" alt=""></div>
-                                                <span>Народные промыслы</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                        <div class="row">
-                                            <a href="#" class="poular-category-item">
-                                                <div class="poular-category-item-img"><img
-                                                            src="img/poular-category-item-3.png" alt=""></div>
-                                                <span>Религиозные экскурсии</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                        <div class="row">
-                                            <a href="#" class="poular-category-item">
-                                                <div class="poular-category-item-img"><img
-                                                            src="img/poular-category-item-4.png" alt=""></div>
-                                                <span>Это интересно детям</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @include('front.tours.modules.notes')
+                    @include('front.tours.modules.category')
+
                 </div>
             </div>
             <div class="clear"></div>
@@ -635,10 +503,10 @@
         </div>
         <div class="info-company">
             <div class="container">
-                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7">
                     <div class="row">
                         <div class="about-company">
-                            <h3>Информация о компании</h3>
+                            <div class="info-company-title">Информация о компании</div>
                             <p>"СтарТур" - одно из популярных туристических агенств, ежедневно помогающее людям в
                                 подборе и бронировании туров, авиабилетов, трансферов, экскурсий и круизов. В месяц мы
                                 обслуживаем свыше 4000 клиентов.</p>
@@ -655,10 +523,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5">
                     <div class="row">
                         <div class="news-company">
-                            <h3>Новости компании</h3>
+                            <div class="info-company-title">Новости компании</div>
                             <div class="news-company-items">
                                 <a href="#" class="news-company-item">
                                     <b>12.12.2017</b>
@@ -690,29 +558,29 @@
         <div class="partners">
             <div class="container">
                 <div class="partners-items">
-                    <div class="col-xs-1-5 col-sm-1-5 col-md-1-5 col-lg-1-5">
+                    <div class="col-xs-6 col-sm-1-5 col-md-1-5 col-lg-1-5">
                         <div class="row">
-                            <div class="partners-item"><img src="img/partners-item-1.jpg" alt=""></div>
+                            <div class="partners-item"><img src="/img/partners-item-1.jpg" alt=""></div>
                         </div>
                     </div>
-                    <div class="col-xs-1-5 col-sm-1-5 col-md-1-5 col-lg-1-5">
+                    <div class="col-xs-6 col-sm-1-5 col-md-1-5 col-lg-1-5">
                         <div class="row">
-                            <div class="partners-item"><img src="img/partners-item-2.jpg" alt=""></div>
+                            <div class="partners-item"><img src="/img/partners-item-2.jpg" alt=""></div>
                         </div>
                     </div>
-                    <div class="col-xs-1-5 col-sm-1-5 col-md-1-5 col-lg-1-5">
+                    <div class="col-xs-6 col-sm-1-5 col-md-1-5 col-lg-1-5">
                         <div class="row">
-                            <div class="partners-item"><img src="img/partners-item-3.jpg" alt=""></div>
+                            <div class="partners-item"><img src="/img/partners-item-3.jpg" alt=""></div>
                         </div>
                     </div>
-                    <div class="col-xs-1-5 col-sm-1-5 col-md-1-5 col-lg-1-5">
+                    <div class="col-xs-6 col-sm-1-5 col-md-1-5 col-lg-1-5">
                         <div class="row">
-                            <div class="partners-item"><img src="img/partners-item-4.jpg" alt=""></div>
+                            <div class="partners-item"><img src="/img/partners-item-4.jpg" alt=""></div>
                         </div>
                     </div>
-                    <div class="col-xs-1-5 col-sm-1-5 col-md-1-5 col-lg-1-5">
+                    <div class="col-xs-6 col-sm-1-5 col-md-1-5 col-lg-1-5">
                         <div class="row">
-                            <div class="partners-item"><img src="img/partners-item-5.jpg" alt=""></div>
+                            <div class="partners-item"><img src="/img/partners-item-5.jpg" alt=""></div>
                         </div>
                     </div>
                 </div>
@@ -721,78 +589,85 @@
         <div class="sitemap">
             <div class="container">
                 <div class="sitemap-items">
-                    <div class="col-xs-1-5 col-sm-1-5 col-md-1-5 col-lg-1-5">
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4-5">
                         <div class="row">
-                            <div class="sitemap-item">
-                                <div class="title">Горящие туры</div>
-                                <ul>
-                                    <li><a href="#">Греция от 15100Р</a></li>
-                                    <li><a href="#">Хорватия от 15100Р</a></li>
-                                    <li><a href="#">Санкт-Петербург от 15100Р</a></li>
-                                    <li><a href="#">Прага от 15100Р</a></li>
-                                    <li><a href="#">Доминикана от 15100Р</a></li>
-                                    <li><a href="#">Париж от 15100Р</a></li>
-                                    <li><a class="link-blue" href="#">Все варианты</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-1-5 col-sm-1-5 col-md-1-5 col-lg-1-5">
-                        <div class="row">
-                            <div class="sitemap-item">
-                                <div class="title">Поиск тура</div>
-                                <ul>
-                                    <li><a class="link-blue" href="#">Поиск по стране</a></li>
-                                    <li><a class="link-blue" href="#">Поиск по категории</a></li>
-                                    <li><a href="#">Визовые вопросы</a></li>
-                                    <li><a href="#">Страхование</a></li>
-                                    <li><a href="#">Трансферы</a></li>
-                                    <li><a href="#">Экскурсии</a></li>
-                                    <li><a href="#">Круизы</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-1-5 col-sm-1-5 col-md-1-5 col-lg-1-5">
-                        <div class="row">
-                            <div class="sitemap-item">
-                                <div class="title">Для клиентов</div>
-                                <ul>
-                                    <li><a href="#">Вопросы и ответы</a></li>
-                                    <li><a href="#">Способы оплаты</a></li>
-                                    <li><a href="#">Рассрочка и кредит</a></li>
-                                    <li><a href="#">Советы туристу</a></li>
-                                    <li><a href="#">Бонусная программа</a></li>
-                                    <li><a href="#">Подарочные сертификаты</a></li>
-                                    <li><a href="#">О нас</a></li>
-                                    <li><a href="#">Акции</a></li>
-                                    <li><a href="#">Отзывы</a></li>
-                                    <li><a href="#">Контакты</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-1-5 col-sm-1-5 col-md-1-5 col-lg-1-5">
-                        <div class="row">
-                            <div class="sitemap-item">
-                                <div class="title">Партнерам</div>
-                                <ul>
-                                    <li><a href="#">Для турагенств</a></li>
-                                    <li><a href="#">Корпоративным клиентам</a></li>
-                                    <li><a href="#">Центр бронирования</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-1-5 col-sm-1-5 col-md-1-5 col-lg-1-5">
-                        <div class="row">
-                            <div class="sitemap-item">
-                                <div class="phone">
-                                    <span>+7 (499) <b>490-44-12</b></span>
-                                    <span>+7 (800) <b>770-06-22</b></span>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                                <div class="row">
+                                    <div class="sitemap-item">
+                                        <div class="title">Горящие туры</div>
+                                        <ul>
+                                            <li><a href="#">Греция от 15100Р</a></li>
+                                            <li><a href="#">Хорватия от 15100Р</a></li>
+                                            <li><a href="#">Санкт-Петербург от 15100Р</a></li>
+                                            <li><a href="#">Прага от 15100Р</a></li>
+                                            <li><a href="#">Доминикана от 15100Р</a></li>
+                                            <li><a href="#">Париж от 15100Р</a></li>
+                                            <li><a class="link-blue" href="#">Все варианты</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <a href="#" class="mail">travel@startour.ru</a>
-                                <p>Адрес: Россия, г.Москва, ул. Кузнецкий Мост, д. 21/5 <br> 1 подъезд</p>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                                <div class="row">
+                                    <div class="sitemap-item">
+                                        <div class="title">Поиск тура</div>
+                                        <ul>
+                                            <li><a class="link-blue" href="#">Поиск по стране</a></li>
+                                            <li><a class="link-blue" href="#">Поиск по категории</a></li>
+                                            <li><a href="#">Визовые вопросы</a></li>
+                                            <li><a href="#">Страхование</a></li>
+                                            <li><a href="#">Трансферы</a></li>
+                                            <li><a href="#">Экскурсии</a></li>
+                                            <li><a href="#">Круизы</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                                <div class="row">
+                                    <div class="sitemap-item">
+                                        <div class="title">Для клиентов</div>
+                                        <ul>
+                                            <li><a href="#">Вопросы и ответы</a></li>
+                                            <li><a href="#">Способы оплаты</a></li>
+                                            <li><a href="#">Рассрочка и кредит</a></li>
+                                            <li><a href="#">Советы туристу</a></li>
+                                            <li><a href="#">Бонусная программа</a></li>
+                                            <li><a href="#">Подарочные сертификаты</a></li>
+                                            <li><a href="#">О нас</a></li>
+                                            <li><a href="#">Акции</a></li>
+                                            <li><a href="#">Отзывы</a></li>
+                                            <li><a href="#">Контакты</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                                <div class="row">
+                                    <div class="sitemap-item">
+                                        <div class="title">Партнерам</div>
+                                        <ul>
+                                            <li><a href="#">Для турагенств</a></li>
+                                            <li><a href="#">Корпоративным клиентам</a></li>
+                                            <li><a href="#">Центр бронирования</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-1-5">
+                        <div class="row">
+                            <div class="sitemap-item" itemscope itemtype="http://schema.org/Organization">
+                                <div class="phone">
+                                    <a href="tel:+74994904412" itemprop="telephone">+7 (499) <b>490-44-12</b></a>
+                                    <a href="tel:+78007700622" itemprop="telephone">+7 (800) <b>770-06-22</b></a>
+                                </div>
+                                <a href="#" class="mail" itemprop="email">travel@startour.ru</a>
+                                <p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">Адрес:
+                                    Россия, <span itemprop="addressLocality">г.Москва</span>, <span
+                                            itemprop="streetAddress">ул. Кузнецкий Мост, д. 21/5</span>
+                                    <br> 1 подъезд</p>
                                 <div class="soc">
                                     <a href="#" class="tw"></a>
                                     <a href="#" class="vk"></a>
@@ -839,8 +714,6 @@
             </div>
         </div>
     </div>
-
-
 @endsection
 
 @section('js')
@@ -879,8 +752,13 @@
                     "Декабрь"
                 ],
             },
+            @if($month)
+            startDate: '{!! date('d.m.Y', strtotime("1 " . $month)) !!}',
+            endDate: '{!! date('d.m.Y', strtotime("last day of " . $month)) !!}',
+            @else
             startDate: moment().format('DD.MM.YYYY'),
             endDate: moment().add(30, 'day').format('DD.MM.YYYY'),
+            @endif
             "autoApply": true,
         });
     </script>
@@ -932,10 +810,10 @@
 
             // Add data to params array
             filters['country'] = '{{ $country or ""}}';
-            filters['sort'] = $('.tours-sorting-items a:first').attr('data-sort');
+            filters['sort'] = $('.tours-sorting a:first').attr('data-sort');
 
             $.ajax({
-                url: "moreTours",
+                url: "/moreTours",
                 cache: false,
                 data: {offset: countTours, limit: 15, params: filters},
                 type: "POST",
@@ -978,7 +856,7 @@
 
             // Request on server
             $.ajax({
-                url: "filterTours",
+                url: "/filterTours",
                 cache: false,
                 data: data,
                 type: "POST",
@@ -1004,7 +882,7 @@
                 filterBtn.attr('value', 'Подобрать варианты');
 
                 $.ajax({
-                    url: "getCountTours",
+                    url: "/getCountTours",
                     cache: false,
                     data: data,
                     type: "POST",
@@ -1020,7 +898,7 @@
 
         // Points title auto complete input
         $("#tourPoint").autocomplete({
-            source: "search/autocomplete",
+            source: "/search/autocomplete",
             minLength: 3,
             select: function (event, ui) {
                 $('#tourPoint').val(ui.item.value);
@@ -1041,7 +919,7 @@
 
             // Request on server
             $.ajax({
-                url: "filterTours",
+                url: "/filterTours",
                 cache: false,
                 data: data,
                 type: "POST",

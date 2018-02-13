@@ -8,4 +8,8 @@ class ToursTagsValues extends Model
 {
     protected $table = 'tours_tags_values';
 
+    public function tag() {
+        return $this->belongsTo('App\Models\ToursTags', 'tag_id');
+    }
+
 }

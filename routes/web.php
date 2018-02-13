@@ -61,14 +61,15 @@ Route::group(['middleware' => 'auth'], function () {
 
 //Route::get('pages', 'Front\PagesController@index');
 
-Route::get('tury', 'Front\ToursController@list')->name('tourList');
+/* Tour routes*/
+Route::get('{country}/{action}/{url}', 'Front\ToursController@unit')->where('url','.+--\d{3,8}');
+
+Route::get('tury/{slug2?}/{slug3?}', 'Front\ToursController@list')->name('tourList');
+Route::get('{country}/{slug2?}/{slug3?}', 'Front\ToursController@list')->where('country','russia')->name('tourCountry');
+
 Route::post('moreTours', 'Front\ToursController@getMore')->name('moreTours');
 Route::post('filterTours', 'Front\ToursController@filters')->name('filterTours');
 Route::post('getCountTours', 'Front\ToursController@getCount')->name('getCountTours');
-
-Route::get('{country}/', 'Front\ToursController@country')->where('country','russia');
-
-Route::get('{country}/{action}/{url}', 'Front\ToursController@unit')->where('url','.+--\d{3,8}');
 
 Route::post('tour/getImage', 'Front\ToursController@getImages')->name('getTourImages');
 Route::post('tour/uploadImage', 'Front\ToursController@uploadImage')->name('uploadTourImage');
