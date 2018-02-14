@@ -4,15 +4,15 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="row" itemscope itemtype="http://schema.org/Organization">
                     <div class="logo">
-                        <a href="#"><img src="/img/logo.png" alt=""></a>
+                        <a href="/"><img src="/img/logo.png" alt=""></a>
                     </div>
                     <div class="city">
                         <span>Москва</span>
-                        <div class="other-city">
-                            <span>Город 1</span>
-                            <span>Город 2</span>
-                            <span>Город 3</span>
-                        </div>
+                        {{--<div class="other-city">--}}
+                            {{--<span>Город 1</span>--}}
+                            {{--<span>Город 2</span>--}}
+                            {{--<span>Город 3</span>--}}
+                        {{--</div>--}}
                     </div>
                     <div class="phones">
                         <div class="phone">
@@ -43,9 +43,9 @@
             </div>
             <ul>
                 <li><a href="#" class="hot">Горящие туры</a></li>
-                <li><a href="#">Поиск туров</a></li>
+                <li><a href="/tury">Поиск туров</a></li>
                 <li><a href="#">Страны</a></li>
-                <li><a href="#">РОССИЯ</a></li>
+                <li><a href="/russia">РОССИЯ</a></li>
                 <li><a href="#">ЕВРОПА</a></li>
                 <li class="tablet-hide"><a href="#">Туры до 10 т.р</a></li>
                 <li class="tablet-hide"><a href="#">Виза</a></li>
@@ -77,11 +77,11 @@
                     <li><a href="#">Контакты</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Еще<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Меню 1</a></li>
-                            <li><a href="#">Меню 2</a></li>
-                            <li><a href="#">Меню 3</a></li>
-                        </ul>
+                        {{--<ul class="dropdown-menu">--}}
+                            {{--<li><a href="#">Меню 1</a></li>--}}
+                            {{--<li><a href="#">Меню 2</a></li>--}}
+                            {{--<li><a href="#">Меню 3</a></li>--}}
+                        {{--</ul>--}}
                     </li>
                 </ul>
             </div>

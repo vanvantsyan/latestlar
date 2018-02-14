@@ -1,8 +1,6 @@
 @extends('layouts.front')
 
 @section('css')
-    <link rel="stylesheet" href="{{asset('css/jquery.mCustomScrollbar.css')}}">
-    <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
     <style>
         .tour-card-text table td {
             border: 1px solid #d5d5d5;
@@ -28,7 +26,6 @@
             padding: 20px 0 0 0;
             display: inline-block;
         }
-
     </style>
 @endsection
 
@@ -79,7 +76,7 @@
                             <div class="card-slider-item">
                                 <img src="{{Gliss::tourImg($image, $tour->id)}}" alt="">
                                 <div class="card-slider-item-cont">
-                                    <a href="{{route('tourList')}}" class="back-tours-list">< Вернуться назад к
+                                    <a href="{{route('tour.list')}}" class="back-tours-list">< Вернуться назад к
                                         списку</a>
                                     <h1>{{$tour->title}}</h1>
                                     <div>

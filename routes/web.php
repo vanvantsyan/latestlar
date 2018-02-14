@@ -22,6 +22,10 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::post('upload-images', 'ImageController@uploadImages');
 
+        Route::post('saveFor', 'ImageController@saveFor')->name('image.save.for');
+        Route::post('removeImage', 'ImageController@removeImage')->name('image.remove');
+        Route::post('get-images', 'ImageController@getImages')->name('image.get');
+
         Route::resource('services', 'Admin\ServicesController');
 
         Route::get('blog/upload-images', 'Admin\BlogController@uploadImages');
@@ -56,6 +60,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('tours/parser', 'Admin\ToursController@parser');
         Route::resource('tours', 'Admin\ToursController');
 
+        Route::resource('ways', 'Admin\WaysController');
+        Route::resource('types', 'Admin\TypesController');
+
     });
 });
 
@@ -64,7 +71,8 @@ Route::group(['middleware' => 'auth'], function () {
 /* Tour routes*/
 Route::get('{country}/{action}/{url}', 'Front\ToursController@unit')->where('url','.+--\d{3,8}');
 
-Route::get('tury/{slug2?}/{slug3?}', 'Front\ToursController@list')->name('tourList');
+Route::any('tury/{slug2?}/{slug3?}', 'Front\ToursController@list')->name('tour.list');
+Route::get('russia', 'Front\ToursController@countryMain')->name('countryMain');
 Route::get('{country}/{slug2?}/{slug3?}', 'Front\ToursController@list')->where('country','russia')->name('tourCountry');
 
 Route::post('moreTours', 'Front\ToursController@getMore')->name('moreTours');

@@ -47,7 +47,7 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	$('.date-pick').datePicker().val(new Date().asString()).trigger('change');
+	// $('.date-pick').datePicker().val(new Date().asString()).trigger('change');
 
 	$(".tour-filter-tabs a").click( function () {
         $(".tour-filter-tabs a").removeClass("current");

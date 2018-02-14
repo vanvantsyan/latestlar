@@ -25,7 +25,7 @@
 @endsection
 
 @section('content')
-     <div class="wrapper tours-list-page">
+    <div class="wrapper tours-list-page">
         <div class="container">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
                 <div class="row">
@@ -52,20 +52,23 @@
                             <h1>{{$seo['pTitle']}}</h1>
                             <div class="tour-preview-desc">Компания Star Tour предлагает лучшие туры по России. <span>Только самые интересные и проверенные маршруты!</span>
                             </div>
-                            <a href="#" class="btn btn-yellow">Отправить заявку<span> на подбор тура</span></a>
+                            <a href="#" class="btn btn-yellow" data-toggle="modal" data-target="#tourOrderModal">Отправить заявку<span> на подбор тура</span></a>
                         </div>
                     </div>
+{{--{{dd($postData)}}--}}
                     @include('front.tours.modules.filters', [
                         'tourTypes' => $tourTypes,
                         'way' => isset($way) ? $way : '',
                         'point' => isset($point) ? $point : '',
                         'tag' => $tag,
+                        'postData' => $postData,
+                        'duration' => isset($duration) ? $duration : '',
                       ])
+
                     <div class="search-completed">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
-                                <div class="title">Туры по России из г. Москва, найдено: <span
-                                            id="countFound">{{$countTours}}</span></div>
+                                <div class="title">Туры по России из г. Москва, найдено: <span id="countFound">{{$countTours}}</span></div>
                                 <a href="#" class="btn sorting-btn">Кратко</a>
                                 <div class="tours-sorting mobile-hide">
                                     Сортировать по: <a href="#" data-sort="duration-desc"><span>Длительности (от большей к меньшей)</span>
@@ -219,7 +222,8 @@
                                                         <span class="tour-images-button"
                                                               data-images="{{ $tour['images'] }}"
                                                               data-tour-id="{{$tour['id']}}" data-toggle="modal"
-                                                              data-target="#tourImagesModal">Все фото ({{count($images)}})</span>
+                                                              data-target="#tourImagesModal">Все фото ({{count($images)}}
+                                                            )</span>
                                                     @endif
                                                 </a>
                                             </div>
@@ -308,7 +312,7 @@
                                 <tbody>
                                 <tr>
                                     <td style="background-color: #007cbc;">
-                                        <div class="popular-tours-item small">
+                                        <div class="popular-tours-item small" id="sendPhone">
                                             <div class="popular-tours-item-title">Подберем тур по Вашим запросам!</div>
                                             <form>
                                                 <div class="popular-item-phone">
@@ -714,6 +718,7 @@
             </div>
         </div>
     </div>
+    @include('front.tours.modal.order')
 @endsection
 
 @section('js')
@@ -722,6 +727,13 @@
     <script src="{{asset('/js/daterangepicker.js')}}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+    <script>$(function(){$('[data-toggle="tooltip"]').tooltip()})</script>
+    <script>
+        $('#sendPhone input[type=submit]').on('click', function(e){
+            e.preventDefault();
+            $('#sendPhone').html('<div class="popular-tours-item-title">Заявка отправлена</div><p>Благодарим за обращение</p>');
+        });
+    </script>
     <script>
         moment.locale('ru');
 
@@ -755,6 +767,12 @@
             @if($month)
             startDate: '{!! date('d.m.Y', strtotime("1 " . $month)) !!}',
             endDate: '{!! date('d.m.Y', strtotime("last day of " . $month)) !!}',
+            @elseif($tourDate)
+            @php
+            $datesArr = explode('-', $tourDate);
+            @endphp
+            startDate: '{{trim(head($datesArr))}}',
+            endDate: '{{trim(last($datesArr))}}',
             @else
             startDate: moment().format('DD.MM.YYYY'),
             endDate: moment().add(30, 'day').format('DD.MM.YYYY'),

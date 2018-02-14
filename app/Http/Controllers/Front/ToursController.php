@@ -456,11 +456,13 @@ class ToursController extends Controller
         // Get countries list
         $countries = Ways::where('status', 'country')->take(10)->get();
 
+        $tour = Tours::findOrFail($id);
+
         return view('front.tours.tour', [
             'seo' => [
-                'bTitle' => "{name} - бронирование тура",
-                'metaKey' => "{name}, бронирование тура, купить, цена",
-                'metaDesc' => "Забронировать тур {name} в компании СтарТур.",
+                'bTitle' => $tour->title . " - бронирование тура",
+                'metaKey' => $tour->title . ", бронирование тура, купить, цена",
+                'metaDesc' => "Забронировать тур " . $tour->title . " в компании СтарТур.",
                 'subText' => "",
             ],
 
@@ -469,7 +471,7 @@ class ToursController extends Controller
             'citiesGolden' => $citiesGolden,
             'countries' => $countries,
 
-            'tour' => Tours::findOrFail($id)
+            'tour' => $tour
         ]);
     }
 
@@ -478,6 +480,148 @@ class ToursController extends Controller
      */
     public function list($country = '', $slug2 = '', $slug3 = '', Request $request)
     {
+
+        $countryUrl = $request->route('country');
+        $country = Geo::where('slug', $countryUrl)->first();
+
+        $slug2 = $request->route('slug2');
+        $slug3 = $request->route('slug3');
+
+        // Variable for sidebar displaying
+        if ($slug3) {
+            $layer = 3;
+        } else {
+            $layer = ($slug2) ? 2 : 1;
+        }
+
+        $monthsRus = config('main.month');
+        $months = array_flip($monthsRus);
+
+        $month = $resort = $tag = $duration = $tourDate = null;
+
+        // Get form params
+        $postParams = $request->all();
+
+        if ($point = array_get($postParams, 'tourPoint', null)) {
+            $resort = Points::where('title', $point)->first();
+        }
+
+        $tourDate = array_get($postParams, 'tourDate', null);
+        $durationFrom = array_get($postParams, 'durationFrom', null);
+        $durationTo = array_get($postParams, 'durationTo', null);
+        $tourType = array_get($postParams, 'tourType', null);
+        $priceFrom = array_get($postParams, 'priceFrom', null);
+        $priceTo = array_get($postParams, 'priceTo', null);
+
+        // Set filter elements
+        foreach ([$slug2, $slug3] as $slug) {
+
+            if (preg_match('/tury-(.*)/', $slug, $match)) {
+
+                $resort = Ways::where('url', last($match))->first() ?? Points::where('url', last($match))->first();
+
+            } elseif (ToursTagsValues::with('tag')->where('value', $slug)->exists()) {
+
+                // Set var tag type
+                $tag = ToursTagsValues::with('tag')->where('value', $slug)->first();
+                $tagName = $tag->tag->title;
+                $$tagName = $tag->alias;
+
+            } elseif (preg_match('/^na-(.*)-d/', $slug, $dayCoin)) {
+                $duration = $dayCoin[1];
+                $durationUrl = $slug;
+
+            } elseif (in_array($slug, $months)) {
+                $month = $slug;
+            }
+        }
+
+        // Set seo elements
+        $seo = $this->getSeo([
+            'country' => is_object($country) ? $country->country : null,
+            'resort' => is_object($resort) ? $resort : null,
+            'tag' => is_object($tag) ? $tag : null,
+            'month' => $month ? $monthsRus[$month] : '',
+            'duration' => $duration ?? '',
+            'holiday' => $holiday ?? '',
+            'status' => $status ?? '',
+            'tour_type' => $tour_type ?? '',
+        ]);
+
+        // Get base query by tours
+        $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
+
+        // Apply filters by tours
+        $tours = $this->applyFilters($tours, [
+            'tourDate' => $tourDate ?? '',
+            'country' => is_object($country) ? $country->slug : null,
+            'resort' => is_object($resort) ? $resort : null,
+
+            'tourType' => is_object($tag) ? $tag->id : $tourType,
+
+            'darationFrom' => $durationFrom,
+            'darationTo' => $durationTo,
+
+            'priceFrom' => $priceFrom,
+            'priceTo' => $priceTo,
+
+            'duration' => $duration,
+            'month' => $month ?? ''
+        ]);
+
+        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration');
+
+        // Select count for counter
+        $countTours = $tours->count();
+        $tours->groupBy('tours.id');
+        // Get tours object list
+        $tours = $tours->take(15)->get();
+
+
+        /* — — Get values for sidebar — — */
+
+        // Get tours type
+        $tourTypes = ToursTagsValues::where('tag_id', 4)->get();
+
+        // Get cities list
+        $cities = Points::where('status', 'city')->where('off', 0)->take(10)->get();
+
+        // Get cities for "Золотое кольцо"
+        $citiesGolden = Points::with(['geoRelationSub' => function ($query) {
+            $query->where('par_id', 319)->where('par_ess', 'way');
+        }])->where('off', 0)->take(10)->get();
+
+        // Get countries list
+        $countries = Ways::where('status', 'country')->take(10)->get();
+
+        return view('front.tours.tours', [
+            'tours' => $tours->toArray(),
+
+            'tourDate' => $tourDate,
+
+            'tourTypes' => $tourTypes,
+            'countTours' => $countTours,
+            'cities' => $cities,
+            'citiesGolden' => $citiesGolden,
+            'countries' => $countries,
+
+            'country' => is_object($country) ? $country->slug : null,
+            substr(strtolower(class_basename($resort)), 0, -1) => $resort,
+            'tag' => $tag,
+
+            'month' => $month ?? '',
+            'duration' => $durationUrl ?? '',
+            'seo' => $seo,
+
+            'layer' => $layer,
+
+            'postData' => $postParams
+        ]);
+    }
+
+    public function countryMain(Request $request)
+    {
+
         $countryUrl = $request->route('country');
         $country = Geo::where('slug', $countryUrl)->first();
 
@@ -569,14 +713,39 @@ class ToursController extends Controller
         // Get countries list
         $countries = Ways::where('status', 'country')->take(10)->get();
 
-        return view('front.tours.tours', [
+        // Get countries for grid
+        $countriesGrid = Ways::whereIn('ways.id', [319,419,387,405,323])->join('geo_relation AS gr', function ($join) {
+            $join->on('gr.par_id', '=', 'ways.id')
+                ->where('gr.par_ess', '=', 'way')
+                ->where('gr.sub_ess', '=', 'tour');
+        })->join('tours', 'gr.sub_id', '=', 'tours.id')->where('tours.price', '>', 0)->select('ways.*', DB::raw('min(tours.price) as minPrice'))->groupBy('ways.id')->get()->keyBy('id');
+
+        $typesGrid = ToursTagsValues::whereIn('tours_tags_values.id', [39,25])->join('tour_tags_relations AS tr', function ($join) {
+            $join->on('tr.value', '=', 'tours_tags_values.id')
+                ->where('tr.tag_id', '=', 4);
+        })->join('tours', 'tr.tour_id', '=', 'tours.id')->where('tours.price', '>', 0)->select('tours_tags_values.*', DB::raw('min(tours.price) as minPrice'))->groupBy('tours_tags_values.id')->get()->keyBy('id');
+
+        $hotToursAny = Tours::take(8)->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')->get();
+        $hotToursOne = Tours::where('duration',1)->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')->take(8)->get();
+        $hotToursMany = Tours::where('duration','>',1)->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')->take(8)->get();
+        $hotToursActive = Tours::join('tour_tags_relations AS ttr','ttr.tour_id','=','tours.id')->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])->where('ttr.tag_id',4)->where('ttr.value',13)->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')->take(8)->get();
+
+        return view('front.tours.russia', [
             'tours' => $tours->toArray(),
+
+            'hotToursAny' => $hotToursAny->toArray(),
+            'hotToursOne' => $hotToursOne->toArray(),
+            'hotToursMany' => $hotToursMany->toArray(),
+            'hotToursActive' => $hotToursActive->toArray(),
 
             'tourTypes' => $tourTypes,
             'countTours' => $countTours,
             'cities' => $cities,
             'citiesGolden' => $citiesGolden,
             'countries' => $countries,
+
+            'countriesGrid' => $countriesGrid,
+            'typesGrid' => $typesGrid,
 
             'country' => is_object($country) ? $country->slug : null,
             substr(strtolower(class_basename($resort)), 0, -1) => $resort,
@@ -843,7 +1012,6 @@ class ToursController extends Controller
         } else {
             return response()->json(['error' => 'images not saved', 'success' => 0]);
         }
-
 
     }
 

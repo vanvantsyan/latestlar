@@ -8,7 +8,7 @@
             </div>
 
             <div itemscope itemtype="http://star.glissmedia.ru/Breadcrumb">
-                <a href="{{route('tourList')}}" itemprop="url">
+                <a href="{{route('tour.list')}}" itemprop="url">
                     <span itemprop="title">Поиск тура</span>
                 </a>
             </div>

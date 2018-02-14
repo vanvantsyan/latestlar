@@ -181,7 +181,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         App\Providers\BlogServiceProvider::class,
         Alexusmai\Ruslug\RuslugServiceProvider::class,
-
+        Jenssegers\Date\DateServiceProvider::class,
 
     ],
 
@@ -239,7 +239,7 @@ return [
         'Blog' => App\Facades\BlogFacade::class,
         'Slug' => Alexusmai\Ruslug\RuslugFacade::class,
         'Gliss' => App\Helpers\BladeHelper::class,
-
+        'Date' => Jenssegers\Date\Date::class,
     ],
 
 ];

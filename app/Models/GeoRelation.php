@@ -11,7 +11,7 @@ class GeoRelation extends Model
 
     public function tours()
     {
-        return $this->belongsTo('App\Models\Tours', 'id', 'sub_id');
+        return $this->belongsTo('App\Models\Tours', 'sub_id', 'id')->min('price');
     }
 
     public function pointsPar()
@@ -22,6 +22,10 @@ class GeoRelation extends Model
     public function waysPar()
     {
         return $this->belongsTo('App\Models\Ways', 'par_id', 'id');
+    }
+
+    public function minPrice(){
+        return $this->tours()->min('price');
     }
 
 
