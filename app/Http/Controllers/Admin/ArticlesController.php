@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\TourHelper;
-use App\Models\News;
-use App\Models\NewsCategories;
+use App\Models\Articles;
+use App\Models\ArticlesCategories;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
-class NewsController extends Controller
+class ArticlesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +18,10 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::select('id','title','slug')->get();
-        return view('admin.news.index', [
-            'news' => $news
+        $units = Articles::select('id','title','slug')->get();
+
+        return view('admin.articles.index', [
+            'units' => $units
         ]);
     }
 
@@ -31,9 +32,11 @@ class NewsController extends Controller
      */
     public function create()
     {
-        $categories = NewsCategories::all();
-        return view('admin.news.news_form', [
-            'categories' => $categories
+        $categories = ArticlesCategories::all();
+        $lastId = Articles::orderBy('id', 'desc')->first();
+        return view('admin.articles.form', [
+            'categories' => $categories,
+            'lastId' => $lastId['id'] ?? 0,
         ]);
     }
 
@@ -48,15 +51,19 @@ class NewsController extends Controller
         $data = $request->all();
         unset($data['_token']);
         unset($data['files']);
+//        $data['image'] = Session::pull('upload_image');
 
+        // Set url by title if slug not exist
         if(empty($data['slug'])) {
             $data['slug'] = TourHelper::all2url($data['title']);
         }
 
-        $data['image'] = Session::pull('upload_image');
-        News::insert($data);
-        return redirect('admin/news')
-                ->with('message', 'Новость "'.$request->get('title').'"успешно добавлена');
+        $data['description'] = trim($data['description']);
+        $data['text'] = trim($data['text']);
+
+        $id = Articles::insertGetId($data);
+        return redirect('admin/articles/' . $id . '/edit')
+                ->with('message', 'Статья "'.$request->get('title').'"успешно добавлена');
     }
 
     /**
@@ -82,9 +89,9 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        $item = News::find($id);
-        $categories = NewsCategories::all();
-        return view('admin.news.news_form', [
+        $item = Articles::find($id);
+        $categories = ArticlesCategories::all();
+        return view('admin.articles.form', [
             'categories' => $categories,
             'item' => $item
         ]);
@@ -100,12 +107,16 @@ class NewsController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+        $data['description'] = trim($data['description']);
+        $data['text'] = trim($data['text']);
+
         unset($data['_token']);
         unset($data['_method']);
         unset($data['files']);
-        News::where('id', $request->get('id'))->update($data);
-        return redirect('admin/news')
-            ->with('message', 'Новость "' . $request->get('title') . '"успешно обновлена');
+
+        Articles::where('id', $id)->update($data);
+        return redirect('admin/articles')
+            ->with('message', 'Статья "' . $request->get('title') . '"успешно обновлена');
     }
 
     /**
@@ -122,8 +133,8 @@ class NewsController extends Controller
 
     public function delete($request){
 
-        News::where('id', $request->get('id'))->delete();
-        return redirect('admin/news')
+        Articles::where('id', $request->get('id'))->delete();
+        return redirect('admin/Articles')
             ->with('message', 'Новость успешно удалена');
 
     }
@@ -131,8 +142,8 @@ class NewsController extends Controller
 
     public function categories()
     {
-        $categories = NewsCategories::all();
-        return view('admin.news.categories', [
+        $categories = ArticlesCategories::all();
+        return view('admin.Articles.categories', [
             'categories' => $categories
         ]);
 
@@ -141,23 +152,23 @@ class NewsController extends Controller
 
     public function createCategory(){
 
-        return view('admin.news.category_form');
+        return view('admin.Articles.category_form');
 
     }
 
 
     public function saveCategory(Request $request)
     {
-        NewsCategories::create($request->all());
-        return redirect('admin/news/categories')
+        ArticlesCategories::create($request->all());
+        return redirect('admin/Articles/categories')
             ->with('message', 'Категория "'.$request->get('title').'" успешно создана');
     }
 
 
     public function editCategory($id){
 
-        $category = NewsCategories::find($id);
-        return view('admin.news.category_form', [
+        $category = ArticlesCategories::find($id);
+        return view('admin.Articles.category_form', [
             'category' => $category
         ]);
 
@@ -170,8 +181,8 @@ class NewsController extends Controller
         unset($data['_token']);
         unset($data['id']);
         unset($data['files']);
-        NewsCategories::where('id', $request->get('id'))->update($data);
-        return redirect('admin/news/categories')
+        ArticlesCategories::where('id', $request->get('id'))->update($data);
+        return redirect('admin/Articles/categories')
             ->with('message', 'Категория "'.$request->get('title').'" успешно обновлена');
 
     }
@@ -179,8 +190,8 @@ class NewsController extends Controller
 
     public function deleteCategory(Request $request){
 
-        NewsCategories::where('id', $request->get('id'))->delete();
-        return redirect('admin/news/categories')
+        ArticlesCategories::where('id', $request->get('id'))->delete();
+        return redirect('admin/Articles/categories')
             ->with('message', 'Категория успешно удалена');
 
     }

@@ -62,6 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('ways', 'Admin\WaysController');
         Route::resource('types', 'Admin\TypesController');
+        Route::resource('articles', 'Admin\ArticlesController');
 
     });
 });
@@ -72,7 +73,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('{country}/{action}/{url}', 'Front\ToursController@unit')->where('url','.+--\d{3,8}');
 
 Route::any('tury/{slug2?}/{slug3?}', 'Front\ToursController@list')->name('tour.list');
-Route::get('russia', 'Front\ToursController@countryMain')->name('countryMain');
+Route::get('{country}', 'Front\ToursController@countryMain')->name('countryMain');
 Route::get('{country}/{slug2?}/{slug3?}', 'Front\ToursController@list')->where('country','russia')->name('tourCountry');
 
 Route::post('moreTours', 'Front\ToursController@getMore')->name('moreTours');

@@ -70,7 +70,7 @@ class ImageController extends Controller
         $imgObj->save($folderThumbPath . '/' . $imageName, 75);
 
         $images = json_decode($unit->images);
-        $imagesList = count($images) ? get_object_vars($images) : [];
+        $imagesList = count($images) ? $images : [];
         $imagesList[] = $imageName;
 
         $unit->images = json_encode($imagesList);

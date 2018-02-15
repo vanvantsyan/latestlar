@@ -26,7 +26,7 @@ class GeoController extends Controller
      */
     public function index()
     {
-        $countries = $this->model->all();
+        $countries = $this->model->select('id','country','slug')->get();
         return view('admin.geo.index', [
             'countries' => $countries
         ]);
@@ -93,7 +93,8 @@ class GeoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateCountry($request);
+//        $this->validateCountry($request);
+
         $this->model->updateCountry($id, $request->all());
         return redirect('admin/geo')->with('message', 'Country "' . $request->get('country') . '" has been updated');
     }

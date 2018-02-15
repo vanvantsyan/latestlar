@@ -23,6 +23,12 @@
                 </a>
             </li>
             <li class="m-menu__item" aria-haspopup="true">
+                <a href="{{url('admin/articles')}}" class="m-menu__link">
+                    <i class="m-menu__link-icon flaticon-list-3"></i>
+                    <span class="m-menu__link-text">Статьи</span>
+                </a>
+            </li>
+            <li class="m-menu__item" aria-haspopup="true">
                 <a href="{{url('admin/blog')}}" class="m-menu__link">
                     <i class="m-menu__link-icon flaticon-profile"></i>
                     <span class="m-menu__link-text">Блог</span>

@@ -36,6 +36,20 @@ class TourHelper
         return $str;
     }
 
+    public static function all2url($text)
+    {
+        if (strlen($text) < 50) {
+            $url = $text;
+        } else {
+            if (preg_match('/^(.+?)\(/iu', $text, $match)) {
+                $url = $match[1];
+            } else {
+                $url = $text;
+            }
+        }
+        return self::str2url($url);
+    }
+
     public static function tour2url($tourTitle, $tourId)
     {
         if (strlen($tourTitle) < 50) {

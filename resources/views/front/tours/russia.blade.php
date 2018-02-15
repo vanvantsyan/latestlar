@@ -11,6 +11,14 @@
             background-color: rgb(66, 176, 235);
             background-repeat: repeat;
         }
+
+        .poular-category-item-img {
+            overflow: hidden;
+        }
+
+        .subscription form {
+            color: #0f0f0f;
+        }
     </style>
 @endsection
 
@@ -247,7 +255,8 @@
                                                             @php
                                                                 $images = (array) json_decode($tour['images']);
                                                             @endphp
-                                                            <img src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}" alt="">
+                                                            <img src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
+                                                                 alt="">
                                                             @if($tour['price'] > 0)
                                                                 <span>от {{number_format($tour['price'], 0 ,'.','')}}
                                                                     <span
@@ -286,7 +295,8 @@
                                                             @php
                                                                 $images = (array) json_decode($tour['images']);
                                                             @endphp
-                                                            <img src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}" alt="">
+                                                            <img src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
+                                                                 alt="">
                                                             @if($tour['price'] > 0)
                                                                 <span>от {{number_format($tour['price'], 0 ,'.','')}}
                                                                     <span
@@ -325,7 +335,8 @@
                                                             @php
                                                                 $images = (array) json_decode($tour['images']);
                                                             @endphp
-                                                            <img src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}" alt="">
+                                                            <img src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
+                                                                 alt="">
                                                             @if($tour['price'] > 0)
                                                                 <span>от {{number_format($tour['price'], 0 ,'.','')}}
                                                                     <span
@@ -364,7 +375,8 @@
                                                             @php
                                                                 $images = (array) json_decode($tour['images']);
                                                             @endphp
-                                                            <img src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}" alt="">
+                                                            <img src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
+                                                                 alt="">
                                                             @if($tour['price'] > 0)
                                                                 <span>от {{number_format($tour['price'], 0 ,'.','')}}
                                                                     <span
@@ -394,7 +406,8 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <a target="_blank" href="http://startour.ru/goryashhie-turyi/" class="btn-more-tours">Показать еще больше горящих туров</a>
+                                    <a target="_blank" href="http://startour.ru/goryashhie-turyi/"
+                                       class="btn-more-tours">Показать еще больше горящих туров</a>
                                 </div>
                             </div>
                         </div>
@@ -405,84 +418,26 @@
                                 <h2>Заметки для путешественников по России</h2>
                                 <div class="tours-notes-items-wrap">
                                     <div class="tours-notes-items">
-                                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="row">
-                                                <a href="#" class="tours-notes-item">
-                                                    <div class="tours-notes-item-img"><img
-                                                                src="img/tours-notes-item-1.jpg" alt=""></div>
-                                                    <div class="tours-notes-item-cont">
-                                                        <b>Как не опоздать на поезд?</b>
-                                                        <p>В этой статье мы поделимся с Вами секретом о том, как быстро
-                                                            собраться в дорогу</p>
-                                                    </div>
-                                                </a>
+                                        @foreach($articles as $article)
+                                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                                <div class="row">
+                                                    <a href="#" class="tours-notes-item">
+                                                        @php
+                                                            $images = json_decode($article->images);
+                                                        @endphp
+                                                        <div class="tours-notes-item-img">
+                                                            @if(count($images))
+                                                                <img src="/img/articles/thumbs/{{head($images)}}"
+                                                                     alt=""></div>
+                                                        @endif
+                                                        <div class="tours-notes-item-cont">
+                                                            <b>{{$article->title}}</b>
+                                                            <p>{!! Str::words($article['description'], 10,'...') !!}</p>
+                                                        </div>
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="row">
-                                                <a href="#" class="tours-notes-item">
-                                                    <div class="tours-notes-item-img"><img
-                                                                src="img/tours-notes-item-2.jpg" alt=""></div>
-                                                    <div class="tours-notes-item-cont">
-                                                        <b>Как не опоздать на поезд?</b>
-                                                        <p>В этой статье мы поделимся с Вами секретом о том, как быстро
-                                                            собраться в дорогу</p>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="row">
-                                                <a href="#" class="tours-notes-item">
-                                                    <div class="tours-notes-item-img"><img
-                                                                src="img/tours-notes-item-3.jpg" alt=""></div>
-                                                    <div class="tours-notes-item-cont">
-                                                        <b>Как не опоздать на поезд?</b>
-                                                        <p>В этой статье мы поделимся с Вами секретом о том, как быстро
-                                                            собраться в дорогу</p>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="row">
-                                                <a href="#" class="tours-notes-item">
-                                                    <div class="tours-notes-item-img"><img
-                                                                src="img/tours-notes-item-1.jpg" alt=""></div>
-                                                    <div class="tours-notes-item-cont">
-                                                        <b>Как не опоздать на поезд?</b>
-                                                        <p>В этой статье мы поделимся с Вами секретом о том, как быстро
-                                                            собраться в дорогу</p>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="row">
-                                                <a href="#" class="tours-notes-item">
-                                                    <div class="tours-notes-item-img"><img
-                                                                src="img/tours-notes-item-2.jpg" alt=""></div>
-                                                    <div class="tours-notes-item-cont">
-                                                        <b>Как не опоздать на поезд?</b>
-                                                        <p>В этой статье мы поделимся с Вами секретом о том, как быстро
-                                                            собраться в дорогу</p>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="row">
-                                                <a href="#" class="tours-notes-item">
-                                                    <div class="tours-notes-item-img"><img
-                                                                src="img/tours-notes-item-3.jpg" alt=""></div>
-                                                    <div class="tours-notes-item-cont">
-                                                        <b>Как не опоздать на поезд?</b>
-                                                        <p>В этой статье мы поделимся с Вами секретом о том, как быстро
-                                                            собраться в дорогу</p>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                     <a href="#" class="btn-more-tours">Показать еще больше советов</a>
                                 </div>
@@ -494,78 +449,24 @@
                             <div class="row">
                                 <div class="title">Популярные категории</div>
                                 <div class="popular-category-items">
-                                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
-                                        <div class="row">
-                                            <a href="#" class="poular-category-item">
-                                                <div class="poular-category-item-img"><img
-                                                            src="img/poular-category-item-1.png" alt=""></div>
-                                                <span>Русские усадьбы</span>
-                                            </a>
+                                    @foreach($tourCategories as $category)
+                                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                                            <div class="row">
+                                                <a href="#" class="poular-category-item">
+                                                    @php
+                                                        $images = json_decode($category->images);
+                                                    @endphp
+                                                    <div class="poular-category-item-img">
+                                                        @if(count($images))
+                                                            <img src="/img/tourstagsvalues/full/{{last($images)}}"
+                                                                 alt="">
+                                                        @endif
+                                                    </div>
+                                                    <span>{{$category->alias}}</span>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
-                                        <div class="row">
-                                            <a href="#" class="poular-category-item">
-                                                <div class="poular-category-item-img"><img
-                                                            src="img/poular-category-item-2.png" alt=""></div>
-                                                <span>Народные промыслы</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
-                                        <div class="row">
-                                            <a href="#" class="poular-category-item">
-                                                <div class="poular-category-item-img"><img
-                                                            src="img/poular-category-item-3.png" alt=""></div>
-                                                <span>Религиозные экскурсии</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
-                                        <div class="row">
-                                            <a href="#" class="poular-category-item">
-                                                <div class="poular-category-item-img"><img
-                                                            src="img/poular-category-item-4.png" alt=""></div>
-                                                <span>Это интересно детям</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
-                                        <div class="row">
-                                            <a href="#" class="poular-category-item">
-                                                <div class="poular-category-item-img"><img
-                                                            src="img/poular-category-item-1.png" alt=""></div>
-                                                <span>Русские усадьбы</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
-                                        <div class="row">
-                                            <a href="#" class="poular-category-item">
-                                                <div class="poular-category-item-img"><img
-                                                            src="img/poular-category-item-2.png" alt=""></div>
-                                                <span>Народные промыслы</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
-                                        <div class="row">
-                                            <a href="#" class="poular-category-item">
-                                                <div class="poular-category-item-img"><img
-                                                            src="img/poular-category-item-3.png" alt=""></div>
-                                                <span>Религиозные экскурсии</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
-                                        <div class="row">
-                                            <a href="#" class="poular-category-item">
-                                                <div class="poular-category-item-img"><img
-                                                            src="img/poular-category-item-4.png" alt=""></div>
-                                                <span>Это интересно детям</span>
-                                            </a>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -574,15 +475,10 @@
             </div>
             <div class="clear"></div>
             <div class="seo-txt">
-                <h2>SEO текст для раздела о России</h2>
-                <p>Золотое Кольцо России - это маршрут, раскрывающий красоту древней Руси, который был разработан для
-                    тех, кто желает познакомиться с нашей страной. Это настоящая энциклопедия архитектурных ценностей. В
-                    туры по Золотому кольцу входят путешествия по восьми основным городам Российской Федерации:
-                    Владимир, Суздаль, Сергиев Посад, Переславль-Залесский, Ростов Великий, Ярославль, Кострома,
-                    Иваново.</p>
-                <div class="seo-txt-more">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit
-                    expedita nemo voluptatibus nesciunt blanditiis totam, aut, quod optio quisquam, quia minus eligendi.
-                    Blanditiis minus, facilis assumenda molestiae fuga adipisci mollitia.
+                <h2>О стране</h2>
+                {!! Str::words($country->description, 50, '...') !!}
+                <div class="seo-txt-more">
+                    {!! $country->description !!}
                 </div>
                 <a href="#" class="seo-txt-btn">Больше информации</a>
             </div>
@@ -593,8 +489,9 @@
                 <form>
                     <select>
                         <option>Все страны</option>
-                        <option>Страна 1</option>
-                        <option>Страна 2</option>
+                        @foreach($countries as $country)
+                            <option>{!! $country->title !!}</option>
+                        @endforeach
                     </select>
                     <input type="email" placeholder="Ваша электронная почта">
                     <input class="btn btn-blue" type="submit" value="Подписаться">
@@ -628,26 +525,12 @@
                         <div class="news-company">
                             <div class="info-company-title">Новости компании</div>
                             <div class="news-company-items">
-                                <a href="#" class="news-company-item">
-                                    <b>12.12.2017</b>
-                                    <span>Новые правила провоза багажа...</span>
-                                </a>
-                                <a href="#" class="news-company-item">
-                                    <b>12.12.2017</b>
-                                    <span>В какие страны можно поехать без визы?</span>
-                                </a>
-                                <a href="#" class="news-company-item">
-                                    <b>12.12.2017</b>
-                                    <span>Куда поехать в ноябре?</span>
-                                </a>
-                                <a href="#" class="news-company-item">
-                                    <b>12.12.2017</b>
-                                    <span>Как не попасться на уловки мошенников?</span>
-                                </a>
-                                <a href="#" class="news-company-item">
-                                    <b>12.12.2017</b>
-                                    <span>Куда поехать в ноябре?</span>
-                                </a>
+                                @foreach($news as $new)
+                                    <a href="#" class="news-company-item">
+                                        <b>12.12.2017</b>
+                                        <span>{{$new->title}}</span>
+                                    </a>
+                                @endforeach
                             </div>
                             <a href="#">Посмотреть все новости</a>
                         </div>
@@ -696,13 +579,11 @@
                                     <div class="sitemap-item">
                                         <div class="title">Горящие туры</div>
                                         <ul>
-                                            <li><a href="#">Греция от 15100Р</a></li>
-                                            <li><a href="#">Хорватия от 15100Р</a></li>
-                                            <li><a href="#">Санкт-Петербург от 15100Р</a></li>
-                                            <li><a href="#">Прага от 15100Р</a></li>
-                                            <li><a href="#">Доминикана от 15100Р</a></li>
-                                            <li><a href="#">Париж от 15100Р</a></li>
-                                            <li><a class="link-blue" href="#">Все варианты</a></li>
+                                            @foreach($hotWays as $hotway)
+                                                <li><a href="/{{$hotway->url}}">{{Str::words($hotway->title, 2, '...')}} от {{$hotway->minPrice}} Р</a></li>
+                                            @endforeach
+
+                                            <li><a class="link-blue" href="http://startour.ru/goryashhie-turyi/">Все варианты</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -890,7 +771,7 @@
             });
 
             // Add data to params array
-            filters['country'] = '{{ $country or ""}}';
+            filters['country'] = '{{ $country->slug or ""}}';
             filters['sort'] = $('.tours-sorting a:first').attr('data-sort');
 
             $.ajax({
@@ -934,7 +815,7 @@
 
             // Add data to params array
             data.push(
-                {name: 'country', value: '{{ $country or ""}}'},
+                {name: 'country', value: '{{ $country->slug or ""}}'},
                 {name: 'sort', value: $('.tours-sorting-items a:first').attr('data-sort')}
             );
 
@@ -997,7 +878,7 @@
 
             // Add data to params array
             data.push(
-                {name: 'country', value: '{{ $country or ""}}'},
+                {name: 'country', value: '{{ $country->slug or ""}}'},
                 {name: 'sort', value: $(this).attr('data-sort')}
             );
 

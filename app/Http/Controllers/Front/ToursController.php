@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Models\Articles;
+use App\Models\ArticlesCategories;
 use App\Models\Geo;
+use App\Models\News;
 use App\Models\Points;
 use App\Models\Ways;
 use App\Models\Tours;
@@ -619,9 +622,8 @@ class ToursController extends Controller
         ]);
     }
 
-    public function countryMain(Request $request)
+    public function countryMain(Request $request, $country)
     {
-
         $countryUrl = $request->route('country');
         $country = Geo::where('slug', $countryUrl)->first();
 
@@ -639,7 +641,6 @@ class ToursController extends Controller
         $months = array_flip($monthsRus);
 
         $month = $resort = $tag = $duration = null;
-
 
         // Set filter elements
         foreach ([$slug2, $slug3] as $slug) {
@@ -725,10 +726,27 @@ class ToursController extends Controller
                 ->where('tr.tag_id', '=', 4);
         })->join('tours', 'tr.tour_id', '=', 'tours.id')->where('tours.price', '>', 0)->select('tours_tags_values.*', DB::raw('min(tours.price) as minPrice'))->groupBy('tours_tags_values.id')->get()->keyBy('id');
 
+        // Горячие туры
         $hotToursAny = Tours::take(8)->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')->get();
         $hotToursOne = Tours::where('duration',1)->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')->take(8)->get();
         $hotToursMany = Tours::where('duration','>',1)->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')->take(8)->get();
         $hotToursActive = Tours::join('tour_tags_relations AS ttr','ttr.tour_id','=','tours.id')->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])->where('ttr.tag_id',4)->where('ttr.value',13)->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')->take(8)->get();
+
+        // Статьи для списка
+        $articles = Articles::take(3)->orderBy('id', 'DESC')->get();
+
+        // Типы туров для списка
+        $tourCategories = ToursTagsValues::whereIn('id', [19,25,30,24])->where('tag_id', 4)->get();
+
+        // News
+        $news = News::take(6)->get();
+
+        // Hot ways
+        $hotWays = Ways::join('geo_relation AS gr', function ($join) {
+            $join->on('gr.par_id', '=', 'ways.id')
+                ->where('gr.par_ess', '=', 'way')
+                ->where('gr.sub_ess', '=', 'tour');
+        })->join('tours', 'gr.sub_id', '=', 'tours.id')->where('tours.price', '>', 0)->where('ways.status','country')->select('ways.*', DB::raw('min(tours.price) as minPrice'))->groupBy('ways.id')->take(6)->get()->keyBy('id');
 
         return view('front.tours.russia', [
             'tours' => $tours->toArray(),
@@ -737,6 +755,12 @@ class ToursController extends Controller
             'hotToursOne' => $hotToursOne->toArray(),
             'hotToursMany' => $hotToursMany->toArray(),
             'hotToursActive' => $hotToursActive->toArray(),
+
+            'articles' => $articles,
+            'tourCategories' => $tourCategories,
+            'news' => $news,
+
+            'hotWays' => $hotWays,
 
             'tourTypes' => $tourTypes,
             'countTours' => $countTours,
@@ -747,7 +771,7 @@ class ToursController extends Controller
             'countriesGrid' => $countriesGrid,
             'typesGrid' => $typesGrid,
 
-            'country' => is_object($country) ? $country->slug : null,
+            'country' => is_object($country) ? $country : null,
             substr(strtolower(class_basename($resort)), 0, -1) => $resort,
             'tag' => $tag,
 
