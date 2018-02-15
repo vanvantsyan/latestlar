@@ -11,9 +11,36 @@
 |
 */
 Route::get('/', 'Front\FrontController@index');
-    Auth::routes();
+Auth::routes();
 
 Route::get('logout', 'Auth\LoginController@logout');
+
+View::composer(
+    'front.tours.modules.hotWays', function ($view) {
+    $view->with('hotWays', App\Models\Ways::hotWays());
+}
+);
+
+View::composer(
+    'front.modules.infoCompany', function ($view) {
+    $view->with('news', App\Models\News::take(6)->get());
+}
+);
+View::composer(
+    'front.modules.subscription', function ($view) {
+    $view->with('countries', App\Models\Ways::where('status', 'country')->get());
+}
+);
+View::composer(
+    'front.tours.modules.popularTypes', function ($view) {
+    $view->with('tourCategories', App\Models\ToursTagsValues::whereIn('id', [19, 25, 30, 24])->where('tag_id', 4)->get());
+}
+);
+View::composer(
+    'front.tours.modules.articles', function ($view) {
+    $view->with('articles', App\Models\Articles::take(3)->orderBy('id', 'DESC')->get());
+}
+);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'isAdmin', 'prefix' => 'admin'], function () {
@@ -70,11 +97,12 @@ Route::group(['middleware' => 'auth'], function () {
 //Route::get('pages', 'Front\PagesController@index');
 
 /* Tour routes*/
-Route::get('{country}/{action}/{url}', 'Front\ToursController@unit')->where('url','.+--\d{3,8}');
+Route::get('{country}/{action}/{url}', 'Front\ToursController@unit')->where('url', '.+--\d{3,8}');
+Route::get('{country}/{url}', 'Front\ToursController@unitCountry')->where('url', '.+--\d{3,8}');
 
 Route::any('tury/{slug2?}/{slug3?}', 'Front\ToursController@list')->name('tour.list');
 Route::get('{country}', 'Front\ToursController@countryMain')->name('countryMain');
-Route::get('{country}/{slug2?}/{slug3?}', 'Front\ToursController@list')->where('country','russia')->name('tourCountry');
+Route::get('{country}/{slug2?}/{slug3?}', 'Front\ToursController@list')->where('country', 'russia')->name('tourCountry');
 
 Route::post('moreTours', 'Front\ToursController@getMore')->name('moreTours');
 Route::post('filterTours', 'Front\ToursController@filters')->name('filterTours');

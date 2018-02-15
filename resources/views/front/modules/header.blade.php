@@ -50,7 +50,7 @@
                 <li class="tablet-hide"><a href="#">Туры до 10 т.р</a></li>
                 <li class="tablet-hide"><a href="#">Виза</a></li>
                 <li class="tablet-hide"><a href="#">Круизы</a></li>
-                <li class="tablet-hide"><a href="#">Событийные туры</a></li>
+                <li class="tablet-hide"><a href="/tury/sobytiya">Событийные туры</a></li>
                 <li><a href="#">Акции</a></li>
                 <li class="desk-hide"><a href="#">Контакты</a></li>
                 <li class="dropdown tablet-hide">

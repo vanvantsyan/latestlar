@@ -112,9 +112,10 @@ class BladeHelper
                     $daysCount = 1;
 
                     foreach ($table->find('tr') as $tr) {
-
-                        $data['tourDays'][$daysCount] = $tr->find('td', 1)->innertext();
-                        $daysCount++;
+                        if ($tr->find('td', 1)) {
+                            $data['tourDays'][$daysCount] = $tr->find('td', 1)->innertext();
+                            $daysCount++;
+                        }
 
                     }
 
@@ -142,8 +143,8 @@ class BladeHelper
             }
         }
 
-
-        $data['rest'] = self::removeTags(['span', 'span', 'br'], $descBlock->innertext);
+        if ($descBlock)
+            $data['rest'] = self::removeTags(['span', 'span', 'br'], $descBlock->innertext);
 
 
         return $data;
