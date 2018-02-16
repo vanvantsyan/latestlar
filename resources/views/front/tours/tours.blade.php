@@ -471,218 +471,24 @@
                         <a href="#" class="btn-more-tours">Показать еще туры</a>
                     </div>
 
-                    @include('front.tours.modules.notes')
-                    @include('front.tours.modules.category')
+                    @include('front.tours.modules.articles')
+                    @include('front.tours.modules.popularTypes')
 
                 </div>
             </div>
             <div class="clear"></div>
             <div class="seo-txt">
-                <h2>SEO текст для раздела о России</h2>
-                <p>Золотое Кольцо России - это маршрут, раскрывающий красоту древней Руси, который был разработан для
-                    тех, кто желает познакомиться с нашей страной. Это настоящая энциклопедия архитектурных ценностей. В
-                    туры по Золотому кольцу входят путешествия по восьми основным городам Российской Федерации:
-                    Владимир, Суздаль, Сергиев Посад, Переславль-Залесский, Ростов Великий, Ярославль, Кострома,
-                    Иваново.</p>
-                <div class="seo-txt-more">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit
-                    expedita nemo voluptatibus nesciunt blanditiis totam, aut, quod optio quisquam, quia minus eligendi.
-                    Blanditiis minus, facilis assumenda molestiae fuga adipisci mollitia.
+                <h2>Подбор туров</h2>
+                <p>Бронирование туров онлайн: быстро и дешево. Подбор отличных туров от всех туроператоров на сайте Стартур.</p>
+                <div class="seo-txt-more">Распродажа горящих туров с вылетом из Москвы. Поиск цены на горящие туры всех туроператоров. Каталог горящих путёвок!
                 </div>
                 <a href="#" class="seo-txt-btn">Больше информации</a>
             </div>
         </div>
-        <div class="subscription">
-            <div class="container">
-                <div class="subscription-title">Получайте лучшие предложения по цене на почту!</div>
-                <form>
-                    <select>
-                        <option>Все страны</option>
-                        <option>Страна 1</option>
-                        <option>Страна 2</option>
-                    </select>
-                    <input type="email" placeholder="Ваша электронная почта">
-                    <input class="btn btn-blue" type="submit" value="Подписаться">
-                </form>
-            </div>
-        </div>
-        <div class="info-company">
-            <div class="container">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7">
-                    <div class="row">
-                        <div class="about-company">
-                            <div class="info-company-title">Информация о компании</div>
-                            <p>"СтарТур" - одно из популярных туристических агенств, ежедневно помогающее людям в
-                                подборе и бронировании туров, авиабилетов, трансферов, экскурсий и круизов. В месяц мы
-                                обслуживаем свыше 4000 клиентов.</p>
-                            <p>Наша главная задача - сэкономить ваши деньги и обеспечить вас наилучшим отдыхом.</p>
-                            <p><b>За 14 лет плодотворной работы мы смогли:</b></p>
-                            <ul>
-                                <li>Накопить свыше 500 корпоративных клиентов;</li>
-                                <li>Принять в штат 40 сотрудников;</li>
-                                <li>Заполучить более сотни партнеров в России и Европе.</li>
-                            </ul>
-                            <p>Мы с первого дня совершенствуемся, накапливаем опыт и принимаем активное участие в
-                                различных мероприятиях. Наши дипломы и награды говорят о наших достижениях и высоком
-                                качестве предоставлямых услуг.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5">
-                    <div class="row">
-                        <div class="news-company">
-                            <div class="info-company-title">Новости компании</div>
-                            <div class="news-company-items">
-                                <a href="#" class="news-company-item">
-                                    <b>12.12.2017</b>
-                                    <span>Новые правила провоза багажа...</span>
-                                </a>
-                                <a href="#" class="news-company-item">
-                                    <b>12.12.2017</b>
-                                    <span>В какие страны можно поехать без визы?</span>
-                                </a>
-                                <a href="#" class="news-company-item">
-                                    <b>12.12.2017</b>
-                                    <span>Куда поехать в ноябре?</span>
-                                </a>
-                                <a href="#" class="news-company-item">
-                                    <b>12.12.2017</b>
-                                    <span>Как не попасться на уловки мошенников?</span>
-                                </a>
-                                <a href="#" class="news-company-item">
-                                    <b>12.12.2017</b>
-                                    <span>Куда поехать в ноябре?</span>
-                                </a>
-                            </div>
-                            <a href="#">Посмотреть все новости</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="partners">
-            <div class="container">
-                <div class="partners-items">
-                    <div class="col-xs-6 col-sm-1-5 col-md-1-5 col-lg-1-5">
-                        <div class="row">
-                            <div class="partners-item"><img src="/img/partners-item-1.jpg" alt=""></div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-1-5 col-md-1-5 col-lg-1-5">
-                        <div class="row">
-                            <div class="partners-item"><img src="/img/partners-item-2.jpg" alt=""></div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-1-5 col-md-1-5 col-lg-1-5">
-                        <div class="row">
-                            <div class="partners-item"><img src="/img/partners-item-3.jpg" alt=""></div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-1-5 col-md-1-5 col-lg-1-5">
-                        <div class="row">
-                            <div class="partners-item"><img src="/img/partners-item-4.jpg" alt=""></div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-1-5 col-md-1-5 col-lg-1-5">
-                        <div class="row">
-                            <div class="partners-item"><img src="/img/partners-item-5.jpg" alt=""></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="sitemap">
-            <div class="container">
-                <div class="sitemap-items">
-                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4-5">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                                <div class="row">
-                                    <div class="sitemap-item">
-                                        <div class="title">Горящие туры</div>
-                                        <ul>
-                                            <li><a href="#">Греция от 15100Р</a></li>
-                                            <li><a href="#">Хорватия от 15100Р</a></li>
-                                            <li><a href="#">Санкт-Петербург от 15100Р</a></li>
-                                            <li><a href="#">Прага от 15100Р</a></li>
-                                            <li><a href="#">Доминикана от 15100Р</a></li>
-                                            <li><a href="#">Париж от 15100Р</a></li>
-                                            <li><a class="link-blue" href="#">Все варианты</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                                <div class="row">
-                                    <div class="sitemap-item">
-                                        <div class="title">Поиск тура</div>
-                                        <ul>
-                                            <li><a class="link-blue" href="#">Поиск по стране</a></li>
-                                            <li><a class="link-blue" href="#">Поиск по категории</a></li>
-                                            <li><a href="#">Визовые вопросы</a></li>
-                                            <li><a href="#">Страхование</a></li>
-                                            <li><a href="#">Трансферы</a></li>
-                                            <li><a href="#">Экскурсии</a></li>
-                                            <li><a href="#">Круизы</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                                <div class="row">
-                                    <div class="sitemap-item">
-                                        <div class="title">Для клиентов</div>
-                                        <ul>
-                                            <li><a href="#">Вопросы и ответы</a></li>
-                                            <li><a href="#">Способы оплаты</a></li>
-                                            <li><a href="#">Рассрочка и кредит</a></li>
-                                            <li><a href="#">Советы туристу</a></li>
-                                            <li><a href="#">Бонусная программа</a></li>
-                                            <li><a href="#">Подарочные сертификаты</a></li>
-                                            <li><a href="#">О нас</a></li>
-                                            <li><a href="#">Акции</a></li>
-                                            <li><a href="#">Отзывы</a></li>
-                                            <li><a href="#">Контакты</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                                <div class="row">
-                                    <div class="sitemap-item">
-                                        <div class="title">Партнерам</div>
-                                        <ul>
-                                            <li><a href="#">Для турагенств</a></li>
-                                            <li><a href="#">Корпоративным клиентам</a></li>
-                                            <li><a href="#">Центр бронирования</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-1-5">
-                        <div class="row">
-                            <div class="sitemap-item" itemscope itemtype="http://schema.org/Organization">
-                                <div class="phone">
-                                    <a href="tel:+74994904412" itemprop="telephone">+7 (499) <b>490-44-12</b></a>
-                                    <a href="tel:+78007700622" itemprop="telephone">+7 (800) <b>770-06-22</b></a>
-                                </div>
-                                <a href="#" class="mail" itemprop="email">travel@startour.ru</a>
-                                <p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">Адрес:
-                                    Россия, <span itemprop="addressLocality">г.Москва</span>, <span
-                                            itemprop="streetAddress">ул. Кузнецкий Мост, д. 21/5</span>
-                                    <br> 1 подъезд</p>
-                                <div class="soc">
-                                    <a href="#" class="tw"></a>
-                                    <a href="#" class="vk"></a>
-                                    <a href="#" class="fb"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('front.modules.subscription')
+        @include('front.modules.infoCompany')
+        @include('front.modules.partners')
+        @include('front.modules.bigFooter')
     </div>
     @include('front.tours.modal.images')
     @include('front.tours.modal.order')

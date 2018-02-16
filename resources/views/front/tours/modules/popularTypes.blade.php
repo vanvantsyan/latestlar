@@ -6,7 +6,7 @@
                 @foreach($tourCategories as $category)
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
                         <div class="row">
-                            <a href="#" class="poular-category-item">
+                            <a href="/tury/{{$category->value}}" class="poular-category-item">
                                 @php
                                     $images = json_decode($category->images);
                                 @endphp

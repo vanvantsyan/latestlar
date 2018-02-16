@@ -643,10 +643,10 @@ class ToursController extends Controller
 
         $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration');
 
-        $tours->groupBy('tours.id');
-
         // Select count for counter
         $countTours = $tours->count();
+
+        $tours->groupBy('tours.id');
 
         // Get tours object list
         $tours = $tours->take(15)->get();

@@ -78,7 +78,6 @@
                             <table>
                                 <tbody>
                                 <tr>
-
                                     <td rowspan="2">
                                         <a href="/russia/tury-zolotoe-kolczo" class="popular-tours-item big">
                                             @php
