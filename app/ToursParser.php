@@ -484,7 +484,7 @@ class ToursParser
 
             foreach ($images as $image) {
                 if($image) {
-                    echo BladeHelper::tourImg($image, $tour->id) . "\n\r";
+
                     $img = Image::make(BladeHelper::tourImg($image, $tour->id));
                     $img->resize(null, 235, function ($constraint) {
                         $constraint->aspectRatio();
@@ -497,6 +497,7 @@ class ToursParser
                     }
                     /* if thumb not exist — save picture */
                     if (!File::exists($folderPath . '/' . $image)) {
+                        echo $folderPath . '/' . $image . "\n\r";
                         $img->save($folderPath . '/' . $image, 75);
                     }
                 }
