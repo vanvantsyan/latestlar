@@ -483,15 +483,15 @@ class ToursParser
             $images = json_decode($tour->images);
 
             foreach ($images as $image) {
-                if($image) {
+                if ($image) {
 
-                    $img = Image::make(public_path('img\tours\full/' . substr($tour->id, 0, 2)  . '/' . $image));
+                    $img = Image::make('public/img/tours/full/' . substr($tour->id, 0, 2) . '/' . $image);
                     $img->resize(null, 235, function ($constraint) {
                         $constraint->aspectRatio();
                     });
 
-                    $folderPath = public_path('img\tours\thumbs/' . substr($tour->id, 0, 2));
-
+                    $folderPath = 'public/img/tours/thumbs/' . substr($tour->id, 0, 2);
+                    echo $folderPath . "\n";
                     if (!File::exists($folderPath)) {
                         File::makeDirectory($folderPath, $mode = 0777, true, true);
                     }
