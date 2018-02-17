@@ -694,7 +694,7 @@ h2 {
 	left: 0;
 	top: 0;
 	width: 100%;
-	max-height: 100%;
+	height: 100%;
 }
 .burning-tours-item:hover .burning-tours-item-img {
 	opacity: 0.7;

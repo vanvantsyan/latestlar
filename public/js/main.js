@@ -16,7 +16,7 @@ $(document).ready(function() {
 	});
 
 	$('select').styler({
-		selectSearch: true
+		selectSearch: false
 	});
 
 	$('.seo-txt-btn').click(function() {

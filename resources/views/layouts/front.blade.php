@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{asset('/css/jquery.mCustomScrollbar.css')}}">
     @yield('css')
     <link href='{{asset('/css/style.css')}}' rel='stylesheet' type='text/css'/>
+    <link href='{{asset('/css/main.css')}}' rel='stylesheet' type='text/css'/>
     <link rel="stylesheet" href="{{asset('/css/responsive.css')}}">
 
     <meta name="description" content="@yield('description')"/>

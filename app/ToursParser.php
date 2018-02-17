@@ -491,7 +491,7 @@ class ToursParser
                     });
 
                     $folderPath = 'public/img/tours/thumbs/' . substr($tour->id, 0, 2);
-                    echo $folderPath . "\n";
+
                     if (!File::exists($folderPath)) {
                         File::makeDirectory($folderPath, $mode = 0777, true, true);
                     }

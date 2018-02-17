@@ -1,0 +1,17 @@
+select[name=tourType]{
+    width: 100%;
+    color: #000;
+}
+select[name=durationFrom],select[name=durationTo]{
+    width: 49%;
+    color: #000;
+}
+select{
+    padding: 0 45px 0 5px;
+    height: 40px;
+    border: none;
+    box-shadow: none;
+    line-height: 40px;
+    border-radius: 0;
+    background: #fff;
+}
