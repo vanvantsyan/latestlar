@@ -10,7 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'Front\ToursController@countryMain');
+Route::get('/', 'Front\ToursController@countryMain', function($query) {
+    $query->with('country', 'russia');
+});
+
 Auth::routes();
 
 Route::get('logout', 'Auth\LoginController@logout');
