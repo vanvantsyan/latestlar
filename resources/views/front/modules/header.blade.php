@@ -42,17 +42,17 @@
                 <a class="navbar-brand" href="#">Все меню</a>
             </div>
             <ul>
-                <li><a href="#" class="hot">Горящие туры</a></li>
+                <li><a href="http://startour.ru/goryashhie-turyi/" class="hot">Горящие туры</a></li>
                 <li><a href="/tury">Поиск туров</a></li>
-                <li><a href="#">Страны</a></li>
+                <li><a href="/tury">Страны</a></li>
                 <li><a href="/russia">РОССИЯ</a></li>
-                <li><a href="#">ЕВРОПА</a></li>
+                <li><a href="/tury/avtobusnyy-tur">ЕВРОПА</a></li>
                 <li class="tablet-hide"><a href="#">Туры до 10 т.р</a></li>
-                <li class="tablet-hide"><a href="#">Виза</a></li>
-                <li class="tablet-hide"><a href="#">Круизы</a></li>
+                <li class="tablet-hide"><a href="http://startour.ru/vizy/">Виза</a></li>
+                <li class="tablet-hide"><a href="http://startour.ru/kruizyi/">Круизы</a></li>
                 <li class="tablet-hide"><a href="/tury/sobytiya">Событийные туры</a></li>
                 <li><a href="#">Акции</a></li>
-                <li class="desk-hide"><a href="#">Контакты</a></li>
+                <li class="desk-hide"><a href="http://startour.ru/kompaniya/">Контакты</a></li>
                 <li class="dropdown tablet-hide">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Еще<span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -64,17 +64,17 @@
             </ul>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="#" class="hot">Горящие туры</a></li>
-                    <li><a href="#">Поиск туров</a></li>
-                    <li><a href="#">Страны</a></li>
-                    <li><a href="#">РОССИЯ</a></li>
-                    <li><a href="#">ЕВРОПА</a></li>
+                    <li><a href="http://startour.ru/goryashhie-turyi/" class="hot">Горящие туры</a></li>
+                    <li><a href="/tury">Поиск туров</a></li>
+                    <li><a href="/tury">Страны</a></li>
+                    <li><a href="/russia">РОССИЯ</a></li>
+                    <li><a href="/tury/avtobusnyy-tur">ЕВРОПА</a></li>
                     <li><a href="#">Туры до 10 т.р</a></li>
-                    <li><a href="#">Виза</a></li>
-                    <li><a href="#">Круизы</a></li>
-                    <li><a href="#">Событийные туры</a></li>
+                    <li><a href="http://startour.ru/vizy/">Виза</a></li>
+                    <li><a href="http://startour.ru/kruizyi/">Круизы</a></li>
+                    <li><a href="/tury/sobytiya">Событийные туры</a></li>
                     <li><a href="#">Акции</a></li>
-                    <li><a href="#">Контакты</a></li>
+                    <li><a href="http://startour.ru/kompaniya/">Контакты</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Еще<span class="caret"></span></a>
                         {{--<ul class="dropdown-menu">--}}
