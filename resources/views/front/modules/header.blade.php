@@ -55,11 +55,11 @@
                 <li class="desk-hide"><a href="http://startour.ru/kompaniya/">Контакты</a></li>
                 <li class="dropdown tablet-hide">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Еще<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Меню 1</a></li>
-                        <li><a href="#">Меню 2</a></li>
-                        <li><a href="#">Меню 3</a></li>
-                    </ul>
+                    {{--<ul class="dropdown-menu">--}}
+                        {{--<li><a href="#">Меню 1</a></li>--}}
+                        {{--<li><a href="#">Меню 2</a></li>--}}
+                        {{--<li><a href="#">Меню 3</a></li>--}}
+                    {{--</ul>--}}
                 </li>
             </ul>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
