@@ -695,7 +695,7 @@ class ToursController extends Controller
 
     public function countryMain(Request $request, $country = 'russia')
     {
-        $countryUrl = $request->route('country');
+        $countryUrl = $request->route('country') ?? $country;
         $country = Geo::where('slug', $countryUrl)->first();
 
         $slug2 = $request->route('slug2');
