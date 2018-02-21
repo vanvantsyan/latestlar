@@ -631,8 +631,8 @@ class ToursController extends Controller
 
             'tourType' => is_object($tag) ? $tag->id : $tourType,
 
-            'darationFrom' => $durationFrom,
-            'darationTo' => $durationTo,
+            'durationFrom' => $durationFrom,
+            'durationTo' => $durationTo,
 
             'priceFrom' => $priceFrom,
             'priceTo' => $priceTo,
@@ -644,7 +644,7 @@ class ToursController extends Controller
         $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration');
 
         // Select count for counter
-        $countTours = $tours->count();
+        $countTours = $tours->count(DB::raw('DISTINCT tours.id'));
 
         $tours->groupBy('tours.id');
 
@@ -885,30 +885,10 @@ class ToursController extends Controller
 
     public function applyFilters($tours, $filters)
     {
-        if ($country = array_get($filters, 'country', null)) {
-
-            $tours->leftJoin('geo_relation AS g_rel', function ($query) {
-                $query->on('g_rel.sub_id', '=', 'tours.id')
-                    ->where('sub_ess', '=', 'tour')
-                    ->where('par_ess', '=', 'country');
-            });
-            $tours->leftJoin('geo_countries AS countries', 'countries.id', '=', 'g_rel.par_id');
-            $tours->where('countries.slug', $country);
-        }
-
-        if ($tourType = array_get($filters, 'tourType', null)) {
-            $tours->leftJoin('tour_tags_relations AS ttrType', function ($query) {
-                $query->on('ttrType.tour_id', '=', 'tours.id');
-//                    ->where('ttrType.tag_id', '=', 4);
-            })->where('ttrType.value', $tourType);
-        }
-
-        if ($priceFrom = array_get($filters, 'priceFrom', null)) {
-            $tours->where('tours.price', '>=', $priceFrom);
-        }
-        if ($priceTo = array_get($filters, 'priceTo', null)) {
-            $tours->where('tours.price', '<=', $priceTo);
-        }
+        $tours->FromCountry(array_get($filters, 'country', null));
+        $tours->withType(array_get($filters, 'tourType', null));
+        $tours->priceFrom(array_get($filters, 'priceFrom', null));
+        $tours->priceTo(array_get($filters, 'priceTo', null));
 
         $dateFrom = $dateTo = null;
 
@@ -928,61 +908,15 @@ class ToursController extends Controller
 
         // Применяем фильтр дат
         if ($dateFrom or $dateTo) {
-            $dateRelation = ToursTagsRelation::join('tours', 'tours.id', '=', 'tour_tags_relations.tour_id', 'right outer')
-                ->where(function ($query) use ($dateFrom, $dateTo) {
-                    $query->where(function ($query) use ($dateFrom, $dateTo) {
-                        $query->where('tour_tags_relations.value', '>=', strtotime($dateFrom))
-                            ->where('tour_tags_relations.value', '<=', strtotime($dateTo));
-                    });//->orWhereNull('tour_tags_relations.value');
-                })->pluck('tours.id')->toArray();
-
-            //->pluck('tours.id','tour_tags_relations.value');
-            //->groupBy('tours.id')->pluck('tours.id')->toArray();
-
-            $tours->leftJoin('tour_tags_relations AS ttrDate', function ($query) use ($dateFrom, $dateTo, $dateRelation) {
-                $query->on('ttrDate.tour_id', '=', 'tours.id')
-                    ->where('ttrDate.tag_id', '=', 2);
-            })->whereIn('ttrDate.tour_id', $dateRelation);
-
-//            $tours->addSelect('ttrDate.value','ttrDate.tour_id');
-//            $tours->orderBy('ttrDate.value', "DESC");
+            $tours->forDate($dateFrom, $dateTo);
         }
 
-        // Resort
-        if ($resort = array_get($filters, 'resort', null)) {
-
-            $tours->leftJoin('geo_relation AS geo_w', function ($query) use ($resort) {
-                $query->on('geo_w.sub_id', '=', 'tours.id')
-                    ->where('geo_w.sub_ess', 'tour')
-                    ->where('geo_w.par_ess', substr(strtolower(class_basename($resort)), 0, -1));
-            })->where('geo_w.par_id', $resort->id);
-        }
-
-        if ($tourWay = array_get($filters, 'tourWay', null)) {
-
-            $way = Ways::where('title', $tourWay)->select('id')->first();
-
-            $tours->leftJoin('geo_relation AS geo_w', function ($query) {
-                $query->on('geo_w.sub_id', '=', 'tours.id')
-                    ->where('geo_w.sub_ess', 'tour')
-                    ->where('geo_w.par_ess', 'way');
-            })->where('geo_w.par_id', $way->id);
-        }
-
-        if ($tourPoint = array_get($filters, 'tourPoint', null)) {
-
-            $point = Points::where('title', $tourPoint)->select('id')->first();
-
-            $tours->leftJoin('geo_relation AS geo_r', function ($query) {
-                $query->on('geo_r.sub_id', '=', 'tours.id')
-                    ->where('geo_r.sub_ess', 'tour')
-                    ->where('geo_r.par_ess', 'point');
-            })->where('geo_r.par_id', $point->id);
-        }
+        $tours->fromResort(array_get($filters, 'resort', null));
+        $tours->fromWay($tourWay = array_get($filters, 'tourWay', null));
+        $tours->fromPoint($tourPoint = array_get($filters, 'tourPoint', null));
 
         if ($sort = array_get($filters, 'sort', null)) {
             $sortArr = explode('-', $sort);
-
             $tours->orderBy('tours.' . head($sortArr), last($sortArr));
         }
 

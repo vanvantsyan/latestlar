@@ -21,10 +21,11 @@
         }
 
         .card-desc {
-            margin-top: 20px;
-            border-top: 1px solid #d5d5d5;
-            padding: 20px 0 0 0;
-            display: inline-block;
+              display: inline-block;
+        }
+
+        a.order {
+            width: auto !important;
         }
     </style>
 @endsection
@@ -151,8 +152,9 @@
                                                         <div class="card-tour-dates-item-day">
                                                             @foreach($tour->dates as $date)
                                                                 @if(Carbon\Carbon::createFromTimestamp($date['value'])->format('m') == $dateTime->format('m'))
-                                                                    <a href=""
-                                                                       class="green"> {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}</a>
+                                                                    <a href="#" class="green" data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
+                                                                        {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
+                                                                    </a>
                                                                 @endif
                                                             @endforeach
 
@@ -179,11 +181,12 @@
                                                         <div class="card-tour-dates-item-day">
                                                             @foreach($tour->dates as $date)
                                                                 @if(Carbon\Carbon::createFromTimestamp($date['value'])->format('m') == $dateTime->format('m'))
-                                                                    <a href="#"
-                                                                       class="green"> {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}</a>
+                                                                    <a href="#" class="green"
+                                                                       data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
+                                                                        {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
+                                                                    </a>
                                                                 @endif
                                                             @endforeach
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -237,14 +240,17 @@
                             </div>
                         </div>
                     </div>
-
+                    <hr>
                     <div class="tour-card-text" id="accommodation-options">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
                                 {!!  $textData['rest'] !!}
                             </div>
                         </div>
-                        <div class="card-desc">{{$tour->description }}</div>
+
+                        <div class="card-desc">
+                            <h3>О туре</h3>
+                            {{$tour->description }}</div>
                     </div>
 
                     <div class="card-tour-similar">
@@ -284,8 +290,9 @@
                                                                     <span>не указана</span>
                                                                 @endif
                                                             </div>
-                                                            <a href="#" class="btn btn-orange" data-toggle="modal" data-target="#tourOrderModal">Заказать</a>
-                                                            <a href="{{Gliss::tourLink($tour)}}" class="btn btn-blue" >Подробнее</a>
+                                                            <a href="#" class="btn btn-orange" data-toggle="modal"
+                                                               data-target="#tourOrderModal">Заказать</a>
+                                                            <a href="{{Gliss::tourLink($tour)}}" class="btn btn-blue">Подробнее</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -301,7 +308,8 @@
                                                                 <img src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
                                                                      alt="">
                                                             @else
-                                                                <img src="{{asset('/img/search-completed-item-1.jpg')}}" alt="">
+                                                                <img src="{{asset('/img/search-completed-item-1.jpg')}}"
+                                                                     alt="">
                                                             @endif
                                                             @if(count($images))
                                                                 <span class="tour-images-button"
@@ -355,7 +363,8 @@
                                                                 @endforeach
 
                                                                 @if(count($tour['dates']) > 6)
-                                                                    <a href="#" class="all-dates">Все даты <b>>>></b></a>
+                                                                    <a href="#" class="all-dates">Все даты
+                                                                        <b>>>></b></a>
                                                                 @endif
                                                             </div>
                                                             <div class="search-completed-item-desc">
@@ -449,6 +458,26 @@
 
             $(slideContainer).html(slideBlock);
             $('.carousel-indicators').html(indicators);
+        });
+    </script>
+
+    <script>
+
+        $('.card-tour-dates-item-day a').on({
+
+            mouseenter: function () {
+                $(this).text('Заказать');
+                $(this).addClass('order');
+            },
+            mouseleave: function () {
+                $(this).text($(this).attr('data-date'));
+                $(this).removeClass('order');
+            },
+            click: function (e) {
+                e.preventDefault();
+                $('#tourOrderModal').modal('show')
+            }
+
         });
     </script>
 @endsection
