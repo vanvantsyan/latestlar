@@ -7,30 +7,30 @@
             </div>
             <div class="modal-body">
                 <form role="form">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Ваше имя</label>
-                        <input type="name" class="form-control" id="name" placeholder="Иван Иванов">
+                    <div class="form-group" id="name">
+                        <label for="name">Ваше имя</label>
+                        <span></span>
+                        <input type="name" name="name" class="form-control" placeholder="Иван Иванов">
+                    </div>
+                    <div class="form-group" id="email">
+                        <label for="email">Email</label>
+                        <span></span>
+                        <input type="email" name="email" class="form-control" placeholder="ivanov@mail.ru">
+                    </div>
+                    <div class="form-group" id="phone">
+                        <label for="phone">Телефон</label>
+                        <span></span>
+                        <input type="text" name="phone" class="form-control" placeholder="8 920 888 88 88">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="ivanov@mail.ru">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Телефон</label>
-                        <input type="text" class="form-control" id="phone" placeholder="8 920 888 88 88">
-                    </div>
-
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"> Сделать полный подбор
-                        </label>
+                        <textarea class="form-control" name="comment" id="comment"></textarea>
                     </div>
                 </form>
 
             </div>
             <div class="modal-footer">
                 <a type="button" class="btn btn-default" data-dismiss="modal">Закрыть</a>
-                <a type="button" class="btn btn-yellow" data-dismiss="modal">Отправить</a>
+                <a type="button" class="btn btn-yellow">Отправить</a>
             </div>
         </div>
     </div>

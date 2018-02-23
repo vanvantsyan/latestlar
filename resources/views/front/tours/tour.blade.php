@@ -21,11 +21,21 @@
         }
 
         .card-desc {
-              display: inline-block;
+            display: inline-block;
         }
 
         a.order {
             width: auto !important;
+        }
+
+        .card-tour-photo {
+            cursor: pointer;
+        }
+
+        form span {
+            float: right;
+            color: red;
+            margin-left: 10px;
         }
     </style>
 @endsection
@@ -112,93 +122,98 @@
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
                                 <div class="title">Описание и фото тура</div>
-                                <p></p>
-                                <div class="card-tour-photo">
-                                    @foreach(json_decode($tour->images) as $image)
+                                <div class="card-tour-photo" data-images="{{ $tour['images'] }}"
+                                     data-tour-id="{{ $tour['id'] }}">
+                                    @foreach(json_decode($tour->images) as $key => $image)
                                         <img height="150" src="{{Gliss::tourThumb($image, $tour->id)}}"
-                                             alt="{{$tour->title}}">
+                                             alt="{{$tour->title}}" data-image-id="{{$key}}" data-toggle="modal"
+                                             data-target="#tourImagesModal">
                                     @endforeach
-
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-tour-dates" id="card-tour-dates">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <div class="row">
-                                <div class="title">Доступные даты начала тура</div>
-                                <div class="card-tour-dates-items">
-                                    @php
-                                        $dateTime = new \DateTime('now');
-                                    @endphp
 
-                                    @for ($i=0;$i<12;$i++)
-                                        @if($i < 3)
-                                            <div class="card-tour-dates-item">
-                                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                                    <div class="row">
-                                                        <div class="card-tour-dates-item-month">
-                                                            @if($i == 0)
-                                                                {{config('main.month.' . strtolower($dateTime->modify('+ 0 month')->format('F'))) }}
-                                                            @else
-                                                                {{config('main.month.' . strtolower($dateTime->modify('+ 1 month')->format('F')))}}
-                                                            @endif
-                                                            , {{$dateTime->format('Y')}}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                                                    <div class="row">
-                                                        <div class="card-tour-dates-item-day">
-                                                            @foreach($tour->dates as $date)
-                                                                @if(Carbon\Carbon::createFromTimestamp($date['value'])->format('m') == $dateTime->format('m'))
-                                                                    <a href="#" class="green" data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
-                                                                        {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
-                                                                    </a>
-                                                                @endif
-                                                            @endforeach
+                    @if(count($tour->dates))
+                        <div class="card-tour-dates" id="card-tour-dates">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="row">
+                                    <div class="title">Доступные даты начала тура</div>
+                                    <div class="card-tour-dates-items">
+                                        @php
+                                            $dateMonths = [];
+                                                foreach($tour->dates as $date) {
+                                                    $dateMonths[(int) Carbon\Carbon::createFromTimestamp($date['value'])->format('m')][] = $date;
+                                                }
+                                        @endphp
 
+                                        @php
+                                            $dateTime = new \DateTime('now');
+                                        @endphp
+
+                                        @foreach ($dateMonths as $month => $dates)
+                                            @if($loop->iteration < 4)
+
+                                                <div class="card-tour-dates-item">
+                                                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                                        <div class="row">
+                                                            <div class="card-tour-dates-item-month">
+                                                                {{ config('main.month.' . strtolower(date("F",mktime(0,0,0,$month)))) }}
+                                                                , {{$dateTime->format('Y')}}
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        @else
-                                            <div class="card-tour-dates-item hide">
-                                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                                    <div class="row">
-                                                        <div class="card-tour-dates-item-month">
-                                                            @if($i == 0)
-                                                                {{config('main.month.' . strtolower($dateTime->modify('+ 0 month')->format('F'))) }}
-                                                            @else
-                                                                {{config('main.month.' . strtolower($dateTime->modify('+ 1 month')->format('F')))}}
-                                                            @endif
-                                                            , {{$dateTime->format('Y')}}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                                                    <div class="row">
-                                                        <div class="card-tour-dates-item-day">
-                                                            @foreach($tour->dates as $date)
-                                                                @if(Carbon\Carbon::createFromTimestamp($date['value'])->format('m') == $dateTime->format('m'))
+                                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                                                        <div class="row">
+                                                            <div class="card-tour-dates-item-day">
+
+                                                                @foreach($dates as $date)
+
                                                                     <a href="#" class="green"
                                                                        data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
                                                                         {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
                                                                     </a>
-                                                                @endif
-                                                            @endforeach
+
+                                                                @endforeach
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endif
-                                    @endfor
 
+                                            @else
+
+                                                <div class="card-tour-dates-item hide">
+                                                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                                        <div class="row">
+                                                            <div class="card-tour-dates-item-month">
+                                                                {{ config('main.month.' . strtolower(date("F",mktime(0,0,0,$month)))) }}
+                                                                , {{$dateTime->format('Y')}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                                                        <div class="row">
+                                                            <div class="card-tour-dates-item-day">
+                                                                @foreach($dates as $date)
+                                                                    <a href="#" class="green"
+                                                                       data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
+                                                                        {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
+                                                                    </a>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                    <a href="#" class="btn-more-dates">Показать еще даты тура</a>
                                 </div>
-                                <a href="#" class="btn-more-dates">Показать еще даты тура</a>
                             </div>
                         </div>
-                    </div>
+                    @endif
+
                     @php
                         $textData = Gliss::parsTourDescription($tour->text);
                     @endphp
@@ -227,11 +242,11 @@
                                 @foreach($textData['tourDays'] as $day => $dayDesc)
                                     <div class="card-schedule-day-item">
 
-                                        <a href="#" class="card-schedule-day active">
+                                        <a href="#" class="card-schedule-day">
                                             {{$day}} день <span class="caret"></span>
                                         </a>
 
-                                        <div class="card-schedule-day-desc">
+                                        <div class="card-schedule-day-desc" style="display: none">
                                             <div class="accommodation-options-day-cont"> {!! $dayDesc!!}</div>
                                         </div>
                                     </div>
@@ -441,20 +456,24 @@
         // See all photos of the tour
 
         $('#tourImagesModal').on('show.bs.modal', function (e) {
-            var tourId = $(e.relatedTarget).attr('data-tour-id');
 
-            var images = $(e.relatedTarget).attr('data-images');
+            var imgBlock = $(e.relatedTarget).closest('.card-tour-photo');
+            var imgActive = $(e.relatedTarget);
+
+            var tourId = imgBlock.attr('data-tour-id');
+            var images = imgBlock.attr('data-images');
+
             var slideBlock = '';
 
             var slideContainer = ".carousel-inner";
             var indicators = '';
 
             $.each($.parseJSON(images), function (key, value) {
-                if (!key) active = "active"; else active = '';
+                if (key == imgActive.attr('data-image-id')) active = "active"; else active = '';
                 slideBlock += "<div class='item " + active + "'> <img src=\'/img/tours/full/" + tourId.substr(0, 2) + "/" + value + "'></div>";
 
                 indicators += "<li data-target=\"#tourImagesCarousel\" data-slide-to='" + key + "' class='" + active + "'></li>";
-            })
+            });
 
             $(slideContainer).html(slideBlock);
             $('.carousel-indicators').html(indicators);
@@ -478,6 +497,48 @@
                 $('#tourOrderModal').modal('show')
             }
 
+        });
+    </script>
+    <script>
+
+        // Send order
+        $('#tourOrderModal .modal-footer a:last-child').on('click', function (e) {
+
+            e.preventDefault();
+
+            var data = {};
+            $.each($('#tourOrderModal form').serializeArray(), function (i, field) {
+                if (field.value) data[field.name] = field.value;
+            });
+
+            // Request on server
+            $.ajax({
+                url: "{{route('mail.order')}}",
+                cache: false,
+                data: data,
+                type: "POST",
+
+            }).done(function (data) {
+
+                $('#tourOrderModal form span').text("");
+
+                if (!data.ok && data.errors) {
+                    $.each(data.errors, function (key, value) {
+                        // console.log(key+ ' - ' + value + '\n');
+                        $('#' + key + ' span').addClass("red");
+                        $('#' + key + ' span').text(value);
+                    })
+                } else {
+                    $('#tourOrderModal .modal-footer').remove();
+                    $('#tourOrderModal .modal-body').html("<p style='text-align: center' class=\"alert alert-success\">" + data.message +"</p>");
+                    setTimeout(function () {
+                        $('#tourOrderModal').modal('hide')
+                    }, 3000);
+                }
+
+            }).error(function () {
+                // If errors
+            });
         });
     </script>
 @endsection

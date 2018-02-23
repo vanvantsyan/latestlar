@@ -51,8 +51,7 @@
                     <span class="tour-images-button"
                           data-images="{{ $tour['images'] }}"
                           data-tour-id="{{$tour['id']}}" data-toggle="modal"
-                          data-target="#tourImagesModal">Все фото ({{count($images)}}
-                                                            )</span>
+                          data-target="#tourImagesModal">Все фото ({{count($images)}})</span>
                     @endif
                 </a>
             </div>

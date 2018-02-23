@@ -115,5 +115,8 @@ Route::post('tour/removeImage', 'Front\ToursController@removeImage')->name('remo
 
 Route::get('search/autocomplete', 'Front\ToursController@autocomplete');
 
+Route::post('tour/order','Front\MailController@sendOrder')->name('mail.order');
+Route::post('tours/seo','Front\ToursController@getSeoTours')->name('tours.seo');
+
 
 

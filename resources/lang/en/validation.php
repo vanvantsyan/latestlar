@@ -105,6 +105,8 @@ return [
         ],
     ],
 
+    'phone' => ':attribute is invalid phone number',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes

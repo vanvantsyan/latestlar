@@ -4,11 +4,11 @@
             <div class="row">
                 <div class="copyright">&#169; 2017 ООО "Стар Тур". Все права защищены.</div>
                 <div class="letsfly">
-                    <div class="letsfly-img"><img src="img/letsfly-img.png" alt=""></div>
+                    <div class="letsfly-img"><img src="/img/letsfly-img.png" alt=""></div>
                     <div class="letsfly-desc">LetsFly - авиа и Ж/Д билеты, услуги, корпоративное обслучивание</div>
                 </div>
                 <div class="footer-logo">
-                    <div class="logo"><img src="img/logo.png" alt=""></div>
+                    <div class="logo"><img src="/img/logo.png" alt=""></div>
                     <div class="letsfly-desc">Туристические услуги</div>
                 </div>
             </div>

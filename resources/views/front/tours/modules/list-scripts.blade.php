@@ -1,7 +1,7 @@
 <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="{{asset('/js/moment.js')}}"></script>
 <script src="{{asset('/js/daterangepicker.js')}}"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{asset('/js/jquery-ui.js')}}"></script>
 
 <script>
     $('#sendPhone input[type=submit]').on('click', function (e) {
@@ -12,6 +12,10 @@
 
 <script>
     $('.tours-sorting a span').on('click', function (e) {
+        e.preventDefault();
+        $('.tours-sorting-items').toggleClass('active');
+    })
+    $('.tours-sorting a b').on('click', function (e) {
         e.preventDefault();
         $('.tours-sorting-items').toggleClass('active');
     })

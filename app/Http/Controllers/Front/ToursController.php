@@ -211,6 +211,8 @@ class ToursController extends Controller
             // Перебор тегов
             if ($tag = array_get($params, 'tag', null)) {
 
+
+
                 /* Праздники */
                 if ($tag->tag->title == "holiday") {
 
@@ -283,6 +285,62 @@ class ToursController extends Controller
 // Если без страны
 
         } else {
+
+            // Курорт
+            if ($resort = array_get($params, 'resort', null)) {
+
+                if ($tour_type = array_get($params, 'tour_type', null)) {
+                    $seo['pTitle'] = "$tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . "";
+                    $seo['bTitle'] = "$tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " из Москвы";
+                    $seo['metaKey'] = "купить $tour_type " . date("Y") . "  в " . BladeHelper::case($resort->title, "П") . " из Москвы, цена, $country";
+                    $seo['metaDesc'] = "Дешевые $tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " с вылетом из Москвы от турагентства СтарТур. Отдых в " . BladeHelper::case($country, "П") . ".";
+                    $seo['subText'] = "$tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы дешево от компании СтарТур. Профессиональный подбор туров. Отдыхайте на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    return $seo;
+                }
+
+                if ($duration = array_get($params, 'duration', null)) {
+                    $seo['pTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "";
+                    $seo['bTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы";
+                    $seo['metaKey'] = "купить туры в " . BladeHelper::case($resort->title, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы, цена, $country";
+                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($resort->title, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства СтарТур. Отдых в " . BladeHelper::case($country, "П") . ".";
+                    $seo['subText'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании СтарТур. Профессиональный подбор туров. Проведите $duration " . BladeHelper::numeralCase('день', $duration) . ", отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    return $seo;
+                }
+
+                if ($holiday = array_get($params, 'holiday', null)) {
+                    $seo['pTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " на " . $holiday . " " . date("Y") . "";
+                    $seo['bTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " на " . $holiday . " " . date("Y") . " из Москвы";
+                    $seo['metaKey'] = "купить туры в " . BladeHelper::case($resort->title, "П") . " на " . $holiday . " " . date("Y") . " из Москвы, цена, $country";
+                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($resort->title, "П") . " на " . $holiday . " " . date("Y") . " с вылетом из Москвы от турагентства СтарТур. Отдых в " . BladeHelper::case($country, "П") . ".";
+                    $seo['subText'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы на " . $holiday . " " . date("Y") . " год дешево от компании СтарТур. Профессиональный подбор туров. Проведите праздники, отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    return $seo;
+                }
+
+                if ($status = array_get($params, 'status', null)) {
+                    $seo['pTitle'] = "$status " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . "";
+                    $seo['bTitle'] = "$status " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " из Москвы";
+                    $seo['metaKey'] = "купить $status " . date("Y") . "  в " . BladeHelper::case($resort->title, "П") . " из Москвы, цена, $country";
+                    $seo['metaDesc'] = "Дешевые $status " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " с вылетом из Москвы от турагентства СтарТур. Отдых в " . BladeHelper::case($country, "П") . ".";
+                    $seo['subText'] = "$status " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы дешево от компании СтарТур. Профессиональный подбор туров. Отдыхайте на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    return $seo;
+                }
+
+                if ($month = array_get($params, 'month', null)) {
+                    $seo['pTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . "";
+                    $seo['bTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы";
+                    $seo['metaKey'] = "купить туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы, цена, $country";
+                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " с вылетом из Москвы от турагентства СтарТур. Отдых в " . BladeHelper::case($country, "П") . ".";
+                    $seo['subText'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " года дешево от компании СтарТур. Профессиональный подбор туров. Проведите $month, отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    return $seo;
+                }
+
+                $seo['pTitle'] = "Туры в " . $resort->title;
+                $seo['bTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы в " . date("Y") . " году по низкой цене";
+                $seo['metaKey'] = "Туры в " . BladeHelper::case($resort->title, "П") . ", ($country), вылет из Москвы, от всех туроператоров, цена, купить";
+                $seo['metaDesc'] = "Купить тур в " . $resort->title . " " . date("Y") . " от наиболее известных туроператоров. Удобный поиск туров в " . $resort->title . " из Москвы.";
+                $seo['subText'] = "Подбор туров  в " . BladeHelper::case($resort->title, "П") . " ($country) в турагентстве СтарТур. Мы поможем Вам найти тур по оптимальной цене.";
+                return $seo;
+            }
 
             // Перебор тегов
             if ($tag = array_get($params, 'tag', null)) {
@@ -423,6 +481,29 @@ class ToursController extends Controller
             $seo['subText'] = "Компания СтарТур предлагает удобный поиск туров онлайн. У нас Вы сможете быстро подобрать и купить тур. Профессиональная поддержка специалистов нашего турагенства с момента покупки путевки и на протяжении всего путешествия.";
 
         }
+
+        return $seo;
+    }
+
+    public function getSeoTours(Request $request)
+    {
+        $data = $request->all();
+        $resort = $tag = null;
+
+        if ($data['tourType']) {
+            $tag = ToursTagsValues::with('tag')->find($data['tourType']);
+        }
+
+        if($data['tourPoint']){
+            $resort = Points::where('title', $data['tourPoint'])->first();
+        }
+
+        // Set seo elements
+        $seo = $this->getSeo([
+            'resort' => is_object($resort) ? $resort : null,
+            'tag' => is_object($tag) ? $tag : null,
+            'tour_type' => $tour_type ?? '',
+        ]);
 
         return $seo;
     }
