@@ -1,4 +1,4 @@
-<div class="search-completed-item tablet-hide">
+<div class="search-completed-item">
     <div class="search-completed-item-preview">
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
             <div class="row">
@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="search-completed-item-more">
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
             <div class="row">
                 <a href="#" class="search-completed-item-img">
                     @php
@@ -51,14 +51,25 @@
                     <span class="tour-images-button"
                           data-images="{{ $tour['images'] }}"
                           data-tour-id="{{$tour['id']}}" data-toggle="modal"
-                          data-target="#tourImagesModal">Все фото ({{count($images)}})</span>
+                          data-target="#tourImagesModal">Все фото ({{count($images)}}
+                                                            )</span>
+                    <span class="mobile-visible"><b>от 8200 <i class="glyphicon glyphicon-rub" aria-hidden="true"></i> за человека</b></span>
                     @endif
                 </a>
             </div>
         </div>
-        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
             <div class="row">
                 <div class="search-completed-item-more-right">
+                    <a href="#"><span>></span></a>
+                    <div class="search-completed-preview-left">
+                        <div class="search-completed-item-title">{{$tour['title']}}</div>
+                        <ul>
+                            <li>9 городов</li>
+                            <li>14 экскурсий</li>
+                            <li>Поездка на 4 дня</li>
+                        </ul>
+                    </div>
                     <div class="search-completed-item-route">
                         <span>Маршрут тура:</span>
                         @if(count($tour['par_points']))
@@ -82,6 +93,7 @@
                         {{$tour['par_ways'][0]['ways_par']['title']}}
                         @endif
                         @endif
+                        <span>Маршрут тура:</span> <b>Москва</b> - <div><span>Владимир</span><span>, Боголюбово</span><span>, Суздаль</span><span>, Иваново</span><span>, Кострома</span><span>, Ярославль</span><span>, Ростов Великий</span><span>, Переславль Залесский</span><span>, Сергиев Посад</span></div> - <b>Москва</b>
                     </div>
                     <div class="search-completed-item-date">
                         @php $num = 0; @endphp

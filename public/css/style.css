@@ -365,12 +365,16 @@ label {
 }
 .tour-preview-wrap {
 	padding-bottom: 7px;
+	position: relative;
 }
 .tour-preview {
 	width: 500px;
 	margin-top: 46px;
 	padding-left: 15px;
 	margin-bottom: 30px;
+    max-width: 100%;
+    position: relative;
+    z-index: 2;
 }
 h1 {
 	font-size: 48px;
@@ -560,6 +564,9 @@ h2 {
 	-ms-transition: ease-in-out 0.2s;
 	-o-transition: ease-in-out 0.2s;
 	transition: ease-in-out 0.2s;
+	-webkit-box-shadow: inset 10px -3px 150px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow:    inset 10px -3px 150px 0px rgba(0, 0, 0, 0.75);
+	box-shadow:         inset 10px -3px 150px 0px rgba(0, 0, 0, 0.75);
 }
 .popular-tours-item:hover {
 	background-color: rgba(0, 0, 0, 0.5);
@@ -865,7 +872,7 @@ h2 {
 }
 .tours-notes-item-img {
 	width: 100%;
-	height: auto;
+	height: 185px;
 	border-bottom: 1px solid #e1e0de;
 }
 .tours-notes-item-img img {
@@ -927,6 +934,7 @@ h2 {
 .seo-txt-more {
 	display: none;
 	margin-top: 15px;
+	overflow: hidden;
 }
 .subscription {
 	background: #007cbc;
@@ -1212,10 +1220,22 @@ a.dp-choose-date {
 	padding-top: 0;
 }
 .tours-list-page .tour-preview-wrap {
-	background: url(../img/bg-tour-list.jpg) 0 0 no-repeat;
+	background: url(../img/bg-tour-list.jpg) 50% 50% no-repeat;
+	background-size: cover;
 	padding-left: 35px;
 	padding-top: 34px;
 	padding-bottom: 40px;
+}
+.tour-preview-wrap:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    z-index: 1;
+    background: #fff;
 }
 .tours-sorting b {
     display: inline-block;
@@ -1267,7 +1287,7 @@ a.dp-choose-date {
 .search-completed-item-route span {
 	position: relative;
 }
-.search-completed-item-route span:before {
+.search-completed-item-route > span:before {
 	content: "";
 	position: absolute;
 	left: -13px;
@@ -2431,4 +2451,20 @@ div.dp-popup h2 {
 }
 .popular-tours-items.desk-hide {
 	display: none;
+}
+.search-completed-item-more-right > a {
+	display: none;
+}
+.search-completed-item-more-right .search-completed-preview-left {
+	display: none;
+}
+.search-completed-item-img > span.mobile-visible {
+	display: none;
+}
+.tour-filter-item.date-mob > .icon-calendar {
+	position: absolute;
+	right: 3px;
+	bottom: 3px;
+	top: auto;
+	color: #000;
 }
