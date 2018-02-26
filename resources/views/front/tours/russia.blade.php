@@ -19,6 +19,11 @@
         .subscription form {
             color: #0f0f0f;
         }
+        form span {
+            float: right;
+            color: red;
+            margin-left: 10px;
+        }
     </style>
 @endsection
 
@@ -707,5 +712,46 @@
             $('#filterTours').trigger('click');
         });
 
+    </script>
+    <script>
+        // Send order
+        $('#tourOrderModal .modal-footer a:last-child').on('click', function (e) {
+
+            e.preventDefault();
+
+            var data = {};
+            $.each($('#tourOrderModal form').serializeArray(), function (i, field) {
+                if (field.value) data[field.name] = field.value;
+            });
+
+            // Request on server
+            $.ajax({
+                url: "{{route('mail.order')}}",
+                cache: false,
+                data: data,
+                type: "POST",
+
+            }).done(function (data) {
+
+                $('#tourOrderModal form span').text("");
+
+                if (!data.ok && data.errors) {
+                    $.each(data.errors, function (key, value) {
+                        // console.log(key+ ' - ' + value + '\n');
+                        $('#' + key + ' span').addClass("red");
+                        $('#' + key + ' span').text(value);
+                    })
+                } else {
+                    $('#tourOrderModal .modal-footer').remove();
+                    $('#tourOrderModal .modal-body').html("<p style='text-align: center' class=\"alert alert-success\">" + data.message +"</p>");
+                    setTimeout(function () {
+                        $('#tourOrderModal').modal('hide')
+                    }, 3000);
+                }
+
+            }).error(function () {
+                // If errors
+            });
+        });
     </script>
 @endsection
