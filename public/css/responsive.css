@@ -76,6 +76,9 @@
 	.dropdown-menu {
 		position: relative;
 	}
+	.daterangepicker.dropdown-menu {
+		position: absolute;
+	}
 	.phones {
 		cursor: pointer;
 	}
@@ -1865,6 +1868,9 @@
 	}
 	.search-completed-item-more .search-completed-item-more-right ul {
 		padding-left: 0;
+	}
+	.tours-notes-item-img {
+		height: auto;
 	}
 }
 @media (max-width: 655px) {

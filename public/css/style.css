@@ -1932,11 +1932,12 @@ div.dp-popup h2 {
 	height: 355px;
 }
 .card-slider-item img {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	left: 0;
-	top: 0;
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    margin: 0 auto;
+    transform: translateX(-50%) translateY(-50%);
 }
 .card-slider-item-cont {
     text-align: center;
@@ -1949,7 +1950,11 @@ div.dp-popup h2 {
     width: 66%;
 }
 .card-slider-item-cont h1 {
-	margin-bottom: 15px;
+	margin-bottom: 0;
+	background: rgba(255, 255, 255, 0.74);
+	line-height: normal;
+	padding: 0 10px;
+	display: inline-block;
 }
 .card-slider-item-cont > div {
 	margin-bottom: 20px;
@@ -1958,7 +1963,10 @@ div.dp-popup h2 {
 	display: inline-block;
 	border-bottom: 1px dashed #000;
 	font-family: 'pantonlight';
+	background: rgba(255, 255, 255, 0.74);
 	font-size: 19px;
+	line-height: normal;
+	padding: 10px;
 }
 .card-slider-item-cont .glyphicon-rub {
 	font-size: 15px;
@@ -2183,7 +2191,6 @@ div.dp-popup h2 {
 	color: #fff;
 	background: #007cbc;
 	display: block;
-	margin-bottom: 3px;
 	margin-top: 17px;
 }
 .card-schedule-day:hover {
@@ -2463,8 +2470,10 @@ div.dp-popup h2 {
 }
 .tour-filter-item.date-mob > .icon-calendar {
 	position: absolute;
-	right: 3px;
-	bottom: 3px;
+	right: 12px;
+	bottom: 14px;
 	top: auto;
 	color: #000;
+	font-size: 0;
+	margin-bottom: 0;
 }

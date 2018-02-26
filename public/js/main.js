@@ -116,7 +116,7 @@ $(document).ready(function() {
 	    scrollbarPosition: "outside"
 	});
 
-	$(".accommodation-options-day-cont").mCustomScrollbar({
+	$(".accommodation-options-table-item .accommodation-options-day-cont").mCustomScrollbar({
 	    axis:"x",
 	    scrollbarPosition: "inside"
 	});
