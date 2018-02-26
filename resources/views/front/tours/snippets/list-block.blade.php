@@ -1,6 +1,6 @@
 <div class="search-completed-item">
     <div class="search-completed-item-preview">
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7 tour-top-info">
             <div class="row">
                 <div class="search-completed-preview-left">
                     <div class="search-completed-item-title">{{$tour['title']}}</div>
@@ -28,8 +28,8 @@
                         <span>не указана</span>
                         @endif
                     </div>
-                    <a href="#" class="btn btn-orange">Заказать</a>
-                    <a href="#" class="btn btn-blue">Подробнее</a>
+                    <a href="#" class="btn btn-orange" data-toggle="modal" data-target="#tourOrderModal">Заказать</a>
+                    <a href="{{Gliss::tourLink($tour)}}" class="btn btn-blue">Подробнее</a>
                 </div>
             </div>
         </div>
