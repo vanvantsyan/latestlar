@@ -403,7 +403,7 @@
         });
 
         //Insert dates
-        $('.search-completed-item-date a').on('click', function (e) {
+        $('.search-completed-item-date a.green').on('click', function (e) {
             e.preventDefault();
             var date = $(this).attr('data-date');
 
