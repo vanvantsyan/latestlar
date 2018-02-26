@@ -61,7 +61,7 @@
         <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
             <div class="row">
                 <div class="search-completed-item-more-right">
-                    <a href="#"><span>></span></a>
+                    <a href="{{Gliss::tourLink($tour)}}"><span>></span></a>
                     <div class="search-completed-preview-left">
                         <div class="search-completed-item-title">{{$tour['title']}}</div>
                         <ul>
