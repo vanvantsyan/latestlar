@@ -30,7 +30,6 @@
                         <td align="center" width="100%">
                             <p style="font-size:30px;font-weight:100;">
                                 <img style="height:60px;margin-right:10px;margin-bottom:-20px;" src="{{url('/images/logo.png')}}" alt="">
-
                             </p>
                             <p style="font-size:30px;font-weight:100;"><p style="font-size:30px;font-weight:100;">@yield('subject')</p>
                         </td>
