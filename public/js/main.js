@@ -43,7 +43,10 @@ $(document).ready(function() {
 	});
 
 	$('.sorting-btn').click(function() {
-		$('.search-completed-item-more').slideUp();
+		$('.search-completed-item-more').slideToggle();
+		var text = $('.sorting-btn').text();
+	    $('.sorting-btn').text(
+	        text == "Подробно" ? "Кратко" : "Подробно");
 		return false;
 	});
 	

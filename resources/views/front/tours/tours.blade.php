@@ -116,7 +116,7 @@
                         </div>
                     </div>
 
-                    <div class="search-completed-items mobile-hide">
+                    <div class="search-completed-items">
                         @if(count($toursParts))
                             @foreach($toursParts[0] as $tour)
                                 @include('front.tours.snippets.list-block', $tour)
@@ -160,7 +160,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="search-completed-items mobile-hide">
+                    <div class="search-completed-items">
                         @if(count($toursParts) > 1)
                             @forelse($toursParts[1] as $tour)
                                 @include('front.tours.snippets.list-block', $tour)
