@@ -17,7 +17,7 @@
         <div class="tour-filter-item date-mob">
             <label>Даты поездки <span data-toggle="tooltip" title="Укажите желаемые даты выезда">?</span></label>
             <input name="tourDate" id="tourDate" class="date-pick dp-applied" value="">
-            <label class="icon-calendar" for="tourDate"><i class="fa fa-calendar glyphicon glyphicon-calendar"></i></label>
+            <label class="icon-calendar" for="tourDate"><img src="img/icon-date.png" alt=""></label>
         </div>
         <div class="tour-filter-item time-mob">
             <label>Срок поездки (дни)</label>
