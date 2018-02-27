@@ -763,6 +763,9 @@
 	.search-completed {
 		margin-top: 30px;
 	}
+	.tour-card-text {
+		padding: 0 10px;
+	}
 }
 @media (max-width: 767px) {
 	.header .navbar-header {
@@ -841,7 +844,7 @@
 		margin: 0 auto;
 	}
 	.tour-filter-item.time-mob .jq-selectbox {
-		width: 48%;
+		width: 49.3%;
 	}
 	.tour-filter-item label span {
 		padding-left: 0;
@@ -1872,6 +1875,9 @@
 	.tours-notes-item-img {
 		height: auto;
 	}
+	.tour-filter-item.value {
+		display: none;
+	}
 }
 @media (max-width: 655px) {
 	.burning-tours-filter a {
@@ -1892,6 +1898,13 @@
 	}
 	.card-slider .slick-dots {
 		display: none !important;
+	}
+	.tour-filter-item.date-mob {
+		width: 100%;
+		margin-right: 0;
+	}
+	.tour-filter-item.time-mob {
+		width: 100%;
 	}
 }
 @media (max-width: 320px) {
