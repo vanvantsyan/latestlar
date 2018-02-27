@@ -752,7 +752,7 @@ class ToursController extends Controller
         }])->where('off', 0)->take(10)->get();
 
         // Get countries list
-        $countries = Ways::where('status', 'country')->take(10)->get();
+        $countries = Ways::with('country')->where('status', 'country')->take(10)->get();
 
         return view('front.tours.tours', [
             'tours' => $tours->toArray(),

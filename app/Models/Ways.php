@@ -26,6 +26,10 @@ class Ways extends Model
 //        return $this->join/
     }
 
+    public function country(){
+        return $this->hasOne('App\Models\Geo','magput','id');
+    }
+
     public static function hotWays()
     {
         return self::join('geo_relation AS gr', function ($join) {

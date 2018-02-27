@@ -83,11 +83,11 @@
                             <li>
                                 <a href="/{{$level}}/{{$key}}">{{$value}}</a>
                             </li>
-                            @else
+                        @else
                             <li>
                                 <a href="/{{$level}}/{{$way ? "tury-" . $way->url ."/" : ""}}{{($point) ? "tury-" . $point->url ."/" : ""}}{{($tag) ? $tag->value . "/" : ""}}{{$key}}{{$duration ? "/". $duration : ""}}">{{$value}}</a>
                             </li>
-                            @endif
+                        @endif
 
                         @if($loop->iteration == 6)
                             @break
@@ -172,9 +172,17 @@
             <div class="sidebar-tour-title">Другие страны</div>
             <ul>
                 @forelse($countries as $country)
-                    <li class="with-flag"><a
-                                href="/{{$country->url}}{{$tag ? "/" . $tag->value : ""}}{{$month ? "/" . $month : ""}}">Туры
-                            в {{Gliss::case($country->title, "П")}}</a>
+                    <li class="with-flag">
+                        @php
+                            $images = json_decode($country->country->images);
+                        @endphp
+
+                        <a href="/{{$country->url}}{{$tag ? "/" . $tag->value : ""}}{{$month ? "/" . $month : ""}}">
+                            @if($images)
+                                <img width="15" src="/uploads/tmp/{{$images}}"/>
+                            @endif
+                            Туры в {{Gliss::case($country->title, "П")}}
+                        </a>
                     </li>
                     @if($loop->iteration == 5)
                         @break
