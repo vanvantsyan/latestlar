@@ -271,7 +271,7 @@
 
                         @php
                             $images = json_decode($country->images);
-                        $size = filesize (public_path("/uploads/tmp/$images"));
+                        $size = filesize (base_path("/uploads/tmp/$images"));
                         @endphp
 
                         @if(count($images))

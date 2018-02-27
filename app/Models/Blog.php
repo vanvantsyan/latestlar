@@ -8,6 +8,7 @@ use DB;
 class Blog extends Model
 {
 
+
     protected $table = 'posts';
     protected $fillable = ['category_id', 'title', 'description', 'text', 'h1_title', 'seo_title', 'seo_desc', 'seo_keys', 'slug', 'preview', 'tags', 'user_id'];
 
