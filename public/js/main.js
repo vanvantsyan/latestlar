@@ -116,29 +116,29 @@ $(document).ready(function() {
 	    scrollbarPosition: "outside"
 	});
 
-	$(".accommodation-options-table-item .accommodation-options-day-cont").mCustomScrollbar({
-	    axis:"x",
-	    scrollbarPosition: "inside"
-	});
+    $(".accommodation-options-table-item .accommodation-options-day-cont").mCustomScrollbar({
+        axis:"x",
+        scrollbarPosition: "inside"
+    });
 
-	$(".accommodation-options-table").mCustomScrollbar({
-	    axis:"x",
-	    scrollbarPosition: "inside"
-	});
+    $(".accommodation-options-table").mCustomScrollbar({
+        axis:"x",
+        scrollbarPosition: "inside"
+    });
 
-	$(".card-tour-filter a").click(function () { 
-		var elementClick = $(this).attr("href");
-		var destination = $(elementClick).offset().top;
-		$('html,body').animate( { scrollTop: destination }, 1100 );
-		$('.card-tour-filter a').removeClass('active');
-		$(this).addClass('active');
-		return false;
-	});
+    $(".card-tour-filter a").click(function () {
+        var elementClick = $(this).attr("href");
+        var destination = $(elementClick).offset().top;
+        $('html,body').animate( { scrollTop: destination }, 1100 );
+        $('.card-tour-filter a').removeClass('active');
+        $(this).addClass('active');
+        return false;
+    });
 
-	$(".burning-tours-filter-wrap").mCustomScrollbar({
-	    axis:"x",
-	    scrollbarPosition: "inside"
-	});
+    $(".burning-tours-filter-wrap").mCustomScrollbar({
+        axis:"x",
+        scrollbarPosition: "inside"
+    });
 });
 
 
