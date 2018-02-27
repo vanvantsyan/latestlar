@@ -3,13 +3,10 @@
 @endforeach
 
 <script>
-    $('.search-completed-preview-right a.btn-blue').click(function () {
+
+    $(".search-completed-item-preview > div:first-child").click(function () {
         $(this).closest('.search-completed-item').find('.search-completed-item-more').slideToggle();
         return false;
-    });
-
-    $(".search-completed-item-preview").click(function () {
-        $(".search-completed-preview-right a.btn-blue").trigger("click");
     });
 
     //Insert dates

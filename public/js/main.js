@@ -11,8 +11,9 @@ $(document).ready(function() {
 	    scrollbarPosition: "inside"
 	});
 
-	$(".search-completed-item-preview").click(function() {
-		$(".search-completed-preview-right a.btn-blue").trigger("click");
+	$(".search-completed-item-preview > div:first-child").click(function() {
+        $(this).closest('.search-completed-item').find('.search-completed-item-more').slideToggle();
+        return false;
 	});
 
 	$('select').styler({
@@ -34,11 +35,6 @@ $(document).ready(function() {
 
 	$('.tours-sorting-items a').click(function() {
 		$('.tours-sorting-items').toggleClass('active');
-		return false;
-	});
-
-	$('.search-completed-preview-right a.btn-blue').click(function() {
-		$(this).closest('.search-completed-item').find('.search-completed-item-more').slideToggle();
 		return false;
 	});
 

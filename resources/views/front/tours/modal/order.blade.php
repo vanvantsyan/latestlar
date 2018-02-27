@@ -22,6 +22,11 @@
                         <span></span>
                         <input type="text" name="phone" class="form-control" placeholder="8 920 888 88 88">
                     </div>
+                    <input type="hidden" name="source" value="" />
+                    <input type="hidden" name="route" value="" />
+                    <input type="hidden" name="tourName" value="" />
+                    <input type="hidden" name="tourDate" value="" />
+
                     <div class="form-group">
                         <textarea class="form-control" name="comment" id="comment"></textarea>
                     </div>

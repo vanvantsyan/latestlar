@@ -28,8 +28,8 @@
                             <span>не указана</span>
                         @endif
                     </div>
-                    <a href="#" class="btn btn-orange">Заказать</a>
-                    <a href="#" class="btn btn-blue">Подробнее</a>
+                    <a href="#" data-toggle="modal" data-target="#tourOrderModal" class="btn btn-orange">Заказать</a>
+                    <a href="{{Gliss::tourLink($tour)}}" class="btn btn-blue">Подробнее</a>
                 </div>
             </div>
         </div>

@@ -471,6 +471,8 @@
         // Send order
         $('#tourOrderModal .modal-footer a:last-child').on('click', function (e) {
 
+            console.log(this);
+
             e.preventDefault();
 
             var data = {};
