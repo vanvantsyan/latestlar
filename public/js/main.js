@@ -11,7 +11,7 @@ $(document).ready(function() {
 	    scrollbarPosition: "inside"
 	});
 
-	$(".tour-top-info").click(function() {
+	$(".search-completed-item-preview").click(function() {
 		$(".search-completed-preview-right a.btn-blue").trigger("click");
 	});
 
@@ -37,7 +37,7 @@ $(document).ready(function() {
 		return false;
 	});
 
-	$('.tour-top-info').click(function() {
+	$('.search-completed-preview-right a.btn-blue').click(function() {
 		$(this).closest('.search-completed-item').find('.search-completed-item-more').slideToggle();
 		return false;
 	});

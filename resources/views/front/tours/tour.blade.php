@@ -371,8 +371,8 @@
 
         });
     </script>
-
     <script>
+
         // Send order
         $('#tourOrderModal .modal-footer a:last-child').on('click', function (e) {
 
