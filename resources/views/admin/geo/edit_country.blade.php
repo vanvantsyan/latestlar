@@ -271,10 +271,14 @@
 
                         @php
                             $images = json_decode($country->images);
-                        $size = filesize (base_path("/uploads/tmp/$images"));
+
                         @endphp
 
                         @if(count($images))
+
+                        @php
+                            $size = filesize(base_path("uploads/tmp/$images"));
+                        @endphp
 
                 var mockFile = {name: '{{$images}}', 'size': '{{$size}}'};
 
