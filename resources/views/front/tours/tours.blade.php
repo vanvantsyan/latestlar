@@ -75,7 +75,7 @@
                     <div class="search-completed">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
-                                <div class="title">Туры по России из г. Москва, найдено: <span
+                                <div class="title"><span id="toursFrom">{{ $seo['pTitle'] }}</span> из г. Москва, найдено: <span
                                             id="countFound">{{$countTours}}</span></div>
                                 <a href="#" class="btn sorting-btn">Кратко</a>
                                 <div class="tours-sorting mobile-hide">
@@ -106,70 +106,7 @@
                                         $toursParts = [];
                                     }
                                 @endphp
-                                {{--<div class="search-completed-items">--}}
-                                {{--<div class="search-completed-item">--}}
-                                {{--<div class="search-completed-item-preview">--}}
-                                {{--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">--}}
-                                {{--<div class="row">--}}
-                                {{--<div class="search-completed-preview-left">--}}
-                                {{--<div class="search-completed-item-title">Легендарная Русь 4* - очень длинный заголовок очень длинный заголовок</div>--}}
-                                {{--<ul>--}}
-                                {{--<li>9 городов</li>--}}
-                                {{--<li>14 экскурсий</li>--}}
-                                {{--<li>Поездка на 4 дня</li>--}}
-                                {{--</ul>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-5">--}}
-                                {{--<div class="row">--}}
-                                {{--<div class="search-completed-preview-right">--}}
-                                {{--<div class="search-completed-item-price">--}}
-                                {{--<b>от 8200 <span class="glyphicon glyphicon-rub" aria-hidden="true"></span></b>--}}
-                                {{--<span>за человека</span>--}}
-                                {{--</div>--}}
-                                {{--<a href="#" class="btn btn-orange">Заказать</a>--}}
-                                {{--<a href="#" class="btn btn-blue">Подробнее</a>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<div class="search-completed-item-more">--}}
-                                {{--<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">--}}
-                                {{--<div class="row">--}}
-                                {{--<a href="#" class="search-completed-item-img">--}}
-                                {{--<img src="img/search-completed-item-1.jpg" alt="">--}}
-                                {{--<span>Все фото (18)</span>--}}
-                                {{--</a>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">--}}
-                                {{--<div class="row">--}}
-                                {{--<div class="search-completed-item-more-right">--}}
-                                {{--<div class="search-completed-item-route">--}}
-                                {{--<span>Маршрут тура:</span> <b>Москва</b> - Владимир, Боголюбово, Суздаль, Иваново, Кострома, Ярославль, Ростов Великий, Переславль Залесский, Сергиев Посад - <b>Москва</b>--}}
-                                {{--</div>--}}
-                                {{--<div class="search-completed-item-date">--}}
-                                {{--<a href="#" class="red">14.12</a>--}}
-                                {{--<a href="#" class="green">22.12</a>--}}
-                                {{--<a href="#" class="red">26.12</a>--}}
-                                {{--<a href="#" class="red">14.12</a>--}}
-                                {{--<a href="#" class="green">22.12</a>--}}
-                                {{--<a href="#" class="red">26.12</a>--}}
-                                {{--<a href="#" class="green">22.12</a>--}}
-                                {{--<a href="#" class="all-dates">Все даты <b>>>></b></a>--}}
-                                {{--</div>--}}
-                                {{--<div class="search-completed-item-desc">--}}
-                                {{--Великий праздник Пасхи в одном из самых святых уголков русской земли! Знакомство со святынями былинного Мурома и Светлое Христово Воскресение...--}}
-                                {{--<a href="#">Подробнее</a>--}}
-                                {{--</div>--}}
-                                {{--<div class="search-completed-item-tags">Для детей, Золотое кольцо, Новогодние туры</div>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
+
                             </div>
                         </div>
                     </div>
