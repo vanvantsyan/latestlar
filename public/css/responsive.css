@@ -318,11 +318,11 @@
 	.footer-logo .logo {
 		margin-right: 0;
 	}
-	#mCSB_1_container > div {
+	.page-russia .tab-content .mCSB_container > div {
 		width: 221px;
 		padding-right: 23px;
 	}
-	#mCSB_1_container {
+	.page-russia .tab-content .mCSB_container {
 		display: -ms-flexbox;
 		display: -webkit-flex;
 		display: flex;
