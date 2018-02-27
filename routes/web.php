@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('visa', 'Admin\VisaController');
 
-        Route::post('upload-images', 'ImageController@uploadImages');
+        Route::post('upload-images', 'ImageController@uploadImages')->name('image.upload');
 
         Route::post('saveFor', 'ImageController@saveFor')->name('image.save.for');
         Route::post('removeImage', 'ImageController@removeImage')->name('image.remove');
@@ -75,9 +75,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('menu', 'Admin\MenuController');
 
         Route::resource('pages', 'Admin\PagesController');
+
         Route::get('geo/city/{id}/delete', 'Admin\GeoController@deleteCity');
         Route::post('geo/city/{id}', 'Admin\GeoController@updateCity');
         Route::get('geo/city/{id}', 'Admin\GeoController@showCity');
+
+        Route::post('geo/setImage', 'Admin\GeoController@setImage')->name('geo.set.image');
+        Route::post('geo/removeImage', 'Admin\GeoController@removeImage')->name('geo.remove.image');
+
         Route::resource('geo', 'Admin\GeoController');
         Route::resource('users', 'Admin\UsersController');
         Route::resource('roles', 'Admin\RolesController');

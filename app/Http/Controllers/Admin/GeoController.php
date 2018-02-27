@@ -26,7 +26,7 @@ class GeoController extends Controller
      */
     public function index()
     {
-        $countries = $this->model->select('id','country','slug')->get();
+        $countries = $this->model->select('id', 'country', 'slug')->get();
         return view('admin.geo.index', [
             'countries' => $countries
         ]);
@@ -95,6 +95,8 @@ class GeoController extends Controller
     {
 //        $this->validateCountry($request);
 
+
+        dd($request->all());
         $this->model->updateCountry($id, $request->all());
         return redirect('admin/geo')->with('message', 'Country "' . $request->get('country') . '" has been updated');
     }
@@ -144,7 +146,8 @@ class GeoController extends Controller
     }
 
 
-    public function updateCity(Request $request, $id){
+    public function updateCity(Request $request, $id)
+    {
 
         $data = $request->all();
         unset($data['_token']);
@@ -152,8 +155,20 @@ class GeoController extends Controller
         Cities::where('id', $id)->update($data);
 
         return redirect('admin/geo')
-            ->with('message', 'Город "'.$request->get('city').'" успешно обновлен');
+            ->with('message', 'Город "' . $request->get('city') . '" успешно обновлен');
 
+    }
+
+    public function setImage(Request $request){
+
+        $data = $request->all();
+        $this->model->where('id',$data['id'])->update(['images' => json_encode($data['image'])]);
+    }
+
+    public function removeImage(Request $request){
+
+        $data = $request->all();
+        $this->model->where('id',$data['id'])->update(['images' => null]);
     }
 
 

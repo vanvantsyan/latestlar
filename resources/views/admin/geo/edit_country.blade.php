@@ -17,7 +17,8 @@
         <div class="m-portlet m-portlet--mobile">
             <div class="m-portlet__body">
 
-                <form action="{{url('admin/geo/'.$country->id)}}" method="POST" class="m-form m-form--fit m-form--label-align-right">
+                <form action="{{url('admin/geo/'.$country->id)}}" method="POST"
+                      class="m-form m-form--fit m-form--label-align-right">
 
                     {{csrf_field()}}
                     <input type="hidden" name="_method" value="PUT">
@@ -41,7 +42,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group m-form__group {{ $errors->has('country') ? ' has-danger' : '' }}">
                                         <label for="country">Название страны</label>
-                                        <input id="country" class="form-control" name="country" required value="{{$country->country}}">
+                                        <input id="country" class="form-control" name="country" required
+                                               value="{{$country->country}}">
                                         @if($errors->has('country'))
                                             <div class="form-control-feedback">{{$errors->first('country')}}</div>
                                         @endif
@@ -51,8 +53,12 @@
                                         <label for="country">Добавленные города</label><br>
                                         @forelse($country->cities as $city)
                                             <span class="m-badge m-badge--info m-badge--wide" style="margin-top:5px;">
-                                        <a style="color:#fff;" href="{{url('admin/geo/city/'.$city['id'])}}">{{$city['city']}}</a>
-                                        <span data-toggle="modal" onclick="return gliss.geo.setDataCity('{{$city['id']}}', '{{$city['city']}}');" data-target="#m_modal_1" style="font-size:14pt;padding-left:10px;cursor:pointer;">&times;</span>
+                                        <a style="color:#fff;"
+                                           href="{{url('admin/geo/city/'.$city['id'])}}">{{$city['city']}}</a>
+                                        <span data-toggle="modal"
+                                              onclick="return gliss.geo.setDataCity('{{$city['id']}}', '{{$city['city']}}');"
+                                              data-target="#m_modal_1"
+                                              style="font-size:14pt;padding-left:10px;cursor:pointer;">&times;</span>
                                     </span>
                                         @empty
 
@@ -81,8 +87,10 @@
                                     <label class="">
                                         Загрузить изображение
                                     </label>
-                                    <div class="m-dropzone dropzone dz-clickable" action="{{url('images/upload')}}" id="m-dropzone-one">
-                                        <div class="m-dropzone__msg dz-message needsclick" @if(isset($country) && !empty($country->image)) style="display: none;" @endif>
+                                    <div class="m-dropzone dropzone dz-clickable" action="{{route('image.upload')}}"
+                                         id="way-dropzone">
+                                        <div class="m-dropzone__msg dz-message needsclick"
+                                             @if(isset($country) && !empty($country->image)) style="display: none;" @endif>
                                             <h3 class="m-dropzone__msg-title">
                                                 Перетащите файл изображения сюда или кликните для загрузки с компьютера
                                             </h3>
@@ -90,7 +98,9 @@
                                         @if(isset($country) && !empty($country->image))
                                             <div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
                                                 <div class="dz-image">
-                                                    <img data-dz-thumbnail="" alt="" src="{{asset('uploads/news/'.$country->image)}}" style="height:100px;">
+                                                    <img data-dz-thumbnail="" alt=""
+                                                         src="{{asset('uploads/news/'.$country->image)}}"
+                                                         style="height:100px;">
                                                 </div>
                                             </div>
                                         @endif
@@ -101,7 +111,8 @@
                             <div class="form-group m-form__group row">
                                 <div class="col-md-6 col-xs-12">
                                     <label for="">Описание</label>
-                                    <textarea class="summernote" name="description">{{$country->description or ''}}</textarea>
+                                    <textarea class="summernote"
+                                              name="description">{{$country->description or ''}}</textarea>
                                 </div>
                             </div>
 
@@ -113,32 +124,37 @@
                             <div class="form-group m-form__group row">
                                 <div class="col-md-6 col-xs-12">
                                     <label for="seo_title">SEO title</label>
-                                    <input type="text" class="form-control m-input m-input--square" id="seo_title" name="seo_title" value="{{$country->seo_title or ''}}">
+                                    <input type="text" class="form-control m-input m-input--square" id="seo_title"
+                                           name="seo_title" value="{{$country->seo_title or ''}}">
                                 </div>
                             </div>
                             <div class="form-group m-form__group row">
                                 <div class="col-md-6 col-xs-12">
                                     <label for="seo_h1">SEO h1</label>
-                                    <input type="text" class="form-control m-input m-input--square" id="seo_h1" name="seo_h1" value="{{$country->seo_h1 or ''}}">
+                                    <input type="text" class="form-control m-input m-input--square" id="seo_h1"
+                                           name="seo_h1" value="{{$country->seo_h1 or ''}}">
                                 </div>
                             </div>
                             <div class="form-group m-form__group row">
                                 <div class="col-md-6 col-xs-12">
                                     <label for="seo_desc">SEO Description</label>
-                                    <textarea class="form-control m-input m-input--square" id="seo_desc" name="seo_desc" rows="5">{{$country->seo_desc or ''}}</textarea>
+                                    <textarea class="form-control m-input m-input--square" id="seo_desc" name="seo_desc"
+                                              rows="5">{{$country->seo_desc or ''}}</textarea>
                                 </div>
                             </div>
                             <div class="form-group m-form__group row">
                                 <div class="col-md-6 col-xs-12">
                                     <label for="seo_keywords">SEO keywords</label>
-                                    <input type="text" class="form-control m-input m-input--square" id="seo_keywords" name="seo_keywords" value="{{$country->seo_keywords or ''}}">
+                                    <input type="text" class="form-control m-input m-input--square" id="seo_keywords"
+                                           name="seo_keywords" value="{{$country->seo_keywords or ''}}">
                                 </div>
                             </div>
 
                             <div class="form-group m-form__group row {{ $errors->has('slug') ? ' has-danger' : '' }}">
                                 <div class="col-md-6 col-xs-12">
                                     <label for="slug">SLUG</label>
-                                    <input type="text" class="form-control m-input m-input--square" id="slug" name="slug" value="{{$country->slug or ''}}">
+                                    <input type="text" class="form-control m-input m-input--square" id="slug"
+                                           name="slug" value="{{$country->slug or ''}}">
                                     @if($errors->has('slug'))
                                         <div class="form-control-feedback">{{$errors->first('slug')}}</div>
                                     @endif
@@ -161,7 +177,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         style="display: none;" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -223,5 +240,87 @@
     @endif
 
     <script type="text/javascript" src="{{asset('js/gliss.geo.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/demo/default/custom/components/forms/widgets/summernote.js')}}"></script>
+    <script type="text/javascript"
+            src="{{asset('assets/demo/default/custom/components/forms/widgets/summernote.js')}}"></script>
+
+    <script>
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        Dropzone.options.wayDropzone = {
+
+            dictRemoveFile: "Удалить",
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-Token': $('meta[name="token"]').attr('content')
+            },
+
+            sending: function (file, xhr, formData) {
+                formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
+                {{--formData.append("id", '{{$item->id}}');--}}
+                {{--formData.append("ess", 'ToursTagsValues');--}}
+            },
+
+            init: function () {
+
+                thisDropzone = this;
+
+                        @php
+                            $images = json_decode($country->images);
+                        $size = filesize (public_path("/uploads/tmp/$images"));
+                        @endphp
+
+                        @if(count($images))
+
+                var mockFile = {name: '{{$images}}', 'size': '{{$size}}'};
+
+                thisDropzone.emit('addedfile', mockFile);
+                thisDropzone.emit('thumbnail', mockFile, '/uploads/tmp/{{$images}}');
+                thisDropzone.emit("complete", mockFile);
+
+                @endif
+
+                thisDropzone.on("thumbnail", function (file, dataUrl) {
+                    $('.dz-image').last().find('img').attr({width: '100%', height: '100%'});
+                });
+
+                thisDropzone.on("success", function (file, response) {
+                    data = $.parseJSON(response);
+                    file.serverId = response;
+
+                    if (data.filename) {
+                        $.ajax({
+                            url: "{{route('geo.set.image')}}",
+                            cache: false,
+                            data: {id: '{{$country->id}}', image: data.filename},
+                            type: "POST",
+                        }).done(function () {
+                        });
+                    }
+
+                });
+
+                thisDropzone.on("removedfile", function (file) {
+
+                    if (!file.name) {
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "{{route('geo.remove.image')}}",
+                        cache: false,
+                        data: {id: '{{$country->id}}', name: file.name},
+                        type: "POST",
+                    }).done(function () {
+                    });
+
+                });
+            },
+
+        }
+    </script>
 @endsection
