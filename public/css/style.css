@@ -1225,7 +1225,7 @@ a.dp-choose-date {
 	padding-left: 35px;
 	padding-top: 34px;
 	padding-bottom: 40px;
-}
+}/*
 .tour-preview-wrap:before {
 	content: "";
 	position: absolute;
@@ -1236,7 +1236,7 @@ a.dp-choose-date {
 	opacity: 0.6;
 	z-index: 1;
 	background: #fff;
-}
+}*/
 .tours-sorting b {
 	display: inline-block;
 	width: 13px;
@@ -2476,4 +2476,25 @@ div.dp-popup h2 {
 	color: #000;
 	font-size: 0;
 	margin-bottom: 0;
+}
+#tourOrderModal .btn {
+    -webkit-appearance: initial;
+    background: #ff5500;
+    text-shadow: none;
+}
+#tourOrderModal .btn:hover {
+	background: #e14a00;
+	color: #fff;
+}
+#tourOrderModal .btn-default {
+    border: 1px solid #e1e1e1;
+    color: #000;
+    background: #fff;
+}
+#tourOrderModal .btn-default:hover {
+	color: #fff;
+    background: #e1e1e1;
+}
+.tour-card-text ul {
+	list-style-type: none;
 }
