@@ -169,8 +169,7 @@
 
                                                                 @foreach($dates as $date)
 
-                                                                    <a href="#" class="green"
-                                                                       data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
+                                                                    <a href="#" class="green" data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
                                                                         {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
                                                                     </a>
 
@@ -303,7 +302,7 @@
         @include('front.modules.bigFooter')
     </div>
     @include('front.tours.modal.images')
-    @include('front.tours.modal.order')
+    @include('front.tours.modal.order', ['tour' => $tour])
 @endsection
 
 @section('js')
@@ -365,8 +364,12 @@
                 $(this).removeClass('order');
             },
             click: function (e) {
+
+                var tourDate = $(this).attr('data-date');
+                $('input[name=tourDate]').attr('value', tourDate);
+
                 e.preventDefault();
-                $('#tourOrderModal').modal('show')
+                $('#tourOrderModal').modal('show');
             }
 
         });

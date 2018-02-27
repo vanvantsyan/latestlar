@@ -1,4 +1,5 @@
-<div class="modal fade" id="tourOrderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="tourOrderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -22,10 +23,40 @@
                         <span></span>
                         <input type="text" name="phone" class="form-control" placeholder="8 920 888 88 88">
                     </div>
-                    <input type="hidden" name="source" value="" />
-                    <input type="hidden" name="route" value="" />
-                    <input type="hidden" name="tourName" value="" />
-                    <input type="hidden" name="tourDate" value="" />
+
+                    @isset($tour)
+                        <input type="hidden" name="source" value=""/>
+                        <input type="hidden" name="route" value="<span>Маршрут тура:</span>
+                    @if(count($tour['par_points']))
+                        @php
+                            $i = 1;
+                        @endphp
+
+                        @foreach($tour['par_points'] as $point)
+                        @if($i < count($tour['par_points']))
+                        {{array_get($point,'points_par.title')}},
+                    @else
+                        {{array_get($point,'points_par.title')}}
+                        @endif
+                        @php $i++ @endphp
+                        @endforeach
+
+                        @else
+                        @if(count($tour['par_ways']))
+                        {{$tour['par_ways'][0]['ways_par']['title']}}
+                        @endif
+                        @endif
+                                "/>
+                        <input type="hidden" name="tourName" value="{{$tour['title']}}"/>
+                        <input type="hidden" name="tourDate" value=""/>
+                        <input type="hidden" name="href" value="http://russia.startour.ru{{Gliss::tourLink($tour)}}"/>
+                    @else
+                        <input type="hidden" name="source" value=""/>
+                        <input type="hidden" name="route" value=""/>
+                        <input type="hidden" name="tourName" value=""/>
+                        <input type="hidden" name="tourDate" value=""/>
+                        <input type="hidden" name="href" value=""/>
+                    @endif
 
                     <div class="form-group">
                         <textarea class="form-control" name="comment" id="comment"></textarea>

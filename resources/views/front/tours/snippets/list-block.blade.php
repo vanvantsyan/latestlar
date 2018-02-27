@@ -103,7 +103,7 @@
                             @if ($num > 5)
                                 @break
                             @endif
-                            <a href="#" class="green" data-date="">
+                            <a href="#" class="green" data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m.Y')}}">
                                 {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
                             </a>
 

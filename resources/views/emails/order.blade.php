@@ -23,6 +23,32 @@
                 Комментарий: {{$fields['comment']}}
             </p>
         @endif
+
+        @isset($fields['tourName'])
+            <p style="font-size:16px;font-family:'Arial';padding:10px;">
+                Название тура: {{$fields['tourName']}}
+            </p>
+        @endif
+        @isset($fields['tourDate'])
+            <p style="font-size:16px;font-family:'Arial';padding:10px;">
+                Выбранная дата: {{$fields['tourDate']}}
+            </p>
+        @endif
+        @isset($fields['route'])
+            <p style="font-size:16px;font-family:'Arial';padding:10px;">
+                {!!  $fields['route']  !!}
+            </p>
+        @endif
+        @isset($fields['source'])
+            <p style="font-size:16px;font-family:'Arial';padding:10px;">
+                Источник: {{$fields['source']}}
+            </p>
+        @endif
+        @isset($fields['href'])
+            <p style="font-size:16px;font-family:'Arial';padding:10px;">
+                Ссылка на тур: {{$fields['href']}}
+            </p>
+        @endif
     @endif
 
 @endsection

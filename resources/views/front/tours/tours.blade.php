@@ -11,6 +11,7 @@
             background-color: rgb(66, 176, 235);
             background-repeat: repeat;
         }
+
         form span {
             float: right;
             color: red;
@@ -466,12 +467,29 @@
 
             $('#filterTours').trigger('click');
         });
-        </script>
-        <script>
+    </script>
+    <script>
+
+        // Set hidden fields
+        $('#tourOrderModal').on('show.bs.modal', function (e) {
+
+            var tourBlock = $(e.relatedTarget).closest('.search-completed-item');
+
+            var tourName = tourBlock.find('.search-completed-item-preview .search-completed-item-title').text();
+
+            var route = (tourBlock.find('.search-completed-item-route').html()).trim();
+            var href = tourBlock.find('.btn-blue').attr('href');
+            var source = "magput";
+
+            $('input[name=source]').attr('value', source);
+            $('input[name=href]').attr('value', 'http://russia.startour.ru' + href);
+            $('input[name=tourName]').attr('value', tourName);
+            $('input[name=route]').attr('value', route);
+
+        });
+
         // Send order
         $('#tourOrderModal .modal-footer a:last-child').on('click', function (e) {
-
-            console.log(this);
 
             e.preventDefault();
 
@@ -499,7 +517,7 @@
                     })
                 } else {
                     $('#tourOrderModal .modal-footer').remove();
-                    $('#tourOrderModal .modal-body').html("<p style='text-align: center' class=\"alert alert-success\">" + data.message +"</p>");
+                    $('#tourOrderModal .modal-body').html("<p style='text-align: center' class=\"alert alert-success\">" + data.message + "</p>");
                     setTimeout(function () {
                         $('#tourOrderModal').modal('hide')
                     }, 3000);
