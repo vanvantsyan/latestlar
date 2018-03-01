@@ -73,8 +73,8 @@ class ToursController extends Controller
             $seo['pTitle'] = "Туры в " . BladeHelper::case($country, "П");
             $seo['bTitle'] = "Туры из Москвы в " . BladeHelper::case($country, "П");
             $seo['metaKey'] = "туры в " . BladeHelper::case($country, "П") . ", " . date("Y") . " год, из Москвы, купить, поиск";
-            $seo['metaDesc'] = "Купить тур из Москвы в " . BladeHelper::case($country, "П") . " в " . date("Y") . " году по низкой цене от компании СтарТур. Профессиональный подбор туров в " . BladeHelper::case($country, "П");
-            $seo['subText'] = "Поиск и подбор туров в " . BladeHelper::case($country, "П") . " в " . date("Y") . " году на сайте турагенства СтарТур. Все туры по направлению $country в одном месте.";
+            $seo['metaDesc'] = "Купить тур из Москвы в " . BladeHelper::case($country, "П") . " в " . date("Y") . " году по низкой цене от компании STARTOUR. Профессиональный подбор туров в " . BladeHelper::case($country, "П");
+            $seo['subText'] = "Поиск и подбор туров в " . BladeHelper::case($country, "П") . " в " . date("Y") . " году на сайте турагенства STARTOUR. Все туры по направлению $country в одном месте.";
 
             // Курорт
             if ($resort = array_get($params, 'resort', null)) {
@@ -83,8 +83,8 @@ class ToursController extends Controller
                     $seo['pTitle'] = "$tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . "";
                     $seo['bTitle'] = "$tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " из Москвы";
                     $seo['metaKey'] = "купить $tour_type " . date("Y") . "  в " . BladeHelper::case($resort->title, "П") . " из Москвы, цена, $country";
-                    $seo['metaDesc'] = "Дешевые $tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " с вылетом из Москвы от турагентства СтарТур. Отдых в " . BladeHelper::case($country, "П") . ".";
-                    $seo['subText'] = "$tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы дешево от компании СтарТур. Профессиональный подбор туров. Отдыхайте на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    $seo['metaDesc'] = "Дешевые $tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " с вылетом из Москвы от турагентства STARTOUR. Отдых в " . BladeHelper::case($country, "П") . ".";
+                    $seo['subText'] = "$tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Отдыхайте на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
                     return $seo;
                 }
 
@@ -92,8 +92,8 @@ class ToursController extends Controller
                     $seo['pTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "";
                     $seo['bTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы";
                     $seo['metaKey'] = "купить туры в " . BladeHelper::case($resort->title, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы, цена, $country";
-                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($resort->title, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства СтарТур. Отдых в " . BladeHelper::case($country, "П") . ".";
-                    $seo['subText'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании СтарТур. Профессиональный подбор туров. Проведите $duration " . BladeHelper::numeralCase('день', $duration) . ", отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($resort->title, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства STARTOUR. Отдых в " . BladeHelper::case($country, "П") . ".";
+                    $seo['subText'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $duration " . BladeHelper::numeralCase('день', $duration) . ", отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
                     return $seo;
                 }
 
@@ -101,8 +101,8 @@ class ToursController extends Controller
                     $seo['pTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " на " . $holiday . " " . date("Y") . "";
                     $seo['bTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " на " . $holiday . " " . date("Y") . " из Москвы";
                     $seo['metaKey'] = "купить туры в " . BladeHelper::case($resort->title, "П") . " на " . $holiday . " " . date("Y") . " из Москвы, цена, $country";
-                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($resort->title, "П") . " на " . $holiday . " " . date("Y") . " с вылетом из Москвы от турагентства СтарТур. Отдых в " . BladeHelper::case($country, "П") . ".";
-                    $seo['subText'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы на " . $holiday . " " . date("Y") . " год дешево от компании СтарТур. Профессиональный подбор туров. Проведите праздники, отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($resort->title, "П") . " на " . $holiday . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR. Отдых в " . BladeHelper::case($country, "П") . ".";
+                    $seo['subText'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы на " . $holiday . " " . date("Y") . " год дешево от компании STARTOUR. Профессиональный подбор туров. Проведите праздники, отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
                     return $seo;
                 }
 
@@ -110,8 +110,8 @@ class ToursController extends Controller
                     $seo['pTitle'] = "$status " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . "";
                     $seo['bTitle'] = "$status " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " из Москвы";
                     $seo['metaKey'] = "купить $status " . date("Y") . "  в " . BladeHelper::case($resort->title, "П") . " из Москвы, цена, $country";
-                    $seo['metaDesc'] = "Дешевые $status " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " с вылетом из Москвы от турагентства СтарТур. Отдых в " . BladeHelper::case($country, "П") . ".";
-                    $seo['subText'] = "$status " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы дешево от компании СтарТур. Профессиональный подбор туров. Отдыхайте на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    $seo['metaDesc'] = "Дешевые $status " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " с вылетом из Москвы от турагентства STARTOUR. Отдых в " . BladeHelper::case($country, "П") . ".";
+                    $seo['subText'] = "$status " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Отдыхайте на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
                     return $seo;
                 }
 
@@ -119,8 +119,8 @@ class ToursController extends Controller
                     $seo['pTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . "";
                     $seo['bTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы";
                     $seo['metaKey'] = "купить туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы, цена, $country";
-                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " с вылетом из Москвы от турагентства СтарТур. Отдых в " . BladeHelper::case($country, "П") . ".";
-                    $seo['subText'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " года дешево от компании СтарТур. Профессиональный подбор туров. Проведите $month, отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR. Отдых в " . BladeHelper::case($country, "П") . ".";
+                    $seo['subText'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $month, отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
                     return $seo;
                 }
 
@@ -128,7 +128,7 @@ class ToursController extends Controller
                 $seo['bTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы в " . date("Y") . " году по низкой цене";
                 $seo['metaKey'] = "Туры в " . BladeHelper::case($resort->title, "П") . ", ($country), вылет из Москвы, от всех туроператоров, цена, купить";
                 $seo['metaDesc'] = "Купить тур в " . $resort->title . " " . date("Y") . " от наиболее известных туроператоров. Удобный поиск туров в " . $resort->title . " из Москвы.";
-                $seo['subText'] = "Подбор туров  в " . BladeHelper::case($resort->title, "П") . " ($country) в турагентстве СтарТур. Мы поможем Вам найти тур по оптимальной цене.";
+                $seo['subText'] = "Подбор туров  в " . BladeHelper::case($resort->title, "П") . " ($country) в турагентстве STARTOUR. Мы поможем Вам найти тур по оптимальной цене.";
                 return $seo;
             }
 
@@ -139,8 +139,8 @@ class ToursController extends Controller
                     $seo['pTitle'] = "Туры в " . BladeHelper::case($country, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . "";
                     $seo['bTitle'] = "Туры в " . BladeHelper::case($month, "П") . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "  из Москвы";
                     $seo['metaKey'] = "купить туры в " . BladeHelper::case($month, "П") . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . ", цена, $country";
-                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($month, "П") . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " от турагентства СтарТур.";
-                    $seo['subText'] = "Туры в " . BladeHelper::case($country, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " года из Москвы дешево от компании СтарТур. Профессиональный подбор туров. Проведите $month на лучших курортах " . BladeHelper::case($country, "Р") . ".";
+                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($month, "П") . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " от турагентства STARTOUR.";
+                    $seo['subText'] = "Туры в " . BladeHelper::case($country, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " года из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $month на лучших курортах " . BladeHelper::case($country, "Р") . ".";
                     return $seo;
                 }
 
@@ -148,8 +148,8 @@ class ToursController extends Controller
                     $seo['pTitle'] = "$tour_type в " . BladeHelper::case($country, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . "";
                     $seo['bTitle'] = "$tour_type в " . BladeHelper::case($country, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы";
                     $seo['metaKey'] = "купить $tour_type в " . BladeHelper::case($country, "П") . " из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . ", цена, $country";
-                    $seo['metaDesc'] = "Дешевые $tour_type в " . BladeHelper::case($country, "П") . " с вылетом из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " года от турагентства СтарТур.";
-                    $seo['subText'] = "$tour_type в " . BladeHelper::case($country, "П") . " из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " года дешево от компании СтарТур. Профессиональный подбор туров. Проводите $month на лучших курортах " . BladeHelper::case($country, "Р") . ".";
+                    $seo['metaDesc'] = "Дешевые $tour_type в " . BladeHelper::case($country, "П") . " с вылетом из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " года от турагентства STARTOUR.";
+                    $seo['subText'] = "$tour_type в " . BladeHelper::case($country, "П") . " из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проводите $month на лучших курортах " . BladeHelper::case($country, "Р") . ".";
                     return $seo;
                 }
 
@@ -157,16 +157,16 @@ class ToursController extends Controller
                     $seo['pTitle'] = "$status в " . BladeHelper::case($country, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . "";
                     $seo['bTitle'] = "$status в " . BladeHelper::case($country, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы";
                     $seo['metaKey'] = "купить $status в " . BladeHelper::case($country, "П") . " из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . ", цена, $country";
-                    $seo['metaDesc'] = "Дешевые $status в " . BladeHelper::case($country, "П") . " с вылетом из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " года от турагентства СтарТур.";
-                    $seo['subText'] = "$status в " . BladeHelper::case($country, "П") . " из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " дешево от компании СтарТур. Профессиональный подбор туров. Проводите $month на лучших курортах " . BladeHelper::case($country, "Р") . ".";
+                    $seo['metaDesc'] = "Дешевые $status в " . BladeHelper::case($country, "П") . " с вылетом из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " года от турагентства STARTOUR.";
+                    $seo['subText'] = "$status в " . BladeHelper::case($country, "П") . " из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " дешево от компании STARTOUR. Профессиональный подбор туров. Проводите $month на лучших курортах " . BladeHelper::case($country, "Р") . ".";
                     return $seo;
                 }
 
                 $seo['pTitle'] = "Туры в " . BladeHelper::case($country, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . "";
                 $seo['bTitle'] = "Туры в " . BladeHelper::case($country, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы";
                 $seo['metaKey'] = "купить тур в " . BladeHelper::case($country, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы, цена";
-                $seo['metaDesc'] = "Дешевые тур в " . BladeHelper::case($country, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " с вылетом из Москвы от турагентства СтарТур.";
-                $seo['subText'] = "Туры из Москвы в " . BladeHelper::case($country, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " года дешево от компании СтарТур. Профессиональный подбор туров.";
+                $seo['metaDesc'] = "Дешевые тур в " . BladeHelper::case($country, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR.";
+                $seo['subText'] = "Туры из Москвы в " . BladeHelper::case($country, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " года дешево от компании STARTOUR. Профессиональный подбор туров.";
                 return $seo;
             }
 
@@ -177,8 +177,8 @@ class ToursController extends Controller
                     $seo['pTitle'] = "$tour_type " . date("Y") . " в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "";
                     $seo['bTitle'] = "$tour_type " . date("Y") . " в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "  из Москвы";
                     $seo['metaKey'] = "купить $tour_type " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . ", цена, $country";
-                    $seo['metaDesc'] = "Дешевые $tour_type " . date("Y") . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " от турагентства СтарТур.";
-                    $seo['subText'] = "$tour_type на " . date("Y") . " год в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "  из Москвы дешево от компании СтарТур. Профессиональный подбор туров. Проводите $duration " . BladeHelper::numeralCase('день', $duration) . " на лучших курортах " . BladeHelper::case($country, "Р") . ".";
+                    $seo['metaDesc'] = "Дешевые $tour_type " . date("Y") . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " от турагентства STARTOUR.";
+                    $seo['subText'] = "$tour_type на " . date("Y") . " год в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "  из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Проводите $duration " . BladeHelper::numeralCase('день', $duration) . " на лучших курортах " . BladeHelper::case($country, "Р") . ".";
                     return $seo;
                 }
 
@@ -186,8 +186,8 @@ class ToursController extends Controller
                     $seo['pTitle'] = "Туры на " . $holiday . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "";
                     $seo['bTitle'] = "Туры на " . $holiday . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы";
                     $seo['metaKey'] = "купить туры на " . $holiday . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . ", цена, $country";
-                    $seo['metaDesc'] = "Дешевые туры на " . $holiday . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " от турагентства СтарТур.";
-                    $seo['subText'] = "Туры на " . $holiday . " " . date("Y") . " год в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "  из Москвы дешево от компании СтарТур. Профессиональный подбор туров. Проведите $duration праздничных " . BladeHelper::numeralCase('день', $duration) . " на лучших курортах " . BladeHelper::case($country, "Р") . ".";
+                    $seo['metaDesc'] = "Дешевые туры на " . $holiday . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " от турагентства STARTOUR.";
+                    $seo['subText'] = "Туры на " . $holiday . " " . date("Y") . " год в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "  из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $duration праздничных " . BladeHelper::numeralCase('день', $duration) . " на лучших курортах " . BladeHelper::case($country, "Р") . ".";
                     return $seo;
                 }
 
@@ -195,16 +195,16 @@ class ToursController extends Controller
                     $seo['pTitle'] = "$status " . date("Y") . " в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "";
                     $seo['bTitle'] = "$status " . date("Y") . " в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "  из Москвы";
                     $seo['metaKey'] = "купить $status " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . ", цена, $country";
-                    $seo['metaDesc'] = "Дешевые $status " . date("Y") . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " от турагентства СтарТур.";
-                    $seo['subText'] = "$status на " . date("Y") . " год в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "  из Москвы дешево от компании СтарТур. Профессиональный подбор туров. Проводите$duration " . BladeHelper::numeralCase('день', $duration) . " на лучших курортах " . BladeHelper::case($country, "Р") . ".";
+                    $seo['metaDesc'] = "Дешевые $status " . date("Y") . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " от турагентства STARTOUR.";
+                    $seo['subText'] = "$status на " . date("Y") . " год в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "  из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Проводите$duration " . BladeHelper::numeralCase('день', $duration) . " на лучших курортах " . BladeHelper::case($country, "Р") . ".";
                     return $seo;
                 }
 
                 $seo['pTitle'] = "Туры в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "";
                 $seo['bTitle'] = "Туры в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы";
                 $seo['metaKey'] = "купить тур в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы, цена";
-                $seo['metaDesc'] = "Дешевые тур в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства СтарТур.";
-                $seo['subText'] = "Туры из Москвы в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании СтарТур. Профессиональный подбор туров. Проведите лучший отдых длинной $duration " . BladeHelper::numeralCase('день', $duration) . " в " . BladeHelper::case($country, "П") . ".";
+                $seo['metaDesc'] = "Дешевые тур в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства STARTOUR.";
+                $seo['subText'] = "Туры из Москвы в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании STARTOUR. Профессиональный подбор туров. Проведите лучший отдых длинной $duration " . BladeHelper::numeralCase('день', $duration) . " в " . BladeHelper::case($country, "П") . ".";
                 return $seo;
             }
 
@@ -220,16 +220,16 @@ class ToursController extends Controller
                         $seo['pTitle'] = "$status на " . $tag->alias . " " . date("Y") . " в " . BladeHelper::case($country, "П") . "";
                         $seo['bTitle'] = "$status на " . $tag->alias . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы";
                         $seo['metaKey'] = "купить $status на " . $tag->alias . " " . date("Y") . "  в " . BladeHelper::case($country, "П") . " из Москвы, цена, $country";
-                        $seo['metaDesc'] = "Дешевые $status на " . $tag->alias . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы от турагентства СтарТур. Отдых в " . BladeHelper::case($country, "П") . ".";
-                        $seo['subText'] = "$status на " . $tag->alias . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы дешево от компании СтарТур. Профессиональный подбор туров. Проводите " . $tag->alias . " на лучших курортах " . BladeHelper::case($country, "Р") . ".";
+                        $seo['metaDesc'] = "Дешевые $status на " . $tag->alias . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы от турагентства STARTOUR. Отдых в " . BladeHelper::case($country, "П") . ".";
+                        $seo['subText'] = "$status на " . $tag->alias . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Проводите " . $tag->alias . " на лучших курортах " . BladeHelper::case($country, "Р") . ".";
                         return $seo;
                     }
 
                     $seo['pTitle'] = "Туры на " . $tag->alias . " " . date("Y") . " в " . BladeHelper::case($country, "П") . "";
                     $seo['bTitle'] = "Туры на " . $tag->alias . " в " . BladeHelper::case($country, "П") . " " . date("Y") . " из Москвы";
                     $seo['metaKey'] = "купить туры на " . $tag->alias . " в " . BladeHelper::case($country, "П") . " " . date("Y") . " из Москвы, цена";
-                    $seo['metaDesc'] = "Цены на туры в " . BladeHelper::case($country, "П") . " на " . $tag->alias . " " . date("Y") . " с вылетом из Москвы от турагентства СтарТур.";
-                    $seo['subText'] = "Путёвки на " . $tag->alias . " " . date("Y") . " из Москвы в " . BladeHelper::case($country, "П") . " дешево от компании СтарТур. Проведите незабываемых отдых на " . $tag->alias . " в " . BladeHelper::case($country, "П") . ".";
+                    $seo['metaDesc'] = "Цены на туры в " . BladeHelper::case($country, "П") . " на " . $tag->alias . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR.";
+                    $seo['subText'] = "Путёвки на " . $tag->alias . " " . date("Y") . " из Москвы в " . BladeHelper::case($country, "П") . " дешево от компании STARTOUR. Проведите незабываемых отдых на " . $tag->alias . " в " . BladeHelper::case($country, "П") . ".";
                     return $seo;
 
                     /* Статус */
@@ -238,7 +238,7 @@ class ToursController extends Controller
                     $seo['pTitle'] = "" . $tag->alias . " " . date("Y") . " в " . BladeHelper::case($country, "П") . "";
                     $seo['bTitle'] = "" . $tag->alias . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы";
                     $seo['metaKey'] = "" . $tag->alias . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы";
-                    $seo['metaDesc'] = "Купить " . $tag->alias . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы по низкой цене в турагентстве СтарТур. Профессиональный подбор туров.";
+                    $seo['metaDesc'] = "Купить " . $tag->alias . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы по низкой цене в турагентстве STARTOUR. Профессиональный подбор туров.";
                     $seo['subText'] = "Получите персональное предложение от наших менеджеров. Мы подберем для Вас лучшие " . $tag->alias . " в " . BladeHelper::case($country, "П") . ".";
                     return $seo;
 
@@ -250,8 +250,8 @@ class ToursController extends Controller
                         $seo['pTitle'] = "" . $tag->alias . " на " . $holiday . " " . date("Y") . " в " . BladeHelper::case($country, "П") . "";
                         $seo['bTitle'] = "" . $tag->alias . " на " . $holiday . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы";
                         $seo['metaKey'] = "купить " . $tag->alias . " на " . $holiday . " " . date("Y") . "  в " . BladeHelper::case($country, "П") . " из Москвы, цена, $country";
-                        $seo['metaDesc'] = "Дешевые " . $tag->alias . " на " . $holiday . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы от турагентства СтарТур.";
-                        $seo['subText'] = "" . $tag->alias . " на " . $holiday . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы дешево от компании СтарТур. Профессиональный подбор туров. Встречайте праздники на лучших курортах " . BladeHelper::case($country, "Р") . ".";
+                        $seo['metaDesc'] = "Дешевые " . $tag->alias . " на " . $holiday . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы от турагентства STARTOUR.";
+                        $seo['subText'] = "" . $tag->alias . " на " . $holiday . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Встречайте праздники на лучших курортах " . BladeHelper::case($country, "Р") . ".";
                         return $seo;
                     }
 
@@ -259,16 +259,16 @@ class ToursController extends Controller
                         $seo['pTitle'] = "$status $tag->alias " . date("Y") . " в " . BladeHelper::case($country, "П") . "";
                         $seo['bTitle'] = "$status $tag->alias " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы";
                         $seo['metaKey'] = "купить $status $tag->alias " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы, цена, $country";
-                        $seo['metaDesc'] = "Дешевые $status $tag->alias " . date("Y") . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы от турагентства СтарТур.";
-                        $seo['subText'] = "$status $tag->alias " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы дешево от компании СтарТур. Профессиональный подбор туров. Проводите отдых на лучших курортах " . BladeHelper::case($country, "Р") . ".";
+                        $seo['metaDesc'] = "Дешевые $status $tag->alias " . date("Y") . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы от турагентства STARTOUR.";
+                        $seo['subText'] = "$status $tag->alias " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Проводите отдых на лучших курортах " . BladeHelper::case($country, "Р") . ".";
                         return $seo;
                     }
 
                     $seo['pTitle'] = "" . $tag->alias . " в " . BladeHelper::case($country, "П") . "";
                     $seo['bTitle'] = "" . $tag->alias . " " . date("Y") . " в " . BladeHelper::case($country, "П") . " из Москвы";
                     $seo['metaKey'] = "купить " . $tag->alias . " в " . BladeHelper::case($country, "П") . " из Москвы, цена";
-                    $seo['metaDesc'] = "Цены на " . $tag->alias . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы от турагентства СтарТур.";
-                    $seo['subText'] = "" . $tag->alias . " " . date("Y") . " из Москвы в " . BladeHelper::case($country, "П") . " дешево от компании СтарТур.";
+                    $seo['metaDesc'] = "Цены на " . $tag->alias . " в " . BladeHelper::case($country, "П") . " с вылетом из Москвы от турагентства STARTOUR.";
+                    $seo['subText'] = "" . $tag->alias . " " . date("Y") . " из Москвы в " . BladeHelper::case($country, "П") . " дешево от компании STARTOUR.";
                     return $seo;
                 }
             }
@@ -278,8 +278,8 @@ class ToursController extends Controller
                 $seo['pTitle'] = "Туры в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "";
                 $seo['bTitle'] = "Туры в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы";
                 $seo['metaKey'] = "купить тур в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы, цена";
-                $seo['metaDesc'] = "Дешевые тур в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства СтарТур.";
-                $seo['subText'] = "Туры из Москвы в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании СтарТур. Профессиональный подбор туров. Проведите лучший отдых длинной $duration " . BladeHelper::numeralCase('день', $duration) . " в " . BladeHelper::case($country, "П") . ".";
+                $seo['metaDesc'] = "Дешевые тур в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства STARTOUR.";
+                $seo['subText'] = "Туры из Москвы в " . BladeHelper::case($country, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании STARTOUR. Профессиональный подбор туров. Проведите лучший отдых длинной $duration " . BladeHelper::numeralCase('день', $duration) . " в " . BladeHelper::case($country, "П") . ".";
             }
 
 // Если без страны
@@ -293,8 +293,8 @@ class ToursController extends Controller
                     $seo['pTitle'] = "$tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . "";
                     $seo['bTitle'] = "$tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " из Москвы";
                     $seo['metaKey'] = "купить $tour_type " . date("Y") . "  в " . BladeHelper::case($resort->title, "П") . " из Москвы, цена, $country";
-                    $seo['metaDesc'] = "Дешевые $tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " с вылетом из Москвы от турагентства СтарТур. Отдых в " . BladeHelper::case($country, "П") . ".";
-                    $seo['subText'] = "$tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы дешево от компании СтарТур. Профессиональный подбор туров. Отдыхайте на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    $seo['metaDesc'] = "Дешевые $tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " с вылетом из Москвы от турагентства STARTOUR. Отдых в " . BladeHelper::case($country, "П") . ".";
+                    $seo['subText'] = "$tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Отдыхайте на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
                     return $seo;
                 }
 
@@ -302,8 +302,8 @@ class ToursController extends Controller
                     $seo['pTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "";
                     $seo['bTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы";
                     $seo['metaKey'] = "купить туры в " . BladeHelper::case($resort->title, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы, цена, $country";
-                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($resort->title, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства СтарТур. Отдых в " . BladeHelper::case($country, "П") . ".";
-                    $seo['subText'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании СтарТур. Профессиональный подбор туров. Проведите $duration " . BladeHelper::numeralCase('день', $duration) . ", отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($resort->title, "П") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства STARTOUR. Отдых в " . BladeHelper::case($country, "П") . ".";
+                    $seo['subText'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $duration " . BladeHelper::numeralCase('день', $duration) . ", отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
                     return $seo;
                 }
 
@@ -311,8 +311,8 @@ class ToursController extends Controller
                     $seo['pTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " на " . $holiday . " " . date("Y") . "";
                     $seo['bTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " на " . $holiday . " " . date("Y") . " из Москвы";
                     $seo['metaKey'] = "купить туры в " . BladeHelper::case($resort->title, "П") . " на " . $holiday . " " . date("Y") . " из Москвы, цена, $country";
-                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($resort->title, "П") . " на " . $holiday . " " . date("Y") . " с вылетом из Москвы от турагентства СтарТур. Отдых в " . BladeHelper::case($country, "П") . ".";
-                    $seo['subText'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы на " . $holiday . " " . date("Y") . " год дешево от компании СтарТур. Профессиональный подбор туров. Проведите праздники, отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($resort->title, "П") . " на " . $holiday . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR. Отдых в " . BladeHelper::case($country, "П") . ".";
+                    $seo['subText'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы на " . $holiday . " " . date("Y") . " год дешево от компании STARTOUR. Профессиональный подбор туров. Проведите праздники, отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
                     return $seo;
                 }
 
@@ -320,8 +320,8 @@ class ToursController extends Controller
                     $seo['pTitle'] = "$status " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . "";
                     $seo['bTitle'] = "$status " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " из Москвы";
                     $seo['metaKey'] = "купить $status " . date("Y") . "  в " . BladeHelper::case($resort->title, "П") . " из Москвы, цена, $country";
-                    $seo['metaDesc'] = "Дешевые $status " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " с вылетом из Москвы от турагентства СтарТур. Отдых в " . BladeHelper::case($country, "П") . ".";
-                    $seo['subText'] = "$status " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы дешево от компании СтарТур. Профессиональный подбор туров. Отдыхайте на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    $seo['metaDesc'] = "Дешевые $status " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " с вылетом из Москвы от турагентства STARTOUR. Отдых в " . BladeHelper::case($country, "П") . ".";
+                    $seo['subText'] = "$status " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Отдыхайте на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
                     return $seo;
                 }
 
@@ -329,8 +329,8 @@ class ToursController extends Controller
                     $seo['pTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . "";
                     $seo['bTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы";
                     $seo['metaKey'] = "купить туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы, цена, $country";
-                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " с вылетом из Москвы от турагентства СтарТур. Отдых в " . BladeHelper::case($country, "П") . ".";
-                    $seo['subText'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " года дешево от компании СтарТур. Профессиональный подбор туров. Проведите $month, отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR. Отдых в " . BladeHelper::case($country, "П") . ".";
+                    $seo['subText'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $month, отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
                     return $seo;
                 }
 
@@ -338,7 +338,7 @@ class ToursController extends Controller
                 $seo['bTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы в " . date("Y") . " году по низкой цене";
                 $seo['metaKey'] = "Туры в " . BladeHelper::case($resort->title, "П") . ", ($country), вылет из Москвы, от всех туроператоров, цена, купить";
                 $seo['metaDesc'] = "Купить тур в " . $resort->title . " " . date("Y") . " от наиболее известных туроператоров. Удобный поиск туров в " . $resort->title . " из Москвы.";
-                $seo['subText'] = "Подбор туров  в " . BladeHelper::case($resort->title, "П") . " ($country) в турагентстве СтарТур. Мы поможем Вам найти тур по оптимальной цене.";
+                $seo['subText'] = "Подбор туров  в " . BladeHelper::case($resort->title, "П") . " ($country) в турагентстве STARTOUR. Мы поможем Вам найти тур по оптимальной цене.";
                 return $seo;
             }
 
@@ -352,8 +352,8 @@ class ToursController extends Controller
                         $seo['pTitle'] = "$status на " . $tag->alias . " " . date("Y") . "";
                         $seo['bTitle'] = "$status на " . $tag->alias . " " . date("Y") . " из Москвы";
                         $seo['metaKey'] = "купить $status на " . $tag->alias . " " . date("Y") . " из Москвы, цена";
-                        $seo['metaDesc'] = "Дешевые $status на " . $tag->alias . " " . date("Y") . " с вылетом из Москвы от турагентства СтарТур.";
-                        $seo['subText'] = "$status  из Москвы на " . $tag->alias . " " . date("Y") . " год дешево от компании СтарТур. Профессиональный подбор туров. Проведите праздники, отдыхая на лучших курортах.";
+                        $seo['metaDesc'] = "Дешевые $status на " . $tag->alias . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR.";
+                        $seo['subText'] = "$status  из Москвы на " . $tag->alias . " " . date("Y") . " год дешево от компании STARTOUR. Профессиональный подбор туров. Проведите праздники, отдыхая на лучших курортах.";
                         return $seo;
                     }
 
@@ -362,15 +362,15 @@ class ToursController extends Controller
                         $seo['pTitle'] = "Туры на " . $tag->alias . " " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration);
                         $seo['bTitle'] = "Праздничные туры на " . $tag->alias . " " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы";
                         $seo['metaKey'] = "купить тур, туры на " . $tag->alias . " " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы, цена";
-                        $seo['metaDesc'] = "Дешевые туры на " . $tag->alias . " " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства СтарТур.";
-                        $seo['subText'] = "Туры из Москвы на " . $tag->alias . " " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании СтарТур. Профессиональный подбор туров. Проведите праздники длинной $duration " . BladeHelper::numeralCase('день', $duration) . " на лучших курортах.";
+                        $seo['metaDesc'] = "Дешевые туры на " . $tag->alias . " " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства STARTOUR.";
+                        $seo['subText'] = "Туры из Москвы на " . $tag->alias . " " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании STARTOUR. Профессиональный подбор туров. Проведите праздники длинной $duration " . BladeHelper::numeralCase('день', $duration) . " на лучших курортах.";
                         return $seo;
                     }
 
                     $seo['pTitle'] = "Туры на " . $tag->alias . " " . date("Y") . "";
                     $seo['bTitle'] = "Туры на " . $tag->alias . " " . date("Y") . " из Москвы";
                     $seo['metaKey'] = "Туры на " . $tag->alias . " " . date("Y") . " из Москвы, куда поехать на " . $tag->alias . ", отдохнуть, купить тур";
-                    $seo['metaDesc'] = "Купить тур на " . $tag->alias . " в турагенстве СтарТур (Москва). Профессиональный подбор туров на " . $tag->alias . " " . date("Y") . " года по доступным ценам.";
+                    $seo['metaDesc'] = "Купить тур на " . $tag->alias . " в турагенстве STARTOUR (Москва). Профессиональный подбор туров на " . $tag->alias . " " . date("Y") . " года по доступным ценам.";
                     $seo['subText'] = "Большой выбор туров на " . $tag->alias . " " . date("Y") . " года. Удобный поиск и профессиональная команда. Всё это позволит Вам провести приятный и незабываемый отдых на " . $tag->alias . ".";
                     return $seo;
 
@@ -382,8 +382,8 @@ class ToursController extends Controller
                         $seo['pTitle'] = "$tag->alias " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "";
                         $seo['bTitle'] = "$tag->alias " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы";
                         $seo['metaKey'] = "купить тур, $tag->alias " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы, цена";
-                        $seo['metaDesc'] = "$tag->alias " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства СтарТур. Выгодные цены на путевки.";
-                        $seo['subText'] = "$tag->alias " . date("Y") . " из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании СтарТур. Профессиональный подбор туров. Проведите отдых длинной $duration " . BladeHelper::numeralCase('день', $duration) . " на лучших курортах по выгодным ценам.";
+                        $seo['metaDesc'] = "$tag->alias " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства STARTOUR. Выгодные цены на путевки.";
+                        $seo['subText'] = "$tag->alias " . date("Y") . " из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании STARTOUR. Профессиональный подбор туров. Проведите отдых длинной $duration " . BladeHelper::numeralCase('день', $duration) . " на лучших курортах по выгодным ценам.";
                         return $seo;
                     }
 
@@ -392,15 +392,15 @@ class ToursController extends Controller
                         $seo['pTitle'] = "$tag->alias в " . BladeHelper::case($month, "П") . " " . date("Y") . "";
                         $seo['bTitle'] = "$tag->alias в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы";
                         $seo['metaKey'] = "купить $tag->alias в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы, цена";
-                        $seo['metaDesc'] = "Дешевые $tag->alias на " . $tag->alias . " " . date("Y") . " с вылетом из Москвы от турагентства СтарТур.";
-                        $seo['subText'] = "$tag->alias  из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " год дешево от компании СтарТур. Профессиональный подбор туров. Проведите $month, отдыхая на лучших курортах.";
+                        $seo['metaDesc'] = "Дешевые $tag->alias на " . $tag->alias . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR.";
+                        $seo['subText'] = "$tag->alias  из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " год дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $month, отдыхая на лучших курортах.";
                         return $seo;
                     }
 
                     $seo['pTitle'] = $tag->alias;
                     $seo['bTitle'] = "" . $tag->alias . " из Москвы в " . date("Y") . " году";
                     $seo['metaKey'] = "$tag->alias " . date("Y") . "  из Москвы, купить, от всех туроператоров";
-                    $seo['metaDesc'] = "Купить $tag->alias " . date("Y") . " из Москвы в турагентстве СтарТур. Широкий выбор туроператоров и низкие цены.";
+                    $seo['metaDesc'] = "Купить $tag->alias " . date("Y") . " из Москвы в турагентстве STARTOUR. Широкий выбор туроператоров и низкие цены.";
                     $seo['subText'] = "Заказать $tag->alias с вылетом из Москвы просто - достаточно обратиться в наше турагентство. Наша профессиональная команда подберет для Вас лучший тур по приемлемой цене и Вашим потребностям.";
                     return $seo;
 
@@ -412,8 +412,8 @@ class ToursController extends Controller
                         $seo['pTitle'] = "$tag->alias " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "";
                         $seo['bTitle'] = "$tag->alias " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы";
                         $seo['metaKey'] = "купить тур, $tag->alias " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы, цена";
-                        $seo['metaDesc'] = "$tag->alias " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства СтарТур. Выгодные цены на путевки.";
-                        $seo['subText'] = "$tag->alias " . date("Y") . " из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании СтарТур. Профессиональный подбор туров. Проведите отдых длинной $duration " . BladeHelper::numeralCase('день', $duration) . " на лучших курортах по выгодным ценам.";
+                        $seo['metaDesc'] = "$tag->alias " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства STARTOUR. Выгодные цены на путевки.";
+                        $seo['subText'] = "$tag->alias " . date("Y") . " из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании STARTOUR. Профессиональный подбор туров. Проведите отдых длинной $duration " . BladeHelper::numeralCase('день', $duration) . " на лучших курортах по выгодным ценам.";
                         return $seo;
                     }
 
@@ -421,8 +421,8 @@ class ToursController extends Controller
                         $seo['pTitle'] = "$tag->alias в " . BladeHelper::case($month, "П") . " " . date("Y") . "";
                         $seo['bTitle'] = "$tag->alias в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы";
                         $seo['metaKey'] = "купить $tag->alias в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы, цена";
-                        $seo['metaDesc'] = "Дешевые $tag->alias на " . $tag->alias . " " . date("Y") . " с вылетом из Москвы от турагентства СтарТур.";
-                        $seo['subText'] = "$tag->alias из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " год дешево от компании СтарТур. Профессиональный подбор туров. Проведите $month, отдыхая на лучших курортах.";
+                        $seo['metaDesc'] = "Дешевые $tag->alias на " . $tag->alias . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR.";
+                        $seo['subText'] = "$tag->alias из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " год дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $month, отдыхая на лучших курортах.";
                         return $seo;
                     }
 
@@ -430,8 +430,8 @@ class ToursController extends Controller
                         $seo['pTitle'] = "$status $tag->alias";
                         $seo['bTitle'] = "$status $tag->alias " . date("Y") . " из Москвы";
                         $seo['metaKey'] = "купить $status $tag->alias " . date("Y") . " из Москвы, цена";
-                        $seo['metaDesc'] = "Дешевые $status $tag->alias  с вылетом из Москвы от турагентства СтарТур.";
-                        $seo['subText'] = "$status $tag->alias  из Москвы дешево от компании СтарТур. Профессиональный подбор туров. Отдыхайте на лучших курортах.";
+                        $seo['metaDesc'] = "Дешевые $status $tag->alias  с вылетом из Москвы от турагентства STARTOUR.";
+                        $seo['subText'] = "$status $tag->alias  из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Отдыхайте на лучших курортах.";
                         return $seo;
                     }
 
@@ -439,8 +439,8 @@ class ToursController extends Controller
                         $seo['pTitle'] = "$tag->alias на $holiday " . date("Y") . "";
                         $seo['bTitle'] = "$tag->alias на $holiday " . date("Y") . " из Москвы";
                         $seo['metaKey'] = "купить $tag->alias на $holiday " . date("Y") . " из Москвы, цена";
-                        $seo['metaDesc'] = "Дешевые $tag->alias на $holiday " . date("Y") . " с вылетом из Москвы от турагентства СтарТур.";
-                        $seo['subText'] = "$tag->alias  из Москвы на $holiday " . date("Y") . " год дешево от компании СтарТур. Профессиональный подбор туров. Проведите праздники, отдыхая на лучших курортах.";
+                        $seo['metaDesc'] = "Дешевые $tag->alias на $holiday " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR.";
+                        $seo['subText'] = "$tag->alias  из Москвы на $holiday " . date("Y") . " год дешево от компании STARTOUR. Профессиональный подбор туров. Проведите праздники, отдыхая на лучших курортах.";
                         return $seo;
                     }
 
@@ -448,7 +448,7 @@ class ToursController extends Controller
                     $seo['bTitle'] = "Цены на $tag->alias " . date("Y") . " из Москвы";
                     $seo['metaKey'] = "Цены на $tag->alias " . date("Y") . " из Москвы, купить путёвку";
                     $seo['metaDesc'] = "Купить путёвку на $tag->alias по доступной цене из Москвы в " . date("Y") . " году. Гарантия лучшего выбор для Вашего отдыха.";
-                    $seo['subText'] = "Выгодно купить путёвку на $tag->alias " . date("Y") . " с вылетом из Москвы от всех туроператоров. Профессиональные менеджеру СтарТур подберут для Вас оптимальное предложение по доступным ценам.";
+                    $seo['subText'] = "Выгодно купить путёвку на $tag->alias " . date("Y") . " с вылетом из Москвы от всех туроператоров. Профессиональные менеджеру STARTOUR подберут для Вас оптимальное предложение по доступным ценам.";
                     return $seo;
 
                 }
@@ -461,15 +461,15 @@ class ToursController extends Controller
                     $seo['pTitle'] = "Туры в " . BladeHelper::case($month, "П") . " " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . "";
                     $seo['bTitle'] = "Туры в " . BladeHelper::case($month, "П") . " " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы";
                     $seo['metaKey'] = "купить тур, Туры в " . BladeHelper::case($month, "П") . " " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " из Москвы, цена";
-                    $seo['metaDesc'] = "Туры в " . BladeHelper::case($month, "П") . " " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства СтарТур. Выгодные цены на путевки.";
-                    $seo['subText'] = "Туры в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании СтарТур. Профессиональный подбор туров. Проведите $month на лучших курортах по выгодным ценам.";
+                    $seo['metaDesc'] = "Туры в " . BladeHelper::case($month, "П") . " " . date("Y") . " на $duration " . BladeHelper::numeralCase('день', $duration) . " с вылетом из Москвы от турагентства STARTOUR. Выгодные цены на путевки.";
+                    $seo['subText'] = "Туры в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы на $duration " . BladeHelper::numeralCase('день', $duration) . " дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $month на лучших курортах по выгодным ценам.";
                     return $seo;
                 }
 
                 $seo['pTitle'] = "Туры в " . BladeHelper::case($month, "П") . " " . date("Y") . "";
                 $seo['bTitle'] = "Туры из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . "";
                 $seo['metaKey'] = "Туры в " . BladeHelper::case($month, "П") . " " . date("Y") . ", Москва, вылет, купить, цены";
-                $seo['metaDesc'] = "Купить туры с вылетом из Москвы на $month " . date("Y") . " год в турагенстве СтарТур. Цены на туры в " . BladeHelper::case($month, "П") . " " . date("Y") . ".";
+                $seo['metaDesc'] = "Купить туры с вылетом из Москвы на $month " . date("Y") . " год в турагенстве STARTOUR. Цены на туры в " . BladeHelper::case($month, "П") . " " . date("Y") . ".";
                 $seo['subText'] = "Недорогие туры в " . BladeHelper::case($month, "П") . " " . date("Y") . " года позволят Вам провести незабываемый отдых в разных городах и странах. Специалисты нашего турагентства помогут Вам с выбором путёвки.";
                 return $seo;
             }
@@ -477,8 +477,8 @@ class ToursController extends Controller
             $seo['pTitle'] = "Поиск туров";
             $seo['bTitle'] = "Купить туры онлайн из Москвы | Поиск и подбор туров";
             $seo['metaKey'] = "купить тур онлайн, поиск тура, вылет из Москвы, профессиональный подбор";
-            $seo['metaDesc'] = "Купить тур онлайн на сайте компании СтарТур очень просто. Удобный поиск и подбор туров по Вашим предпочтениям.";
-            $seo['subText'] = "Компания СтарТур предлагает удобный поиск туров онлайн. У нас Вы сможете быстро подобрать и купить тур. Профессиональная поддержка специалистов нашего турагенства с момента покупки путевки и на протяжении всего путешествия.";
+            $seo['metaDesc'] = "Купить тур онлайн на сайте компании STARTOUR очень просто. Удобный поиск и подбор туров по Вашим предпочтениям.";
+            $seo['subText'] = "Компания STARTOUR предлагает удобный поиск туров онлайн. У нас Вы сможете быстро подобрать и купить тур. Профессиональная поддержка специалистов нашего турагенства с момента покупки путевки и на протяжении всего путешествия.";
 
         }
 
@@ -557,7 +557,7 @@ class ToursController extends Controller
             'seo' => [
                 'bTitle' => $tour->title . " - бронирование тура",
                 'metaKey' => $tour->title . ", бронирование тура, купить, цена",
-                'metaDesc' => "Забронировать тур " . $tour->title . " в компании СтарТур.",
+                'metaDesc' => "Забронировать тур " . $tour->title . " в компании STARTOUR.",
                 'subText' => "",
             ],
 
@@ -613,7 +613,7 @@ class ToursController extends Controller
             'seo' => [
                 'bTitle' => $tour->title . " - бронирование тура",
                 'metaKey' => $tour->title . ", бронирование тура, купить, цена",
-                'metaDesc' => "Забронировать тур " . $tour->title . " в компании СтарТур.",
+                'metaDesc' => "Забронировать тур " . $tour->title . " в компании STARTOUR.",
                 'subText' => "",
             ],
 

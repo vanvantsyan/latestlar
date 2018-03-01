@@ -62,7 +62,7 @@
                 <div class="row">
                     <div class="tour-preview">
                         <h1>Туры по России</h1>
-                        <div class="tour-preview-desc">Компания Star Tour предлагает лучшие туры по России. Только самые
+                        <div class="tour-preview-desc">Компания STARTOUR предлагает лучшие туры по России. Только самые
                             интересные и проверенные маршруты!
                         </div>
                         <a href="#" class="btn btn-yellow" data-toggle="modal" data-target="#tourOrderModal">Отправить
@@ -229,7 +229,7 @@
                                         <div class="popular-tours-item small">
                                             <img src="img/popular-tours-item-8.jpg" alt="">
                                             <span class="orange">Все санатории России.</span>
-                                            <span>Бронируйте он-лайн <br> через СтарТур!</span>
+                                            <span>Бронируйте он-лайн <br> через STARTOUR!</span>
                                         </div>
                                     </td>
                                 </tr>

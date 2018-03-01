@@ -56,7 +56,7 @@
                     <div class="tour-preview-wrap">
                         <div class="tour-preview">
                             <h1>{{$seo['pTitle']}}</h1>
-                            <div class="tour-preview-desc">Компания Star Tour предлагает лучшие туры по России. <span>Только самые интересные и проверенные маршруты!</span>
+                            <div class="tour-preview-desc">Компания STARTOUR предлагает лучшие туры по России. <span>Только самые интересные и проверенные маршруты!</span>
                             </div>
                             <a href="#" class="btn btn-yellow" data-toggle="modal" data-target="#tourOrderModal">Отправить
                                 заявку<span> на подбор тура</span></a>
@@ -147,7 +147,7 @@
                                         <div class="popular-tours-item small">
                                             <img src="/img/popular-tours-item-8.jpg" alt="">
                                             <span class="orange">Все санатории России.</span>
-                                            <span>Бронируйте он-лайн <br> через СтарТур!</span>
+                                            <span>Бронируйте он-лайн <br> через STARTOUR!</span>
                                         </div>
                                     </td>
                                 </tr>
@@ -175,7 +175,7 @@
             <div class="seo-txt">
                 <h2>Подбор туров</h2>
                 <p>Бронирование туров онлайн: быстро и дешево. Подбор отличных туров от всех туроператоров на сайте
-                    Стартур.</p>
+                    STARTOUR.</p>
                 <div class="seo-txt-more">Распродажа горящих туров с вылетом из Москвы. Поиск цены на горящие туры всех
                     туроператоров. Каталог горящих путёвок!
                 </div>
