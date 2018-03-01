@@ -3,7 +3,7 @@
         {{ csrf_field() }}
         <div class="tour-filter-item">
             <label>Город или достопримечательность</label>
-            <input name="tourPoint" id="tourPoint" type="text" placeholder="Красная поляна"
+            <input name="tourPoint" id="tourPoint" type="text" placeholder="Введите название"
                    value="{{$point->title or ''}}">
         </div>
         <div class="tour-filter-item" style="display: none">

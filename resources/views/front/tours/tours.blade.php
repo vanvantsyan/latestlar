@@ -328,6 +328,17 @@
             });
         });
 
+
+        $("#tourPoint").on('keyup', function(event){
+
+            var s = $("#tourPoint").val();
+                //String.fromCharCode(event.keyCode || event.charCode);
+
+            if( ! /^[а-яё ]*$/i.test(s) ){
+                $("#tourPoint").val(autoKeyboardLang(s));
+            }
+        });
+
         // Points title auto complete input
         $("#tourPoint").autocomplete({
             source: "/search/autocomplete",
