@@ -376,13 +376,13 @@ label {
 	position: relative;
 	z-index: 2;
 }
-h1 {
+h1, .h1 {
 	font-size: 48px;
 	font-family: 'pantonbold';
 	margin: 0;
 	margin-bottom: 13px;
 }
-h2 {
+h2, .h2 {
 	font-size: 48px;
 	font-family: 'pantonbold';
 	margin: 0;
@@ -1934,24 +1934,27 @@ div.dp-popup h2 {
 	line-height: normal;
 	width: 66%;
 }
-.card-slider-item-cont h1 {
+.card-slider-item-cont h1, .card-slider-item-cont .h1{
 	margin-bottom: 0;
 	background: rgba(255, 255, 255, 0.74);
 	line-height: normal;
 	padding: 0 10px;
-	display: inline-block;
+	display: inline;
 }
+
 .card-slider-item-cont > div {
 	margin-bottom: 20px;
 }
-.card-slider-item-cont > div > span {
+.card-slider-item-cont div > span {
 	display: inline-block;
-	border-bottom: 1px dashed #000;
 	font-family: 'pantonlight';
-	background: rgba(255, 255, 255, 0.74);
+	/*background: rgba(255, 255, 255, 0.74);*/
 	font-size: 19px;
 	line-height: normal;
-	padding: 10px;
+	padding: 0 5px;
+	text-decoration: underline;
+	text-decoration-color: #000;
+	text-decoration-style: dashed;
 }
 .card-slider-item-cont .glyphicon-rub {
 	font-size: 15px;

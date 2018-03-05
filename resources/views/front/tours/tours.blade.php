@@ -121,14 +121,6 @@
                             @endforeach
                         @endif
                     </div>
-                    <div class="tours-sort-other desk-hide">
-                        <a href="#" class="tours-sort-other-item">Туры по тематике</a>
-                        <a href="#" class="tours-sort-other-item">Туры по городам России</a>
-                        <a href="#" class="tours-sort-other-item">Туры по Золотому кольцу</a>
-                        <a href="#" class="tours-sort-other-item">Санатории</a>
-                        <a href="#" class="tours-sort-other-item">Речные круизы</a>
-                        <a href="#" class="tours-sort-other-item">Другие страны</a>
-                    </div>
                     <div class="popular-tours">
                         <div class="popular-tours-items">
                             <table>
@@ -165,8 +157,15 @@
                             @empty
                             @endforelse
                         @endif
-
                         <a href="#" class="btn-more-tours">Показать еще туры</a>
+                    </div>
+                    <div class="tours-sort-other desk-hide">
+                        {{--<a href="#" class="tours-sort-other-item">Туры по тематике</a>--}}
+                        {{--<a href="#" class="tours-sort-other-item">Туры по городам России</a>--}}
+                        <a href="/tury/tury-zolotoe-kolczo" class="tours-sort-other-item">Туры по Золотому кольцу</a>
+                        <a href="/tury/ekskursii" class="tours-sort-other-item">Экскурсии</a>
+                        <a href="http://startour.ru/kruizyi/" class="tours-sort-other-item">Речные круизы</a>
+                        {{--<a href="#" class="tours-sort-other-item">Другие страны</a>--}}
                     </div>
 
                     @include('front.tours.modules.articles')

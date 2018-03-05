@@ -162,4 +162,8 @@ class BladeHelper
 
         return $text;
     }
+
+    public static function wordsCount($text){
+        return count(explode(' ', $text));
+    }
 }

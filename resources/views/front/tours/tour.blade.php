@@ -89,17 +89,31 @@
                                 <div class="card-slider-item-cont">
                                     <a href="{{route('tour.list')}}" class="back-tours-list">< Вернуться назад к
                                         списку</a>
-                                    <h1>{{$tour->title}}</h1>
+                                    @if($loop->first)
+                                        @if(Gliss::wordsCount($tour->title) > 5)
+                                            <h1 class="font38">{{$tour->title}}</h1>
+                                        @else
+                                            <h1>{{$tour->title}}</h1>
+                                        @endif
+                                    @else
+                                        @if(Gliss::wordsCount($tour->title) > 5)
+                                            <div class="h1 font38">{{$tour->title}}</div>
+                                        @else
+                                            <div class="h1">{{$tour->title}}</div>
+                                        @endif
+                                    @endif
                                     <div>
-                                        <span>
-                                            @if($tour->price > 0)
-                                                Стоимость: от {{number_format($tour['price'], 0, '.',' ')}}
-                                                <span class="glyphicon glyphicon-rub" aria-hidden="true"></span>
-                                                за человека
-                                            @else
-                                                <b>Цена</b> не указана
-                                            @endif
-                                        </span>
+                                        <div class="slider-tour-price">
+                                            <span>
+                                                @if($tour->price > 0)
+                                                    Стоимость: от {{number_format($tour['price'], 0, '.',' ')}}
+                                                    <span class="glyphicon glyphicon-rub" aria-hidden="true"></span>
+                                                    за человека
+                                                @else
+                                                    <b>Цена</b> не указана
+                                                @endif
+                                            </span>
+                                        </div>
                                     </div>
                                     <a href="#" class="btn btn-yellow" data-toggle="modal"
                                        data-target="#tourOrderModal">Отправить заявку на тур</a>
@@ -169,7 +183,8 @@
 
                                                                 @foreach($dates as $date)
 
-                                                                    <a href="#" class="green" data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
+                                                                    <a href="#" class="green"
+                                                                       data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
                                                                         {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
                                                                     </a>
 
@@ -404,7 +419,7 @@
                     })
                 } else {
                     $('#tourOrderModal .modal-footer').remove();
-                    $('#tourOrderModal .modal-body').html("<p style='text-align: center' class=\"alert alert-success\">" + data.message +"</p>");
+                    $('#tourOrderModal .modal-body').html("<p style='text-align: center' class=\"alert alert-success\">" + data.message + "</p>");
                     setTimeout(function () {
                         $('#tourOrderModal').modal('hide')
                     }, 3000);
