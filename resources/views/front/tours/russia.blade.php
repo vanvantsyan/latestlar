@@ -442,7 +442,7 @@
     <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="{{asset('/js/moment.js')}}"></script>
     <script src="{{asset('/js/daterangepicker.js')}}"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    {{--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
     <script>
         $('#toursTab a').click(function (e) {
             $('#toursTab a').removeClass('active');

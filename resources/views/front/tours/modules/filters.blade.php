@@ -42,7 +42,7 @@
             <select name="durationTo" id="durationTo">
 
                 @for($i=1; $i < 15; $i++)
-                    @if(isset($postData['durationFrom']))
+                    @if(isset($postData['durationTo']))
                         <option value="{{$i}}"
                                 @if(isset($postData['durationTo']) && $postData['durationTo'] == $i) selected @endif>
                             до {{$i}}</option>

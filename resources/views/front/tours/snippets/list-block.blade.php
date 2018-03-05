@@ -48,8 +48,7 @@
                         <img src="{{asset('/img/search-completed-item-1.jpg')}}" alt="">
                     @endif
                     @if(count($images))
-                        <span class="tour-images-button">Все фото ({{count($images)}}
-                            )</span>
+                        <span class="tour-images-button">Все фото ({{count($images)}})</span>
                         <span class="mobile-visible">
                             @if($tour['price'] > 0)
                                 <b>от {{number_format($tour['price'], 0, '.',' ') }} <i class="glyphicon glyphicon-rub"
