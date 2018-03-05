@@ -27,7 +27,7 @@
     }
 </script>
 <script>
-    $("#sendPhone input[type=text]").mask("+7 (999) 999-99-99");//+7 (095) 322-44-54
+    $("#sendPhone input[type=text]").mask("+7 (999) 999-99-99"); //+7 (095) 322-44-54
 </script>
 <script>
     $('#sendPhone input[type=submit]').on('click', function (e) {
@@ -133,17 +133,34 @@
 <script>
     $('#durationFrom').on('change', function (e) {
         var opt = $(this).val();
-        //
-        // while (opt--) {
-        //     $('#durationTo option[value==' + opt + ']').hide();
-        // }
+        $('#durationTo-styler li').show();
+        while (opt--) {
+            $('#durationTo-styler li:eq(' + opt + ')').hide();
+        }
     });
     $('#durationTo').on('change', function (e) {
 
-        var opt = $(this).val();
+        var opt = $(this).val()-2;
+        $('#durationFrom-styler li').show();
 
-        // while (opt--) {
-        //     $('#durationFrom option[value==' + opt + ']').hide();
-        // }
+        while ((opt++)<15) {
+            $('#durationFrom-styler li:eq(' + opt + ')').hide();
+        }
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        var opt = $('#durationFrom').val();
+        $('#durationTo-styler li').show();
+        while (opt--) {
+            $('#durationTo-styler li:eq(' + opt + ')').hide();
+        }
+
+        var opt = $('#durationTo').val()-2;
+        $('#durationFrom-styler li').show();
+
+        while ((opt++)<15) {
+            $('#durationFrom-styler li:eq(' + opt + ')').hide();
+        }
     });
 </script>
