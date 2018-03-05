@@ -100,10 +100,13 @@
                             @endif
                         @endif
 
+                        , <b class="btn-other-tours">еще 5</b>
+
                     </div>
                     <div class="search-completed-item-date">
+                        <span>Ближайшая дата:</span>
                         @php $num = 0; @endphp
-
+                        
                         @foreach($tour['dates'] as $date)
                             @if ($num > 5)
                                 @break

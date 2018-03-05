@@ -1407,6 +1407,9 @@ a.dp-choose-date {
 .search-completed-item-date {
 	margin-bottom: 22px;
 }
+.search-completed-item-date span {
+	display: none;
+}
 .search-completed-item-date a {
 	display: inline-block;
 	/*width: 55px;*/
@@ -2486,4 +2489,11 @@ div.dp-popup h2 {
 }
 .tour-card-text ul {
 	list-style-type: none;
+}
+.btn-other-tours {
+	display: none;
+	font-family: 'pantonregular';
+	border-bottom: 1px dashed #666;
+	color: #666;
+	cursor: pointer;
 }
