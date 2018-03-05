@@ -33,3 +33,7 @@ label[for=tourDate] img{cursor: pointer}
 .tours-sorting-items a {
     padding: 5px 0;
 }
+.search-completed-item-date a:hover{
+    background: #ff5500;
+    color: #fff;
+}

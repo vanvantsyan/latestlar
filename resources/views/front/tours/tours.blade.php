@@ -75,7 +75,8 @@
                     <div class="search-completed">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
-                                <div class="title"><span id="toursFrom">{{ $seo['pTitle'] }}</span> из г. Москва, найдено: <span
+                                <div class="title"><span id="toursFrom">{{ $seo['pTitle'] }}</span> из г. Москва,
+                                    найдено: <span
                                             id="countFound">{{$countTours}}</span></div>
                                 <a href="#" class="btn sorting-btn">Кратко</a>
                                 <div class="tours-sorting mobile-hide">
@@ -85,7 +86,8 @@
                                         <a href="#" data-sort="price-asc">Стоимости тура (от меньшей к большей)</a>
                                         <a href="#" data-sort="price-desc">Стоимости тура (от большей к меньшей)</a>
                                         <a href="#" data-sort="duration-asc">Длительности (от меньшей к большей)</a>
-                                        <a href="#" data-sort="duration-desc" style="display: none">Длительности (от большей к меньшей)</a>
+                                        <a href="#" data-sort="duration-desc" style="display: none">Длительности (от
+                                            большей к меньшей)</a>
                                     </div>
                                 </div>
                                 <div class="tours-sorting desk-hide">
@@ -94,7 +96,8 @@
                                         <a href="#" data-sort="price-asc">Стоимости тура (от меньшей к большей)</a>
                                         <a href="#" data-sort="price-desc">Стоимости тура (от большей к меньшей)</a>
                                         <a href="#" data-sort="duration-asc">Длительности (от меньшей к большей)</a>
-                                        <a href="#" data-sort="duration-desc" style="display: none">Длительности (от большей к меньшей)</a>
+                                        <a href="#" data-sort="duration-desc" style="display: none">Длительности (от
+                                            большей к меньшей)</a>
                                     </div>
                                 </div>
                                 @php
@@ -329,12 +332,12 @@
         });
 
 
-        $("#tourPoint").on('keyup', function(event){
+        $("#tourPoint").on('keyup', function (event) {
 
             var s = $("#tourPoint").val();
-                //String.fromCharCode(event.keyCode || event.charCode);
+            //String.fromCharCode(event.keyCode || event.charCode);
 
-            if( ! /^[а-яё ]*$/i.test(s) ){
+            if (!/^[а-яё ]*$/i.test(s)) {
                 $("#tourPoint").val(autoKeyboardLang(s));
             }
         });
@@ -395,16 +398,21 @@
 
         });
 
-        //Insert dates
-        $('.search-completed-item-date a.green').on('click', function (e) {
-            e.preventDefault();
-            var date = $(this).attr('data-date');
+        //Insert dates to filters form
+        // $('.search-completed-item-date a.green').on('click', function (e) {
+        //     e.preventDefault();
+        //
+        //     var tourDate = $(this).attr('data-date');
+        //     $('input[name=tourDate]').attr('value', tourDate);
+        //
+        //     $('#tourOrderModal').modal('show');
 
-            $('#tourDate').data('daterangepicker').setStartDate(date);
-            $('#tourDate').data('daterangepicker').setEndDate(date);
+        // $('#tourDate').data('daterangepicker').setStartDate(date);
+        // $('#tourDate').data('daterangepicker').setEndDate(date);
+        //
+        // $('#filterTours').trigger('click');
 
-            $('#filterTours').trigger('click');
-        });
+        // });
 
         // Insert point
         $('.search-completed-item-route a').on('click', function (e) {
@@ -422,18 +430,18 @@
         $('#tourOrderModal').on('show.bs.modal', function (e) {
 
             var tourBlock = $(e.relatedTarget).closest('.search-completed-item');
+            if (tourBlock.length) {
+                var tourName = tourBlock.find('.search-completed-item-preview .search-completed-item-title').text();
 
-            var tourName = tourBlock.find('.search-completed-item-preview .search-completed-item-title').text();
+                var route = (tourBlock.find('.search-completed-item-route').html()).trim();
+                var href = tourBlock.find('.btn-blue').attr('href');
+                var source = "magput";
 
-            var route = (tourBlock.find('.search-completed-item-route').html()).trim();
-            var href = tourBlock.find('.btn-blue').attr('href');
-            var source = "magput";
-
-            $('input[name=source]').attr('value', source);
-            $('input[name=href]').attr('value', 'http://russia.startour.ru' + href);
-            $('input[name=tourName]').attr('value', tourName);
-            $('input[name=route]').attr('value', route);
-
+                $('input[name=source]').attr('value', source);
+                $('input[name=href]').attr('value', 'http://russia.startour.ru' + href);
+                $('input[name=tourName]').attr('value', tourName);
+                $('input[name=route]').attr('value', route);
+            }
         });
 
         // Send order
@@ -476,6 +484,33 @@
                 // If errors
             });
         });
-
     </script>
+
+    <script>
+        $('.search-completed-item-date a').on({
+
+            mouseenter: function () {
+                $(this).text('Заказать');
+                $(this).addClass('order');
+            },
+            mouseleave: function () {
+
+                var tourDate = $(this).attr('data-date');
+
+                $(this).text(moment(tourDate, 'D.M.Y').format('DD.MM'));
+                $(this).removeClass('order');
+            },
+            click: function (e) {
+
+                var tourDate = $(this).attr('data-date');
+
+                $('input[name=tourDate]').attr('value', moment(tourDate, 'D.M.Y').format('DD.MM'));
+
+                e.preventDefault();
+                // $('#tourOrderModal').modal('show');
+            }
+
+        });
+    </script>
+
 @endsection

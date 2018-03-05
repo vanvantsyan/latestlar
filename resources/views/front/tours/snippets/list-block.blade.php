@@ -36,7 +36,9 @@
     <div class="search-completed-item-more">
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
             <div class="row">
-                <a href="#" class="search-completed-item-img">
+                <a href="#" class="search-completed-item-img" data-images="{{ $tour['images'] }}"
+                   data-tour-id="{{$tour['id']}}" data-toggle="modal"
+                   data-target="#tourImagesModal">
                     @php
                         $images = (array) json_decode($tour['images']);
                     @endphp
@@ -46,14 +48,12 @@
                         <img src="{{asset('/img/search-completed-item-1.jpg')}}" alt="">
                     @endif
                     @if(count($images))
-                        <span class="tour-images-button"
-                              data-images="{{ $tour['images'] }}"
-                              data-tour-id="{{$tour['id']}}" data-toggle="modal"
-                              data-target="#tourImagesModal">Все фото ({{count($images)}}
+                        <span class="tour-images-button">Все фото ({{count($images)}}
                             )</span>
                         <span class="mobile-visible">
                             @if($tour['price'] > 0)
-                                <b>от {{number_format($tour['price'], 0, '.',' ') }} <i class="glyphicon glyphicon-rub" aria-hidden="true"></i> за человека</b>
+                                <b>от {{number_format($tour['price'], 0, '.',' ') }} <i class="glyphicon glyphicon-rub"
+                                                                                        aria-hidden="true"></i> за человека</b>
                             @else
                                 <b>Цена не указана</b>
                             @endif
@@ -71,7 +71,8 @@
                         <ul>
                             <li>{{count($tour['par_points']) ?: 1}} {!! Gliss::numeralCase('город', count($tour['par_points']) ?: 1) !!}</li>
                             <li>14 экскурсий</li>
-                            <li>Поездка на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</li>
+                            <li>Поездка
+                                на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</li>
                         </ul>
                     </div>
                     <div class="search-completed-item-route">
@@ -107,7 +108,7 @@
                             @if ($num > 5)
                                 @break
                             @endif
-                            <a href="#" class="green" data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m.Y')}}">
+                            <a href="#" class="green" data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m.Y')}}" data-toggle="modal" data-target="#tourOrderModal">
                                 {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
                             </a>
 

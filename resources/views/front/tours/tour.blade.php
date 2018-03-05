@@ -352,7 +352,6 @@
     </script>
 
     <script>
-
         $('.card-tour-dates-item-day a').on({
 
             mouseenter: function () {
