@@ -104,7 +104,7 @@ class BladeHelper
         foreach ($descBlock->find('table') as $table) {
 
             foreach ($table->find('text') as $textBlock) {
-                preg_match('/1 день/ui', $textBlock->outertext(), $matches);
+                preg_match('/1 ?.* ?день/ui', $table->innertext(), $matches);
 
                 if (count($matches)) {
 

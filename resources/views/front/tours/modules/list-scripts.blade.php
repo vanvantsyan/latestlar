@@ -50,7 +50,7 @@
 
                 $.each(data.errors, function (key, value) {
                     $('#' + key + '').addClass("has-error");
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#' + key + '').removeClass("has-error")
                     }, 3000);
                     // $('#' + key + '').text(value);
@@ -87,7 +87,7 @@
 
     $('#tourDate').daterangepicker({
         locale: {
-            format: 'DD.MM.YYYY',
+            format: 'DD.MM.YY',
             "daysOfWeek": [
                 "Пн",
                 "Вт",
@@ -112,7 +112,7 @@
                 "Декабрь"
             ],
         },
-        minDate: moment().format('DD.MM.YYYY'),
+        minDate: moment().format('DD.MM.YY'),
         @if($month)
 
         startDate: '{!! date('d.m.Y', strtotime("1 " . $month)) !!}',
@@ -124,9 +124,26 @@
         startDate: '{{trim(head($datesArr))}}',
         endDate: '{{trim(last($datesArr))}}',
         @else
-        startDate: moment().format('DD.MM.YYYY'),
-        endDate: moment().add(30, 'day').format('DD.MM.YYYY'),
+        startDate: moment().format('DD.MM.YY'),
+        endDate: moment().add(30, 'day').format('DD.MM.YY'),
         @endif
         "autoApply": true,
+    });
+</script>
+<script>
+    $('#durationFrom').on('change', function (e) {
+        var opt = $(this).val();
+
+        while (opt--) {
+            $('#durationTo option[value==' + opt + ']').hide();
+        }
+    });
+    $('#durationTo').on('change', function (e) {
+
+        var opt = $(this).val();
+
+        while (opt--) {
+            $('#durationFrom option[value==' + opt + ']').hide();
+        }
     });
 </script>

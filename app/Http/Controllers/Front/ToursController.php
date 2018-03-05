@@ -2,21 +2,14 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Models\Articles;
-use App\Models\ArticlesCategories;
-use App\Models\Geo;
-use App\Models\News;
-use App\Models\Points;
-use App\Models\Ways;
-use App\Models\Tours;
-use App\Http\Controllers\Controller;
 use App\Helpers\BladeHelper;
-
-use App\Models\ToursTagsRelation;
+use App\Http\Controllers\Controller;
+use App\Models\Geo;
+use App\Models\Points;
+use App\Models\Tours;
 use App\Models\ToursTagsValues;
-
+use App\Models\Ways;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
@@ -210,7 +203,6 @@ class ToursController extends Controller
 
             // Перебор тегов
             if ($tag = array_get($params, 'tag', null)) {
-
 
 
                 /* Праздники */
@@ -494,7 +486,7 @@ class ToursController extends Controller
             $tag = ToursTagsValues::with('tag')->find($data['tourType']);
         }
 
-        if($data['tourPoint']){
+        if ($data['tourPoint']) {
             $resort = Points::where('title', $data['tourPoint'])->first();
         }
 
@@ -635,7 +627,7 @@ class ToursController extends Controller
     {
 
         $countryUrl = $request->route('country');
-        if($countryUrl) {
+        if ($countryUrl) {
             $country = Geo::where('slug', $countryUrl)->first();
         } else {
             $country = null;
@@ -988,8 +980,11 @@ class ToursController extends Controller
         if ($tourDate = array_get($filters, 'tourDate', null)) {
 
             $dateArr = explode('-', $tourDate);
-            $dateFrom = trim(head($dateArr));
-            $dateTo = trim(last($dateArr));
+
+            list($d, $m, $y) = explode('.', head($dateArr));
+            $dateFrom = trim("$d.$m.20$y");
+            list($d, $m, $y) = explode('.', last($dateArr));
+            $dateTo = trim("$d.$m.20$y");
         }
 
         // Применяем фильтр дат
@@ -1011,8 +1006,17 @@ class ToursController extends Controller
         $duration = array_get($filters, 'duration', null);
 
         if ($durationFrom) $tours->where('duration', '>', $durationFrom);
-        if ($durationTo) $tours->where('duration', '<', $durationTo);
-        if ($duration) $tours->where('duration', '=', $duration);
+        if ($durationTo && $durationTo != "more") $tours->where('duration', '<', $durationTo);
+
+
+        if ($duration) {
+            if(preg_match('/^na-(.*)-d/', $duration, $dayCoin)) {
+                $tours->where('duration', '=', $dayCoin[1]);
+            }else{
+                $tours->where('duration', '=', $duration);
+            }
+
+        }
 
         return $tours;
     }

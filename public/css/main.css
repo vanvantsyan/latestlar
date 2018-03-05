@@ -46,3 +46,6 @@ label[for=tourDate] img{cursor: pointer}
     margin-top: 5px;
 }
 .slider-tour-price span{margin: 5px;}
+input[name=tourDate]{
+    letter-spacing: 0.7px;
+}

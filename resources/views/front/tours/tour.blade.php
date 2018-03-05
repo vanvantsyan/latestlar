@@ -222,7 +222,9 @@
                                             @endif
                                         @endforeach
                                     </div>
-                                    <a href="#" class="btn-more-dates">Показать еще даты тура</a>
+                                    @if(count($dateMonths) > 3)
+                                        <a href="#" class="btn-more-dates">Показать еще даты тура</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>

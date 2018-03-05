@@ -12,19 +12,19 @@
         </div>
         <div class="tour-filter-item" style="display: none">
             <label>Длительность</label>
-            <input name="duration" id="duration" type="text" placeholder="" value="{{$duration or ''}}">
+            {{--<input name="duration" id="duration" type="text" placeholder="" value="{{$duration or ''}}">--}}
         </div>
         <div class="tour-filter-item date-mob">
-            <label>Даты поездки <span data-toggle="tooltip" title="Укажите желаемые даты выезда">?</span></label>
+            <label>Даты начала тура <span data-toggle="tooltip" title="Укажите желаемые даты выезда">?</span></label>
             <input name="tourDate" id="tourDate" class="date-pick dp-applied" value="">
             <label class="icon-calendar" for="tourDate"><img src="img/icon-date.png" alt=""></label>
         </div>
         <div class="tour-filter-item time-mob">
-            <label>Срок поездки (дни)</label>
+            <label>Длительность тура (дни)</label>
 
             <select name="durationFrom" id="durationFrom">
 
-                @for($i=1; $i < 11; $i++)
+                @for($i=1; $i < 15; $i++)
                     @if(isset($postData['durationFrom']))
                         <option value="{{$i}}"
                                 @if(isset($postData['durationFrom']) && $postData['durationFrom'] == $i) selected @endif>
@@ -40,7 +40,8 @@
             </select>
 
             <select name="durationTo" id="durationTo">
-                @for($i=1; $i < 11; $i++)
+
+                @for($i=1; $i < 15; $i++)
                     @if(isset($postData['durationFrom']))
                         <option value="{{$i}}"
                                 @if(isset($postData['durationTo']) && $postData['durationTo'] == $i) selected @endif>
@@ -53,6 +54,8 @@
                         @endif
                     @endif
                 @endfor
+                    <option value="more" selected>неограниченно</option>
+
             </select>
         </div>
         <div class="tour-filter-item category">
