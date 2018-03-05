@@ -2497,3 +2497,6 @@ div.dp-popup h2 {
 	color: #666;
 	cursor: pointer;
 }
+.tour-list-about {
+	display: none;
+}

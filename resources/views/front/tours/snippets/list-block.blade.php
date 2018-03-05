@@ -64,16 +64,18 @@
         </div>
         <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
             <div class="row">
+                <div class="tour-list-about">
+                    <ul>
+                        <li>{{count($tour['par_points']) ?: 1}} {!! Gliss::numeralCase('город', count($tour['par_points']) ?: 1) !!}</li>
+                        <li>14 экскурсий</li>
+                        <li>Поездка
+                            на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</li>
+                    </ul>
+                </div>
                 <div class="search-completed-item-more-right">
                     <a href="{{Gliss::tourLink($tour)}}"><span>></span></a>
                     <div class="search-completed-preview-left">
                         <div class="search-completed-item-title">{{$tour['title']}}</div>
-                        <ul>
-                            <li>{{count($tour['par_points']) ?: 1}} {!! Gliss::numeralCase('город', count($tour['par_points']) ?: 1) !!}</li>
-                            <li>14 экскурсий</li>
-                            <li>Поездка
-                                на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</li>
-                        </ul>
                     </div>
                     <div class="search-completed-item-route">
                         <span>Маршрут тура:</span>
