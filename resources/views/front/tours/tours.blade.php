@@ -191,6 +191,9 @@
     </div>
     @include('front.tours.modal.images')
     @include('front.tours.modal.order')
+    @include('front.tours.modal.types')
+    @include('front.tours.modal.cities')
+    @include('front.tours.modal.goldens')
 @endsection
 
 @section('js')

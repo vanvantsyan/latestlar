@@ -42,6 +42,21 @@ View::composer(
     $view->with('articles', App\Models\Articles::take(3)->orderBy('id', 'DESC')->get());
 }
 );
+View::composer(
+    'front.tours.modal.types', function ($view) {
+    $view->with('types', App\Models\ToursTagsValues::where('tag_id', 4)->get());
+}
+);
+View::composer(
+    'front.tours.modal.cities', function ($view) {
+    $view->with('cities', App\Models\Points::popular());
+}
+);
+View::composer(
+    'front.tours.modal.goldens', function ($view) {
+    $view->with('cities', App\Models\Points::goldens());
+}
+);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'isAdmin', 'prefix' => 'admin'], function () {
@@ -120,10 +135,10 @@ Route::post('tour/removeImage', 'Front\ToursController@removeImage')->name('remo
 
 Route::get('search/autocomplete', 'Front\ToursController@autocomplete');
 
-Route::post('tour/order','Front\MailController@sendOrder')->name('mail.order');
-Route::post('tour/phone','Front\MailController@sendPhone')->name('mail.phone');
+Route::post('tour/order', 'Front\MailController@sendOrder')->name('mail.order');
+Route::post('tour/phone', 'Front\MailController@sendPhone')->name('mail.phone');
 
-Route::post('tours/seo','Front\ToursController@getSeoTours')->name('tours.seo');
+Route::post('tours/seo', 'Front\ToursController@getSeoTours')->name('tours.seo');
 
 
 

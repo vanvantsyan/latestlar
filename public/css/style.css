@@ -334,6 +334,7 @@ label {
 	-ms-transition: ease-in-out 0.2s;
 	-o-transition: ease-in-out 0.2s;
 	transition: ease-in-out 0.2s;
+	text-align: center;
 }
 .sidebar-city-tour .btn-rest-tours:hover {
 	text-decoration: none;
@@ -2469,21 +2470,21 @@ div.dp-popup h2 {
 	font-size: 0;
 	margin-bottom: 0;
 }
-#tourOrderModal .btn {
+.modal-footer .btn {
 	-webkit-appearance: initial;
 	background: #ff5500;
 	text-shadow: none;
 }
-#tourOrderModal .btn:hover {
+.modal-footer .btn:hover {
 	background: #e14a00;
 	color: #fff;
 }
-#tourOrderModal .btn-default {
+.modal-footer .btn-default {
 	border: 1px solid #e1e1e1;
 	color: #000;
 	background: #fff;
 }
-#tourOrderModal .btn-default:hover {
+.modal-footer .btn-default:hover {
 	color: #fff;
 	background: #e1e1e1;
 }
@@ -2496,4 +2497,7 @@ div.dp-popup h2 {
 	border-bottom: 1px dashed #666;
 	color: #666;
 	cursor: pointer;
+}
+.modal-body .items{
+	display: block;
 }

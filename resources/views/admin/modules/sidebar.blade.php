@@ -81,7 +81,7 @@
                             </a>
                         </li>
                         <li class="m-menu__item " aria-haspopup="true">
-                            <a href="components/base/typography.html" class="m-menu__link ">
+                            <a href="{{url('admin/points')}}" class="m-menu__link ">
                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                     <span></span>
                                 </i>
@@ -100,16 +100,16 @@
 												</span>
                             </a>
                         </li>
-                        <li class="m-menu__item " aria-haspopup="true">
-                            <a href="components/base/stack.html" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-													Страны
-												</span>
-                            </a>
-                        </li>
+                        {{--<li class="m-menu__item " aria-haspopup="true">--}}
+                            {{--<a href="components/base/stack.html" class="m-menu__link ">--}}
+                                {{--<i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
+                                    {{--<span></span>--}}
+                                {{--</i>--}}
+                                {{--<span class="m-menu__link-text">--}}
+													{{--Страны--}}
+												{{--</span>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                     </ul>
                 </div>
             </li>

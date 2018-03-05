@@ -49,3 +49,16 @@ label[for=tourDate] img{cursor: pointer}
 input[name=tourDate]{
     letter-spacing: 0.7px;
 }
+.march-icon {
+    position: relative;
+}
+.march-icon::before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: url(/img/8icon.png);
+}
