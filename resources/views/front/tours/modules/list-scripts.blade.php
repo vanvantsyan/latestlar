@@ -133,17 +133,17 @@
 <script>
     $('#durationFrom').on('change', function (e) {
         var opt = $(this).val();
-
-        while (opt--) {
-            $('#durationTo option[value==' + opt + ']').hide();
-        }
+        //
+        // while (opt--) {
+        //     $('#durationTo option[value==' + opt + ']').hide();
+        // }
     });
     $('#durationTo').on('change', function (e) {
 
         var opt = $(this).val();
 
-        while (opt--) {
-            $('#durationFrom option[value==' + opt + ']').hide();
-        }
+        // while (opt--) {
+        //     $('#durationFrom option[value==' + opt + ']').hide();
+        // }
     });
 </script>
