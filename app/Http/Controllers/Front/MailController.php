@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Mail\OrderShipped;
+use App\Mail\SendPhone;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
@@ -28,5 +29,16 @@ class MailController extends Controller
         Mail::to(config('emails.order'))->send(new OrderShipped($request->all()));
 
         return ['ok' => 'true', 'message' => trans('messages.order.sended')];
+    }
+
+    public function sendPhone(Request $request){
+
+        $this->validate($request, [
+            'phone' => 'required|phone',
+        ]);
+
+        Mail::to(config('emails.order'))->send(new SendPhone($request->all()));
+
+        return ['ok' => 'true', 'message' => trans('messages.phone.sended')];
     }
 }

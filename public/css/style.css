@@ -1314,7 +1314,7 @@ a.dp-choose-date {
 	margin-left: 95px;
 	position: absolute;
 	padding: 5px 20px;
-	z-index: 2;
+	z-index: 3;
 }
 .tours-sorting-items.active {
 	display: block;
@@ -1408,7 +1408,7 @@ a.dp-choose-date {
 }
 .search-completed-item-date a {
 	display: inline-block;
-	width: 55px;
+	/*width: 55px;*/
 	height: 33px;
 	padding: 0 10px;
 	border: 1px solid #e1e1e1;
@@ -2463,22 +2463,22 @@ div.dp-popup h2 {
 	margin-bottom: 0;
 }
 #tourOrderModal .btn {
-    -webkit-appearance: initial;
-    background: #ff5500;
-    text-shadow: none;
+	-webkit-appearance: initial;
+	background: #ff5500;
+	text-shadow: none;
 }
 #tourOrderModal .btn:hover {
 	background: #e14a00;
 	color: #fff;
 }
 #tourOrderModal .btn-default {
-    border: 1px solid #e1e1e1;
-    color: #000;
-    background: #fff;
+	border: 1px solid #e1e1e1;
+	color: #000;
+	background: #fff;
 }
 #tourOrderModal .btn-default:hover {
 	color: #fff;
-    background: #e1e1e1;
+	background: #e1e1e1;
 }
 .tour-card-text ul {
 	list-style-type: none;

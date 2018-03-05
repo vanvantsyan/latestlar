@@ -7,8 +7,7 @@
                     <ul>
                         <li>{{count($tour['par_points']) ?: 1}} {!! Gliss::numeralCase('город', count($tour['par_points']) ?: 1) !!}</li>
                         <li>14 экскурсий</li>
-                        <li>Поездка
-                            на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</li>
+                        <li>Поездка на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</li>
                     </ul>
                 </div>
             </div>
@@ -52,8 +51,13 @@
                               data-tour-id="{{$tour['id']}}" data-toggle="modal"
                               data-target="#tourImagesModal">Все фото ({{count($images)}}
                             )</span>
-                        <span class="mobile-visible"><b>от 8200 <i class="glyphicon glyphicon-rub"
-                                                                   aria-hidden="true"></i> за человека</b></span>
+                        <span class="mobile-visible">
+                            @if($tour['price'] > 0)
+                                <b>от {{number_format($tour['price'], 0, '.',' ') }} <i class="glyphicon glyphicon-rub" aria-hidden="true"></i> за человека</b>
+                            @else
+                                <b>Цена не указана</b>
+                            @endif
+                        </span>
                     @endif
                 </a>
             </div>

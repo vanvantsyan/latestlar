@@ -1,5 +1,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="{{asset('/js/jquery.formstyler.min.js')}}"></script>
+<script src="{{asset('/js/jquery.maskedinput.min.js')}}"></script>
 <script src="{{asset('/js/date.js')}}"></script>
 <script src="{{asset('/js/jquery.datePicker.js')}}"></script>
 <script src="{{asset('/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>

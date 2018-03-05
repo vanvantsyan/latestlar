@@ -85,16 +85,16 @@
                                         <a href="#" data-sort="price-asc">Стоимости тура (от меньшей к большей)</a>
                                         <a href="#" data-sort="price-desc">Стоимости тура (от большей к меньшей)</a>
                                         <a href="#" data-sort="duration-asc">Длительности (от меньшей к большей)</a>
-                                        <a href="#" data-sort="duration-desc" style="display: none">Длительности (от
-                                            большей к меньшей)</a>
+                                        <a href="#" data-sort="duration-desc" style="display: none">Длительности (от большей к меньшей)</a>
                                     </div>
                                 </div>
                                 <div class="tours-sorting desk-hide">
-                                    Сортировать по: <a href="#"><span>Стоимости тура</span> <b></b></a>
+                                    Сортировать по: <a href="#"><span>Длительности (от большей к меньшей)</span> <b></b></a>
                                     <div class="tours-sorting-items">
-                                        <a href="#">Стоимости тура</a>
-                                        <a href="#">Стоимости тура 2</a>
-                                        <a href="#">Стоимости тура 3</a>
+                                        <a href="#" data-sort="price-asc">Стоимости тура (от меньшей к большей)</a>
+                                        <a href="#" data-sort="price-desc">Стоимости тура (от большей к меньшей)</a>
+                                        <a href="#" data-sort="duration-asc">Длительности (от меньшей к большей)</a>
+                                        <a href="#" data-sort="duration-desc" style="display: none">Длительности (от большей к меньшей)</a>
                                     </div>
                                 </div>
                                 @php
@@ -135,9 +135,9 @@
                                         <div class="popular-tours-item small" id="sendPhone">
                                             <div class="popular-tours-item-title">Подберем тур по Вашим запросам!</div>
                                             <form>
-                                                <div class="popular-item-phone">
+                                                <div class="popular-item-phone" id="phone">
                                                     <i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>
-                                                    <input type="text" placeholder="+7 (095) 322-44-54">
+                                                    <input name="phone" type="text" placeholder="+7 (095) 322-44-54">
                                                 </div>
                                                 <input class="btn btn-blue" type="submit" value="Жду звонка">
                                             </form>
@@ -458,8 +458,9 @@
                 $('#tourOrderModal form span').text("");
 
                 if (!data.ok && data.errors) {
+
                     $.each(data.errors, function (key, value) {
-                        // console.log(key+ ' - ' + value + '\n');
+
                         $('#' + key + ' span').addClass("red");
                         $('#' + key + ' span').text(value);
                     })
@@ -475,5 +476,6 @@
                 // If errors
             });
         });
+
     </script>
 @endsection

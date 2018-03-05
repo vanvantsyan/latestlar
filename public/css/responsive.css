@@ -797,9 +797,18 @@
 	.phones {
 		float: right;
 		margin-top: 10px;
+		margin-right: 5px;
 	}
-	.phones:before {
-		display: none;
+	.phones::before {
+		content: "";
+		display: inline-block;
+		width: 0;
+		height: 0;
+		position: absolute;
+		right: -10px;
+	}
+	.phones.active .phone.tablet-hide {
+		font-size: 15px;
 	}
 	.city {
 		display: none;

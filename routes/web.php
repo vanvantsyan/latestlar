@@ -121,6 +121,8 @@ Route::post('tour/removeImage', 'Front\ToursController@removeImage')->name('remo
 Route::get('search/autocomplete', 'Front\ToursController@autocomplete');
 
 Route::post('tour/order','Front\MailController@sendOrder')->name('mail.order');
+Route::post('tour/phone','Front\MailController@sendPhone')->name('mail.phone');
+
 Route::post('tours/seo','Front\ToursController@getSeoTours')->name('tours.seo');
 
 
