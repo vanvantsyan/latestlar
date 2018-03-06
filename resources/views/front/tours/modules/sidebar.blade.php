@@ -216,30 +216,30 @@
                 <a class="btn-rest-tours" href="#" data-toggle="modal" data-target="#tourTypesModal">Показать остальные типы</a>
             @endif
         </div>
-        <div class="sidebar-city-tour">
-            <div class="sidebar-tour-title">Другие страны</div>
-            <ul>
-                @forelse($countries as $country)
-                    <li class="with-flag">
-                        @php
-                            $images = json_decode($country->country->images);
-                        @endphp
+        {{--<div class="sidebar-city-tour">--}}
+            {{--<div class="sidebar-tour-title">Другие страны</div>--}}
+            {{--<ul>--}}
+                {{--@forelse($countries as $country)--}}
+                    {{--<li class="with-flag">--}}
+                        {{--@php--}}
+                            {{--$images = json_decode($country->country->images);--}}
+                        {{--@endphp--}}
 
-                        <a href="/{{$country->url}}{{$tag ? "/" . $tag->value : ""}}{{$month ? "/" . $month : ""}}">
-                            @if($images)
-                                <img width="15" src="/uploads/tmp/{{$images}}"/>
-                            @endif
-                            Туры в {{Gliss::case($country->title, "П")}}
-                        </a>
-                    </li>
-                    @if($loop->iteration == 5)
-                        @break
-                    @endif
-                @empty
-                    <li><a href="#">Нет стран</a></li>
-                @endforelse
-            </ul>
-        </div>
+                        {{--<a href="/{{$country->url}}{{$tag ? "/" . $tag->value : ""}}{{$month ? "/" . $month : ""}}">--}}
+                            {{--@if($images)--}}
+                                {{--<img width="15" src="/uploads/tmp/{{$images}}"/>--}}
+                            {{--@endif--}}
+                            {{--Туры в {{Gliss::case($country->title, "П")}}--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+                    {{--@if($loop->iteration == 5)--}}
+                        {{--@break--}}
+                    {{--@endif--}}
+                {{--@empty--}}
+                    {{--<li><a href="#">Нет стран</a></li>--}}
+                {{--@endforelse--}}
+            {{--</ul>--}}
+        {{--</div>--}}
     </div>
     <div class="sidebar-notice">{{$subText}}</div>
 </div>

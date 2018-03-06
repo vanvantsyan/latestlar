@@ -4,7 +4,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="row" itemscope itemtype="http://schema.org/Organization">
                     <div class="logo">
-                        <a href="/"><img src="/img/logo.png" alt=""></a>
+                        <a href="http://startour.ru"><img src="/img/logo.png" alt=""></a>
                     </div>
                     <div class="city">
                         <span>Москва</span>
