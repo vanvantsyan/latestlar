@@ -21,20 +21,20 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5">
-            <div class="row">
-                <div class="news-company">
-                    <div class="info-company-title">Новости компании</div>
-                    <div class="news-company-items">
-                        @foreach($news as $new)
-                            <a href="#" class="news-company-item">
-                                <b>12.12.2017</b>
-                                <span>{{$new->title}}</span>
-                            </a>
-                        @endforeach
-                    </div>
-                    <a href="#">Посмотреть все новости</a>
-                </div>
-            </div>
+            {{--<div class="row">--}}
+                {{--<div class="news-company">--}}
+                    {{--<div class="info-company-title">Новости компании</div>--}}
+                    {{--<div class="news-company-items">--}}
+                        {{--@foreach($news as $new)--}}
+                            {{--<a href="#" class="news-company-item">--}}
+                                {{--<b>12.12.2017</b>--}}
+                                {{--<span>{{$new->title}}</span>--}}
+                            {{--</a>--}}
+                        {{--@endforeach--}}
+                    {{--</div>--}}
+                    {{--<a href="#">Посмотреть все новости</a>--}}
+                {{--</div>--}}
+            {{--</div>--}}
         </div>
     </div>
 </div>

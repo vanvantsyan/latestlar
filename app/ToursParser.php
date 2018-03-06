@@ -157,7 +157,7 @@ class ToursParser
 
                     GeoRelation::where('sub_ess', 'tour')
                         ->where('sub_id', $id)
-                        ->where('par_id', 'point')
+                        ->where('par_ess', 'point')
                         ->delete();
                 }
 
@@ -266,6 +266,31 @@ class ToursParser
                     $minPrice = 0;
                 }
 
+                /* add geo relation tour -> country */
+                if ($way->status != 'country') {
+                    $countryId = 1;
+                } else {
+                    $country = DB::table('geo_countries')->where('magput', '=', $way->id)->first();
+                    $countryId = $country->id;
+                }
+
+                if (!GeoRelation::where('sub_ess', 'tour')
+                    ->where('par_ess', 'country')
+                    ->where('sub_id', $id)
+                    ->where('par_id', $countryId)
+                    ->exists()
+                ) {
+                    // Add geo relation tour -> way
+                    $geoRel = new GeoRelation();
+
+                    $geoRel->sub_ess = 'tour';
+                    $geoRel->par_ess = 'country';
+                    $geoRel->sub_id = $id;
+                    $geoRel->par_id = $countryId;
+
+                    $geoRel->save();
+                }
+
                 // If tour already exist
 
                 if (Tours::find($id)) {
@@ -290,31 +315,6 @@ class ToursParser
                         $geoRel->par_ess = 'way';
                         $geoRel->sub_id = $id;
                         $geoRel->par_id = $way->id;
-
-                        $geoRel->save();
-                    }
-
-                    /* add geo relation tour -> country */
-                    if ($way->status != 'country') {
-                        $countryId = 1;
-                    } else {
-                        $country = DB::table('geo_countries')->where('magput', '=', $way->id)->first();
-                        $countryId = $country->id;
-                    }
-
-                    if (!GeoRelation::where('sub_ess', 'tour')
-                        ->where('par_ess', 'country')
-                        ->where('sub_id', $id)
-                        ->where('par_id', $countryId)
-                        ->exists()
-                    ) {
-                        // Add geo relation tour -> way
-                        $geoRel = new GeoRelation();
-
-                        $geoRel->sub_ess = 'tour';
-                        $geoRel->par_ess = 'country';
-                        $geoRel->sub_id = $id;
-                        $geoRel->par_id = $countryId;
 
                         $geoRel->save();
                     }
@@ -377,7 +377,7 @@ class ToursParser
                             $workingImage->flip();
                             $workingImage->save($path);
 
-                            if (!File::exists($path)) {
+                            if (!File::exists(base_path('/public/img/tours/thumbs/' . $folder . '/' . $imageName))) {
                                 $workingImage->resize(null, 235, function ($constraint) {
                                     $constraint->aspectRatio();
                                 });

@@ -11,11 +11,11 @@
                                 <ul>
                                     <li><a class="link-blue" href="/tury">Поиск по стране</a></li>
                                     <li><a class="link-blue" href="/tury">Поиск по категории</a></li>
-                                    <li><a href="#">Визовые вопросы</a></li>
-                                    <li><a href="#">Страхование</a></li>
-                                    <li><a href="#">Трансферы</a></li>
-                                    <li><a href="#">Экскурсии</a></li>
-                                    <li><a href="#">Круизы</a></li>
+                                    <li><a href="http://startour.ru/vizy">Визовые вопросы</a></li>
+                                    <li><a href="http://startour.ru/straxovanie/">Страхование</a></li>
+                                    <li><a href="http://startour.ru/vip-transferyi-i-vip-zalyi/">Трансферы</a></li>
+                                    <li><a href="http://startour.ru/ekskursyi/">Экскурсии</a></li>
+                                    <li><a href="http://startour.ru/kruizyi/">Круизы</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -25,32 +25,33 @@
                             <div class="sitemap-item">
                                 <div class="title">Для клиентов</div>
                                 <ul>
-                                    <li><a href="#">Вопросы и ответы</a></li>
-                                    <li><a href="#">Способы оплаты</a></li>
-                                    <li><a href="#">Рассрочка и кредит</a></li>
-                                    <li><a href="#">Советы туристу</a></li>
-                                    <li><a href="#">Бонусная программа</a></li>
-                                    <li><a href="#">Подарочные сертификаты</a></li>
-                                    <li><a href="#">О нас</a></li>
-                                    <li><a href="#">Акции</a></li>
-                                    <li><a href="#">Отзывы</a></li>
-                                    <li><a href="#">Контакты</a></li>
+                                    <li><a href="https://letsfly.ru/corporate-customers/korporativnoe-obsluzhivanie/">Корпоративным клиентам</a></li>
+                                    {{--<li><a href="#">Вопросы и ответы</a></li>--}}
+                                    {{--<li><a href="#">Способы оплаты</a></li>--}}
+                                    {{--<li><a href="#">Рассрочка и кредит</a></li>--}}
+                                    {{--<li><a href="#">Советы туристу</a></li>--}}
+                                    {{--<li><a href="#">Бонусная программа</a></li>--}}
+                                    {{--<li><a href="#">Подарочные сертификаты</a></li>--}}
+                                    {{--<li><a href="#">О нас</a></li>--}}
+                                    {{--<li><a href="#">Акции</a></li>--}}
+                                    {{--<li><a href="#">Отзывы</a></li>--}}
+                                    {{--<li><a href="#">Контакты</a></li>--}}
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                        <div class="row">
-                            <div class="sitemap-item">
-                                <div class="title">Партнерам</div>
-                                <ul>
-                                    <li><a href="#">Для турагенств</a></li>
-                                    <li><a href="#">Корпоративным клиентам</a></li>
-                                    <li><a href="#">Центр бронирования</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    {{--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">--}}
+                        {{--<div class="row">--}}
+                            {{--<div class="sitemap-item">--}}
+                                {{--<div class="title">Партнерам</div>--}}
+                                {{--<ul>--}}
+                                    {{--<li><a href="#">Для турагенств</a></li>--}}
+                                    {{--<li><a href="#">Корпоративным клиентам</a></li>--}}
+                                    {{--<li><a href="#">Центр бронирования</a></li>--}}
+                                {{--</ul>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-1-5">

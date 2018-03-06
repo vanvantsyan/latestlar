@@ -32,6 +32,7 @@ class BladeHelper
 
     public static function case($text, $padeg)
     {
+
 //        return $text;\
 
         $file = public_path("/uploads/morpher.json");
@@ -42,11 +43,11 @@ class BladeHelper
 
             if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/declension?s=" . str_replace(' ', '%20', $text) . "&token=e1b6b8c9-46c7-4c37-9e68-3d02b0542bf6")) === false) {
                 return $text;
+
             } else {
                 libxml_use_internal_errors(true);
                 $data = simplexml_load_string($response_xml_data);
 
-                //$cnf['Россия']['множественное'] = (array) $cnf['Россия']['множественное'];
 
                 self::readData($text, $data);
 
@@ -71,6 +72,7 @@ class BladeHelper
 
     public static function numeralCase($text, $num, $padeg = "И")
     {
+
 //        return $text;
 
         $file = public_path("/uploads/morpher.json");
@@ -108,8 +110,10 @@ class BladeHelper
 
     public static function getTourCountry($ways)
     {
-        foreach ($ways as $way) {
-            if (array_get($way, 'ways_par.status') == 'country') return array_get($way, 'ways_par.url');
+        if (is_array($ways) || is_object($ways)) {
+            foreach ($ways as $way) {
+                if (array_get($way, 'ways_par.status') == 'country') return array_get($way, 'ways_par.url');
+            }
         }
         return 'russia';
     }
@@ -223,7 +227,8 @@ class BladeHelper
         return $text;
     }
 
-    public static function wordsCount($text){
+    public static function wordsCount($text)
+    {
         return count(explode(' ', $text));
     }
 
