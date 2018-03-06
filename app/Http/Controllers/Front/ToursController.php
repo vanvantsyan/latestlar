@@ -599,7 +599,7 @@ class ToursController extends Controller
                 ->where('sub_ess', 'tour')
                 ->where('par_ess', 'way')
                 ->where('par_id', array_get($tour, 'parWays.0.waysPar.id', 0));
-        })->take(3)->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')->get();
+        })->where('tours.id', '!=', $id)->take(3)->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')->get();
 
         return view('front.tours.tour', [
             'seo' => [
@@ -1010,9 +1010,9 @@ class ToursController extends Controller
 
 
         if ($duration) {
-            if(preg_match('/^na-(.*)-d/', $duration, $dayCoin)) {
+            if (preg_match('/^na-(.*)-d/', $duration, $dayCoin)) {
                 $tours->where('duration', '=', $dayCoin[1]);
-            }else{
+            } else {
                 $tours->where('duration', '=', $duration);
             }
 

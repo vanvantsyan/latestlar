@@ -292,6 +292,24 @@ class ToursParser
                     $geoRel->save();
                 }
 
+                /* add geo relation tour -> way */
+                if (!GeoRelation::where('sub_ess', 'tour')
+                    ->where('par_ess', 'way')
+                    ->where('sub_id', $id)
+                    ->where('par_id', $way->id)
+                    ->exists()
+                ) {
+                    // Add geo relation tour -> way
+                    $geoRel = new GeoRelation();
+
+                    $geoRel->sub_ess = 'tour';
+                    $geoRel->par_ess = 'way';
+                    $geoRel->sub_id = $id;
+                    $geoRel->par_id = $way->id;
+
+                    $geoRel->save();
+                }
+
                 // If tour already exist
 
                 if (Tours::find($id)) {
@@ -301,24 +319,6 @@ class ToursParser
                     $existTour->title = TourHelper::cutTourName(htmlspecialchars($name));
                     $existTour->duration = $duration;
                     $existTour->save();
-
-                    /* add geo relation tour -> way */
-                    if (!GeoRelation::where('sub_ess', 'tour')
-                        ->where('par_ess', 'way')
-                        ->where('sub_id', $id)
-                        ->where('par_id', $way->id)
-                        ->exists()
-                    ) {
-                        // Add geo relation tour -> way
-                        $geoRel = new GeoRelation();
-
-                        $geoRel->sub_ess = 'tour';
-                        $geoRel->par_ess = 'way';
-                        $geoRel->sub_id = $id;
-                        $geoRel->par_id = $way->id;
-
-                        $geoRel->save();
-                    }
 
                     echo "Update " . $id . "<br>\n";
                     continue;
