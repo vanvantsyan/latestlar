@@ -8,7 +8,7 @@ class BladeHelper
 {
     public static function case($text, $padeg)
     {
-//        return $text;
+        return $text;
         if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/declension?s=" . str_replace(' ', '%20', $text) . "&token=e1b6b8c9-46c7-4c37-9e68-3d02b0542bf6")) === false) {
             return $text;
         } else {
@@ -28,8 +28,8 @@ class BladeHelper
 
     public static function numeralCase($text, $num, $padeg = "И")
     {
-//        return $text;
-        if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/spell?n=" . $num . "&unit=" . str_replace(' ', '%20', $text) . "&e1b6b8c9-46c7-4c37-9e68-3d02b0542bf6")) === false) {
+        return $text;
+        if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/spell?n=" . $num . "&unit=" . str_replace(' ', '%20', $text) . "&token=e1b6b8c9-46c7-4c37-9e68-3d02b0542bf6")) === false) {
             return $text;
         } else {
             libxml_use_internal_errors(true);
