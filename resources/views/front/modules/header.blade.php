@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <a href="#" class="mail" itemprop="email">travel@startour.ru</a>
-                    <a href="#" class="btn btn-orange">Подбор тура онлайн</a>
+                    <a href="#" class="btn btn-orange" data-toggle="modal" data-target="#tourOrderModal">Подбор тура онлайн</a>
                 </div>
             </div>
         </div>

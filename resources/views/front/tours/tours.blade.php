@@ -201,7 +201,6 @@
     @include('front.tours.modules.list-scripts')
 
     <script>
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -426,8 +425,8 @@
             $('#filterTours').trigger('click');
         });
     </script>
-    <script>
 
+    <script>
         // Set hidden fields
         $('#tourOrderModal').on('show.bs.modal', function (e) {
 
@@ -489,7 +488,7 @@
     </script>
 
     <script>
-        $('.search-completed-item-date a').on({
+        $('.search-completed-item-date a:not(.all-dates)').on({
 
             mouseenter: function () {
                 $(this).text('Заказать');
