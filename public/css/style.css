@@ -2498,6 +2498,12 @@ div.dp-popup h2 {
 	color: #666;
 	cursor: pointer;
 }
+<<<<<<< HEAD
+.tour-list-about {
+	display: none;
+}
+=======
 .modal-body .items{
 	display: block;
 }
+>>>>>>> 26ff08f0f7afb02eebfd8aca429206b8ddcfa5f5

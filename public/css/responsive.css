@@ -1272,7 +1272,7 @@
 		margin-bottom: 0;
 		color: #000 !important;
 		vertical-align: text-bottom;
-		border: 0;
+		border: 0; 
 		padding: 0;
 		margin-left: 5px;
 		margin-right: 0;
@@ -1287,7 +1287,7 @@
 		border-top: 1px solid #e1e1e1;
 		border-bottom: 1px solid #e1e1e1;
 		width: 100%;
-		height: 183px;
+		height: 103px;
 	}
 	.search-completed-item-more-right > div {
 		padding-right: 15px;
@@ -1903,6 +1903,7 @@
 	}
 	.search-completed-item-route {
 		padding-left: 0;
+		margin-bottom: 0;
 	}
 	.search-completed-item-route span {
 		display: none;
@@ -1936,6 +1937,12 @@
 	.card-slider-item-cont h1, 
 	.card-slider-item-cont .h1 {
 		font-size: 34px;
+	}
+	.tour-list-about {
+		display: block;
+	}
+	.search-completed-item-title {
+		margin-bottom: 5px;
 	}
 }
 @media (max-width: 655px) {
