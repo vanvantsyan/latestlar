@@ -430,7 +430,8 @@
                 <a href="#" class="seo-txt-btn">Больше информации</a>
             </div>
         </div>
-        @include('front.modules.subscription')
+        <hr>
+        {{--@include('front.modules.subscription')--}}
         @include('front.modules.infoCompany')
         @include('front.modules.partners')
         @include('front.modules.bigFooter')

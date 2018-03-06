@@ -140,7 +140,7 @@
                             </li>
                         @endif
 
-                        @if($loop->iteration == 6)
+                        @if($loop->iteration == 8)
                             @break
                         @endif
                     @empty
