@@ -217,12 +217,13 @@ class ToursParser
                 $data_viezda_html = $table->find('tr', 3);
                 preg_match_all('/[\d]{1,2}.[\d]{1,2}.[\d]{2,4}/', $data_viezda_html, $matchesDate);
 
-                if (count($matchesDate[0])) {
+                // Delete data_viezda
+                ToursTagsRelation::join('tours_tags AS tt', 'tt.id', '=', 'tag_id')
+                    ->where('tour_id', $id)
+                    ->where('tt.title', 'data_viezda')
+                    ->delete();
 
-                    ToursTagsRelation::join('tours_tags AS tt', 'tt.id', '=', 'tag_id')
-                        ->where('tour_id', $id)
-                        ->where('tt.title', 'data_viezda')
-                        ->delete();
+                if (count($matchesDate[0])) {
 
                     foreach ($matchesDate[0] as $dateIn) {
                         $data_viezda = strtotime($dateIn);
