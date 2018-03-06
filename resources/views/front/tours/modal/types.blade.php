@@ -13,10 +13,6 @@
                     @endforeach
                 </div>
             </div>
-            <div class="modal-footer">
-                <a type="button" class="btn btn-default" data-dismiss="modal">Закрыть</a>
-                <a type="button" class="btn btn-yellow">Отправить</a>
-            </div>
         </div>
     </div>
 </div>
