@@ -3,7 +3,7 @@
         <div class="sitemap-items">
             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4-5">
                 <div class="row">
-                    @include('front.tours.modules.hotWays')
+                    {{--@include('front.tours.modules.hotWays')--}}
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                         <div class="row">
                             <div class="sitemap-item">
