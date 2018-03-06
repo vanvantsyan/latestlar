@@ -6,34 +6,89 @@ use Sunra\PhpSimple\HtmlDomParser;
 
 class BladeHelper
 {
+
+    public static function readData($text, $data)
+    {
+        $tmp = self::xml2array($data);
+
+        $file = public_path("/uploads/morpher.json");
+
+        if (!file_exists($file)) {
+            $current = file_get_contents($file);
+            $current = json_decode($current, true);
+            file_put_contents($file, $current);
+        }else{
+            $current = file_get_contents($file);
+            $current = !empty($current) ? json_decode($current, true) : [];
+            if(!array_key_exists($text, $current)){
+                $current[$text] = $tmp;
+            }
+            file_put_contents($file, json_encode($current));
+        }
+
+        return true;
+    }
+
+
     public static function case($text, $padeg)
     {
-        return $text;
-        if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/declension?s=" . str_replace(' ', '%20', $text) . "&token=e1b6b8c9-46c7-4c37-9e68-3d02b0542bf6")) === false) {
-            return $text;
-        } else {
-            libxml_use_internal_errors(true);
-            $data = simplexml_load_string($response_xml_data);
-            if (!$data) {
-                echo "Error loading XML\n";
-                foreach (libxml_get_errors() as $error) {
-                    echo "\t", $error->message;
-                }
+
+//        return $text;\
+
+        $file = public_path("/uploads/morpher.json");
+        $arr = file_get_contents($file);
+        $arr = !empty($arr) ? json_decode($arr, true) : [];
+
+        if(!array_key_exists($text, $arr)) {
+
+            if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/declension?s=" . str_replace(' ', '%20', $text) . "&token=e1b6b8c9-46c7-4c37-9e68-3d02b0542bf6")) === false) {
+                return $text;
+
             } else {
-                return (string)$data->$padeg;
+                libxml_use_internal_errors(true);
+                $data = simplexml_load_string($response_xml_data);
+
+
+                self::readData($text, $data);
+
+
+                if (!$data) {
+                    echo "Error loading XML\n";
+                    foreach (libxml_get_errors() as $error) {
+                        echo "\t", $error->message;
+                    }
+                } else {
+                    return (string)$data->$padeg;
+                }
             }
+            return $text;
+
+        }else{
+
+            return $arr[$text][$padeg];
+
         }
-        return $text;
     }
 
     public static function numeralCase($text, $num, $padeg = "И")
     {
-        return $text;
+
+//        return $text;
+
+        $file = public_path("/uploads/morpher.json");
+        $arr = file_get_contents($file);
+        $arr = !empty($arr) ? json_decode($arr, true) : [];
+
+        if(!array_key_exists($text . '-' . $num, $arr)) {
+
         if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/spell?n=" . $num . "&unit=" . str_replace(' ', '%20', $text) . "&token=e1b6b8c9-46c7-4c37-9e68-3d02b0542bf6")) === false) {
             return $text;
         } else {
             libxml_use_internal_errors(true);
             $data = simplexml_load_string($response_xml_data);
+
+            self::readData($text . '-' . $num, $data);
+
             if (!$data) {
                 echo "Error loading XML\n";
                 foreach (libxml_get_errors() as $error) {
@@ -44,6 +99,13 @@ class BladeHelper
             }
         }
         return $text;
+
+        }else{
+
+            return $arr[$text . '-' . $num]['unit'][$padeg];
+
+        }
+
     }
 
     public static function getTourCountry($ways)
@@ -168,5 +230,43 @@ class BladeHelper
     public static function wordsCount($text)
     {
         return count(explode(' ', $text));
+    }
+
+
+    public static function xml2array($xml)
+    {
+        $arr = array();
+        foreach ($xml->getNamespaces() + array(null) as $prefix => $namespace) {
+            foreach ($xml->attributes($namespace) as $key => $value) {
+                // Add prefixes to prefixed attributes
+                if (is_string($prefix)) {
+                    $key = $prefix . '.' . $key;
+                }
+                $arr['@attributes'][$key] = (string) $value;
+            }
+        }
+        foreach ($xml as $name => $element) {
+            $value = $element->children() ? self::xml2array($element) : trim($element);
+            if ($value) {
+                if (!isset($arr[$name])) {
+                    $arr[$name] = $value;
+                } else {
+                    foreach ((array) $value as $k => $v) {
+                        if (is_numeric($k)) {
+                            $arr[$name][] = $v;
+                        } else {
+                            $arr[$name][$k] = array_merge(
+                                (array) $arr[$name][$k],
+                                (array) $v
+                            );
+                        }
+                    }
+                }
+            }
+        }
+        if ($content = trim((string) $xml)) {
+            $arr[] = $content;
+        }
+        return $arr;
     }
 }
