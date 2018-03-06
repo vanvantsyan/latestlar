@@ -48,8 +48,10 @@ class BladeHelper
 
     public static function getTourCountry($ways)
     {
-        foreach ($ways as $way) {
-            if (array_get($way, 'ways_par.status') == 'country') return array_get($way, 'ways_par.url');
+        if (is_array($ways) || is_object($ways)) {
+            foreach ($ways as $way) {
+                if (array_get($way, 'ways_par.status') == 'country') return array_get($way, 'ways_par.url');
+            }
         }
         return 'russia';
     }
@@ -163,7 +165,8 @@ class BladeHelper
         return $text;
     }
 
-    public static function wordsCount($text){
+    public static function wordsCount($text)
+    {
         return count(explode(' ', $text));
     }
 }
