@@ -416,7 +416,7 @@
                             </div>
                         </div>
                     </div>
-                    @include('front.tours.modules.articles')
+                    {{--@include('front.tours.modules.articles')--}}
                     @include('front.tours.modules.popularTypes')
                 </div>
             </div>
