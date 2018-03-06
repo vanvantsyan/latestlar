@@ -52,6 +52,9 @@ class ToursParser extends Command
             case('insertTagsFromModx'):
                 $this->parser->insertTagsFromModx();
                 break;
+            case('relateWithTypes'):
+                $this->parser->relateWithTypes();
+                break;
         }
 
     }

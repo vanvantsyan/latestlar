@@ -127,6 +127,9 @@
                 <div class="sidebar-tour-subtitle">Туры по месяцам</div>
                 <ul>
                     @forelse(config('main.month') as $key => $value)
+                        @if(in_array($key, ['january', 'february']))
+                            @continue
+                        @endif
                         @if($layer == 3)
                             <li>
                                 <a href="/{{$level}}/{{$key}}">{{$value}}</a>
@@ -213,32 +216,33 @@
                 @endforelse
             </ul>
             @if(count($tourTypes) > 5)
-                <a class="btn-rest-tours" href="#" data-toggle="modal" data-target="#tourTypesModal">Показать остальные типы</a>
+                <a class="btn-rest-tours" href="#" data-toggle="modal" data-target="#tourTypesModal">Показать остальные
+                    типы</a>
             @endif
         </div>
         {{--<div class="sidebar-city-tour">--}}
-            {{--<div class="sidebar-tour-title">Другие страны</div>--}}
-            {{--<ul>--}}
-                {{--@forelse($countries as $country)--}}
-                    {{--<li class="with-flag">--}}
-                        {{--@php--}}
-                            {{--$images = json_decode($country->country->images);--}}
-                        {{--@endphp--}}
+        {{--<div class="sidebar-tour-title">Другие страны</div>--}}
+        {{--<ul>--}}
+        {{--@forelse($countries as $country)--}}
+        {{--<li class="with-flag">--}}
+        {{--@php--}}
+        {{--$images = json_decode($country->country->images);--}}
+        {{--@endphp--}}
 
-                        {{--<a href="/{{$country->url}}{{$tag ? "/" . $tag->value : ""}}{{$month ? "/" . $month : ""}}">--}}
-                            {{--@if($images)--}}
-                                {{--<img width="15" src="/uploads/tmp/{{$images}}"/>--}}
-                            {{--@endif--}}
-                            {{--Туры в {{Gliss::case($country->title, "П")}}--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--@if($loop->iteration == 5)--}}
-                        {{--@break--}}
-                    {{--@endif--}}
-                {{--@empty--}}
-                    {{--<li><a href="#">Нет стран</a></li>--}}
-                {{--@endforelse--}}
-            {{--</ul>--}}
+        {{--<a href="/{{$country->url}}{{$tag ? "/" . $tag->value : ""}}{{$month ? "/" . $month : ""}}">--}}
+        {{--@if($images)--}}
+        {{--<img width="15" src="/uploads/tmp/{{$images}}"/>--}}
+        {{--@endif--}}
+        {{--Туры в {{Gliss::case($country->title, "П")}}--}}
+        {{--</a>--}}
+        {{--</li>--}}
+        {{--@if($loop->iteration == 5)--}}
+        {{--@break--}}
+        {{--@endif--}}
+        {{--@empty--}}
+        {{--<li><a href="#">Нет стран</a></li>--}}
+        {{--@endforelse--}}
+        {{--</ul>--}}
         {{--</div>--}}
     </div>
     <div class="sidebar-notice">{{$subText}}</div>

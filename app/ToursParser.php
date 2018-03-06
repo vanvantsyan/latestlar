@@ -61,7 +61,7 @@ class ToursParser
         // Start parsing
 
         foreach ($ways as $way) {
-            echo " — — — — — — Parce way - " . $way['title'] . " — — — — — — <br>\n";
+            echo " — — — — — — Parce way - " . $way['title'] . " — — — — — — \n";
             $parsingPage = file_get_contents('https://magturyview.ru/mday.php?id=' . $way['id']);
 
             /* dom parsing many tours list*/
@@ -134,7 +134,7 @@ class ToursParser
                     try {
                         $routePoints = explode('-->', $matches[1]);
                     } catch (Exception $e) {
-                        echo $e . "<br> on ";
+                        echo $e . " on ";
                         var_dump($matches);
                     }
 
@@ -320,7 +320,7 @@ class ToursParser
                     $existTour->duration = $duration;
                     $existTour->save();
 
-                    echo "Update " . $id . "<br>\n";
+                    echo "Update " . $id . "\n";
                     continue;
                 }
 
@@ -354,13 +354,13 @@ class ToursParser
 
                         preg_match('/([\da-z]+)\.(png|jpg|jpeg|gif)/ui', $img, $matches);
                         if (!isset($matches[1]) || empty($matches[1])) {
-                            echo "could not get image name " . $img . "<br>\n";
+                            echo "could not get image name " . $img . "\n";
                             continue;
                         }
 
                         $gd = @imagecreatefromstring(file_get_contents($img));
                         if ($gd === false) {
-                            echo 'Image is corrupted<br>';
+                            echo 'Image is corrupted';
                             continue;
                         }
 
@@ -465,7 +465,7 @@ class ToursParser
                 $newTour->save();
 
                 // Logging
-                echo "Add " . $id . "<br>\n";
+                echo "Add " . $id . "\n";
 
             }
         }
@@ -474,6 +474,22 @@ class ToursParser
 
     public function getOne()
     {
+    }
+
+    public function relateWithTypes(){
+
+        $types = ToursTagsValues::where('off',0)->where('tag_id',4)->where('id','!=',39)->get();
+
+        foreach($types as $type) {
+
+            if($type->keys) {
+
+                echo $type->keys . "\n";
+                $keys = explode(',', $type->keys);
+                echo head($keys) . "\n";
+            }
+        }
+
     }
 
     public function createThumbs()
