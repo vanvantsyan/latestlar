@@ -377,7 +377,7 @@ class ToursParser
                             $workingImage->flip();
                             $workingImage->save($path);
 
-                            if (!File::exists($path)) {
+                            if (!File::exists(base_path('/public/img/tours/thumbs/' . $folder . '/' . $imageName))) {
                                 $workingImage->resize(null, 235, function ($constraint) {
                                     $constraint->aspectRatio();
                                 });
