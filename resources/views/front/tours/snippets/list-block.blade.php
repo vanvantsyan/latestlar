@@ -36,8 +36,7 @@
     <div class="search-completed-item-more">
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
             <div class="row">
-                <a href="#" class="search-completed-item-img" data-images="{{ $tour['images'] }}"
-                   data-tour-id="{{$tour['id']}}" data-toggle="modal"
+                <a href="#" class="search-completed-item-img" data-images="{{ $tour['images'] }}" data-image-id="0" data-tour-id="{{$tour['id']}}" data-toggle="modal"
                    data-target="#tourImagesModal">
                     @php
                         $images = (array) json_decode($tour['images']);

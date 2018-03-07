@@ -117,7 +117,7 @@
 
         startDate: '{!! date('d.m.Y', strtotime("1 " . $month)) !!}',
         endDate: '{!! date('d.m.Y', strtotime("last day of " . $month)) !!}',
-        @elseif($tourDate)
+        @elseif(isset($tourDate) && !empty($tourDate))
                 @php
                     $datesArr = explode('-', $tourDate);
                 @endphp
@@ -140,26 +140,26 @@
     });
     $('#durationTo').on('change', function (e) {
 
-        var opt = $(this).val()-2;
+        var opt = $(this).val() - 2;
         $('#durationFrom-styler li').show();
 
-        while ((opt++)<15) {
+        while ((opt++) < 15) {
             $('#durationFrom-styler li:eq(' + opt + ')').hide();
         }
     });
 </script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         var opt = $('#durationFrom').val();
         $('#durationTo-styler li').show();
         while (opt--) {
             $('#durationTo-styler li:eq(' + opt + ')').hide();
         }
 
-        var opt = $('#durationTo').val()-2;
+        var opt = $('#durationTo').val() - 2;
         $('#durationFrom-styler li').show();
 
-        while ((opt++)<15) {
+        while ((opt++) < 15) {
             $('#durationFrom-styler li:eq(' + opt + ')').hide();
         }
     });

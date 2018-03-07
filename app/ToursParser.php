@@ -3,20 +3,17 @@
 namespace App;
 
 use App\Helpers\TourHelper;
-use App\Helpers\BladeHelper;
+use App\Http\CBRAgent;
 use App\Models\GeoRelation;
 use App\Models\Points;
+use App\Models\Tours;
 use App\Models\ToursTags;
 use App\Models\ToursTagsRelation;
 use App\Models\ToursTagsValues;
-use App\Models\Tours;
 use App\Models\Ways;
-use App\Http\CBRAgent;
-
 use Illuminate\Support\Facades\DB;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
-
+use Intervention\Image\Facades\Image;
 use Sunra\PhpSimple\HtmlDomParser;
 
 class ToursParser
@@ -476,17 +473,51 @@ class ToursParser
     {
     }
 
-    public function relateWithTypes(){
+    public function relateWithTypes()
+    {
 
-        $types = ToursTagsValues::where('off',0)->where('tag_id',4)->where('id','!=',39)->get();
+        $types = ToursTagsValues::where('off', 0)->where('tag_id', 4)->where('id', '!=', 39)->get();
+        // Если я задаю новые связи с типом, логично что я удаляю все связи с турами созданные ранее
 
-        foreach($types as $type) {
+        foreach ($types as $type) {
 
-            if($type->keys) {
+            ToursTagsRelation::where('tag_id', 4)->where('value', $type->id)->delete();
 
-                echo $type->keys . "\n";
+            if ($type->keys) {
+
+                echo "--- Тег " . $type->alias . " ---\n";
+
+                /* Получаем ключи для запроса */
+
+                $toursQuery = Tours::select('id');
+
                 $keys = explode(',', $type->keys);
-                echo head($keys) . "\n";
+
+                foreach ($keys as $key) {
+                    if($key) {
+                        $toursQuery->orWhere('title', 'like', '%' . $key . '%');
+                        $toursQuery->orWhere('description', 'like', '%' . $key . '%');
+                    }
+                }
+
+                $toursIds = $toursQuery->pluck('id');
+
+
+                /* Собираем данные для вставки связей */
+
+                $arr = [];
+
+                foreach ($toursIds as $id) {
+                    $arr[] = [
+                        'tour_id' => $id,
+                        'value' => $type->id,
+                        'tag_id' => 4
+                    ];
+                }
+
+                // Вставляем данные
+                ToursTagsRelation::insert($arr);
+
             }
         }
 

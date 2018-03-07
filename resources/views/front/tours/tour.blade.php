@@ -355,9 +355,10 @@
 
             var slideContainer = ".carousel-inner";
             var indicators = '';
+            var active = '';
 
             $.each($.parseJSON(images), function (key, value) {
-                if (key == imgActive.attr('data-image-id')) active = "active"; else active = '';
+                if (imgActive.attr('data-image-id') && key == imgActive.attr('data-image-id')) active = "active"; else active = '';
                 slideBlock += "<div class='item " + active + "'> <img src=\'/img/tours/full/" + tourId.substr(0, 2) + "/" + value + "'></div>";
 
                 indicators += "<li data-target=\"#tourImagesCarousel\" data-slide-to='" + key + "' class='" + active + "'></li>";

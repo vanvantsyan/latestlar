@@ -436,10 +436,15 @@
         @include('front.modules.partners')
         @include('front.modules.bigFooter')
     </div>
+    @include('front.tours.modal.images')
     @include('front.tours.modal.order')
+    @include('front.tours.modal.types')
+    @include('front.tours.modal.cities')
+    @include('front.tours.modal.goldens')
 @endsection
 
 @section('js')
+    @include('front.tours.modules.list-scripts')
     <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="{{asset('/js/moment.js')}}"></script>
     <script src="{{asset('/js/daterangepicker.js')}}"></script>
