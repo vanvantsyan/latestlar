@@ -28,7 +28,7 @@
                         @endif
                     </div>
                     <a href="#" data-toggle="modal" data-target="#tourOrderModal" class="btn btn-orange">Заказать</a>
-                    <a href="{{Gliss::tourLink($tour)}}" class="btn btn-blue">Подробнее</a>
+                    <a href="{{Gliss::tourLink($tour)}}" class="btn btn-blue" target="_blank">Подробнее</a>
                 </div>
             </div>
         </div>
@@ -124,7 +124,7 @@
                     </div>
                     <div class="search-completed-item-desc">
                         {!! Str::words($tour['description'], 17,'...') !!}
-                        <a href="{{Gliss::tourLink($tour)}}">Подробнее</a>
+                        <a href="{{Gliss::tourLink($tour)}}" target="_blank">Подробнее</a>
                     </div>
                     <div class="search-completed-item-tags">
                         @php
