@@ -477,11 +477,11 @@ class ToursParser
     {
 
         $types = ToursTagsValues::where('off', 0)->where('tag_id', 4)->where('id', '!=', 39)->get();
-        // Если я задаю новые связи с типом, логично что я удаляю все связи с турами созданные ранее
 
         foreach ($types as $type) {
 
-            ToursTagsRelation::where('tag_id', 4)->where('value', $type->id)->delete();
+            // Удаляю все связи подобного типа где нет not_update
+            ToursTagsRelation::where('tag_id', 4)->where('value', $type->id)->where('not_update',0)->delete();
 
             if ($type->keys) {
 

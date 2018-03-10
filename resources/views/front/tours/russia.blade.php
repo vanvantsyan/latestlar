@@ -19,6 +19,7 @@
         .subscription form {
             color: #0f0f0f;
         }
+
         form span {
             float: right;
             color: red;
@@ -748,7 +749,7 @@
                     })
                 } else {
                     $('#tourOrderModal .modal-footer').remove();
-                    $('#tourOrderModal .modal-body').html("<p style='text-align: center' class=\"alert alert-success\">" + data.message +"</p>");
+                    $('#tourOrderModal .modal-body').html("<p style='text-align: center' class=\"alert alert-success\">" + data.message + "</p>");
                     setTimeout(function () {
                         $('#tourOrderModal').modal('hide')
                     }, 3000);
