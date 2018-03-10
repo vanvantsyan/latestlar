@@ -62,6 +62,13 @@
                     </div>
 
                     <div class="form-group m-form__group row">
+                        <div class="col-md-12 col-xs-12">
+                            <label for="">Ключи для автоподбора туров (используется для присвоения типов тура)</label>
+                            <input class="form-control m-input m-input--square" name="keys" value="{{$item->keys or ''}}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group m-form__group row">
                         <div class="col-lg-12 col-md-9 col-sm-12">
                             <label class="">
                                 Загрузить изображение
