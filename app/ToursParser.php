@@ -473,6 +473,13 @@ class ToursParser
     {
     }
 
+    /**
+     *  Проставляет один конкретный тип у тура
+     *
+     * @param int $id
+     * @return bool $status
+     */
+
     public function relateWithTypes()
     {
 
@@ -481,7 +488,7 @@ class ToursParser
         foreach ($types as $type) {
 
             // Удаляю все связи подобного типа где нет not_update
-            ToursTagsRelation::where('tag_id', 4)->where('value', $type->id)->where('not_update',0)->delete();
+            ToursTagsRelation::where('tag_id', 4)->where('value', $type->id)->where('not_update', 0)->delete();
 
             if ($type->keys) {
 
@@ -494,7 +501,7 @@ class ToursParser
                 $keys = explode(',', $type->keys);
 
                 foreach ($keys as $key) {
-                    if($key) {
+                    if ($key) {
                         $toursQuery->orWhere('title', 'like', '%' . $key . '%');
                         $toursQuery->orWhere('description', 'like', '%' . $key . '%');
                     }

@@ -110,6 +110,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('ways', 'Admin\WaysController');
         Route::resource('types', 'Admin\TypesController');
+        Route::get('types/insert/{id?}', 'Admin\TypesController@insert')->name('types.insert');
         Route::resource('articles', 'Admin\ArticlesController');
 
     });

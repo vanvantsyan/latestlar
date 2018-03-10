@@ -43,15 +43,15 @@
                             </div>
                         </div>
                         <div class="col-xl-4 order-1 order-xl-2 m--align-right">
-                            {{--<a href="{{url('admin/types/categories')}}"--}}
-                               {{--class="btn btn-danger m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">--}}
-                                {{--<span>--}}
-                                    {{--<i class="la la-list"></i>--}}
-                                    {{--<span>--}}
-                                        {{--Категории--}}
-                                    {{--</span>--}}
-                                {{--</span>--}}
-                            {{--</a>--}}
+                            <a href="{{route('types.insert')}}"
+                               class="btn btn-danger m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                <span>
+                                    <i class="la la-bolt"></i>
+                                    <span>
+                                        Проставить теги у туров
+                                    </span>
+                                </span>
+                            </a>
                             <a href="{{url('admin/types/create')}}"
                                class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
                                 <span>
