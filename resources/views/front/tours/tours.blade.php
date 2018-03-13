@@ -219,7 +219,8 @@
             var indicators = '';
 
             $.each($.parseJSON(images), function (key, value) {
-                if (!key) active = "active"; else active = '';
+
+                if (key == 0) active = "active"; else active = '';
                 slideBlock += "<div class='item " + active + "'> <img src=\'/img/tours/full/" + tourId.substr(0, 2) + "/" + value + "'></div>";
 
                 indicators += "<li data-target=\"#tourImagesCarousel\" data-slide-to='" + key + "' class='" + active + "'></li>";

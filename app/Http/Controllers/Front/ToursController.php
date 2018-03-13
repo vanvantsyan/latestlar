@@ -914,7 +914,7 @@ class ToursController extends Controller
     {
         $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
 
-        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration', DB::raw('COUNT(tours.id) as countDate'), 'ttrDate.tour_id');
+        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration', DB::raw('COUNT(tours.id) as countDate'));
 
         $limit = $request->input('limit');
         $offset = $request->input('offset');
@@ -948,7 +948,7 @@ class ToursController extends Controller
         $tours->skip($offset)->take($limit);
         $tours = $this->applyFilters($tours, $request->all());
 
-        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration', 'ttrDate.tour_id');
+        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration');
 
         $tours->groupBy('tours.id');
 
