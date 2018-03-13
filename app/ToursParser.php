@@ -938,12 +938,109 @@ class ToursParser
                     ];
                 }
 
-                // Вставляем данные
+                // Вставляем связи
                 ToursTagsRelation::insert($arr);
 
             }
         }
 
+    }
+
+    /**
+     *  Проставляет тип соответствующего праздника у тура
+     *
+     * @return bool $status
+     */
+    public function relateWithHolidays()
+    {
+        $holidayArray = [
+            1 => [
+                'title' => 'november',
+                'oneDay' => '706',
+                'mDay' => '707',
+            ],
+            2 => [
+                'title' =>  'febr23',
+                'oneDay' => '294',
+                'mDay' => '295',
+            ],
+            4 => [
+                'title' =>  'mart',
+                'oneDay' => '219',
+                'mDay' => '220',
+            ],
+            5 => [
+                'title' =>  'maslen',
+                'oneDay' => '217',
+                'mDay' => '218',
+            ],
+            6 => [
+                'title' =>  'pasha',
+                'oneDay' => '542',
+                'mDay' => '543',
+            ],
+            7 => [
+                'title' =>  'may',
+                'oneDay' => '180',
+                'mDay' => '179',
+            ],
+            8 => [
+                'title' =>  'june12',
+                'oneDay' => '558',
+                'mDay' => '251',
+            ],
+        ];
+
+        foreach ($holidayArray as $tag_id => $holiday) {
+
+            echo " — — — " . $holiday['title']  . " — — — " ."\n";
+
+            // Удаляю все связи подобного типа где нет not_update
+            ToursTagsRelation::where('tag_id', 3)->where('value', $tag_id)->where('not_update', 0)->delete();
+
+            foreach(['mDay'] as $duration) {
+
+                $base = 'https://magturyview.ru/' . $holiday['title'] . '.php?id=' . $holiday[$duration];
+                $curl = curl_init();
+                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+                curl_setopt($curl, CURLOPT_HEADER, false);
+                curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+                curl_setopt($curl, CURLOPT_URL, $base);
+                curl_setopt($curl, CURLOPT_REFERER, $base);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+                $parsingPage = curl_exec($curl);
+                curl_close($curl);
+                $html = HtmlDomParser::str_get_html($parsingPage);
+
+
+                /* Собираем данные для вставки связей */
+
+                $arr = [];
+
+                foreach($html->find('h3.pr_name a') as $a){
+                    $href = $a->href;
+                    preg_match('/viewprog=(\d{1,10})/', $href, $matches);
+                    $id = $matches[1];
+
+                    // Если получен идентификатор тура изем таковой в базе
+                    if(Tours::find($id)) { // Организовать добавление туров, однодневные не все
+
+                        $arr[] = [
+                            'tour_id' => $id,
+                            'value' => $tag_id,
+                            'tag_id' => 3
+                        ];
+
+                        echo "тур " . $id . " cвязь " . $holiday['title'] ."\n";
+                    }
+
+                }
+
+                // Вставляем связи
+                ToursTagsRelation::insert($arr);
+            }
+
+        }
     }
 
     public function createThumbs()

@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\ToursParser as Parser;
+use Illuminate\Console\Command;
 
 class ToursParser extends Command
 {
@@ -55,6 +55,8 @@ class ToursParser extends Command
             case('relateWithTypes'):
                 $this->parser->relateWithTypes();
                 break;
+            case('parsHoliday'):
+                $this->parser->relateWithHolidays();
         }
 
     }
