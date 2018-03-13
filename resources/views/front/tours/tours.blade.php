@@ -399,22 +399,6 @@
 
         });
 
-        //Insert dates to filters form
-        // $('.search-completed-item-date a.green').on('click', function (e) {
-        //     e.preventDefault();
-        //
-        //     var tourDate = $(this).attr('data-date');
-        //     $('input[name=tourDate]').attr('value', tourDate);
-        //
-        //     $('#tourOrderModal').modal('show');
-
-        // $('#tourDate').data('daterangepicker').setStartDate(date);
-        // $('#tourDate').data('daterangepicker').setEndDate(date);
-        //
-        // $('#filterTours').trigger('click');
-
-        // });
-
         // Insert point
         $('.search-completed-item-route a').on('click', function (e) {
             e.preventDefault();

@@ -996,7 +996,7 @@ class ToursParser
             echo " — — — " . $holiday['title']  . " — — — " ."\n";
 
             // Удаляю все связи подобного типа где нет not_update
-            ToursTagsRelation::where('tag_id', 3)->where('value', $tag_id)->where('not_update', 0)->delete();
+            ToursTagsRelation::where('tag_id', 3)->where('value', $tag_id)->delete();
 
             foreach(['mDay'] as $duration) {
 
