@@ -24,7 +24,7 @@
             <label>Длительность тура (дни)</label>
 
             <select name="durationFrom" id="durationFrom">
-                @if(isset($postData['durationFrom']) or $durationFrom)
+                @if(isset($postData['durationFrom']) or isset($durationFrom))
                     @php
                         $currentFrom = isset($postData['durationFrom']) ? $postData['durationFrom'] : $durationFrom;
                     @endphp
@@ -32,11 +32,12 @@
                     @php
                         $currentFrom = '';
                     @endphp
+
                 @endif
 
-                @for($i=1; $i < 15; $i++)
+                @for($i=1; $i < 16; $i++)
 
-                    @if(isset($postData['durationFrom']) or $durationFrom)
+                    @if($currentFrom)
                         <option value="{{$i}}" @if($currentFrom == $i) selected @endif>от {{$i}}</option>
                     @else
 
@@ -51,7 +52,7 @@
 
             <select name="durationTo" id="durationTo">
 
-                @if(isset($postData['durationTo']) or $durationTo)
+                @if(isset($postData['durationTo']) or isset($durationTo))
                     @php
                         $currentTo = isset($postData['durationTo']) ? $postData['durationTo'] : $durationTo;
                     @endphp
