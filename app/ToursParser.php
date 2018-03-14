@@ -372,22 +372,27 @@ class ToursParser
                         $folder = substr($id, 0, 2);
                         $imageName = $matches[1] . '.' . $matches[2];
 
-                        if (!is_dir(base_path('/public/img/tours/full/' . $folder))) {
-                            mkdir(base_path('/public/img/tours/full/' . $folder));
+                        if (!is_dir(base_path('public/img/tours/full/' . $folder))) {
+                            mkdir(base_path('public/img/tours/full/' . $folder));
                         }
-                        $path = base_path('/public/img/tours/full/' . $folder . '/' . $imageName);
+                        $path = base_path('public/img/tours/full/' . $folder . '/' . $imageName);
 
-                        if (!file_exists(base_path('/public/img/tours/full/' . $folder . '/' . $imageName))) {
+                        if (!file_exists(base_path('public/img/tours/full/' . $folder . '/' . $imageName))) {
 
                             $workingImage = Image::make($img);
                             $workingImage->flip();
                             $workingImage->save($path);
 
-                            if (!File::exists(base_path('/public/img/tours/thumbs/' . $folder . '/' . $imageName))) {
+                            if (!File::exists(base_path('public/img/tours/thumbs/' . $folder . '/' . $imageName))) {
+
+                                if (!is_dir(base_path('public/img/tours/thumbs/' . $folder))) {
+                                    mkdir(base_path('public/img/tours/thumbs/' . $folder));
+                                }
+
                                 $workingImage->resize(null, 235, function ($constraint) {
                                     $constraint->aspectRatio();
                                 });
-                                $workingImage->save(base_path('/public/img/tours/thumbs/' . $folder . '/' . $imageName));
+                                $workingImage->save(base_path('public/img/tours/thumbs/' . $folder . '/' . $imageName));
                             }
                         }
 

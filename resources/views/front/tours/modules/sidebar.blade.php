@@ -1,7 +1,7 @@
 <div class="sidebar-wrap">
     <div class="sidebar">
         <div class="sidebar-city-tour">
-            <div class="sidebar-tour-title">Туры по России</div>
+            <div class="sidebar-tour-title">Категории туров</div>
             <ul>
                 @if($layer == 3)
                     <li><a class="march-icon" href="/{{$level}}/8-marta">Туры на 8 марта</a></li>
@@ -18,110 +18,118 @@
                     {{--<li><a href="/{{$level}}/{{$way ? "tury-" . $way->url ."/" : ""}}{{($point) ? "tury-" . $point->url ."/" : ""}}vip{{($tag && in_array($tag->tag->title, ["holiday", "tour_type"])) ? "/" . $tag->value : ''}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">ВИП туры</a></li>--}}
                 @endif
 
-                <li><a href="/russia/tury-zolotoe-kolczo">Золотое кольцо</a></li>
-                <li><a href="/russia/tury-sankt-peterburg-i-leningradskaya-oblast">Санкт-Петербург</a></li>
-                <li><a href="/russia/tury-altaj">Алтай</a></li>
-                <li><a href="/russia/tury-bajkal">Байкал</a></li>
-                <li><a href="/russia/tury-kamchatka">Камчатка</a></li>
-                <li><a href="/russia/tury-sochi-i-krasnodarskij-kraj">Сочи и Кавказ</a></li>
-                <li><a href="/russia/tury-kryim">Крым</a></li>
+                @if(in_array($level, ['russia','tury']))
+                    <li><a href="/{{$level}}/tury-zolotoe-kolczo">Золотое кольцо</a></li>
+                    <li><a href="/{{$level}}/tury-sankt-peterburg-i-leningradskaya-oblast">Санкт-Петербург</a></li>
+                    <li><a href="/{{$level}}/tury-altaj">Алтай</a></li>
+                    <li><a href="/{{$level}}/tury-bajkal">Байкал</a></li>
+                    <li><a href="/{{$level}}/tury-kamchatka">Камчатка</a></li>
+                    <li><a href="/{{$level}}/tury-sochi-i-krasnodarskij-kraj">Сочи и Кавказ</a></li>
+                    <li><a href="/{{$level}}/tury-kryim">Крым</a></li>
+                @endif
 
                 <li><a href="/{{$level}}/na-1-den">Однодневные туры</a></li>
                 <li><a href="/{{$level}}/">Многодневные туры</a></li>
             </ul>
         </div>
 
-        <div class="sidebar-city-tour">
-            <div class="sidebar-tour-subtitle">Города России</div>
-            <ul>
-                {{--@forelse($cities as $city)--}}
-                {{--@if($layer == 3)--}}
-                {{--<li><a href="/russia/tury-{{$city->url}}">Туры в {{Gliss::case($city->title, "П")}}</a></li>--}}
-                {{--@else--}}
-                {{--<li>--}}
-                {{--<a href="/russia/tury-{{$city->url}}{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры--}}
-                {{--в {{Gliss::case($city->title, "П")}}</a>--}}
-                {{--</li>--}}
-                {{--@endif--}}
-                {{--@if($loop->iteration == 4)--}}
-                {{--@break--}}
-                {{--@endif--}}
-                {{--@empty--}}
-                @if($layer == 3)
-                    <li><a href="/russia/tury-moskva">Туры в Москве</a></li>
-                    <li><a href="/russia/tury-sankt-peterburg">Туры в Санкт-Петербурге</a></li>
-                    <li><a href="/russia/tury-ekaterinburg">Туры в Екатеринбурге</a></li>
-                    <li><a href="/russia/tury-kazani">Туры в Казани</a></li>
-                    <li><a href="/russia/tury-sochi">Туры в Сочи</a></li>
-                @else
-                    <li>
-                        <a href="/russia/tury-moskva{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
-                            в Москве</a></li>
-                    <li>
-                        <a href="/russia/tury-sankt-peterburg{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
-                            в Санкт-Петербурге</a></li>
-                    <li>
-                        <a href="/russia/tury-ekaterinburg{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
-                            в Екатеринбурге</a></li>
-                    <li>
-                        <a href="/russia/tury-kazani{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
-                            в Казани</a></li>
-                    <li>
-                        <a href="/russia/tury-sochi{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
-                            в Сочи</a></li>
-                @endif
-                {{--<li><a href="#">Города не выбраны</a></li>--}}
-                {{--@endforelse--}}
-            </ul>
-            <a class="btn-rest-tours" href="#" data-toggle="modal" data-target="#tourCitiesModal">Другие города</a>
-        </div>
-        <div class="sidebar-city-tour">
-            <div class="sidebar-tour-subtitle">Туры по золотому кольцу</div>
-            <ul>
-                {{--@forelse($citiesGolden as $city)--}}
-                {{--@if($layer == 3)--}}
-                {{--<li><a href="/russia/tury-{{$city->url}}">Туры в {{Gliss::case($city->title, "П")}}</a></li>--}}
-                {{--@else--}}
-                {{--<li>--}}
-                {{--<a href="/russia/tury-{{$city->url}}{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры--}}
-                {{--в {{Gliss::case($city->title, "П")}}</a>--}}
-                {{--</li>--}}
-                {{--@endif--}}
+        @if(in_array($level, ['russia','tury']))
+            <div class="sidebar-city-tour">
+                <div class="sidebar-tour-subtitle">Города России</div>
+                <ul>
+                    {{--@forelse($cities as $city)--}}
+                    {{--@if($layer == 3)--}}
+                    {{--<li><a href="/{{$level}}/tury-{{$city->url}}">Туры в {{Gliss::case($city->title, "П")}}</a></li>--}}
+                    {{--@else--}}
+                    {{--<li>--}}
+                    {{--<a href="/{{$level}}/tury-{{$city->url}}{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры--}}
+                    {{--в {{Gliss::case($city->title, "П")}}</a>--}}
+                    {{--</li>--}}
+                    {{--@endif--}}
+                    {{--@if($loop->iteration == 4)--}}
+                    {{--@break--}}
+                    {{--@endif--}}
+                    {{--@empty--}}
+                    @if($layer == 3)
+                        <li><a href="/{{$level}}/tury-moskva">Туры в Москве</a></li>
+                        <li><a href="/{{$level}}/tury-sankt-peterburg">Туры в Санкт-Петербурге</a></li>
+                        <li><a href="/{{$level}}/tury-ekaterinburg">Туры в Екатеринбурге</a></li>
+                        <li><a href="/{{$level}}/tury-kazani">Туры в Казани</a></li>
+                        <li><a href="/{{$level}}/tury-sochi">Туры в Сочи</a></li>
+                    @else
+                        <li>
+                            <a href="/{{$level}}/tury-moskva{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
+                                в Москве</a></li>
+                        <li>
+                            <a href="/{{$level}}/tury-sankt-peterburg{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
+                                в Санкт-Петербурге</a></li>
+                        <li>
+                            <a href="/{{$level}}/tury-ekaterinburg{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
+                                в Екатеринбурге</a></li>
+                        <li>
+                            <a href="/{{$level}}/tury-kazani{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
+                                в Казани</a></li>
+                        <li>
+                            <a href="/{{$level}}/tury-sochi{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
+                                в Сочи</a></li>
+                    @endif
+                    {{--<li><a href="#">Города не выбраны</a></li>--}}
+                    {{--@endforelse--}}
+                </ul>
+                <a class="btn-rest-tours" href="#" data-toggle="modal" data-target="#tourCitiesModal">Другие города</a>
+            </div>
+        @endif
 
-                {{--@if($loop->iteration == 4)--}}
-                {{--@break--}}
-                {{--@endif--}}
-                {{--@empty--}}
-                {{--<li><a href="#">Города не выбраны</a></li>--}}
-                {{--@endforelse--}}
+        @if(in_array($level, ['russia','tury']))
+            <div class="sidebar-city-tour">
+                <div class="sidebar-tour-subtitle">Туры по золотому кольцу</div>
+                <ul>
+                    {{--@forelse($citiesGolden as $city)--}}
+                    {{--@if($layer == 3)--}}
+                    {{--<li><a href="/{{$level}}/tury-{{$city->url}}">Туры в {{Gliss::case($city->title, "П")}}</a></li>--}}
+                    {{--@else--}}
+                    {{--<li>--}}
+                    {{--<a href="/{{$level}}/tury-{{$city->url}}{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры--}}
+                    {{--в {{Gliss::case($city->title, "П")}}</a>--}}
+                    {{--</li>--}}
+                    {{--@endif--}}
 
-                @if($layer == 3)
-                    <li><a href="/russia/tury-vladimir">Туры в Владимире</a></li>
-                    <li><a href="/russia/tury-rostov-velikiy">Туры в Ростове Великом</a></li>
-                    <li><a href="/russia/tury-sergiev-posad">Туры в Сергиевом Посаде</a></li>
-                    <li><a href="/russia/tury-suzdal">Туры в Суздале</a></li>
-                    <li><a href="/russia/tury-yaroslavl">Туры в Ярославле</a></li>
-                @else
-                    <li>
-                        <a href="/russia/tury-vladimir{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
-                            в Владимире</a></li>
-                    <li>
-                        <a href="/russia/tury-rostov-velikiy{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
-                            в Ростове Великом</a></li>
-                    <li>
-                        <a href="/russia/tury-sergiev-posad{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
-                            в Сергиевом Посаде</a></li>
-                    <li>
-                        <a href="/russia/tury-suzdal{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
-                            в Суздале</a></li>
-                    <li>
-                        <a href="/russia/tury-yaroslavl{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
-                            в Ярославле</a></li>
+                    {{--@if($loop->iteration == 4)--}}
+                    {{--@break--}}
+                    {{--@endif--}}
+                    {{--@empty--}}
+                    {{--<li><a href="#">Города не выбраны</a></li>--}}
+                    {{--@endforelse--}}
 
-                @endif
-            </ul>
-            <a class="btn-rest-tours" href="#" data-toggle="modal" data-target="#tourGoldensModal">Другие города</a>
-        </div>
+                    @if($layer == 3)
+                        <li><a href="/{{$level}}/tury-vladimir">Туры в Владимире</a></li>
+                        <li><a href="/{{$level}}/tury-rostov-velikiy">Туры в Ростове Великом</a></li>
+                        <li><a href="/{{$level}}/tury-sergiev-posad">Туры в Сергиевом Посаде</a></li>
+                        <li><a href="/{{$level}}/tury-suzdal">Туры в Суздале</a></li>
+                        <li><a href="/{{$level}}/tury-yaroslavl">Туры в Ярославле</a></li>
+                    @else
+                        <li>
+                            <a href="/{{$level}}/tury-vladimir{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
+                                в Владимире</a></li>
+                        <li>
+                            <a href="/{{$level}}/tury-rostov-velikiy{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
+                                в Ростове Великом</a></li>
+                        <li>
+                            <a href="/{{$level}}/tury-sergiev-posad{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
+                                в Сергиевом Посаде</a></li>
+                        <li>
+                            <a href="/{{$level}}/tury-suzdal{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
+                                в Суздале</a></li>
+                        <li>
+                            <a href="/{{$level}}/tury-yaroslavl{{($tag) ? "/" . $tag->value  : ""}}{{$month ? "/" . $month : ""}}{{$duration ? "/". $duration : ""}}">Туры
+                                в Ярославле</a></li>
+
+                    @endif
+                </ul>
+                <a class="btn-rest-tours" href="#" data-toggle="modal" data-target="#tourGoldensModal">Другие города</a>
+            </div>
+        @endif
+
         @if($tag or $way or $point or !$country or $duration)
             <div class="sidebar-city-tour">
                 <div class="sidebar-tour-subtitle">Туры по месяцам</div>

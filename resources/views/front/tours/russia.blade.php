@@ -34,7 +34,7 @@
 
 @section('breadcrumbs')
     <div class="breadcrumbs">
-        @include('front.tours.modules.breadcrumbs', ['pTitle' => "Туры по России"])
+        @include('front.tours.modules.breadcrumbs', ['pTitle' => "Туры по " . Gliss::case($country->country, "Д")])
     </div>
 @endsection
 
@@ -44,7 +44,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
                 <div class="row">
                     @include('front.tours.modules.sidebar', [
-                         'level' => "russia" ?: 'tury',
+                         'level' => $country->slug ?: 'tury',
 
                          'cities' => $cities,
                          'citiesGolden' => $citiesGolden,
@@ -62,8 +62,9 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <div class="row">
                     <div class="tour-preview">
-                        <h1>Туры по России</h1>
-                        <div class="tour-preview-desc">Компания STARTOUR предлагает лучшие туры по России. Только самые
+                        <h1>Туры по {{Gliss::case($country->country, "Д")}}</h1>
+                        <div class="tour-preview-desc">Компания STARTOUR предлагает лучшие туры
+                            по {{Gliss::case($country->country, "Д")}}. Только самые
                             интересные и проверенные маршруты!
                         </div>
                         <a href="#" class="btn btn-yellow" data-toggle="modal" data-target="#tourOrderModal">Отправить
@@ -76,176 +77,191 @@
                         'tag' => $tag,
                         'postData' => $postData ?? '',
                       ])
-
-                    <div class="search-completed-items mobile-hide"></div>
-                    <div class="popular-tours">
-                        <h2>Самые популярные туры в {{Gliss::case(Date::now()->format('F'), "П")}} в России</h2>
-                        <div class="popular-tours-items">
-                            <table>
-                                <tbody>
-                                <tr>
-                                    <td rowspan="2">
-                                        <a href="/russia/tury-zolotoe-kolczo" class="popular-tours-item big">
-                                            @php
-                                                $images = json_decode($countriesGrid['319']['images']);
-                                            @endphp
-                                            @if(count($images))
-                                                <img src="{{asset('/img/ways/full/' . (head($images)))}}" alt="">
-                                            @endif
-                                            <div class="price">
-                                                от {{number_format($countriesGrid['319']['minPrice'],0,'.','')}} <span
-                                                        class="glyphicon glyphicon-rub" aria-hidden="true"></span></div>
-                                            <div class="popular-tours-item-cont">
-                                                <div class="popular-tours-item-title">{{$countriesGrid['319']['title']}}</div>
-                                                <p>{!! $countriesGrid['319']['description'] !!}</p>
-                                            </div>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="/russia/serebryannoe-kolco-rossii" class="popular-tours-item">
-                                            @php
-                                                $images = json_decode($typesGrid['39']['images']);
-                                            @endphp
-                                            @if(count($images))
-                                                <img src="{{asset('/img/tourstagsvalues/full/' . (head($images)))}}"
-                                                     alt="">
-                                            @endif
-                                            <div class="price">
-                                                от {{number_format($typesGrid['39']['minPrice'],0,'.','')}} <span
-                                                        class="glyphicon glyphicon-rub" aria-hidden="true"></span></div>
-                                            <div class="popular-tours-item-cont">
-                                                <div class="popular-tours-item-title">{{$typesGrid['39']['alias']}}</div>
-                                                <p>{!! $typesGrid['39']['description'] !!}</p>
-                                            </div>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="/russia/tury-velikij-ustyug" class="popular-tours-item">
-                                            @php
-                                                $images = json_decode($countriesGrid['419']['images']);
-                                            @endphp
-                                            @if(count($images))
-                                                <img src="{{asset('/img/ways/full/' . (head($images)))}}" alt="">
-                                            @endif
-                                            <div class="price">
-                                                от {{number_format($countriesGrid['419']['minPrice'],0,'.','')}} <span
-                                                        class="glyphicon glyphicon-rub" aria-hidden="true"></span></div>
-                                            <div class="popular-tours-item-cont">
-                                                <div class="popular-tours-item-title">{{$countriesGrid['419']['title']}}</div>
-                                                <p>{!! $countriesGrid['419']['description'] !!}</p>
-                                            </div>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="/russia/tury-kazan-i-tatarstan" class="popular-tours-item">
-                                            @php
-                                                $images = json_decode($countriesGrid['387']['images']);
-                                            @endphp
-                                            @if(count($images))
-                                                <img src="{{asset('/img/ways/full/' . (head($images)))}}" alt="">
-                                            @endif
-                                            <div class="price">
-                                                от {{number_format($countriesGrid['387']['minPrice'],0,'.','')}} <span
-                                                        class="glyphicon glyphicon-rub" aria-hidden="true"></span></div>
-                                            <div class="popular-tours-item-cont">
-                                                <div class="popular-tours-item-title">{{$countriesGrid['387']['title']}}</div>
-                                                <p>{!! $countriesGrid['387']['description'] !!}</p>
-                                            </div>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="/russia/tury-bajkal" class="popular-tours-item">
-                                            @php
-                                                $images = json_decode($countriesGrid['405']['images']);
-                                            @endphp
-                                            @if(count($images))
-                                                <img src="{{asset('/img/ways/full/' . (head($images)))}}" alt="">
-                                            @endif
-                                            <div class="price">
-                                                от {{number_format($countriesGrid['405']['minPrice'],0,'.','')}} <span
-                                                        class="glyphicon glyphicon-rub" aria-hidden="true"></span></div>
-                                            <div class="popular-tours-item-cont">
-                                                <div class="popular-tours-item-title">{{$countriesGrid['405']['title']}}</div>
-                                                <p>{!! $countriesGrid['405']['description'] !!}</p>
-                                            </div>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="/russia/svyatye-mesta" class="popular-tours-item">
-                                            @php
-                                                $images = json_decode($typesGrid['25']['images']);
-                                            @endphp
-                                            @if(count($images))
-                                                <img src="{{asset('/img/tourstagsvalues/full/' . (head($images)))}}"
-                                                     alt="">
-                                            @endif
-                                            <div class="price">
-                                                от {{number_format($typesGrid['25']['minPrice'],0,'.','')}} <span
-                                                        class="glyphicon glyphicon-rub" aria-hidden="true"></span></div>
-                                            <div class="popular-tours-item-cont">
-                                                <div class="popular-tours-item-title">{{$typesGrid['25']['alias']}}</div>
-                                                <p>{!! $typesGrid['25']['description'] !!}</p>
-                                            </div>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="/russia/tury-sankt-peterburg-i-leningradskaya-oblast"
-                                           class="popular-tours-item">
-                                            @php
-                                                $images = json_decode($countriesGrid['323']['images']);
-                                            @endphp
-                                            @if(count($images))
-                                                <img src="{{asset('/img/ways/full/' . (head($images)))}}" alt="">
-                                            @endif
-                                            <div class="price">
-                                                от {{number_format($countriesGrid['323']['minPrice'],0,'.','')}} <span
-                                                        class="glyphicon glyphicon-rub" aria-hidden="true"></span></div>
-                                            <div class="popular-tours-item-cont">
-                                                <div class="popular-tours-item-title">{{$countriesGrid['323']['title']}}</div>
-                                                <p>{!! $countriesGrid['323']['description'] !!}</p>
-                                            </div>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="background-color: #007cbc;">
-                                        <div class="popular-tours-item small" id="sendPhone">
-                                            <div class="popular-tours-item-title">Подберем тур по Вашим запросам!</div>
-                                            <form>
-                                                <div class="popular-item-phone">
-                                                    <i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>
-                                                    <input type="text" placeholder="+7 (095) 322-44-54">
+                    @if($country->id == 1)
+                        <div class="popular-tours">
+                            <h2>Самые популярные туры в {{Gliss::case(Date::now()->format('F'), "Д")}}
+                                в {{Gliss::case($country->country, "П")}}</h2>
+                            <div class="popular-tours-items">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td rowspan="2">
+                                            <a href="/russia/tury-zolotoe-kolczo" class="popular-tours-item big">
+                                                @php
+                                                    $images = json_decode($countriesGrid['319']['images']);
+                                                @endphp
+                                                @if(count($images))
+                                                    <img src="{{asset('/img/ways/full/' . (head($images)))}}" alt="">
+                                                @endif
+                                                <div class="price">
+                                                    от {{number_format($countriesGrid['319']['minPrice'],0,'.','')}}
+                                                    <span
+                                                            class="glyphicon glyphicon-rub" aria-hidden="true"></span>
                                                 </div>
-                                                <input class="btn btn-blue" type="submit" value="Жду звонка">
-                                            </form>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="popular-tours-item small">
-                                            <img src="img/popular-tours-item-8.jpg" alt="">
-                                            <span class="orange">Все санатории России.</span>
-                                            <span>Бронируйте он-лайн <br> через STARTOUR!</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                                <div class="popular-tours-item-cont">
+                                                    <div class="popular-tours-item-title">{{$countriesGrid['319']['title']}}</div>
+                                                    <p>{!! $countriesGrid['319']['description'] !!}</p>
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="/russia/serebryannoe-kolco-rossii" class="popular-tours-item">
+                                                @php
+                                                    $images = json_decode($typesGrid['39']['images']);
+                                                @endphp
+                                                @if(count($images))
+                                                    <img src="{{asset('/img/tourstagsvalues/full/' . (head($images)))}}"
+                                                         alt="">
+                                                @endif
+                                                <div class="price">
+                                                    от {{number_format($typesGrid['39']['minPrice'],0,'.','')}} <span
+                                                            class="glyphicon glyphicon-rub" aria-hidden="true"></span>
+                                                </div>
+                                                <div class="popular-tours-item-cont">
+                                                    <div class="popular-tours-item-title">{{$typesGrid['39']['alias']}}</div>
+                                                    <p>{!! $typesGrid['39']['description'] !!}</p>
+                                                </div>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="/russia/tury-velikij-ustyug" class="popular-tours-item">
+                                                @php
+                                                    $images = json_decode($countriesGrid['419']['images']);
+                                                @endphp
+                                                @if(count($images))
+                                                    <img src="{{asset('/img/ways/full/' . (head($images)))}}" alt="">
+                                                @endif
+                                                <div class="price">
+                                                    от {{number_format($countriesGrid['419']['minPrice'],0,'.','')}}
+                                                    <span
+                                                            class="glyphicon glyphicon-rub" aria-hidden="true"></span>
+                                                </div>
+                                                <div class="popular-tours-item-cont">
+                                                    <div class="popular-tours-item-title">{{$countriesGrid['419']['title']}}</div>
+                                                    <p>{!! $countriesGrid['419']['description'] !!}</p>
+                                                </div>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="/russia/tury-kazan-i-tatarstan" class="popular-tours-item">
+                                                @php
+                                                    $images = json_decode($countriesGrid['387']['images']);
+                                                @endphp
+                                                @if(count($images))
+                                                    <img src="{{asset('/img/ways/full/' . (head($images)))}}" alt="">
+                                                @endif
+                                                <div class="price">
+                                                    от {{number_format($countriesGrid['387']['minPrice'],0,'.','')}}
+                                                    <span
+                                                            class="glyphicon glyphicon-rub" aria-hidden="true"></span>
+                                                </div>
+                                                <div class="popular-tours-item-cont">
+                                                    <div class="popular-tours-item-title">{{$countriesGrid['387']['title']}}</div>
+                                                    <p>{!! $countriesGrid['387']['description'] !!}</p>
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="/russia/tury-bajkal" class="popular-tours-item">
+                                                @php
+                                                    $images = json_decode($countriesGrid['405']['images']);
+                                                @endphp
+                                                @if(count($images))
+                                                    <img src="{{asset('/img/ways/full/' . (head($images)))}}" alt="">
+                                                @endif
+                                                <div class="price">
+                                                    от {{number_format($countriesGrid['405']['minPrice'],0,'.','')}}
+                                                    <span
+                                                            class="glyphicon glyphicon-rub" aria-hidden="true"></span>
+                                                </div>
+                                                <div class="popular-tours-item-cont">
+                                                    <div class="popular-tours-item-title">{{$countriesGrid['405']['title']}}</div>
+                                                    <p>{!! $countriesGrid['405']['description'] !!}</p>
+                                                </div>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="/russia/svyatye-mesta" class="popular-tours-item">
+                                                @php
+                                                    $images = json_decode($typesGrid['25']['images']);
+                                                @endphp
+                                                @if(count($images))
+                                                    <img src="{{asset('/img/tourstagsvalues/full/' . (head($images)))}}"
+                                                         alt="">
+                                                @endif
+                                                <div class="price">
+                                                    от {{number_format($typesGrid['25']['minPrice'],0,'.','')}} <span
+                                                            class="glyphicon glyphicon-rub" aria-hidden="true"></span>
+                                                </div>
+                                                <div class="popular-tours-item-cont">
+                                                    <div class="popular-tours-item-title">{{$typesGrid['25']['alias']}}</div>
+                                                    <p>{!! $typesGrid['25']['description'] !!}</p>
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="/russia/tury-sankt-peterburg-i-leningradskaya-oblast"
+                                               class="popular-tours-item">
+                                                @php
+                                                    $images = json_decode($countriesGrid['323']['images']);
+                                                @endphp
+                                                @if(count($images))
+                                                    <img src="{{asset('/img/ways/full/' . (head($images)))}}" alt="">
+                                                @endif
+                                                <div class="price">
+                                                    от {{number_format($countriesGrid['323']['minPrice'],0,'.','')}}
+                                                    <span
+                                                            class="glyphicon glyphicon-rub" aria-hidden="true"></span>
+                                                </div>
+                                                <div class="popular-tours-item-cont">
+                                                    <div class="popular-tours-item-title">{{$countriesGrid['323']['title']}}</div>
+                                                    <p>{!! $countriesGrid['323']['description'] !!}</p>
+                                                </div>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color: #007cbc;">
+                                            <div class="popular-tours-item small" id="sendPhone">
+                                                <div class="popular-tours-item-title">Подберем тур по Вашим запросам!
+                                                </div>
+                                                <form>
+                                                    <div class="popular-item-phone">
+                                                        <i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>
+                                                        <input type="text" placeholder="+7 (095) 322-44-54">
+                                                    </div>
+                                                    <input class="btn btn-blue" type="submit" value="Жду звонка">
+                                                </form>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="popular-tours-item small">
+                                                <img src="img/popular-tours-item-8.jpg" alt="">
+                                                <span class="orange">Все санатории России.</span>
+                                                <span>Бронируйте он-лайн <br> через STARTOUR!</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                     <div class="burning-tours">
                         <div class="burning-tours-filter-wrap">
-                            <h2 class="hot">Горящие туры по России из <a href="#">Москвы</a></h2>
+                            <h2 class="hot">Горящие туры по {{Gliss::case($country->country, "Д")}} из <a href="#">Москвы</a>
+                            </h2>
                             <div class="burning-tours-filter" id="toursTab">
-                                <a class="active" href="#allTours" class="active" data-toggle="tab">Все</a>
-                                <a href="#oneDay" data-toggle="tab">Однодневные</a>
-                                <a href="#manyDay" data-toggle="tab">Многодневные</a>
-                                <a href="#activeTours" data-toggle="tab">Активный отдых</a>
+                                @if(count($hotToursAny))<a class="active" href="#allTours" class="active" data-toggle="tab">Все</a>@endif
+                                @if(count($hotToursOne))<a href="#oneDay" data-toggle="tab">Однодневные</a>@endif
+                                @if(count($hotToursMany))<a href="#manyDay" data-toggle="tab">Многодневные</a>@endif
+                                @if(count($hotToursActive))<a href="#activeTours" data-toggle="tab">Активный отдых</a>@endif
                             </div>
                         </div>
                         <div class="burning-tours-items-wrap">
@@ -441,6 +457,7 @@
     @include('front.tours.modal.order')
     @include('front.tours.modal.types')
     @include('front.tours.modal.cities')
+    @include('front.tours.modal.countries')
     @include('front.tours.modal.goldens')
 @endsection
 
