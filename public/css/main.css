@@ -62,3 +62,17 @@ input[name=tourDate]{
     transform: translateY(-50%);
     background: url(/img/8icon.png);
 }
+
+.may-icon {
+    position: relative;
+}
+.may-icon::before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: url(/img/9icon.png);
+}

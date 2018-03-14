@@ -63,9 +63,10 @@
         <div class="container">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
                 <div class="row">
+
                     @include('front.tours.modules.sidebar', [
-                        'country' => 'russia',
-                        'level' => 'russia' ?: 'tury',
+                        'country' => $country->slug ?? 'russia',
+                        'level' => $country->slug ?: 'tury',
                         'cities' => $cities,
                         'citiesGolden' => $citiesGolden,
                         'tourTypes' => $tourTypes,

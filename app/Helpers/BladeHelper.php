@@ -33,7 +33,7 @@ class BladeHelper
     public static function case($text, $padeg)
     {
 
-//        return $text;\
+//        return $text;
 
         $file = public_path("/uploads/morpher.json");
         $arr = file_get_contents($file);

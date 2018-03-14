@@ -132,7 +132,7 @@ class ToursController extends Controller
                     return $seo;
                 }
 
-                if ($month = array_get($params, 'month', null)) {
+                if ($month = mb_strtolower(array_get($params, 'month', null))) {
                     $seo['pTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . "";
                     $seo['bTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы";
                     $seo['metaKey'] = "купить туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы, цена, $country";
@@ -150,7 +150,7 @@ class ToursController extends Controller
             }
 
             // Месяц
-            if ($month = array_get($params, 'month', null)) {
+            if ($month = mb_strtolower(array_get($params, 'month', null))) {
 
                 if ($duration = array_get($params, 'duration', null)) {
                     $seo['pTitle'] = "Туры в " . BladeHelper::case($country, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . "";
@@ -302,6 +302,8 @@ class ToursController extends Controller
 
         } else {
 
+            $country = "Россия";
+
             // Курорт
             if ($resort = array_get($params, 'resort', null)) {
 
@@ -341,11 +343,15 @@ class ToursController extends Controller
                     return $seo;
                 }
 
-                if ($month = array_get($params, 'month', null)) {
+                if ($month = mb_strtolower(array_get($params, 'month', null))) {
+
                     $seo['pTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . "";
                     $seo['bTitle'] = "Туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы";
+
                     $seo['metaKey'] = "купить туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы, цена, $country";
+
                     $seo['metaDesc'] = "Дешевые туры в " . BladeHelper::case($resort->title, "П") . " в " . BladeHelper::case($month, "П") . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR. Отдых в " . BladeHelper::case($country, "П") . ".";
+
                     $seo['subText'] = "Туры в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $month, отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
                     return $seo;
                 }
@@ -403,7 +409,7 @@ class ToursController extends Controller
                         return $seo;
                     }
 
-                    if ($month = array_get($params, 'month', null)) {
+                    if ($month = mb_strtolower(array_get($params, 'month', null))) {
 
                         $seo['pTitle'] = "$tag->alias в " . BladeHelper::case($month, "П") . " " . date("Y") . "";
                         $seo['bTitle'] = "$tag->alias в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы";
@@ -433,7 +439,7 @@ class ToursController extends Controller
                         return $seo;
                     }
 
-                    if ($month = array_get($params, 'month', null)) {
+                    if ($month = mb_strtolower(array_get($params, 'month', null))) {
                         $seo['pTitle'] = "$tag->alias в " . BladeHelper::case($month, "П") . " " . date("Y") . "";
                         $seo['bTitle'] = "$tag->alias в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы";
                         $seo['metaKey'] = "купить $tag->alias в " . BladeHelper::case($month, "П") . " " . date("Y") . " из Москвы, цена";
@@ -470,7 +476,7 @@ class ToursController extends Controller
                 }
             }
 
-            if ($month = array_get($params, 'month', null)) {
+            if ($month = mb_strtolower(array_get($params, 'month', null))) {
 
                 if ($duration = array_get($params, 'duration', null)) {
 
@@ -559,7 +565,7 @@ class ToursController extends Controller
 
         $tour = Tours::findOrFail($id);
 
-        $country = Geo::where('slug', $country)->get();
+        $country = Geo::where('slug', $country)->first();
 
         // Similar tours
         $similars = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])->join('geo_relation AS gr', function ($query) use ($country) {

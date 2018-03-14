@@ -3,7 +3,7 @@
 @section('css')
     <link rel="stylesheet" href="{{asset('css/jquery.mCustomScrollbar.css')}}">
     <link rel="stylesheet" href="{{asset('css/daterangepicker.css')}}">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{{asset('css/jquery-ui.css')}}">
     <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
     <style>
         .preloader {
