@@ -76,3 +76,14 @@ input[name=tourDate]{
     transform: translateY(-50%);
     background: url(/img/9icon.png);
 }
+#dateFilterToggle{
+    display: inline-block;
+    padding: 0px;
+    margin-left: 10px;
+    background: #fff;
+    color: #007cbc;
+    padding: 3px 10px;
+    border-radius: 10px 10px 0 0;
+    float: right;
+    cursor: pointer;
+}

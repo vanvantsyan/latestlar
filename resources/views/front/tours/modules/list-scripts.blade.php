@@ -164,3 +164,18 @@
         }
     });
 </script>
+<script>
+    $('#dateFilterToggle').on('click', function() {
+
+        if($(this).hasClass('off')) {
+            $(this).text('выключить')
+        }
+
+        if($(this).hasClass('on')) {
+            $(this).text('включить')
+        }
+
+        $( this ).toggleClass( "on", "off");
+        $('#tourDate').prop('disabled', function(i, v) { return !v; });
+    });
+</script>

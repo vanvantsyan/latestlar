@@ -462,6 +462,7 @@
 @endsection
 
 @section('js')
+
     @include('front.tours.modules.list-scripts')
     <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="{{asset('/js/moment.js')}}"></script>
