@@ -4,8 +4,8 @@
             <div class="sidebar-tour-title">Категории туров</div>
             <ul>
                 @if($layer == 3)
-                    <li><a class="march-icon" href="/{{$level}}/8-marta">Туры на 8 марта</a></li>
-                    <li><a href="/{{$level}}/mayskie-prazdniki">Туры на майские праздники</a></li>
+                    {{--<li><a class="march-icon" href="/{{$level}}/8-marta">Туры на 8 марта</a></li>--}}
+                    <li><a class="may-icon" href="/{{$level}}/mayskie-prazdniki">Туры на майские праздники</a></li>
                     {{--<li><a href="/{{$level}}/vip">ВИП туры</a></li>--}}
                 @else
 

@@ -65,8 +65,8 @@
                 <div class="row">
 
                     @include('front.tours.modules.sidebar', [
-                        'country' => $country->slug ?? 'russia',
-                        'level' => $country->slug ?: 'tury',
+                        'country' => isset($country) ? $country->slug :'russia',
+                        'level' => isset($country) ? $country->slug : 'tury',
                         'cities' => $cities,
                         'citiesGolden' => $citiesGolden,
                         'tourTypes' => $tourTypes,
