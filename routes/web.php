@@ -57,6 +57,11 @@ View::composer(
     $view->with('cities', App\Models\Points::goldens());
 }
 );
+View::composer(
+    'front.tours.modal.countries', function ($view) {
+    $view->with('countries', App\Models\Geo::all());
+}
+);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'isAdmin', 'prefix' => 'admin'], function () {

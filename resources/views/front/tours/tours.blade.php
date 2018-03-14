@@ -70,6 +70,8 @@
                         'tag' => $tag,
                         'postData' => $postData,
                         'duration' => isset($duration) ? $duration : '',
+                        'durationFrom' => $durationFrom ?? '',
+                        'durationTo' => $durationTo ?? '',
                       ])
 
                     <div class="search-completed">
@@ -193,6 +195,7 @@
     @include('front.tours.modal.order')
     @include('front.tours.modal.types')
     @include('front.tours.modal.cities')
+    @include('front.tours.modal.countries')
     @include('front.tours.modal.goldens')
 @endsection
 
@@ -318,6 +321,10 @@
                 filterBtn.addClass('btn-blue');
                 filterBtn.attr('value', 'Подобрать варианты');
 
+
+                /* Get inscription data */
+
+                // Get count tours for inscription
                 $.ajax({
                     url: "/getCountTours",
                     cache: false,
@@ -326,6 +333,17 @@
 
                 }).done(function (data) {
                     $('#countFound').text(data);
+                });
+
+                // Get seo tours for inscription
+                $.ajax({
+                    url: "{{route('tours.seo')}}",
+                    cache: false,
+                    data: data,
+                    type: "POST",
+
+                }).done(function (data) {
+                    $('#toursFrom').text(data.pTitle);
                 });
 
             }).error(function () {
