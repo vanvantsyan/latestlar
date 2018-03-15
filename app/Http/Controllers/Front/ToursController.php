@@ -99,8 +99,8 @@ class ToursController extends Controller
                 if ($tour_type = array_get($params, 'tour_type', null)) {
                     $seo['pTitle'] = "$tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . "";
                     $seo['bTitle'] = "$tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " из Москвы";
-                    $seo['metaKey'] = "купить $tour_type " . date("Y") . "  в " . BladeHelper::case($resort->title, "П") . " из Москвы, цена, $country";
-                    $seo['metaDesc'] = "Дешевые $tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " с вылетом из Москвы от турагентства STARTOUR. Отдых в " . BladeHelper::case($country, "П") . ".";
+                    $seo['metaKey'] = "купить $tour_type " . date("Y") . "  в " . BladeHelper::case($resort->title, "куда") . " из Москвы, цена, $country";
+                    $seo['metaDesc'] = "Дешевые $tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "куда") . " с вылетом из Москвы от турагентства STARTOUR. Отдых в " . BladeHelper::case($country, "П") . ".";
                     $seo['subText'] = "$tour_type " . date("Y") . " в " . BladeHelper::case($resort->title, "П") . " ($country) из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Отдыхайте на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
                     return $seo;
                 }

@@ -64,7 +64,6 @@ class BladeHelper
             return $text;
 
         }else{
-
             return $arr[$text][$padeg];
 
         }

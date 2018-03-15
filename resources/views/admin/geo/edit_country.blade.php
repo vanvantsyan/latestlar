@@ -277,7 +277,7 @@
                         @if(count($images))
 
                         @php
-                            $size = filesize(base_path("uploads/tmp/$images"));
+                            $size = filesize(public_path("uploads/tmp/$images"));
                         @endphp
 
                 var mockFile = {name: '{{$images}}', 'size': '{{$size}}'};
