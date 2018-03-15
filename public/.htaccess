@@ -7,9 +7,9 @@
 
     # Redirect star.gliss to russia startour 301
     RewriteCond %{HTTP_HOST} ^star.glissmedia\.ru
-    RewriteRule ^(.*)$ http://russia.startour.ru/$1 [R=301,L]
+    RewriteRule ^(.*)$ http://russia.startour\.ru/$1 [R=301,L]
     RewriteCond %{HTTP_HOST} ^star.glissmedia\.ru
-    RewriteRule ^(.*)$ http://russia.startour.ru/$1 [R=301,L]
+    RewriteRule ^(.*)$ http://russia.startour\.ru/$1 [R=301,L]
 
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
