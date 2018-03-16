@@ -88,5 +88,11 @@ input[name=tourDate]{
     cursor: pointer;
 }
 .back-tours{
-    background: url(../img/back-tours.jpg) 50% 50% no-repeat;
+    background: url(../img/back-tours.jpg) 50% 50% no-repeat !important;
+    color: #fff;
+}
+.back-tours .tour-preview-desc{
+    background: rgba(0,0,0, 0.74);
+    display: block;
+    padding: 5px;
 }
