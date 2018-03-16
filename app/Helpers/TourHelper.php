@@ -58,7 +58,7 @@ class TourHelper
             if (preg_match('/^(.+?)\(/iu', $tourTitle, $match)) {
                 $url = $match[1] . "-" . $tourId;
             } else {
-                $url = $tourTitle . $tourId;
+                $url = $tourTitle . "-" . $tourId;
             }
         }
         return self::str2url($url);

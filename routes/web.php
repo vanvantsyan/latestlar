@@ -124,8 +124,8 @@ Route::group(['middleware' => 'auth'], function () {
 //Route::get('pages', 'Front\PagesController@index');
 
 /* Tour routes*/
-Route::get('{country}/{action}/{url}', 'Front\ToursController@unit')->where('url', '.+--\d{3,8}');
-Route::get('{country}/{url}', 'Front\ToursController@unitCountry')->where('url', '.+--\d{3,8}');
+Route::get('{country}/{action}/{url}', 'Front\ToursController@unit')->where('url', '.+-?-\d{2,8}');
+Route::get('{country}/{url}', 'Front\ToursController@unitCountry')->where('url', '.+-?-\d{2,8}');
 
 Route::any('tury/{slug2?}/{slug3?}', 'Front\ToursController@list')->name('tour.list');
 Route::get('{country}', 'Front\ToursController@countryMain')->name('countryMain');
