@@ -539,7 +539,7 @@ class ToursController extends Controller
 
     public function unitCountry($country = 'russia', $url)
     {
-        preg_match('/[\d]{3,8}/', $url, $extractId);
+        preg_match('/[\d]{2,8}/', $url, $extractId);
 
         if (count($extractId)) {
             $id = $extractId[0];
