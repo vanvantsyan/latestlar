@@ -143,7 +143,11 @@
                     data: {
                         type: "local",
                         source: e,
-                        pageSize: 10
+                        pageSize: 10,
+                        saveState: {
+                            cookie: true,
+                            webstorage: true
+                        },
                     },
                     layout: {
                         theme: "default" ,
