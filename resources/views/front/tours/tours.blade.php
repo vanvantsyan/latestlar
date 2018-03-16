@@ -53,7 +53,7 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <div class="row">
-                    <div class="tour-preview-wrap">
+                    <div class="tour-preview-wrap @if(!$country) back-tours @endif">
                         <div class="tour-preview">
                             <h1>{{$seo['pTitle']}}</h1>
                             <div class="tour-preview-desc">Компания STARTOUR предлагает лучшие туры по России. <span>Только самые интересные и проверенные маршруты!</span>

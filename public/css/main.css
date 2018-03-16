@@ -87,3 +87,6 @@ input[name=tourDate]{
     float: right;
     cursor: pointer;
 }
+.back-tours{
+    background: url(../img/back-tours.jpg) 50% 50% no-repeat;
+}
