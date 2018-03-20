@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="copyright">
                     &#169; 2017 ООО "STARTOUR". Все права защищены.
-                    <div><a href="glissmedia.ru" title="glissmedia" alt="техническая поддержка сайта">glissmedia.ru</a>
+                    <div><a href="http://glissmedia.ru" title="glissmedia" alt="техническая поддержка сайта">glissmedia.ru</a>
                         — техническая поддержка сайта
                     </div>
                 </div>
