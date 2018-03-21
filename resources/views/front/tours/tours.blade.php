@@ -445,6 +445,8 @@
                 $('input[name=href]').attr('value', 'http://russia.startour.ru' + href);
                 $('input[name=tourName]').attr('value', tourName);
                 $('input[name=route]').attr('value', route);
+
+                $('#tourName').html('"<strong>' + tourName + '</strong>"');
             }
         });
 
