@@ -3,7 +3,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <div class="copyright">
-                    &#169; 2017 ООО "STARTOUR". Все права защищены.
+                    &#169; {{date('Y')}} ООО "STARTOUR". Все права защищены.
                     <div><a href="glissmedia.ru" title="glissmedia" alt="техническая поддержка сайта">glissmedia.ru</a>
                         — техническая поддержка сайта
                     </div>

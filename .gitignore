@@ -14,3 +14,5 @@ laradock/
 public/mix-manifest.json
 public/js/app.js
 public/uploads
+public/img
+storage
