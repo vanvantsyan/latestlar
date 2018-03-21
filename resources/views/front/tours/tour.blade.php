@@ -287,6 +287,7 @@
                         <div class="card-desc">
                             <h3>О туре</h3>
                             {{$tour->description }}</div>
+                        @php($currentTour = $tour)
                     </div>
 
                     <div class="card-tour-similar">
@@ -324,7 +325,7 @@
         @include('front.modules.bigFooter')
     </div>
     @include('front.tours.modal.images')
-    @include('front.tours.modal.order', ['tour' => $tour])
+    @include('front.tours.modal.order', ['tour' => $currentTour])
 @endsection
 
 @section('js')
@@ -373,6 +374,8 @@
             $('.carousel-indicators').html(indicators);
         });
     </script>
+
+
 
     <script>
         $('.card-tour-dates-item-day a').on({
