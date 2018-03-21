@@ -184,12 +184,12 @@
                                                                 <div class="card-tour-dates-item-day">
 
                                                                     @foreach($dates as $date)
-
-                                                                        <a href="#" class="green"
-                                                                           data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
-                                                                            {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
-                                                                        </a>
-
+                                                                        @if($date['value'] > time())
+                                                                            <a href="#" class="green"
+                                                                               data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
+                                                                                {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
+                                                                            </a>
+                                                                        @endif
                                                                     @endforeach
                                                                 </div>
                                                             </div>
@@ -211,10 +211,12 @@
                                                             <div class="row">
                                                                 <div class="card-tour-dates-item-day">
                                                                     @foreach($dates as $date)
-                                                                        <a href="#" class="green"
-                                                                           data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
-                                                                            {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
-                                                                        </a>
+                                                                        @if($date['value'] > time())
+                                                                            <a href="#" class="green"
+                                                                               data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
+                                                                                {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
+                                                                            </a>
+                                                                        @endif
                                                                     @endforeach
                                                                 </div>
                                                             </div>
