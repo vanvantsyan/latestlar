@@ -60,7 +60,6 @@ $(document).ready(function() {
 
     $(".phones").click(function() {
     	$(this).toggleClass("active");
-    	return false;
     });
 
 	$(".main-slider-left").slick({
