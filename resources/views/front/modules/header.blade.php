@@ -20,7 +20,7 @@
                             <span class="phone-notice">пн-пт с 9:00 до 18:00</span>
                         </div>
                         <div class="phone tablet-hide">
-                            <a href="tel:+78007700622" itemprop="telephone">+7 (800) <b>770-06-22</b></a>
+                            <a href="tel:+78007700622" itemprop="telephone">8 (800) <b>770-06-22</b></a>
                             <span class="phone-notice">Бесплатный звонок</span>
                         </div>
                     </div>
