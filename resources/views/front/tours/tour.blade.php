@@ -167,59 +167,61 @@
                                         @endphp
 
                                         @foreach ($dateMonths as $month => $dates)
-                                            @if($loop->iteration < 4)
+                                            @if($month >= ($dateTime->format('m')))
+                                                @if($loop->iteration < 4)
 
-                                                <div class="card-tour-dates-item">
-                                                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                                        <div class="row">
-                                                            <div class="card-tour-dates-item-month">
-                                                                {{ config('main.month.' . strtolower(date("F",mktime(0,0,0,$month)))) }}
-                                                                , {{$dateTime->format('Y')}}
+                                                    <div class="card-tour-dates-item">
+                                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                                            <div class="row">
+                                                                <div class="card-tour-dates-item-month">
+                                                                    {{ config('main.month.' . strtolower(date("F",mktime(0,0,0,$month)))) }}
+                                                                    , {{$dateTime->format('Y')}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                                                            <div class="row">
+                                                                <div class="card-tour-dates-item-day">
+
+                                                                    @foreach($dates as $date)
+
+                                                                        <a href="#" class="green"
+                                                                           data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
+                                                                            {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
+                                                                        </a>
+
+                                                                    @endforeach
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                                                        <div class="row">
-                                                            <div class="card-tour-dates-item-day">
 
-                                                                @foreach($dates as $date)
+                                                @else
 
-                                                                    <a href="#" class="green"
-                                                                       data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
-                                                                        {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
-                                                                    </a>
-
-                                                                @endforeach
+                                                    <div class="card-tour-dates-item hide">
+                                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                                            <div class="row">
+                                                                <div class="card-tour-dates-item-month">
+                                                                    {{ config('main.month.' . strtolower(date("F",mktime(0,0,0,$month)))) }}
+                                                                    , {{$dateTime->format('Y')}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                                                            <div class="row">
+                                                                <div class="card-tour-dates-item-day">
+                                                                    @foreach($dates as $date)
+                                                                        <a href="#" class="green"
+                                                                           data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
+                                                                            {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
+                                                                        </a>
+                                                                    @endforeach
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                            @else
-
-                                                <div class="card-tour-dates-item hide">
-                                                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                                        <div class="row">
-                                                            <div class="card-tour-dates-item-month">
-                                                                {{ config('main.month.' . strtolower(date("F",mktime(0,0,0,$month)))) }}
-                                                                , {{$dateTime->format('Y')}}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                                                        <div class="row">
-                                                            <div class="card-tour-dates-item-day">
-                                                                @foreach($dates as $date)
-                                                                    <a href="#" class="green"
-                                                                       data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
-                                                                        {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
-                                                                    </a>
-                                                                @endforeach
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
+                                                @endif
                                             @endif
                                         @endforeach
                                     </div>
