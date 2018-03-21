@@ -36,7 +36,8 @@
     <div class="search-completed-item-more">
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
             <div class="row">
-                <a href="#" class="search-completed-item-img" data-images="{{ $tour['images'] }}" data-image-id="0" data-tour-id="{{$tour['id']}}" data-toggle="modal"
+                <a href="#" class="search-completed-item-img" data-images="{{ $tour['images'] }}" data-image-id="0"
+                   data-tour-id="{{$tour['id']}}" data-toggle="modal"
                    data-target="#tourImagesModal">
                     @php
                         $images = (array) json_decode($tour['images']);
@@ -105,17 +106,27 @@
                     </div>
                     <div class="search-completed-item-date">
                         <span>Ближайшая дата:</span>
-                        @php $num = 0; @endphp
-                        
-                        @foreach($tour['dates'] as $date)
-                            @if ($num > 5)
-                                @break
-                            @endif
-                            <a href="#" class="green" data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m.Y')}}" data-toggle="modal" data-target="#tourOrderModal">
-                                {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
-                            </a>
+                        @php
+                            $num = 0;
+                            $dateTime = new \DateTime('now');
+                        @endphp
 
-                            @php $num++; @endphp
+                        @foreach($tour['dates'] as $date)
+
+                            @if(Carbon\Carbon::createFromTimestamp($date['value'])->format('m') >= $dateTime->format('m') && time() < $date['value'])
+
+                                @if ($num > 5)
+                                    @break
+                                @endif
+                                <a href="#" class="green"
+                                   data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m.Y')}}"
+                                   data-toggle="modal" data-target="#tourOrderModal">
+                                    {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
+                                </a>
+
+                                @php $num++; @endphp
+
+                            @endif
                         @endforeach
 
                         @if(count($tour['dates']) > 6)
