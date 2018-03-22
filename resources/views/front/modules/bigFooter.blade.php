@@ -67,9 +67,9 @@
                                     itemprop="streetAddress">ул. Кузнецкий Мост, д. 21/5</span>
                             <br> 1 подъезд</p>
                         <div class="soc">
-                            <a href="#" class="tw"></a>
-                            <a href="#" class="vk"></a>
-                            <a href="#" class="fb"></a>
+                            <a href="https://twitter.com/STARTOUR_AGENCY" target="_blank" class="tw"></a>
+                            <a href="https://vk.com/startour_ru" target="_blank" class="vk"></a>
+                            <a href="https://www.facebook.com/startourLETSFLY/" target="_blank" class="fb"></a>
                         </div>
                     </div>
                 </div>

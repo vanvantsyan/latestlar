@@ -46,7 +46,7 @@
                 <li><a href="/tury">Поиск туров</a></li>
                 <li><a href="/russia">РОССИЯ</a></li>
 
-                <li><a href="/tury">Страны</a></li>
+                <li><a href="http://startour.ru/countries/">Страны</a></li>
                 <li><a href="http://russia.startour.ru/tury/sobytiya">Событийные туры</a></li>
                 <li><a href="/tury/avtobusnyy-tur">Автобусные туры по Европе</a></li>
                 {{--<li><a href="#">Туры до 10 т.р</a></li>--}}
@@ -69,7 +69,7 @@
                     <li><a href="/tury">Поиск туров</a></li>
                     <li><a href="/russia">РОССИЯ</a></li>
 
-                    <li><a href="/tury">Страны</a></li>
+                    <li><a href="http://startour.ru/countries/">Страны</a></li>
                     <li><a href="/tury/sobytiya">Событийные туры</a></li>
                     <li><a href="/tury/avtobusnyy-tur">Автобусные туры по Европе</a></li>
                     {{--<li><a href="#">Туры до 10 т.р</a></li>--}}
