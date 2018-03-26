@@ -57,3 +57,7 @@ select.form-control:not([size]):not([multiple]){
     column-gap: 20px;
     font-family: RobotoL !important;
 }
+ul.pagination{}
+.pagination li{}
+.pagination a{padding: 10px 15px;border: 1px solid #eee;margin: 0 2px;border-radius: 3px;color: cadetblue;}
+.pagination span{padding: 10px 15px;}

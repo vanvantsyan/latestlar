@@ -112,6 +112,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('tours/{id}/edit', 'Admin\ToursController@edit');
         Route::get('tours/parser', 'Admin\ToursController@parser');
         Route::resource('tours', 'Admin\ToursController');
+        Route::any('tours/search', 'Admin\ToursController@search'); // Search in admin form by tour name
 
         Route::resource('ways', 'Admin\WaysController');
         Route::resource('types', 'Admin\TypesController');

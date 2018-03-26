@@ -1279,8 +1279,10 @@ class ToursController extends Controller
 
     public function removeImage(Request $request)
     {
+
         $tour = Tours::find($request->id);
-        $images = get_object_vars(json_decode($tour->images));
+
+        $images = json_decode($tour->images,true);
 
         foreach ($images as $key => $value) {
             if ($value == $request->name) unset($images[$key]);

@@ -3,28 +3,40 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\TourHelper;
+use App\Http\CBRAgent;
+use App\Http\Controllers\Controller;
 use App\Models\GeoRelation;
 use App\Models\Points;
+use App\Models\Tours;
 use App\Models\ToursTags;
 use App\Models\ToursTagsRelation;
-use App\Models\Tours;
-use App\Models\Worldparts;
 use App\Models\Ways;
-use App\Http\CBRAgent;
-use Intervention\Image\Facades\Image;
-use Sunra\PhpSimple\HtmlDomParser;
-
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
+use Intervention\Image\Facades\Image;
 use Mockery\Exception;
+use Sunra\PhpSimple\HtmlDomParser;
 
 class ToursController extends Controller
 {
     public function index()
     {
-        $tours = Tours::select('id', 'title', 'duration', 'url', 'source')->take(15)->get();
+        $tours = Tours::select('id', 'title', 'duration', 'url', 'source')->paginate(15);
         return view('admin.tours.index', ['tours' => $tours]);
+    }
+
+    public function search(Request $request)
+    {
+        $text = $request->input('text');
+
+        $coins = Tours::where('title', 'LIKE', '%' . $text . '%')
+            ->paginate(15);
+        if ($request->ajax()) {
+            return Response::json(View::make('admin.tours.search', ['tours' => $coins, 'text' => $text])->render());
+        }
+
+        return view('admin.tours.index', ['tours' => $coins, 'text' => $text]);
     }
 
     public function edit($id)
@@ -34,11 +46,12 @@ class ToursController extends Controller
         return view('admin.tours.form', [
             'item' => $item,
             'images' => $images,
-            'imgFolder' => substr($item->id, 0 , 2),
+            'imgFolder' => substr($item->id, 0, 2),
         ]);
     }
 
-    public function delete($request){
+    public function delete($request)
+    {
 
         Tours::where('id', $request->get('id'))->delete();
         return redirect('admin/tours')
@@ -48,13 +61,21 @@ class ToursController extends Controller
 
     public function update(Request $request, $id)
     {
+
         $data = $request->all();
+
         unset($data['_token']);
         unset($data['_method']);
         unset($data['files']);
-        Tours::where('id', $request->get('id'))->update($data);
+
+        try {
+            Tours::where('id', $id)->update($data);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
         return redirect('admin/tours')
-            ->with('message', 'Тур "'.$request->get('title').'"успешно обновлен');
+            ->with('message', 'Тур "' . $request->get('title') . '"успешно обновлен');
     }
 
     public function create()

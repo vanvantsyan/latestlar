@@ -644,6 +644,8 @@
 <!--begin::Base Scripts -->
 <script src="{{asset('assets/vendors/base/vendors.bundle.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/demo/default/base/scripts.bundle.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/demo/default/base/scripts.bundle.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/admin.js')}}" type="text/javascript"></script>
 <script>
     $('.datepicker').datepicker();
 </script>

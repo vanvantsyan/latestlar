@@ -185,7 +185,7 @@
 
             sending: function(file, xhr, formData) {
                 formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
-                formData.append("tourId", '{{$item->id}}');
+                formData.append("tourId", '{{$item->id ?? ""}}');
             },
 
             init: function () {
@@ -195,7 +195,7 @@
                 $.ajax({
                     url: "/tour/getImage",
                     cache: false,
-                    data: {id: '{{$item->id}}'},
+                    data: {id: '{{$item->id ?? ""}}'},
                     type: "POST",
                 }).done(function (data) {
 
@@ -225,18 +225,8 @@
                     $.ajax({
                         url: "/tour/removeImage",
                         cache: false,
-                        data: {id: '{{$item->id}}', name: file.name},
+                        data: {id: '{{$item->id ?? ""}}', name: file.name},
                         type: "POST",
-                    }).done(function (data) {
-
-                        $.each($.parseJSON(data), function (key, value) {
-                            var mockFile = {name: value.name, size: value.size};
-
-                            thisDropzone.emit('addedfile', mockFile);
-                            thisDropzone.emit('thumbnail', mockFile, value.thumb);
-                            thisDropzone.emit("complete", mockFile);
-                        });
-
                     });
 
                 });
