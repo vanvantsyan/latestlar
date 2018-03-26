@@ -15,9 +15,12 @@
             {{--<input name="duration" id="duration" type="text" placeholder="" value="{{$duration or ''}}">--}}
         </div>
         <div class="tour-filter-item date-mob">
-            <label>Даты начала тура <span data-toggle="tooltip" title="Укажите желаемые даты выезда">?</span> <div id="dateFilterToggle" class="off">включить</div></label>
+            <label>Даты начала тура <span data-toggle="tooltip" title="Укажите желаемые даты выезда">?</span>
+                <div id="dateFilterToggle" class="off">включить</div>
+            </label>
             <input name="tourDate" id="tourDate" class="date-pick dp-applied" value="" disabled>
-            <label class="icon-calendar" for="tourDate"><img src="/img/icon-date.png" alt="date-icon" title="Выберите даты выезда"/></label>
+            <label class="icon-calendar" for="tourDate"><img src="/img/icon-date.png" alt="date-icon"
+                                                             title="Выберите даты выезда"/></label>
         </div>
         <div class="tour-filter-item time-mob">
             <label>Длительность тура (дни)</label>
@@ -94,6 +97,9 @@
                 @endisset
             </select>
         </div>
+        @if($tag && $tag->tag_id == 3)
+            <input  name="tourType" type="hidden" value="{{$tag->id}}"/>
+        @endif
         <div class="tour-filter-item value">
             <label>Стоимость</label>
             <input name="priceFrom" type="text" placeholder="от 12000"

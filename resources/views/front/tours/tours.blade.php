@@ -82,24 +82,24 @@
                                             id="countFound">{{$countTours}}</span></div>
                                 <a href="#" class="btn sorting-btn">Кратко</a>
                                 <div class="tours-sorting mobile-hide">
-                                    Сортировать по: <a href="#" data-sort="duration-desc"><span>Длительности (от большей к меньшей)</span>
+                                    Сортировать по: <a href="#" data-sort="date-asc"><span>Дате (Сначала ближайшие)</span>
                                         <b></b></a>
                                     <div class="tours-sorting-items">
+                                        <a href="#" data-sort="date-asc" style="display: none">Дате (Сначала ближайшие)</a>
                                         <a href="#" data-sort="price-asc">Стоимости тура (от меньшей к большей)</a>
                                         <a href="#" data-sort="price-desc">Стоимости тура (от большей к меньшей)</a>
                                         <a href="#" data-sort="duration-asc">Длительности (от меньшей к большей)</a>
-                                        <a href="#" data-sort="duration-desc" style="display: none">Длительности (от
-                                            большей к меньшей)</a>
+                                        <a href="#" data-sort="duration-desc">Длительности (от большей к меньшей)</a>
                                     </div>
                                 </div>
                                 <div class="tours-sorting desk-hide">
                                     Сортировать по: <a href="#"><span>Длительности (от большей к меньшей)</span> <b></b></a>
                                     <div class="tours-sorting-items">
+                                        <a href="#" data-sort="date-asc" style="display: none">Дате (Сначала ближайшие)</a>
                                         <a href="#" data-sort="price-asc">Стоимости тура (от меньшей к большей)</a>
                                         <a href="#" data-sort="price-desc">Стоимости тура (от большей к меньшей)</a>
                                         <a href="#" data-sort="duration-asc">Длительности (от меньшей к большей)</a>
-                                        <a href="#" data-sort="duration-desc" style="display: none">Длительности (от
-                                            большей к меньшей)</a>
+                                        <a href="#" data-sort="duration-desc">Длительности (от большей к меньшей)</a>
                                     </div>
                                 </div>
                                 @php

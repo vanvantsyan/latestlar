@@ -105,7 +105,7 @@
 
                     </div>
                     <div class="search-completed-item-date">
-                        <span>Ближайшая дата:</span>
+                        <span>Ближайшая дата: </span>
                         @php
                             $num = 0;
                             $dateTime = new \DateTime('now');

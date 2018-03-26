@@ -11,7 +11,8 @@ class Tours extends Model
     protected $table = 'tours';
     protected $fillable = ['id', 'title', 'description', 'text', 'price', 'duration', 'source', 'url', 'created_at', 'updated_at'];
 
-    protected $appends = ['dates'];
+    protected $appends = ['dates']; //,'nearestDate'
+//    protected $casts = ['nearestDate' => 'string'];
 
     public function tourTags()
     {
@@ -20,7 +21,11 @@ class Tours extends Model
 
     public function getDatesAttribute($value)
     {
-        return $this->tourTags->where('tag_id', 2);
+        return $this->tourTags->where('tag_id', 2)->sortBy('value');
+    }
+    public function getNearestDateAttribute($value)
+    {
+        return $this->tourTags->where('tag_id', 2)->where('value','>',time())->sortBy('value')->first();
     }
 
     public function getTravelTypesAttribute($value)

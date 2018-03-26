@@ -226,6 +226,7 @@ class ToursParser
                 ToursTagsRelation::join('tours_tags AS tt', 'tt.id', '=', 'tag_id')
                     ->where('tour_id', $id)
                     ->where('tt.title', 'data_viezda')
+                    ->where('not_update', 0)
                     ->delete();
 
                 if (count($matchesDate[0])) {
@@ -963,36 +964,57 @@ class ToursParser
                 'title' => 'november',
                 'oneDay' => '706',
                 'mDay' => '707',
+                'dateRange1' => '1541203200',
+                'dateRange2' => '1541548800',
             ],
             2 => [
                 'title' =>  'febr23',
                 'oneDay' => '294',
                 'mDay' => '295',
+                'dateRange1' => '1550793600',
+                'dateRange2' => '1550966400',
+            ],
+            3 => [
+                'title' =>  'newyear',
+                'oneDay' => '774',
+                'mDay' => '741',
+                'dateRange1' => '1546128000',
+                'dateRange2' => '1546905600',
             ],
             4 => [
                 'title' =>  'mart',
                 'oneDay' => '219',
                 'mDay' => '220',
+                'dateRange1' => '1551916800',
+                'dateRange2' => '1552089600',
             ],
             5 => [
                 'title' =>  'maslen',
                 'oneDay' => '217',
                 'mDay' => '218',
+                'dateRange1' => '1549929600',
+                'dateRange2' => '1550534400',
             ],
             6 => [
                 'title' =>  'pasha',
                 'oneDay' => '542',
                 'mDay' => '543',
+                'dateRange1' => '1523059200',
+                'dateRange2' => '1523232000',
             ],
             7 => [
                 'title' =>  'may',
                 'oneDay' => '180',
                 'mDay' => '179',
+                'dateRange1' => '1524873600',
+                'dateRange2' => '1525910400',
             ],
             8 => [
                 'title' =>  'june12',
                 'oneDay' => '558',
                 'mDay' => '251',
+                'dateRange1' => '1528675200',
+                'dateRange2' => '1528848000',
             ],
         ];
 
@@ -1001,7 +1023,10 @@ class ToursParser
             echo " — — — " . $holiday['title']  . " — — — " ."\n";
 
             // Удаляю все связи подобного типа где нет not_update
-            ToursTagsRelation::where('tag_id', 3)->where('value', $tag_id)->where('not_update', 0)->delete();
+            ToursTagsRelation::where('tag_id', 3)->where('value', $tag_id)->where(function($query){
+                $query->whereNull('not_update');
+                $query->orWhere('not_update',0);
+            })->delete();
 
             foreach(['mDay'] as $duration) {
 
@@ -1027,7 +1052,7 @@ class ToursParser
                     preg_match('/viewprog=(\d{1,10})/', $href, $matches);
                     $id = $matches[1];
 
-                    // Если получен идентификатор тура изем таковой в базе
+                    // Если получен идентификатор тура, ищем таковой в базе
                     if(Tours::find($id)) { // Организовать добавление туров, однодневные не все
 
                         $arr[] = [
@@ -1037,6 +1062,22 @@ class ToursParser
                         ];
 
                         echo "тур " . $id . " cвязь " . $holiday['title'] ."\n";
+
+                        // Проставляем даты праздника с атрибутом hide
+                        for($i = $holiday['dateRange1'], $j = $holiday['dateRange2']; $i < $j; $i = $i + 86400){
+                            if(!ToursTagsRelation::where('tour_id', $id)->where('tag_id',2)->where('value',$i)->exists()) {
+                                ToursTagsRelation::insert(
+                                    [
+                                        'tour_id' => $id,
+                                        'value' => $i,
+                                        'tag_id' => 2,
+                                        'not_update' => 1,
+                                        'hide' => 1
+                                    ]
+                                );
+                            }
+                        }
+
                     }
 
                 }
