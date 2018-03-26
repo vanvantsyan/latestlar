@@ -23,7 +23,7 @@ class ToursController extends Controller
 {
     public function index()
     {
-        $tours = Tours::select('id', 'title', 'duration', 'url', 'source')->get();
+        $tours = Tours::select('id', 'title', 'duration', 'url', 'source')->take(15)->get();
         return view('admin.tours.index', ['tours' => $tours]);
     }
 
