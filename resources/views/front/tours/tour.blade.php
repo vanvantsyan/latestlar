@@ -326,6 +326,11 @@
     </div>
     @include('front.tours.modal.images')
     @include('front.tours.modal.order', ['tour' => $currentTour])
+
+    @include('front.tours.modal.types')
+    @include('front.tours.modal.cities')
+    @include('front.tours.modal.countries')
+    @include('front.tours.modal.goldens')
 @endsection
 
 @section('js')
