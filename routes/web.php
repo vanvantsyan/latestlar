@@ -119,6 +119,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('types/insert/{id?}', 'Admin\TypesController@insert')->name('types.insert');
         Route::resource('articles', 'Admin\ArticlesController');
 
+        Route::resource('seo', 'Admin\SeoController');
+
     });
 });
 

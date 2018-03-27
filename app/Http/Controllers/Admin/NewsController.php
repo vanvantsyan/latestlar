@@ -55,8 +55,8 @@ class NewsController extends Controller
 
         $data['image'] = Session::pull('upload_image');
         News::insert($data);
-        return redirect('admin/news')
-                ->with('message', 'Новость "'.$request->get('title').'"успешно добавлена');
+
+        return redirect('admin/news')->with('message', 'Новость "'.$request->get('title').'"успешно добавлена');
     }
 
     /**

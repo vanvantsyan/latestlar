@@ -52,11 +52,8 @@ class ToursController extends Controller
 
     public function delete($request)
     {
-
         Tours::where('id', $request->get('id'))->delete();
-        return redirect('admin/tours')
-            ->with('message', 'Тур успешно удален');
-
+        return redirect('admin/tours')->with('message', 'Тур успешно удален');
     }
 
     public function update(Request $request, $id)
@@ -79,7 +76,7 @@ class ToursController extends Controller
     }
 
     public function create()
-    { //todo
+    {
         $categories = Tours::all();
         return view('admin.tours.form', [
             'categories' => $categories

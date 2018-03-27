@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Helpers\BladeHelper;
 use App\Http\Controllers\Controller;
+use App\Models\GeneratedSeo;
 use App\Models\Geo;
 use App\Models\Points;
 use App\Models\Tours;
@@ -288,19 +289,11 @@ class ToursController extends Controller
                 }
             }
 
-            if ($duration = array_get($params, 'duration', null)) {
-
-                $seo['pTitle'] = "Туры в " . BladeHelper::case($country, "П") . " на " . durationNum($duration) . " " . durationCase($duration) . "";
-                $seo['bTitle'] = "Туры в " . BladeHelper::case($country, "П") . " на " . durationNum($duration) . " " . durationCase($duration) . " из Москвы";
-                $seo['metaKey'] = "купить тур в " . BladeHelper::case($country, "П") . " на " . durationNum($duration) . " " . durationCase($duration) . " из Москвы, цена";
-                $seo['metaDesc'] = "Дешевые тур в " . BladeHelper::case($country, "П") . " на " . durationNum($duration) . " " . durationCase($duration) . " с вылетом из Москвы от турагентства STARTOUR.";
-                $seo['subText'] = "Туры из Москвы в " . BladeHelper::case($country, "П") . " на " . durationNum($duration) . " " . durationCase($duration) . " дешево от компании STARTOUR. Профессиональный подбор туров. Проведите лучший отдых длинной $duration " . durationCase($duration) . " в " . BladeHelper::case($country, "П") . ".";
-            }
-
-// Если без страны
+            /* — — — — — — — — — — — — — — — — — — —  tours — — — — — — — — — — — — — — — — — — — — */
 
         } else {
 
+            // Если без страны
             $country = "Россия";
 
             // Курорт
@@ -654,6 +647,7 @@ class ToursController extends Controller
      */
     public function list($country = '', $slug2 = '', $slug3 = '', Request $request)
     {
+
         $countryUrl = $request->route('country');
         if ($countryUrl) {
             $country = Geo::where('slug', $countryUrl)->first();
@@ -714,17 +708,26 @@ class ToursController extends Controller
             }
         }
 
-        // Set seo elements
-        $seo = $this->getSeo([
-            'country' => is_object($country) ? $country->country : null,
-            'resort' => is_object($resort) ? $resort : null,
-            'tag' => is_object($tag) ? $tag : null,
-            'month' => $month ? $monthsRus[$month] : '',
-            'duration' => $duration ?? '',
-            'holiday' => $holiday ?? '',
-            'status' => $status ?? '',
-            'tour_type' => $tour_type ?? '',
-        ]);
+
+        /*  Set seo elements */
+
+        // If isset exact seo get it
+        $currentLink = preg_replace('~[\S]+.ru\/~i',"", url()->current());
+        $seo = GeneratedSeo::where('url',$currentLink)->first();
+
+        // Else create seo by algorithm
+        if(!$seo) {
+            $seo = $this->getSeo([
+                'country' => is_object($country) ? $country->country : null,
+                'resort' => is_object($resort) ? $resort : null,
+                'tag' => is_object($tag) ? $tag : null,
+                'month' => $month ? $monthsRus[$month] : '',
+                'duration' => $duration ?? '',
+                'holiday' => $holiday ?? '',
+                'status' => $status ?? '',
+                'tour_type' => $tour_type ?? '',
+            ]);
+        }
 
         // Get base query by tours
         $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
@@ -770,8 +773,9 @@ class ToursController extends Controller
         // Join with dates by sorting
         $toursIds = $tours->pluck('tours.id')->toArray();
 
-        $tours->leftJoin(
-            DB::raw("
+        if(count($toursIds)) {
+            $tours->leftJoin(
+                DB::raw("
             (
             SELECT tour_id, MIN(value) as nearestDate
             
@@ -779,21 +783,28 @@ class ToursController extends Controller
                 
                 WHERE tag_id = 2 
                 AND value > " . time() . " 
-                AND tour_id IN(" . implode(',', $toursIds). ")
+                AND tour_id IN(" . implode(',', $toursIds) . ")
             GROUP BY tour_id
             ) as dv
             ")
-            ,
-            'tours.id', '=','dv.tour_id'
-        );
-
-        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration', DB::raw("MIN(dv.nearestDate) as nearestDate"));
+                ,
+                'tours.id', '=', 'dv.tour_id'
+            );
+        }
 
         // Select count for counter
         $countTours = $tours->count(DB::raw('DISTINCT tours.id'));
 
+        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration');
+
+        if(count($toursIds)) {
+
+            $tours->addSelect(DB::raw("MIN(dv.nearestDate) as nearestDate"));
+            $tours->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '99999999999999999999999' ELSE dv.nearestDate END");
+        }
+
         $tours->groupBy('tours.id');
-        $tours->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '99999999999999999999999' ELSE dv.nearestDate END");
+
 
         // Get tours object list
         $tours = $tours->take(15)->get();
@@ -1045,12 +1056,12 @@ class ToursController extends Controller
                 
                 WHERE tag_id = 2 
                 AND value > " . time() . " 
-                AND tour_id IN(" . implode(',', $toursIds). ")
+                AND tour_id IN(" . implode(',', $toursIds) . ")
             GROUP BY tour_id
             ) as dv
             ")
             ,
-            'tours.id', '=','dv.tour_id'
+            'tours.id', '=', 'dv.tour_id'
         );
 
         $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration', DB::raw("MIN(dv.nearestDate) as nearestDate"));
@@ -1096,12 +1107,12 @@ class ToursController extends Controller
                 
                 WHERE tag_id = 2 
                 AND value > " . time() . " 
-                AND tour_id IN(" . implode(',', $toursIds). ")
+                AND tour_id IN(" . implode(',', $toursIds) . ")
             GROUP BY tour_id
             ) as dv
             ")
             ,
-            'tours.id', '=','dv.tour_id'
+            'tours.id', '=', 'dv.tour_id'
         );
 
         $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration', DB::raw("MIN(dv.nearestDate) as nearestDate"));
@@ -1160,7 +1171,7 @@ class ToursController extends Controller
         $tours->fromPoint($tourPoint = array_get($filters, 'tourPoint', null));
 
         if ($sort = array_get($filters, 'sort', null)) {
-            if($sort != 'date-asc') {
+            if ($sort != 'date-asc') {
                 $sortArr = explode('-', $sort);
                 $tours->orderBy('tours.' . head($sortArr), last($sortArr));
             }
@@ -1282,7 +1293,7 @@ class ToursController extends Controller
 
         $tour = Tours::find($request->id);
 
-        $images = json_decode($tour->images,true);
+        $images = json_decode($tour->images, true);
 
         foreach ($images as $key => $value) {
             if ($value == $request->name) unset($images[$key]);
