@@ -17,10 +17,10 @@ class BladeHelper
             $current = file_get_contents($file);
             $current = json_decode($current, true);
             file_put_contents($file, $current);
-        }else{
+        } else {
             $current = file_get_contents($file);
             $current = !empty($current) ? json_decode($current, true) : [];
-            if(!array_key_exists($text, $current)){
+            if (!array_key_exists($text, $current)) {
                 $current[$text] = $tmp;
             }
             file_put_contents($file, json_encode($current));
@@ -39,7 +39,7 @@ class BladeHelper
         $arr = file_get_contents($file);
         $arr = !empty($arr) ? json_decode($arr, true) : [];
 
-        if(!array_key_exists($text, $arr)) {
+        if (!array_key_exists($text, $arr)) {
 
             if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/declension?s=" . str_replace(' ', '%20', $text) . "&token=e1b6b8c9-46c7-4c37-9e68-3d02b0542bf6")) === false) {
                 return $text;
@@ -63,7 +63,7 @@ class BladeHelper
             }
             return $text;
 
-        }else{
+        } else {
             return $arr[$text][$padeg];
 
         }
@@ -78,28 +78,28 @@ class BladeHelper
         $arr = file_get_contents($file);
         $arr = !empty($arr) ? json_decode($arr, true) : [];
 
-        if(!array_key_exists($text . '-' . $num, $arr)) {
+        if (!array_key_exists($text . '-' . $num, $arr)) {
 
-        if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/spell?n=" . $num . "&unit=" . str_replace(' ', '%20', $text) . "&token=e1b6b8c9-46c7-4c37-9e68-3d02b0542bf6")) === false) {
-            return $text;
-        } else {
-            libxml_use_internal_errors(true);
-            $data = simplexml_load_string($response_xml_data);
-
-            self::readData($text . '-' . $num, $data);
-
-            if (!$data) {
-                echo "Error loading XML\n";
-                foreach (libxml_get_errors() as $error) {
-                    echo "\t", $error->message;
-                }
+            if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/spell?n=" . $num . "&unit=" . str_replace(' ', '%20', $text) . "&token=e1b6b8c9-46c7-4c37-9e68-3d02b0542bf6")) === false) {
+                return $text;
             } else {
-                return (string)$data->unit->$padeg;
-            }
-        }
-        return $text;
+                libxml_use_internal_errors(true);
+                $data = simplexml_load_string($response_xml_data);
 
-        }else{
+                self::readData($text . '-' . $num, $data);
+
+                if (!$data) {
+                    echo "Error loading XML\n";
+                    foreach (libxml_get_errors() as $error) {
+                        echo "\t", $error->message;
+                    }
+                } else {
+                    return (string)$data->unit->$padeg;
+                }
+            }
+            return $text;
+
+        } else {
 
             return $arr[$text . '-' . $num]['unit'][$padeg];
 
@@ -162,47 +162,51 @@ class BladeHelper
 //        if ($mainDiv) $descBlock = $mainDiv; else
         $descBlock = $html;
 
-        $data['tourDays'] = [];
-        $desctables = $descBlock->find('table');
+        if($descBlock) {
+            $data['tourDays'] = [];
+            $desctables = $descBlock->find('table');
 
-        foreach ($desctables as $table) {
+            if ($desctables) {
+                foreach ($desctables as $table) {
 
-            foreach ($table->find('text') as $textBlock) {
-                preg_match('/1 ?.* ?день/ui', $table->innertext(), $matches);
+                    foreach ($table->find('text') as $textBlock) {
+                        preg_match('/1 ?.* ?день/ui', $table->innertext(), $matches);
 
-                if (count($matches)) {
+                        if (count($matches)) {
 
-                    $daysCount = 1;
+                            $daysCount = 1;
 
-                    foreach ($table->find('tr') as $tr) {
-                        if ($tr->find('td', 1)) {
-                            $data['tourDays'][$daysCount] = $tr->find('td', 1)->innertext();
-                            $daysCount++;
+                            foreach ($table->find('tr') as $tr) {
+                                if ($tr->find('td', 1)) {
+                                    $data['tourDays'][$daysCount] = $tr->find('td', 1)->innertext();
+                                    $daysCount++;
+                                }
+
+                            }
+
+                            $table->outertext = "";
                         }
-
                     }
 
-                    $table->outertext = "";
                 }
             }
 
-        }
+            $descBlock->load($descBlock->save());
 
-        $descBlock->load($descBlock->save());
+            $data['includedInPrice'] = '';
 
-        $data['includedInPrice'] = '';
+            foreach ($descBlock->find('text') as $textBlock) {
+                preg_match('/в стоимость/ui', $textBlock->outertext(), $matches);
+                if (count($matches)) {
 
-        foreach ($descBlock->find('text') as $textBlock) {
-            preg_match('/в стоимость/ui', $textBlock->outertext(), $matches);
-            if (count($matches)) {
+                    $includeInPrice = getLastParent($textBlock);
+                    if ($includeInPrice) {
+                        $data['includedInPrice'] = $includeInPrice->innertext;
+                    }
 
-                $includeInPrice = getLastParent($textBlock);
-                if ($includeInPrice) {
-                    $data['includedInPrice'] = $includeInPrice->innertext;
+                    $includeInPrice->outertext = "";
+                    break;
                 }
-
-                $includeInPrice->outertext = "";
-                break;
             }
         }
 
@@ -242,7 +246,7 @@ class BladeHelper
                 if (is_string($prefix)) {
                     $key = $prefix . '.' . $key;
                 }
-                $arr['@attributes'][$key] = (string) $value;
+                $arr['@attributes'][$key] = (string)$value;
             }
         }
         foreach ($xml as $name => $element) {
@@ -251,20 +255,20 @@ class BladeHelper
                 if (!isset($arr[$name])) {
                     $arr[$name] = $value;
                 } else {
-                    foreach ((array) $value as $k => $v) {
+                    foreach ((array)$value as $k => $v) {
                         if (is_numeric($k)) {
                             $arr[$name][] = $v;
                         } else {
                             $arr[$name][$k] = array_merge(
-                                (array) $arr[$name][$k],
-                                (array) $v
+                                (array)$arr[$name][$k],
+                                (array)$v
                             );
                         }
                     }
                 }
             }
         }
-        if ($content = trim((string) $xml)) {
+        if ($content = trim((string)$xml)) {
             $arr[] = $content;
         }
         return $arr;

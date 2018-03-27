@@ -238,7 +238,7 @@
                     @php
                         $textData = Gliss::parsTourDescription($tour->text);
                     @endphp
-                    @if($textData['includedInPrice'])
+                    @if(isset($textData['includedInPrice']) && $textData['includedInPrice'])
                         <div class="card-base-price" id="card-base-price">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="row">
@@ -259,31 +259,33 @@
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
                                 <div class="title">Расписание тура</div>
+                                @isset($textData['tourDays'])
+                                    @forelse($textData['tourDays'] as $day => $dayDesc)
+                                        <div class="card-schedule-day-item">
 
-                                @foreach($textData['tourDays'] as $day => $dayDesc)
-                                    <div class="card-schedule-day-item">
+                                            <a href="#" class="card-schedule-day">
+                                                {{$day}} день <span class="caret"></span>
+                                            </a>
 
-                                        <a href="#" class="card-schedule-day">
-                                            {{$day}} день <span class="caret"></span>
-                                        </a>
-
-                                        <div class="card-schedule-day-desc" style="display: none">
-                                            <div class="accommodation-options-day-cont"> {!! $dayDesc!!}</div>
+                                            <div class="card-schedule-day-desc" style="display: none">
+                                                <div class="accommodation-options-day-cont"> {!! $dayDesc!!}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                @endforeach
-
+                                    @empty
+                                    @endforelse
+                                @endif
                             </div>
                         </div>
                     </div>
                     <hr>
                     <div class="tour-card-text" id="accommodation-options">
+                        @isset( $textData['rest'])
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
                                 {!!  $textData['rest'] !!}
                             </div>
                         </div>
-
+                        @endif
                         <div class="card-desc">
                             <h3>О туре</h3>
                             {{$tour->description }}</div>
