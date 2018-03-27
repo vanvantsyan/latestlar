@@ -163,8 +163,9 @@ class BladeHelper
         $descBlock = $html;
 
         $data['tourDays'] = [];
+        $desctables = $descBlock->find('table');
 
-        foreach ($descBlock->find('table') as $table) {
+        foreach ($desctables as $table) {
 
             foreach ($table->find('text') as $textBlock) {
                 preg_match('/1 ?.* ?день/ui', $table->innertext(), $matches);
