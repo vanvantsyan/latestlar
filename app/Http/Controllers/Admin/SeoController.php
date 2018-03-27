@@ -51,4 +51,21 @@ class SeoController extends Controller
             ->with('message', 'Сео для  "' . $request->get('url') . '"успешно обновлено');
     }
 
+    public function show(Request $request, $id)
+    {
+        $action = camel_case($id);
+        if(method_exists($this, $action)){
+            return $this->$action($request);
+        }
+        return abort(404);
+    }
+
+    public function delete($request){
+
+        GeneratedSeo::where('id', $request->get('id'))->delete();
+        return redirect('admin/seo')->with('message', 'Сео успешно удалено');
+
+    }
+
+
 }
