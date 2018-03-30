@@ -26,7 +26,7 @@
                     <ul class="nav nav-tabs  m-tabs-line m-tabs-line--primary" role="tablist">
                         <li class="nav-item m-tabs__item">
                             <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_1" role="tab">
-                                Города
+                                Страна
                             </a>
                         </li>
                         <li class="nav-item m-tabs__item">
@@ -49,32 +49,70 @@
                                         @endif
                                     </div>
 
-                                    <div class="form-group m-form__group">
-                                        <label for="country">Добавленные города</label><br>
-                                        @forelse($country->cities as $city)
-                                            <span class="m-badge m-badge--info m-badge--wide" style="margin-top:5px;">
-                                        <a style="color:#fff;"
-                                           href="{{url('admin/geo/city/'.$city['id'])}}">{{$city['city']}}</a>
-                                        <span data-toggle="modal"
-                                              onclick="return gliss.geo.setDataCity('{{$city['id']}}', '{{$city['city']}}');"
-                                              data-target="#m_modal_1"
-                                              style="font-size:14pt;padding-left:10px;cursor:pointer;">&times;</span>
-                                    </span>
-                                        @empty
+                                    <div class="form-group m-form__group row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label class="">
+                                                Флаг
+                                            </label>
+                                            <div class="m-dropzone dropzone dz-clickable"
+                                                 action="{{route('geo.upload.flag')}}" id="flag-dropzone">
+                                                <div class="m-dropzone__msg dz-message needsclick"
+                                                     @if(isset($country) && !empty($country->flag)) style="display: none;" @endif>
+                                                    <h3 class="m-dropzone__msg-title">
+                                                        Перетащите файл изображения сюда или кликните для загрузки с
+                                                        компьютера
+                                                    </h3>
+                                                </div>
 
-                                        @endforelse
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <div class="form-group m-form__group {{ $errors->has('cities') ? ' has-danger' : '' }}">
-                                        <label for="cities">Добавить города - {{$country->country}}</label>
-                                        <textarea id="cities" class="form-control" name="cities" rows="5"></textarea>
-                                        @if($errors->has('cities'))
-                                            <div class="form-control-feedback">{{$errors->first('cities')}}</div>
-                                        @endif
-                                        <span class="m-form__help">
-                                            Введите названия городов. Каждый новый город с новой строки
-                                        </span>
+                                    <div class="form-group m-form__group row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label class="">
+                                                Статичное изображение вверху страницы
+                                            </label>
+                                            <div class="m-dropzone dropzone dz-clickable"
+                                                 action="{{route('geo.upload.banner')}}" id="banner-dropzone">
+                                                <div class="m-dropzone__msg dz-message needsclick"
+                                                     @if(isset($country) && !empty($country->banner)) style="display: none;" @endif>
+                                                    <h3 class="m-dropzone__msg-title">
+                                                        Перетащите файл изображения сюда или кликните для загрузки с
+                                                        компьютера
+                                                    </h3>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
+
+                                    {{--<div class="form-group m-form__group">--}}
+                                    {{--<label for="country">Добавленные города</label><br>--}}
+                                    {{--@forelse($country->cities as $city)--}}
+                                    {{--<span class="m-badge m-badge--info m-badge--wide" style="margin-top:5px;">--}}
+                                    {{--<a style="color:#fff;"--}}
+                                    {{--href="{{url('admin/geo/city/'.$city['id'])}}">{{$city['city']}}</a>--}}
+                                    {{--<span data-toggle="modal"--}}
+                                    {{--onclick="return gliss.geo.setDataCity('{{$city['id']}}', '{{$city['city']}}');"--}}
+                                    {{--data-target="#m_modal_1"--}}
+                                    {{--style="font-size:14pt;padding-left:10px;cursor:pointer;">&times;</span>--}}
+                                    {{--</span>--}}
+                                    {{--@empty--}}
+
+                                    {{--@endforelse--}}
+                                    {{--</div>--}}
+
+                                    {{--<div class="form-group m-form__group {{ $errors->has('cities') ? ' has-danger' : '' }}">--}}
+                                    {{--<label for="cities">Добавить города - {{$country->country}}</label>--}}
+                                    {{--<textarea id="cities" class="form-control" name="cities" rows="5"></textarea>--}}
+                                    {{--@if($errors->has('cities'))--}}
+                                    {{--<div class="form-control-feedback">{{$errors->first('cities')}}</div>--}}
+                                    {{--@endif--}}
+                                    {{--<span class="m-form__help">--}}
+                                    {{--Введите названия городов. Каждый новый город с новой строки--}}
+                                    {{--</span>--}}
+                                    {{--</div>--}}
 
                                 </div>
                             </div>
@@ -85,7 +123,7 @@
                             <div class="form-group m-form__group row">
                                 <div class="col-lg-6 col-md-6 col-sm-9">
                                     <label class="">
-                                        Загрузить изображение
+                                        Изображения страны
                                     </label>
                                     <div class="m-dropzone dropzone dz-clickable" action="{{route('image.upload')}}"
                                          id="way-dropzone">
@@ -95,15 +133,7 @@
                                                 Перетащите файл изображения сюда или кликните для загрузки с компьютера
                                             </h3>
                                         </div>
-                                        @if(isset($country) && !empty($country->image))
-                                            <div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
-                                                <div class="dz-image">
-                                                    <img data-dz-thumbnail="" alt=""
-                                                         src="{{asset('uploads/news/'.$country->image)}}"
-                                                         style="height:100px;">
-                                                </div>
-                                            </div>
-                                        @endif
+
                                     </div>
                                 </div>
                             </div>
@@ -326,5 +356,178 @@
             },
 
         }
+
+        Dropzone.options.flagDropzone = {
+
+            thumbnailWidth: 250,
+            // maxFiles: 1,
+            dictRemoveFile: "Удалить",
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-Token': $('meta[name="token"]').attr('content')
+            },
+
+            sending: function (file, xhr, formData) {
+                formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
+                {{--formData.append("id", '{{$item->id}}');--}}
+                {{--formData.append("ess", 'ToursTagsValues');--}}
+            },
+
+            init: function () {
+
+                thisDropzone = this;
+
+                        @php
+                            $image = $country->flag;
+                        @endphp
+
+                        @if($image)
+
+                        @php
+                            $size = filesize(public_path("uploads/countries/flags/$image"));
+                        @endphp
+
+                var mockFile = {name: '{{$image}}', 'size': '{{$size}}'};
+
+                thisDropzone.emit('addedfile', mockFile);
+                thisDropzone.emit('thumbnail', mockFile, '/uploads/countries/flags/{{$image}}');
+                thisDropzone.emit("complete", mockFile);
+
+                thisDropzone.files.push(mockFile);
+
+                @endif
+
+                thisDropzone.on("thumbnail", function (file, dataUrl) {
+                });
+
+                thisDropzone.on("success", function (file, response) {
+
+
+                    data = $.parseJSON(response);
+                    file.serverId = response;
+
+                    if (data.filename) {
+                        $.ajax({
+                            url: "{{route('geo.set.flag')}}",
+                            cache: false,
+                            data: {id: '{{$country->id}}', image: data.filename},
+                            type: "POST",
+                        }).done(function () {
+                        });
+                    }
+                });
+
+                thisDropzone.on("sending", function (file, xhr, formData) {
+                    console.log(this.files);
+                    if (this.files[1] != null) {
+                        this.removeFile(this.files[0]);
+                    }
+                });
+
+                thisDropzone.on("removedfile", function (file) {
+
+                    if (!file.name) {
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "{{route('geo.remove.flag')}}",
+                        cache: false,
+                        data: {id: '{{$country->id}}'},
+                        type: "POST",
+                    }).done(function () {
+                    });
+
+                });
+            },
+
+        }
+
+        Dropzone.options.bannerDropzone = {
+
+            thumbnailWidth: 250,
+            // maxFiles: 1,
+            dictRemoveFile: "Удалить",
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-Token': $('meta[name="token"]').attr('content')
+            },
+
+            sending: function (file, xhr, formData) {
+                formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
+                {{--formData.append("id", '{{$item->id}}');--}}
+                {{--formData.append("ess", 'ToursTagsValues');--}}
+            },
+
+            init: function () {
+
+                thisDropzone = this;
+
+                        @php
+                            $image = $country->banner;
+                        @endphp
+
+                        @if($image)
+
+                        @php
+                            $size = filesize(public_path("uploads/countries/banners/$image"));
+                        @endphp
+
+                var mockFile = {name: '{{$image}}', 'size': '{{$size}}'};
+
+                thisDropzone.emit('addedfile', mockFile);
+                thisDropzone.emit('thumbnail', mockFile, '/uploads/countries/banners/{{$image}}');
+                thisDropzone.emit("complete", mockFile);
+
+                thisDropzone.files.push(mockFile);
+
+                @endif
+
+                thisDropzone.on("thumbnail", function (file, dataUrl) {
+                });
+
+                thisDropzone.on("success", function (file, response) {
+
+
+                    data = $.parseJSON(response);
+                    file.serverId = response;
+
+                    if (data.filename) {
+                        $.ajax({
+                            url: "{{route('geo.set.banner')}}",
+                            cache: false,
+                            data: {id: '{{$country->id}}', image: data.filename},
+                            type: "POST",
+                        }).done(function () {
+                        });
+                    }
+                });
+
+                thisDropzone.on("sending", function (file, xhr, formData) {
+                    console.log(this.files);
+                    if (this.files[1] != null) {
+                        this.removeFile(this.files[0]);
+                    }
+                });
+
+                thisDropzone.on("removedfile", function (file) {
+
+                    if (!file.name) {
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "{{route('geo.remove.banner')}}",
+                        cache: false,
+                        data: {id: '{{$country->id}}'},
+                        type: "POST",
+                    }).done(function () {
+                    });
+
+                });
+            },
+
+        }
     </script>
+
 @endsection

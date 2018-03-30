@@ -103,6 +103,19 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('geo/setImage', 'Admin\GeoController@setImage')->name('geo.set.image');
         Route::post('geo/removeImage', 'Admin\GeoController@removeImage')->name('geo.remove.image');
 
+        Route::post('geo/setFlag', 'Admin\GeoController@setFlag')->name('geo.set.flag');
+        Route::post('geo/uploadFlag', 'Admin\GeoController@uploadFlag')->name('geo.upload.flag');
+        Route::post('geo/removeFlag', 'Admin\GeoController@setFlag')->name('geo.remove.flag');
+
+        Route::post('geo/setBanner', 'Admin\GeoController@setBanner')->name('geo.set.banner');
+        Route::post('geo/uploadBanner', 'Admin\GeoController@uploadBanner')->name('geo.upload.banner');
+        Route::post('geo/removeBanner', 'Admin\GeoController@setBanner')->name('geo.remove.banner');
+
+
+
+
+
+
         Route::resource('geo', 'Admin\GeoController');
         Route::resource('users', 'Admin\UsersController');
         Route::resource('roles', 'Admin\RolesController');

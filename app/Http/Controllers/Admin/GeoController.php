@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Cities;
 use App\Models\Geo;
+
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\File;
+
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 
 class GeoController extends Controller
 {
@@ -159,16 +162,104 @@ class GeoController extends Controller
 
     }
 
-    public function setImage(Request $request){
+    public function setImage(Request $request)
+    {
 
         $data = $request->all();
-        $this->model->where('id',$data['id'])->update(['images' => json_encode($data['image'])]);
+        $this->model->where('id', $data['id'])->update(['images' => json_encode($data['image'])]);
     }
 
-    public function removeImage(Request $request){
+    public function uploadFlag(Request $request)
+    {
 
+        $image = $request->file('file');
+        $imgObj = Image::make($image);
+
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+
+        if ($imgObj->width() > 300) {
+
+            $imgObj->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+
+        if ($imgObj->height() > 235) {
+
+            $imgObj->resize(null, 235, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+
+        $imgObj->save(public_path('uploads/countries/flags') . '/' . $imageName, 75);
+
+        return json_encode([
+            'success' => 200,
+            'filename' => $imageName
+        ]);
+
+    }
+
+    public function uploadBanner(Request $request)
+    {
+        $image = $request->file('file');
+        $imgObj = Image::make($image);
+
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+
+        if ($imgObj->width() > 1920) {
+
+            $imgObj->resize(1920, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+
+        $imgObj->save(public_path('uploads/countries/banners') . '/' . $imageName, 100);
+
+        return json_encode([
+            'success' => 200,
+            'filename' => $imageName
+        ]);
+    }
+
+    public function setFlag(Request $request)
+    {
         $data = $request->all();
-        $this->model->where('id',$data['id'])->update(['images' => null]);
+
+        $unit = $this->model->find($data['id']);
+        File::delete(public_path('uploads/countries/flags') . '/' . $unit->flag);
+
+        if (!isset($data['image'])) {
+            $unit = $this->model->find($data['id']);
+            File::delete(public_path('uploads/countries/flags') . '/' . $unit->flag);
+
+            return $this->model->where('id', $data['id'])->update(['flag' => json_encode("")]);
+        } else {
+            return $this->model->where('id', $data['id'])->update(['flag' => json_encode($data['image'])]);
+        }
+    }
+
+    public function setBanner(Request $request)
+    {
+        $data = $request->all();
+
+        $unit = $this->model->find($data['id']);
+        File::delete(public_path('uploads/countries/banners') . '/' . $unit->flag);
+
+        if (!isset($data['image'])) {
+            $unit = $this->model->find($data['id']);
+            File::delete(public_path('uploads/countries/banners') . '/' . $unit->flag);
+
+            return $this->model->where('id', $data['id'])->update(['banner' => json_encode("")]);
+        } else {
+            return $this->model->where('id', $data['id'])->update(['banner' => json_encode($data['image'])]);
+        }
+    }
+
+    public function removeImage(Request $request)
+    {
+        $data = $request->all();
+        $this->model->where('id', $data['id'])->update(['images' => null]);
     }
 
 

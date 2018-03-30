@@ -25,6 +25,12 @@
             color: red;
             margin-left: 10px;
         }
+
+        @if($country->banner)
+        .page-{{$country->slug}} {
+            background: url(/uploads/countries/banners/{{$country->banner}}) 50% 0 no-repeat;
+        }
+        @endif
     </style>
 @endsection
 
@@ -39,7 +45,7 @@
 @endsection
 
 @section('content')
-    <div class="wrapper page-russia">
+    <div class="wrapper @if($country->banner) page-{{$country->slug}} @else page-russia @endif">
         <div class="container">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
                 <div class="row">

@@ -31,8 +31,10 @@ class ImageController extends Controller
     {
 
         $image = $request->file('file');
+        $ext = $image->getClientOriginalExtension();
+
         $imgObj = Image::make($image);
-        $imageName = time() . '.jpg';
+        $imageName = time() . '.' . $ext;
 
         $essence = $request->ess;
 

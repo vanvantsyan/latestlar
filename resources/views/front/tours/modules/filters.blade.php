@@ -1,10 +1,19 @@
 <div class="tour-filter">
     <form method="POST">
         {{ csrf_field() }}
-        <div class="tour-filter-item">
+        <div class="tour-filter-item filterCountry">
+            <label>Страна</label>
+            <select name="tourCountry" id="tourCountry" class="selectFirstLine">
+                <option value="">Любая</option>
+                @foreach($countries as $tourCountry)
+                    <option title="{{$tourCountry->title}}" value="{{$tourCountry->url}}"
+                            @if(isset($country) && $country->magput == $tourCountry->id) selected @endif>{{Str::words($tourCountry->title, 2, '...',' ')}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="tour-filter-item" class="filterPoint">
             <label>Город или достопримечательность</label>
-            <input name="tourPoint" id="tourPoint" type="text" placeholder="Введите название"
-                   value="{{$point->title or ''}}">
+            <input name="tourPoint" id="tourPoint" type="text" placeholder="Введите название" value="{{$point->title or ''}}">
         </div>
         <div class="tour-filter-item" style="display: none">
             <label>Направление</label>
@@ -14,15 +23,7 @@
             <label>Длительность</label>
             {{--<input name="duration" id="duration" type="text" placeholder="" value="{{$duration or ''}}">--}}
         </div>
-        <div class="tour-filter-item date-mob">
-            <label>Даты начала тура <span data-toggle="tooltip" title="Укажите желаемые даты выезда">?</span>
-                <div id="dateFilterToggle" class="off">включить</div>
-            </label>
-            <input name="tourDate" id="tourDate" class="date-pick dp-applied" value="" disabled>
-            <label class="icon-calendar" for="tourDate"><img src="/img/icon-date.png" alt="date-icon"
-                                                             title="Выберите даты выезда"/></label>
-        </div>
-        <div class="tour-filter-item time-mob">
+        <div class="tour-filter-item time-mob" class="filterDuration">
             <label>Длительность тура (дни)</label>
 
             <select name="durationFrom" id="durationFrom">
@@ -79,6 +80,25 @@
                 <option value="more" @if(!$currentTo) selected @endif>неограниченно</option>
             </select>
         </div>
+        @if($tag && $tag->tag_id == 3)
+            <input name="tourType" type="hidden" value="{{$tag->id}}"/>
+        @endif
+        <div class="tour-filter-item value">
+            <label>Стоимость</label>
+            <input name="priceFrom" type="text" placeholder="от 12000"
+                   @if(isset($postData['priceFrom'])) value="{{$postData['priceFrom']}}@endif">
+            <input name="priceTo" type="text" placeholder="до 12000000"
+                   @if(isset($postData['priceTo'])) value="{{$postData['priceTo']}}@endif">
+        </div>
+        <div class="tour-filter-item date-mob filterDate" style="display:none">
+            <label>Даты начала тура <span data-toggle="tooltip" title="Укажите желаемые даты выезда">?</span>
+                <div id="dateFilterToggle" class="off">включить</div>
+            </label>
+            <input name="tourDate" id="tourDate" class="date-pick dp-applied" value="" disabled>
+            <label class="icon-calendar" for="tourDate">
+                <img src="/img/icon-date.png" alt="date-icon" title="Выберите даты выезда"/>
+            </label>
+        </div>
         <div class="tour-filter-item category">
             <label>Категория тура</label>
             <select name="tourType">
@@ -97,17 +117,9 @@
                 @endisset
             </select>
         </div>
-        @if($tag && $tag->tag_id == 3)
-            <input  name="tourType" type="hidden" value="{{$tag->id}}"/>
-        @endif
-        <div class="tour-filter-item value">
-            <label>Стоимость</label>
-            <input name="priceFrom" type="text" placeholder="от 12000"
-                   @if(isset($postData['priceFrom'])) value="{{$postData['priceFrom']}}@endif">
-            <input name="priceTo" type="text" placeholder="до 12000000"
-                   @if(isset($postData['priceTo'])) value="{{$postData['priceTo']}}@endif">
-        </div>
-        {{--<a href="#" class="tour-filter-more"><span>Расширенный поиск</span> &#9660;</a>--}}
+
+        <a href="#" class="tour-filter-more"><span>Расширенный поиск</span><div> &#9660;</div></a>
         <input id="filterTours" type="submit" class="btn btn-blue" value="Подобрать варианты">
+
     </form>
 </div>

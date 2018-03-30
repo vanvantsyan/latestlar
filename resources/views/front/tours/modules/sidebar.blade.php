@@ -237,8 +237,8 @@
                         @endphp
 
                         <a href="/{{$country->url}}{{$tag ? "/" . $tag->value : ""}}{{$month ? "/" . $month : ""}}">
-                            @if($images)
-                                <img width="15" src="/uploads/tmp/{{$images}}"/>
+                            @if($country->country->flag)
+                                <img width="15" src="/uploads/countries/flags/{{$country->country->flag}}"/>
                             @endif
                             Туры в {{Gliss::case($country->title, "П")}}
                         </a>

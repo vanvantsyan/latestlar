@@ -96,3 +96,11 @@ input[name=tourDate]{
     display: block;
     padding: 5px;
 }
+
+.selectFirstLine{
+    width:272px
+}
+.filterDate {}
+.tour-filter-more > div{
+    display: inline-block;
+}

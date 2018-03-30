@@ -17,6 +17,7 @@
             color: red;
             margin-left: 10px;
         }
+
     </style>
 @endsection
 
@@ -367,6 +368,7 @@
             source: "/search/autocomplete",
             minLength: 3,
             select: function (event, ui) {
+
                 $('#tourPoint').val(ui.item.value);
             }
         });

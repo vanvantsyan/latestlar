@@ -509,6 +509,8 @@ h2, .h2 {
 }
 .tour-filter-more span {
 	border-bottom: 1px dashed #fff;
+	color: #fff;
+	float: left;
 }
 .tour-filter .btn {
 	border: none;

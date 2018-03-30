@@ -134,6 +134,21 @@ $(document).ready(function() {
         axis:"x",
         scrollbarPosition: "inside"
     });
+    $('.tour-filter-more').on("click", function(e){
+
+    	e.preventDefault();
+
+    	moreLink = this;
+
+    	$('.filterDate').toggle('slow', function() {
+			$(moreLink).toggleClass('active');
+			if($(moreLink).hasClass('active')) {
+                $(moreLink).find('div').html(" &#x25B2;");
+			} else {
+                $(moreLink).find('div').html(" &#9660;");
+			}
+		});
+	});
 });
 
 

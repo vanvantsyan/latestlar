@@ -13,6 +13,11 @@ class Geo extends Model
 
     public $timestamps = false;
 
+    protected $casts = [
+        'flag' => 'array',
+        'banner' => 'array',
+    ];
+
 
     public function saveCountries($data){
 

@@ -61,3 +61,6 @@ ul.pagination{}
 .pagination li{}
 .pagination a{padding: 10px 15px;border: 1px solid #eee;margin: 0 2px;border-radius: 3px;color: cadetblue;}
 .pagination span{padding: 10px 15px;}
+.dropzone .dz-preview .dz-image img{
+    max-height: 100%;
+}

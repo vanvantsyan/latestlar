@@ -647,12 +647,20 @@ class ToursController extends Controller
      */
     public function list($country = '', $slug2 = '', $slug3 = '', Request $request)
     {
-
         $countryUrl = $request->route('country');
+
+        // If isset country parametr in uri row
         if ($countryUrl) {
             $country = Geo::where('slug', $countryUrl)->first();
         } else {
-            $country = null;
+
+            //else try get country parament from POST data form filters
+            $filterCountry = $request->input('tourCountry');
+            if ($filterCountry) {
+                $country = Geo::where('slug', $filterCountry)->first();
+            } else {
+                $country = null;
+            }
         }
 
         $slug2 = $request->route('slug2');
@@ -712,11 +720,11 @@ class ToursController extends Controller
         /*  Set seo elements */
 
         // If isset exact seo get it
-        $currentLink = preg_replace('~[\S]+.ru\/~i',"", url()->current());
-        $seo = GeneratedSeo::where('url',$currentLink)->first();
+        $currentLink = preg_replace('~[\S]+.ru\/~i', "", url()->current());
+        $seo = GeneratedSeo::where('url', $currentLink)->first();
 
         // Else create seo by algorithm
-        if(!$seo) {
+        if (!$seo) {
             $seo = $this->getSeo([
                 'country' => is_object($country) ? $country->country : null,
                 'resort' => is_object($resort) ? $resort : null,
@@ -773,7 +781,7 @@ class ToursController extends Controller
         // Join with dates by sorting
         $toursIds = $tours->pluck('tours.id')->toArray();
 
-        if(count($toursIds)) {
+        if (count($toursIds)) {
             $tours->leftJoin(
                 DB::raw("
             (
@@ -797,7 +805,7 @@ class ToursController extends Controller
 
         $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration');
 
-        if(count($toursIds)) {
+        if (count($toursIds)) {
 
             $tours->addSelect(DB::raw("MIN(dv.nearestDate) as nearestDate"));
             $tours->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '99999999999999999999999' ELSE dv.nearestDate END");
@@ -837,7 +845,7 @@ class ToursController extends Controller
             'citiesGolden' => $citiesGolden,
             'countries' => $countries,
 
-            'country' => is_object($country) ? $country->slug : null,
+            'country' => is_object($country) ? $country : null,
             substr(strtolower(class_basename($resort)), 0, -1) => $resort,
             'tag' => $tag,
 
@@ -945,7 +953,7 @@ class ToursController extends Controller
         }])->where('off', 0)->take(10)->get();
 
         // Get countries list
-        $countries = Ways::where('status', 'country')->take(10)->get();
+        $countries = Ways::where('status', 'country')->get();
 
         // Get countries for grid
         $countriesGrid = Ways::whereIn('ways.id', [319, 419, 387, 405, 323])->join('geo_relation AS gr', function ($join) {
