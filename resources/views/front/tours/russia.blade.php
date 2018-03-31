@@ -34,9 +34,9 @@
     </style>
 @endsection
 
-@section('title', "Туры по России")
-@section('description', "Туры по России")
-@section('keywords', "Туры по России")
+@section('title', $seo['bTitle'])
+@section('description', $seo['metaDesc'])
+@section('keywords', $seo['metaKey'])
 
 @section('breadcrumbs')
     <div class="breadcrumbs">
@@ -68,10 +68,13 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <div class="row">
                     <div class="tour-preview">
-                        <h1>Туры по {{Gliss::case($country->country, "Д")}}</h1>
-                        <div class="tour-preview-desc">Компания STARTOUR предлагает лучшие туры
+                        <h1 class="stroke-h">Туры по {{Gliss::case($country->country, "Д")}}</h1>
+                        <div class="tour-preview-desc">
+                            <div class="stroke-desc">
+                            Компания STARTOUR предлагает лучшие туры
                             по {{Gliss::case($country->country, "Д")}}. Только самые
                             интересные и проверенные маршруты!
+                            </div>
                         </div>
                         <a href="#" class="btn btn-yellow" data-toggle="modal" data-target="#tourOrderModal">Отправить
                             заявку на подбор тура</a>

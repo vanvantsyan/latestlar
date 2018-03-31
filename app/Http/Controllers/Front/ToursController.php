@@ -647,6 +647,7 @@ class ToursController extends Controller
      */
     public function list($country = '', $slug2 = '', $slug3 = '', Request $request)
     {
+
         $countryUrl = $request->route('country');
 
         // If isset country parametr in uri row
@@ -1100,7 +1101,6 @@ class ToursController extends Controller
 
     public function filters(Request $request)
     {
-
         $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
         $tours = $this->applyFilters($tours, $request->all());
 
@@ -1144,12 +1144,11 @@ class ToursController extends Controller
 
     public function applyFilters($tours, $filters)
     {
-
         $tours->FromCountry(array_get($filters, 'country', null));
         $tours->withType(array_get($filters, 'tourType', null));
         $tours->priceFrom(array_get($filters, 'priceFrom', null));
         $tours->priceTo(array_get($filters, 'priceTo', null));
-//        dd($tours->toSql());
+
         $dateFrom = $dateTo = null;
 
         // Месяцы
@@ -1207,6 +1206,7 @@ class ToursController extends Controller
 
     public function autocomplete(Request $request)
     {
+
         $term = $request->input('term');
 
         $results = array();

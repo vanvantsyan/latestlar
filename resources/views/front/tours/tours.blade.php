@@ -18,6 +18,11 @@
             margin-left: 10px;
         }
 
+        @if($country && $country->banner)
+        .tour-preview-wrap {
+            background: url("/uploads/countries/banners/{{$country->banner}}") 50% 50% no-repeat !important;
+        }
+        @endif
     </style>
 @endsection
 
@@ -56,8 +61,11 @@
                 <div class="row">
                     <div class="tour-preview-wrap @if(!$country) back-tours @endif">
                         <div class="tour-preview">
-                            <h1>{{$seo['pTitle']}}</h1>
-                            <div class="tour-preview-desc">Компания STARTOUR предлагает лучшие туры по России. <span>Только самые интересные и проверенные маршруты!</span>
+                            <h1 class="stroke-h">{{$seo['pTitle']}}</h1>
+                            <div class="tour-preview-desc">
+                                <div class="stroke-desc">
+                                    Компания STARTOUR предлагает лучшие туры по России. <span>Только самые интересные и проверенные маршруты!</span>
+                                </div>
                             </div>
                             <a href="#" class="btn btn-yellow" data-toggle="modal" data-target="#tourOrderModal">Отправить
                                 заявку<span> на подбор тура</span></a>
@@ -83,10 +91,12 @@
                                             id="countFound">{{$countTours}}</span></div>
                                 <a href="#" class="btn sorting-btn">Кратко</a>
                                 <div class="tours-sorting mobile-hide">
-                                    Сортировать по: <a href="#" data-sort="date-asc"><span>Дате (Сначала ближайшие)</span>
+                                    Сортировать по: <a href="#"
+                                                       data-sort="date-asc"><span>Дате (Сначала ближайшие)</span>
                                         <b></b></a>
                                     <div class="tours-sorting-items">
-                                        <a href="#" data-sort="date-asc" style="display: none">Дате (Сначала ближайшие)</a>
+                                        <a href="#" data-sort="date-asc" style="display: none">Дате (Сначала
+                                            ближайшие)</a>
                                         <a href="#" data-sort="price-asc">Стоимости тура (от меньшей к большей)</a>
                                         <a href="#" data-sort="price-desc">Стоимости тура (от большей к меньшей)</a>
                                         <a href="#" data-sort="duration-asc">Длительности (от меньшей к большей)</a>
@@ -96,7 +106,8 @@
                                 <div class="tours-sorting desk-hide">
                                     Сортировать по: <a href="#"><span>Длительности (от большей к меньшей)</span> <b></b></a>
                                     <div class="tours-sorting-items">
-                                        <a href="#" data-sort="date-asc" style="display: none">Дате (Сначала ближайшие)</a>
+                                        <a href="#" data-sort="date-asc" style="display: none">Дате (Сначала
+                                            ближайшие)</a>
                                         <a href="#" data-sort="price-asc">Стоимости тура (от меньшей к большей)</a>
                                         <a href="#" data-sort="price-desc">Стоимости тура (от большей к меньшей)</a>
                                         <a href="#" data-sort="duration-asc">Длительности (от меньшей к большей)</a>
@@ -211,6 +222,7 @@
             }
         });
 
+
         // See all photos of the tour
 
         $('#tourImagesModal').on('show.bs.modal', function (e) {
@@ -228,11 +240,12 @@
                 slideBlock += "<div class='item " + active + "'> <img src=\'/img/tours/full/" + tourId.substr(0, 2) + "/" + value + "'></div>";
 
                 indicators += "<li data-target=\"#tourImagesCarousel\" data-slide-to='" + key + "' class='" + active + "'></li>";
-            })
+            });
 
             $(slideContainer).html(slideBlock);
             $('.carousel-indicators').html(indicators);
         });
+
 
         // Get more tours in tour list
 
@@ -250,8 +263,14 @@
             });
 
             // Add data to params array
-            filters['country'] = '{{ $country or ""}}';
             filters['sort'] = $('.tours-sorting a:first').attr('data-sort');
+
+            if (filters['tourCountry']) {
+                filters['country'] = filters['tourCountry'];
+            }
+            else {
+                filters['country'] = '{{ $country->slug or ""}}';
+            }
 
             $.ajax({
                 url: "/moreTours",
@@ -272,6 +291,7 @@
             return false
         });
 
+
         /* Tours filter apply */
 
         $('#filterTours').on('click', function (e) {
@@ -291,9 +311,19 @@
 
             // Add data to params array
             data.push(
-                {name: 'country', value: '{{ $country or ""}}'},
-                {name: 'sort', value: $('.tours-sorting-items a:first').attr('data-sort')}
+                {name: 'sort', value: $('.tours-sorting a:first').attr('data-sort')}
             );
+            if (data[1].value) {
+                data.push(
+                    {name: 'country', value: data[1].value}
+                );
+            }
+            else {
+                data.push(
+                    {name: 'country', value: '{{ $country->slug or ""}}'}
+                );
+            }
+
 
             // Request on server
             $.ajax({
@@ -331,9 +361,8 @@
                     cache: false,
                     data: data,
                     type: "POST",
-
-                }).done(function (data) {
-                    $('#countFound').text(data);
+                }).done(function (count) {
+                    $('#countFound').text(count);
                 });
 
                 // Get seo tours for inscription
@@ -343,8 +372,8 @@
                     data: data,
                     type: "POST",
 
-                }).done(function (data) {
-                    $('#toursFrom').text(data.pTitle);
+                }).done(function (seo) {
+                    $('#toursFrom').text(seo.pTitle);
                 });
 
             }).error(function () {
@@ -381,9 +410,18 @@
 
             // Add data to params array
             data.push(
-                {name: 'country', value: '{{ $country or ""}}'},
                 {name: 'sort', value: $(this).attr('data-sort')}
             );
+            if (data[1].value) {
+                data.push(
+                    {name: 'country', value: data[1].value}
+                );
+            }
+            else {
+                data.push(
+                    {name: 'country', value: '{{ $country->slug or ""}}'}
+                );
+            }
 
             // Request on server
             $.ajax({

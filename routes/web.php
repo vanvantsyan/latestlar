@@ -140,6 +140,9 @@ Route::group(['middleware' => 'auth'], function () {
 //Route::get('pages', 'Front\PagesController@index');
 
 /* Tour routes*/
+
+Route::get('search/autocomplete', 'Front\ToursController@autocomplete');
+
 Route::get('{country}/{action}/{url}', 'Front\ToursController@unit')->where('url', '.+-?-\d{2,8}');
 Route::get('{country}/{url}', 'Front\ToursController@unitCountry')->where('url', '.+-?-\d{2,8}');
 
@@ -154,8 +157,6 @@ Route::post('getCountTours', 'Front\ToursController@getCount')->name('getCountTo
 Route::post('tour/getImage', 'Front\ToursController@getImages')->name('getTourImages');
 Route::post('tour/uploadImage', 'Front\ToursController@uploadImage')->name('uploadTourImage');
 Route::post('tour/removeImage', 'Front\ToursController@removeImage')->name('removeTourImage');
-
-Route::get('search/autocomplete', 'Front\ToursController@autocomplete');
 
 Route::post('tour/order', 'Front\MailController@sendOrder')->name('mail.order');
 Route::post('tour/phone', 'Front\MailController@sendPhone')->name('mail.phone');

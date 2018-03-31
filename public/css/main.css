@@ -89,13 +89,9 @@ input[name=tourDate]{
 }
 .back-tours{
     background: url(../img/back-tours.jpg) 50% 50% no-repeat !important;
-    color: #fff;
+
 }
-.back-tours .tour-preview-desc{
-    background: rgba(0,0,0, 0.74);
-    display: block;
-    padding: 5px;
-}
+
 
 .selectFirstLine{
     width:272px
@@ -103,4 +99,13 @@ input[name=tourDate]{
 .filterDate {}
 .tour-filter-more > div{
     display: inline-block;
+}
+.stroke-h{
+    background: rgba(255,255,255,0.8);
+    display: initial;
+    line-height: initial;
+}
+.stroke-desc{
+    background: rgba(255,255,255,0.8);
+    display: initial;
 }

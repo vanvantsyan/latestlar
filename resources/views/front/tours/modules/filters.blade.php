@@ -13,7 +13,8 @@
         </div>
         <div class="tour-filter-item" class="filterPoint">
             <label>Город или достопримечательность</label>
-            <input name="tourPoint" id="tourPoint" type="text" placeholder="Введите название" value="{{$point->title or ''}}">
+            <input name="tourPoint" id="tourPoint" type="text" placeholder="Введите название"
+                   value="{{$point->title or ''}}">
         </div>
         <div class="tour-filter-item" style="display: none">
             <label>Направление</label>
@@ -25,19 +26,16 @@
         </div>
         <div class="tour-filter-item time-mob" class="filterDuration">
             <label>Длительность тура (дни)</label>
-
+            @if(isset($postData['durationFrom']) or isset($durationFrom))
+                @php
+                    $currentFrom = isset($postData['durationFrom']) ? $postData['durationFrom'] : $durationFrom;
+                @endphp
+            @else
+                @php
+                    $currentFrom = '';
+                @endphp
+            @endif
             <select name="durationFrom" id="durationFrom">
-                @if(isset($postData['durationFrom']) or isset($durationFrom))
-                    @php
-                        $currentFrom = isset($postData['durationFrom']) ? $postData['durationFrom'] : $durationFrom;
-                    @endphp
-                @else
-                    @php
-                        $currentFrom = '';
-                    @endphp
-
-                @endif
-
                 @for($i=1; $i < 16; $i++)
 
                     @if($currentFrom)
@@ -52,22 +50,19 @@
                     @endif
                 @endfor
             </select>
-
+            @if((isset($postData['durationTo']) && $postData['durationTo'] != "more") or isset($durationTo))
+                @php
+                    $currentTo = isset($postData['durationTo']) ? $postData['durationTo'] : $durationTo;
+                @endphp
+            @else
+                @php
+                    $currentTo = '';
+                @endphp
+            @endif
             <select name="durationTo" id="durationTo">
-
-                @if(isset($postData['durationTo']) or isset($durationTo))
-                    @php
-                        $currentTo = isset($postData['durationTo']) ? $postData['durationTo'] : $durationTo;
-                    @endphp
-                @else
-                    @php
-                        $currentTo = '';
-                    @endphp
-                @endif
-
                 @for($i=1; $i < 15; $i++)
 
-                    @if($currentTo)
+                    @if($currentTo && $currentTo != "more")
                         <option value="{{$i}}" @if($currentTo == $i) selected @endif>до {{$i}}</option>
                     @else
                         @if($i == 8)
@@ -77,7 +72,10 @@
                         @endif
                     @endif
                 @endfor
-                <option value="more" @if(!$currentTo) selected @endif>неограниченно</option>
+                <option value="more"
+                        @if(!$currentTo || (isset($postData['durationTo']) && $postData['durationTo'] == "more")) selected @endif>
+                    неограниченно
+                </option>
             </select>
         </div>
         @if($tag && $tag->tag_id == 3)
@@ -118,7 +116,9 @@
             </select>
         </div>
 
-        <a href="#" class="tour-filter-more"><span>Расширенный поиск</span><div> &#9660;</div></a>
+        <a href="#" class="tour-filter-more"><span>Расширенный поиск</span>
+            <div> &#9660;</div>
+        </a>
         <input id="filterTours" type="submit" class="btn btn-blue" value="Подобрать варианты">
 
     </form>
