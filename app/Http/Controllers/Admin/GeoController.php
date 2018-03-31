@@ -214,9 +214,7 @@ class GeoController extends Controller
 
         if ($imgObj->height() > 545) {
 
-            $imgObj->resize(null, 545, function ($constraint) {
-                $constraint->aspectRatio();
-            });
+            $imgObj->crop(1920, 545);
         }
 
         $imgObj->save(public_path('uploads/countries/banners') . '/' . $imageName, 100);
