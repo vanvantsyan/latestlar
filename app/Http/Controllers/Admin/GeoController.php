@@ -214,7 +214,7 @@ class GeoController extends Controller
 
         if ($imgObj->height() > 545) {
 
-            $imgObj->resize(null, 235, function ($constraint) {
+            $imgObj->resize(null, 545, function ($constraint) {
                 $constraint->aspectRatio();
             });
         }
