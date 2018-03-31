@@ -98,8 +98,6 @@ class GeoController extends Controller
     {
 //        $this->validateCountry($request);
 
-
-        dd($request->all());
         $this->model->updateCountry($id, $request->all());
         return redirect('admin/geo')->with('message', 'Country "' . $request->get('country') . '" has been updated');
     }
@@ -210,6 +208,13 @@ class GeoController extends Controller
         if ($imgObj->width() > 1920) {
 
             $imgObj->resize(1920, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+
+        if ($imgObj->height() > 545) {
+
+            $imgObj->resize(null, 235, function ($constraint) {
                 $constraint->aspectRatio();
             });
         }

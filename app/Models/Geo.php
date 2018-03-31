@@ -54,22 +54,23 @@ class Geo extends Model
         unset($country['cities']);
         DB::table('geo_countries')->where('id', $id)->update($country);
 
-        $cities = preg_split("/\\r\\n|\\r|\\n/", $data['cities']);
+        if(isset($data['cities'])) {
+            $cities = preg_split("/\\r\\n|\\r|\\n/", $data['cities']);
 
-        if(isset($data['old_cities'])){
-            $old_cities = preg_split("/\\r\\n|\\r|\\n/", $data['old_cities']);
-            $diff = array_diff($old_cities, $cities);
-            if(!empty($diff)){
-                $this->deleteCity($diff, $id);
+            if(isset($data['old_cities'])){
+                $old_cities = preg_split("/\\r\\n|\\r|\\n/", $data['old_cities']);
+                $diff = array_diff($old_cities, $cities);
+                if(!empty($diff)){
+                    $this->deleteCity($diff, $id);
+                }
+            }
+
+            foreach($cities as $city){
+                if(!empty($city)) {
+                    $this->saveCity($city, $id);
+                }
             }
         }
-
-        foreach($cities as $city){
-            if(!empty($city)) {
-                $this->saveCity($city, $id);
-            }
-        }
-
     }
 
 
