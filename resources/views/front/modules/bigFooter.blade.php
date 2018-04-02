@@ -7,15 +7,15 @@
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                         <div class="row">
                             <div class="sitemap-item">
-                                <div class="title">Поиск тура</div>
+                                <div class="title">Туры и круизы</div>
                                 <ul>
-                                    <li><a class="link-blue" href="/tury">Поиск по стране</a></li>
-                                    <li><a class="link-blue" href="/tury">Поиск по категории</a></li>
-                                    <li><a href="http://startour.ru/vizy">Визовые вопросы</a></li>
-                                    <li><a href="http://startour.ru/straxovanie/">Страхование</a></li>
-                                    <li><a href="http://startour.ru/vip-transferyi-i-vip-zalyi/">Трансферы</a></li>
-                                    <li><a href="http://startour.ru/ekskursyi/">Экскурсии</a></li>
-                                    <li><a href="http://startour.ru/kruizyi/">Круизы</a></li>
+                                    <li><a class="link-blue" href="http://startour.ru/poisk-turov">Автобусные туры по Европе</a></li>
+                                    <li><a class="link-blue" href="http://startour.ru/sanatorii-i-pansionatyi/">Горящие туры и спецпредложения</a></li>
+                                    <li><a href="http://startour.ru/goryashhie-turyi/">Круизы</a></li>
+                                    <li><a href="http://startour.ru/europe/avtobusnyy-tur">Пансионаты и санатории</a></li>
+                                    <li><a href="http://startour.ru/tury/sobytiya">Пляжный отдых</a></li>
+                                    <li><a href="http://russia.startour.ru/tury/sobytiya">Событийные туры</a></li>
+                                    <li><a href="http://startour.ru/ekskursyi/">Экскурсионные туры</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -23,35 +23,48 @@
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                         <div class="row">
                             <div class="sitemap-item">
-                                <div class="title">Для клиентов</div>
+                                <div class="title">Туристические услуги</div>
                                 <ul>
-                                    <li><a href="https://letsfly.ru/corporate-customers/korporativnoe-obsluzhivanie/">Корпоративным клиентам</a></li>
-                                    {{--<li><a href="#">Вопросы и ответы</a></li>--}}
-                                    {{--<li><a href="#">Способы оплаты</a></li>--}}
-                                    {{--<li><a href="#">Рассрочка и кредит</a></li>--}}
-                                    {{--<li><a href="#">Советы туристу</a></li>--}}
-                                    {{--<li><a href="#">Бонусная программа</a></li>--}}
-                                    {{--<li><a href="#">Подарочные сертификаты</a></li>--}}
-                                    {{--<li><a href="#">О нас</a></li>--}}
-                                    {{--<li><a href="#">Акции</a></li>--}}
-                                    {{--<li><a href="#">Отзывы</a></li>--}}
-                                    {{--<li><a href="#">Контакты</a></li>--}}
+                                    <li><a href="http://startour.ru/aviabiletyi/">Авиабилеты</a></li>
+                                    <li><a href="#">Аренда авто</a></li>
+                                    <li><a href="http://startour.ru/vizy">Визовая поддержка</a></li>
+                                    <li><a href="http://startour.ru/vip-transferyi-i-vip-zalyi/">ВИП трансферы и ВИП залы</a></li>
+                                    <li><a href="http://startour.ru/individualnyie-turyi/">Индивидуальные туры</a></li>
+                                    <li><a href="http://startour.ru/podbor-i-bronirovanie-turov/">Подбор и бронирование туров</a></li>
+                                    <li><a href="http://startour.ru/straxovanie/">Страхование ВЗР</a></li>
+                                    <li><a href="http://startour.ru/transferyi/">Трансферы</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    {{--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">--}}
-                        {{--<div class="row">--}}
-                            {{--<div class="sitemap-item">--}}
-                                {{--<div class="title">Партнерам</div>--}}
-                                {{--<ul>--}}
-                                    {{--<li><a href="#">Для турагенств</a></li>--}}
-                                    {{--<li><a href="#">Корпоративным клиентам</a></li>--}}
-                                    {{--<li><a href="#">Центр бронирования</a></li>--}}
-                                {{--</ul>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                        <div class="row">
+                            <div class="sitemap-item">
+                                <div class="title">Страны</div>
+                                <ul>
+                                    <li><a href="http://startour.ru/gretsiya/">Греция</a></li>
+                                    <li><a href="http://startour.ru/italiya/">Италия</a></li>
+                                    <li><a href="http://startour.ru/kipr/">Кипр</a></li>
+                                    <li><a href="http://russia.startour.ru/">Россия</a></li>
+                                    <li><a href="http://startour.ru/tunis/">Тунис</a></li>
+                                    <li><a href="http://startour.ru/turtsiya/">Турция</a></li>
+                                    <li><a class="link-blue" href="http://startour.ru/countries/">Все страны</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                        <div class="row">
+                            <div class="sitemap-item">
+                                <div class="title">Полезная информация</div>
+                                <ul>
+                                    <li><a href="http://startour.ru/blog">Блог</a></li>
+                                    <li><a href="http://startour.ru/kompaniya/">О компании</a></li>
+                                    <li><a href="https://letsfly.ru/corporate-customers/korporativnoe-obsluzhivanie/">Корпоративным клиентам</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-1-5">
