@@ -9,8 +9,8 @@
                             <div class="sitemap-item">
                                 <div class="title">Туры и круизы</div>
                                 <ul>
-                                    <li><a class="link-blue" href="http://startour.ru/poisk-turov">Автобусные туры по Европе</a></li>
-                                    <li><a class="link-blue" href="http://startour.ru/sanatorii-i-pansionatyi/">Горящие туры и спецпредложения</a></li>
+                                    <li><a href="http://startour.ru/poisk-turov">Автобусные туры по Европе</a></li>
+                                    <li><a href="http://startour.ru/sanatorii-i-pansionatyi/">Горящие туры и спецпредложения</a></li>
                                     <li><a href="http://startour.ru/goryashhie-turyi/">Круизы</a></li>
                                     <li><a href="http://startour.ru/europe/avtobusnyy-tur">Пансионаты и санатории</a></li>
                                     <li><a href="http://startour.ru/tury/sobytiya">Пляжный отдых</a></li>
