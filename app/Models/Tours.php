@@ -75,6 +75,29 @@ class Tours extends Model
         return $tours;
     }
 
+    public function scopeWithDates($tours, $toursIds)
+    {
+
+        $tours->leftJoin(
+            DB::raw("
+            (
+            SELECT tour_id, MIN(value) as nearestDate
+            
+                FROM tour_tags_relations 
+                
+                WHERE tag_id = 2 
+                AND value > " . time() . " 
+                AND tour_id IN(" . implode(', ', $toursIds) . ")
+            GROUP BY tour_id
+            ) as dv
+            ")
+            ,
+            'tours.id', '=', 'dv.tour_id'
+        );
+
+        return $tours;
+    }
+
     public function scopePriceFrom($tours, $priceFrom)
     {
         if ($priceFrom) {

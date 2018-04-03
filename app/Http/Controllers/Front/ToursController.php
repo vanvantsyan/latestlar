@@ -783,22 +783,7 @@ class ToursController extends Controller
         $toursIds = $tours->pluck('tours.id')->toArray();
 
         if (count($toursIds)) {
-            $tours->leftJoin(
-                DB::raw("
-            (
-            SELECT tour_id, MIN(value) as nearestDate
-            
-                FROM tour_tags_relations 
-                
-                WHERE tag_id = 2 
-                AND value > " . time() . " 
-                AND tour_id IN(" . implode(',', $toursIds) . ")
-            GROUP BY tour_id
-            ) as dv
-            ")
-                ,
-                'tours.id', '=', 'dv.tour_id'
-            );
+            $tours->withDates($toursIds);
         }
 
         // Select count for counter
@@ -809,7 +794,7 @@ class ToursController extends Controller
         if (count($toursIds)) {
 
             $tours->addSelect(DB::raw("MIN(dv.nearestDate) as nearestDate"));
-            $tours->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '99999999999999999999999' ELSE dv.nearestDate END");
+            $tours->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END");
         }
 
         $tours->groupBy('tours.id');
@@ -968,7 +953,9 @@ class ToursController extends Controller
                 ->where('tr.tag_id', '=', 4);
         })->join('tours', 'tr.tour_id', '=', 'tours.id')->where('tours.price', '>', 0)->select('tours_tags_values.*', DB::raw('min(tours.price) as minPrice'))->groupBy('tours_tags_values.id')->get()->keyBy('id');
 
-        // Горячие туры
+
+        /* Get hot tours */
+
         $hotToursAny = Tours::take(8)
             ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])
             ->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')
@@ -978,7 +965,17 @@ class ToursController extends Controller
                     ->where('geo_r.par_ess', 'country')
                     ->where('geo_r.par_id', $country->id);
             })
+            ->take(8);
+
+        // Join with dates for order
+        $toursIds = $hotToursAny->pluck('tours.id')->toArray();
+
+        $hotToursAny = $hotToursAny->withDates($toursIds)
+            ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
             ->get();
+
+
+        /* Get hot tours with 1 day duration */
 
         $hotToursOne = Tours::where('duration', 1)
             ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])
@@ -989,8 +986,16 @@ class ToursController extends Controller
                     ->where('geo_r.par_ess', 'country')
                     ->where('geo_r.par_id', $country->id);
             })
-            ->take(8)
+            ->take(8);
+
+        // Join with dates for order
+        $toursIds = $hotToursOne->pluck('tours.id')->toArray();
+        $hotToursOne = $hotToursOne->withDates($toursIds)
+            ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
             ->get();
+
+
+        /* Get hot tours with many day duration */
 
         $hotToursMany = Tours::where('duration', '>', 1)
             ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])
@@ -1000,9 +1005,18 @@ class ToursController extends Controller
                     ->where('geo_r.sub_ess', 'tour')
                     ->where('geo_r.par_ess', 'country')
                     ->where('geo_r.par_id', $country->id);
-            })
+            });
+
+
+        // Join with dates for order
+        $toursIds = $hotToursMany->pluck('tours.id')->toArray();
+        $hotToursMany = $hotToursMany->withDates($toursIds)
+            ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
             ->take(8)
             ->get();
+
+
+        /* Get hot tours with active rest */
 
         $hotToursActive = Tours::join('tour_tags_relations AS ttr', 'ttr.tour_id', '=', 'tours.id')
             ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])
@@ -1014,7 +1028,13 @@ class ToursController extends Controller
                     ->where('geo_r.sub_ess', 'tour')
                     ->where('geo_r.par_ess', 'country')
                     ->where('geo_r.par_id', $country->id);
-            })
+            });
+
+        // Join with dates for order
+        $toursIds = $hotToursActive->pluck('tours.id')->toArray();
+
+        $hotToursActive = $hotToursActive->withDates($toursIds)
+            ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
             ->take(8)
             ->get();
 
@@ -1050,7 +1070,6 @@ class ToursController extends Controller
     public function getMore(Request $request)
     {
         $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
-
         $tours = $this->applyFilters($tours, $request->input('params'));
 
 
