@@ -976,9 +976,15 @@ class ToursController extends Controller
         // Join with dates for order
         $toursIds = $hotToursAny->pluck('tours.id')->toArray();
 
-        $hotToursAny = $hotToursAny->withDates($toursIds)
-            ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
-            ->get();
+        if($toursIds) {
+
+            $hotToursAny = $hotToursAny->withDates($toursIds)
+                ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
+                ->get();
+        } else {
+
+            $hotToursAny = [];
+        }
 
 
         /* Get hot tours with 1 day duration */
@@ -996,9 +1002,14 @@ class ToursController extends Controller
 
         // Join with dates for order
         $toursIds = $hotToursOne->pluck('tours.id')->toArray();
-        $hotToursOne = $hotToursOne->withDates($toursIds)
-            ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
-            ->get();
+
+        if($toursIds) {
+            $hotToursOne = $hotToursOne->withDates($toursIds)
+                ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
+                ->get();
+        } else {
+            $hotToursOne = [];
+        }
 
 
         /* Get hot tours with many day duration */
@@ -1016,10 +1027,15 @@ class ToursController extends Controller
 
         // Join with dates for order
         $toursIds = $hotToursMany->pluck('tours.id')->toArray();
-        $hotToursMany = $hotToursMany->withDates($toursIds)
-            ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
-            ->take(8)
-            ->get();
+
+        if($toursIds) {
+            $hotToursMany = $hotToursMany->withDates($toursIds)
+                ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
+                ->take(8)
+                ->get();
+        } else {
+            $hotToursMany = [];
+        }
 
 
         /* Get hot tours with active rest */
@@ -1039,18 +1055,24 @@ class ToursController extends Controller
         // Join with dates for order
         $toursIds = $hotToursActive->pluck('tours.id')->toArray();
 
-        $hotToursActive = $hotToursActive->withDates($toursIds)
-            ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
-            ->take(8)
-            ->get();
+        if($toursIds) {
+
+            $hotToursActive = $hotToursActive->withDates($toursIds)
+                ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
+                ->take(8)
+                ->get();
+        } else {
+            $hotToursActive = [];
+        }
+
 
         return view('front.tours.russia', [
             'tours' => $tours->toArray(),
 
-            'hotToursAny' => $hotToursAny->toArray(),
-            'hotToursOne' => $hotToursOne->toArray(),
-            'hotToursMany' => $hotToursMany->toArray(),
-            'hotToursActive' => $hotToursActive->toArray(),
+            'hotToursAny' => is_object($hotToursAny) ? $hotToursAny->toArray() : [],
+            'hotToursOne' => is_object($hotToursOne) ? $hotToursOne->toArray() : [],
+            'hotToursMany' => is_object($hotToursMany) ? $hotToursMany->toArray() : [],
+            'hotToursActive' => is_object($hotToursActive) ? $hotToursActive->toArray() : [],
 
             'tourTypes' => $tourTypes,
             'countTours' => $countTours,
