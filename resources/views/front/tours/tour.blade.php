@@ -105,15 +105,19 @@
                                     @endif
                                     <div>
                                         <div class="slider-tour-price">
-                                            <span>
-                                                @if($tour->price > 0)
+
+                                            @if($tour->price > 0)
+                                                <span>
                                                     Стоимость: от {{number_format($tour['price'], 0, '.',' ')}}
                                                     <span class="glyphicon glyphicon-rub" aria-hidden="true"></span>
                                                     за человека
-                                                @else
-                                                    <b>Цена</b> не указана
-                                                @endif
-                                            </span>
+                                                    </span>
+                                            @else
+                                                <span class="no-dots">
+                                                    Стоимость уточняйте у операторов
+                                                    </span>
+                                            @endif
+
                                         </div>
                                     </div>
                                     <a href="#" class="btn btn-yellow" data-toggle="modal"
@@ -280,11 +284,11 @@
                     <hr>
                     <div class="tour-card-text" id="accommodation-options">
                         @isset( $textData['rest'])
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <div class="row">
-                                {!!  $textData['rest'] !!}
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="row">
+                                    {!!  $textData['rest'] !!}
+                                </div>
                             </div>
-                        </div>
                         @endif
                         <div class="card-desc">
                             <h3>О туре</h3>
