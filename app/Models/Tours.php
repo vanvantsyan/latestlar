@@ -77,7 +77,6 @@ class Tours extends Model
 
     public function scopeWithDates($tours, $toursIds)
     {
-
         $tours->leftJoin(
             DB::raw("
             (

@@ -586,6 +586,12 @@ class ToursController extends Controller
         ]);
     }
 
+    /**
+     * @param string $country
+     * @param string $action
+     * @param $url
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function unit($country = 'russia', $action = '', $url)
     {
         preg_match('/[\d]{2,8}/', $url, $extractId);
