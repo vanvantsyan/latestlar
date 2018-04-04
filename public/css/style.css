@@ -1952,7 +1952,7 @@ div.dp-popup h2 {
 	background: rgba(255, 255, 255, 0.74);
 	line-height: normal;
 	padding: 0 10px;
-	display: inline;
+	display: inline-block;
 }
 
 .card-slider-item-cont > div {
@@ -1965,9 +1965,9 @@ div.dp-popup h2 {
 	font-size: 19px;
 	line-height: normal;
 	padding: 0 5px;
-	text-decoration: underline;
-	text-decoration-color: #000;
-	text-decoration-style: dashed;
+	border-bottom: 1px black dashed;
+
+
 }
 .card-slider-item-cont .glyphicon-rub {
 	font-size: 15px;
