@@ -1189,6 +1189,13 @@ class ToursController extends Controller
         };
     }
 
+    public function sletat() {
+
+
+
+        return view('front.sletat.form');
+    }
+
     public function applyFilters($tours, $filters)
     {
         $tours->FromCountry(array_get($filters, 'country', null));

@@ -113,7 +113,7 @@
             ],
         },
         minDate: moment().format('DD.MM.YY'),
-        @if($month)
+        @if(isset($month) && $month)
 
         startDate: '{!! date('d.m.Y', strtotime("1 " . $month)) !!}',
         endDate: '{!! date('d.m.Y', strtotime("last day of " . $month)) !!}',

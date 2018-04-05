@@ -141,6 +141,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 /* Tour routes*/
 
+Route::get('sletat', 'Front\ToursController@sletat')->name('sletat');
+
 Route::get('search/autocomplete', 'Front\ToursController@autocomplete');
 
 Route::get('{country}/{action}/{url}', 'Front\ToursController@unit')->where('url', '.+-?-\d{2,8}');
@@ -162,6 +164,7 @@ Route::post('tour/order', 'Front\MailController@sendOrder')->name('mail.order');
 Route::post('tour/phone', 'Front\MailController@sendPhone')->name('mail.phone');
 
 Route::post('tours/seo', 'Front\ToursController@getSeoTours')->name('tours.seo');
+
 
 
 
