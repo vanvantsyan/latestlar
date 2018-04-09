@@ -457,6 +457,7 @@ class ToursParser
                 }
 
                 $text = preg_replace("!<a.*?href=\"?'? ?([^ \"'>]+)\"?'?.*?>(.*?)<\/a>!is", "\\2", $text);
+                $text = preg_replace("!<a.*?href=\"?'? ?([^ \"'>]+)\"?'?.*?>!is", "", $text);
                 $text = preg_replace('/style=\"[^\"]+\"/ui', "\\", $text);
                 $text = preg_replace('/class=\'[^\"]+\'/ui', "\\", $text);
 

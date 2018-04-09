@@ -60,7 +60,6 @@
                                 <ul>
                                     <li><a href="http://startour.ru/blog">Блог</a></li>
                                     <li><a href="http://startour.ru/kompaniya/">О компании</a></li>
-                                    <li><a href="https://letsfly.ru/corporate-customers/korporativnoe-obsluzhivanie/">Корпоративным клиентам</a></li>
                                 </ul>
                             </div>
                         </div>

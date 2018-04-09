@@ -178,7 +178,8 @@ class BladeHelper
 
                             foreach ($table->find('tr') as $tr) {
                                 if ($tr->find('td', 1)) {
-                                    $data['tourDays'][$daysCount] = $tr->find('td', 1)->innertext();
+
+                                    $data['tourDays'][$daysCount] = preg_replace("!<a.*?href=\"?'? ?([^ \"'>]+)\"?'?.*?>!is", "", $tr->find('td', 1)->innertext());
                                     $daysCount++;
                                 }
 
@@ -201,18 +202,19 @@ class BladeHelper
 
                     $includeInPrice = getLastParent($textBlock);
                     if ($includeInPrice) {
-                        $data['includedInPrice'] = $includeInPrice->innertext;
+                        $data['includedInPrice'] .= $includeInPrice->innertext;
                     }
 
                     $includeInPrice->outertext = "";
                     break;
                 }
             }
+            $data['includedInPrice'] = preg_replace("!<a.*?href=\"?'? ?([^ \"'>]+)\"?'?.*?>!is", "", $data['includedInPrice']);
+
         }
 
         if ($descBlock)
-            $data['rest'] = self::removeTags(['span', 'span', 'br'], $descBlock->innertext);
-
+            $data['rest'] = self::removeTags(['span', 'span', 'br'],  preg_replace("!<a.*?href=\"?'? ?([^ \"'>]+)\"?'?.*?>!is", "", $descBlock->innertext));
 
         return $data;
     }

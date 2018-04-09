@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\GeneratedSeo;
 use App\Models\Geo;
 use App\Models\Points;
+use App\Models\Sletat as SletatApi;
 use App\Models\Tours;
 use App\Models\ToursTagsValues;
 use App\Models\Ways;
@@ -531,7 +532,8 @@ class ToursController extends Controller
 
     public function unitCountry($country = 'russia', $url)
     {
-        preg_match('/[\d]{2,8}/', $url, $extractId);
+
+        preg_match('/[\d]{2,8}$/', $url, $extractId);
 
         if (count($extractId)) {
             $id = $extractId[0];
@@ -976,7 +978,7 @@ class ToursController extends Controller
         // Join with dates for order
         $toursIds = $hotToursAny->pluck('tours.id')->toArray();
 
-        if($toursIds) {
+        if ($toursIds) {
 
             $hotToursAny = $hotToursAny->withDates($toursIds)
                 ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
@@ -1003,7 +1005,7 @@ class ToursController extends Controller
         // Join with dates for order
         $toursIds = $hotToursOne->pluck('tours.id')->toArray();
 
-        if($toursIds) {
+        if ($toursIds) {
             $hotToursOne = $hotToursOne->withDates($toursIds)
                 ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
                 ->get();
@@ -1028,7 +1030,7 @@ class ToursController extends Controller
         // Join with dates for order
         $toursIds = $hotToursMany->pluck('tours.id')->toArray();
 
-        if($toursIds) {
+        if ($toursIds) {
             $hotToursMany = $hotToursMany->withDates($toursIds)
                 ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
                 ->take(8)
@@ -1055,7 +1057,7 @@ class ToursController extends Controller
         // Join with dates for order
         $toursIds = $hotToursActive->pluck('tours.id')->toArray();
 
-        if($toursIds) {
+        if ($toursIds) {
 
             $hotToursActive = $hotToursActive->withDates($toursIds)
                 ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
@@ -1189,9 +1191,20 @@ class ToursController extends Controller
         };
     }
 
-    public function sletat() {
+    public function sletat(SletatApi $sletatApi)
+    {
 
-
+//        $cities = $sletatApi->GetTours([
+//            "cityFromId" => 832,
+//            "countryId" => 35,
+//            "cities" => 724,
+//            "meals" => 114,
+//            "stars" => 401,
+//            "s_adults" => 2,
+//            'requestId' => 1204004600,
+//            'updateResult' => 1
+//        ]);
+//        dd($cities);
 
         return view('front.sletat.form');
     }
