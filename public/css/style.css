@@ -2513,4 +2513,7 @@ div.dp-popup h2 {
 
 .modal-body .items{
 	display: block;
+	margin-bottom: 5px;
+	border-bottom: 1px solid #f8f8f8;
+	padding-bottom: 5px;
 }

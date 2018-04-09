@@ -83,8 +83,9 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <div class="row">
+
                     <div class="card-slider">
-                        @foreach(json_decode($tour->images) as $image)
+                        @forelse(json_decode($tour->images) as $image)
                             <div class="card-slider-item">
                                 <img src="{{Gliss::tourImg($image, $tour->id)}}" alt="">
                                 <div class="card-slider-item-cont">
@@ -124,7 +125,40 @@
                                        data-target="#tourOrderModal">Отправить заявку на тур</a>
                                 </div>
                             </div>
-                        @endforeach
+                        @empty
+                            <div class="card-slider-item">
+                                <img src="" alt="Фон тура">
+                                <div class="card-slider-item-cont">
+                                    <a href="{{route('tour.list')}}" class="back-tours-list">< Вернуться назад к
+                                        списку</a>
+
+                                        @if(Gliss::wordsCount($tour->title) > 5)
+                                            <h1 class="font38">{{$tour->title}}</h1>
+                                        @else
+                                            <h1>{{$tour->title}}</h1>
+                                        @endif
+                                    <div>
+                                        <div class="slider-tour-price">
+
+                                            @if($tour->price > 0)
+                                                <span>
+                                                    Стоимость: от {{number_format($tour['price'], 0, '.',' ')}}
+                                                    <span class="glyphicon glyphicon-rub" aria-hidden="true"></span>
+                                                    за человека
+                                                    </span>
+                                            @else
+                                                <span class="no-dots">
+                                                    Стоимость уточняйте у операторов
+                                                    </span>
+                                            @endif
+
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn btn-yellow" data-toggle="modal"
+                                       data-target="#tourOrderModal">Отправить заявку на тур</a>
+                                </div>
+                            </div>
+                        @endforelse
 
                     </div>
 

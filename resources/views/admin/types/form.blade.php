@@ -49,7 +49,7 @@
                     <div class="form-group m-form__group row">
                         <div class="col-md-12 col-xs-12">
                             <label for="value">Название</label>
-                            <input type="text" class="form-control m-input m-input--square" id="value" name="value"
+                            <input type="text" class="form-control m-input m-input--square" id="alias" name="alias"
                                    value="{{$item->alias or ''}}">
                         </div>
                     </div>

@@ -42,7 +42,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
                 <div class="row">
                     @include('front.tours.modules.sidebar', [
-                        'level' => $country ?: 'tury',
+                        'level' => (isset($country)) ? $country->slug : 'tury',
 
                         'cities' => $cities,
                         'citiesGolden' => $citiesGolden,
@@ -171,7 +171,9 @@
                             @empty
                             @endforelse
                         @endif
-                        <a href="#" class="btn-more-tours">Показать еще туры</a>
+                        @if(count($tours) > 15)
+                                <a href="#" class="btn-more-tours">Показать еще туры</a>
+                        @endif
                     </div>
                     <div class="tours-sort-other desk-hide">
                         {{--<a href="#" class="tours-sort-other-item">Туры по тематике</a>--}}

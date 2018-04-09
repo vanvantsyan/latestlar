@@ -111,6 +111,7 @@ class TypesController extends Controller
         unset($data['_method']);
         unset($data['files']);
 
+
         ToursTagsValues::where('id', $id)->update($data);
         return redirect('admin/types/' . $id . '/edit')
             ->with('message', 'Тип "' . $request->get('alias') . '" успешно обновлен');

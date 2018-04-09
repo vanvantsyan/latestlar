@@ -27,7 +27,7 @@
         }
 
         @if($country->banner)
-        .page-{{$country->slug}} {
+        .page-{{$country->slug}}  {
             background: url(/uploads/countries/banners/{{$country->banner}}) 50% 0 no-repeat;
         }
         @endif
@@ -68,12 +68,18 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <div class="row">
                     <div class="tour-preview">
-                        <h1 class="stroke-h">Туры по {{Gliss::case($country->country, "Д")}}</h1>
+                        <h1 class="stroke-h">
+                            @if($country->slug == 'russia')
+                                Туры {{Gliss::case($country->country, "Д")}}
+                            @else
+                                Туры {{Gliss::case($country->country, "куда")}}
+                            @endif
+                        </h1>
                         <div class="tour-preview-desc">
                             <div class="stroke-desc">
-                            Компания STARTOUR предлагает лучшие туры
-                            по {{Gliss::case($country->country, "Д")}}. Только самые
-                            интересные и проверенные маршруты!
+                                Компания STARTOUR предлагает лучшие туры
+                                по {{Gliss::case($country->country, "Д")}}. Только самые
+                                интересные и проверенные маршруты!
                             </div>
                         </div>
                         <a href="#" class="btn btn-yellow" data-toggle="modal" data-target="#tourOrderModal">Отправить
@@ -267,10 +273,12 @@
                             <h2 class="hot">Горящие туры по {{Gliss::case($country->country, "Д")}} из <a href="#">Москвы</a>
                             </h2>
                             <div class="burning-tours-filter" id="toursTab">
-                                @if(count($hotToursAny))<a class="active" href="#allTours" class="active" data-toggle="tab">Все</a>@endif
+                                @if(count($hotToursAny))<a class="active" href="#allTours" class="active"
+                                                           data-toggle="tab">Все</a>@endif
                                 @if(count($hotToursOne))<a href="#oneDay" data-toggle="tab">Однодневные</a>@endif
                                 @if(count($hotToursMany))<a href="#manyDay" data-toggle="tab">Многодневные</a>@endif
-                                @if(count($hotToursActive))<a href="#activeTours" data-toggle="tab">Активный отдых</a>@endif
+                                @if(count($hotToursActive))<a href="#activeTours" data-toggle="tab">Активный
+                                    отдых</a>@endif
                             </div>
                         </div>
                         <div class="burning-tours-items-wrap">
@@ -456,7 +464,7 @@
                 <a href="#" class="seo-txt-btn">Больше информации</a>
             </div>
         </div>
-         {{--@include('front.modules.subscription')--}}
+        {{--@include('front.modules.subscription')--}}
         {{--@include('front.modules.infoCompany')--}}
         @include('front.modules.partners')
         @include('front.modules.bigFooter')

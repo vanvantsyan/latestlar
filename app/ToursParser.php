@@ -468,7 +468,7 @@ class ToursParser
                 $newTour->title = TourHelper::cutTourName(htmlspecialchars($name));
                 $newTour->description = $desc;
                 $newTour->text = $text;
-                $newTour->url = TourHelper::tour2url($name, $id);
+                $newTour->url = preg_replace("~-{2,3}~ui", "-", TourHelper::tour2url($name, $id));
                 $newTour->price = str_replace(' ', '', $minPrice);;
                 $newTour->duration = $duration;
                 $newTour->source = 'magput';
