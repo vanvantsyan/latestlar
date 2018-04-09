@@ -88,7 +88,7 @@
                       ])
                     @if($country->id == 1)
                         <div class="popular-tours">
-                            <h2>Самые популярные туры в {{Gliss::case(Date::now()->format('F'), "Д")}}
+                            <h2>Самые популярные туры в {{Gliss::case(Date::now()->format('F'), "П")}}
                                 в {{Gliss::case($country->country, "П")}}</h2>
                             <div class="popular-tours-items">
                                 <table>

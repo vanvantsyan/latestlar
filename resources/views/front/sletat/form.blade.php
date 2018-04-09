@@ -67,7 +67,6 @@
                         </div>
                     </div>
 
-
                     <div class="tour-filter">
                         <form method="POST">
                             {{ csrf_field() }}
