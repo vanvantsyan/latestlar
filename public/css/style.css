@@ -1324,8 +1324,10 @@ a.dp-choose-date {
 	display: none;
 	margin-left: 95px;
 	position: absolute;
-	padding: 5px 20px;
+	padding: 5px 20px 10px;
 	z-index: 3;
+	box-shadow: 0 16px 16px 0 rgba(0,0,0,.2),0 2px 6px 0 rgba(0,0,0,.1);
+	border-radius: 0 0 10px 10px;
 }
 .tours-sorting-items.active {
 	display: block;
@@ -1423,7 +1425,7 @@ a.dp-choose-date {
 }
 .search-completed-item-date a {
 	display: inline-block;
-	/*width: 55px;*/
+	width: 80px;
 	height: 33px;
 	padding: 0 10px;
 	border: 1px solid #e1e1e1;
@@ -1997,7 +1999,7 @@ div.dp-popup h2 {
 }
 .card-tour-dates-item-day a {
 	display: inline-block;
-	width: 55px;
+	width: 80px;
 	height: 33px;
 	padding: 0 10px;
 	border: 1px solid #e1e1e1;
@@ -2254,7 +2256,7 @@ div.dp-popup h2 {
 	padding-bottom: 20px;
 }
 .card-tour-similar {
-	margin-top: 60px;
+	margin-top: 30px;
 	overflow: hidden;
 }
 .accommodation-options-table {
@@ -2522,6 +2524,13 @@ div.dp-popup h2 {
 	padding-bottom: 5px;
 }
 .desctop-view{
-    height: 50px;
-    overflow: hidden;
+	height: 50px;
+	overflow: hidden;
+}
+.bottom-button-card{
+	text-align: center;
+	margin-top: 30px;
+}
+.bottom-button-card .btn{
+	color: #000;
 }

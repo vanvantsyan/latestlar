@@ -184,12 +184,11 @@
                                                         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
                                                             <div class="row">
                                                                 <div class="card-tour-dates-item-day">
-
                                                                     @foreach($dates as $date)
                                                                         @if($date['value'] > time())
                                                                             <a href="#" class="green"
-                                                                               data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
-                                                                                {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
+                                                                               data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m.y')}}">
+                                                                                {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m.y')}}
                                                                             </a>
                                                                         @endif
                                                                     @endforeach
@@ -215,8 +214,8 @@
                                                                     @foreach($dates as $date)
                                                                         @if($date['value'] > time())
                                                                             <a href="#" class="green"
-                                                                               data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}">
-                                                                                {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
+                                                                               data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m.y')}}">
+                                                                                {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m.y')}}
                                                                             </a>
                                                                         @endif
                                                                     @endforeach
@@ -256,12 +255,12 @@
                             </div>
                         </div>
                     @endif
-
+                    @isset($textData['tourDays'])
                     <div class="card-schedule" id="card-schedule">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
                                 <div class="title">Расписание тура</div>
-                                @isset($textData['tourDays'])
+
                                     @forelse($textData['tourDays'] as $day => $dayDesc)
                                         <div class="card-schedule-day-item">
 
@@ -275,10 +274,11 @@
                                         </div>
                                     @empty
                                     @endforelse
-                                @endif
+
                             </div>
                         </div>
                     </div>
+                    @endif
                     <hr>
                     <div class="tour-card-text" id="accommodation-options">
                         @isset( $textData['rest'])
@@ -294,6 +294,11 @@
                         @php($currentTour = $tour)
                     </div>
 
+                    <div class="bottom-button-card">
+
+                            <a href="#" class="btn btn-yellow" data-toggle="modal" data-target="#tourOrderModal">Отправить заявку на тур</a>
+
+                    </div>
                     <div class="card-tour-similar">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
@@ -307,7 +312,7 @@
                             </div>
                         </div>
                     </div>
-                    @include('front.tours.modules.articles')
+                    {{--@include('front.tours.modules.articles')--}}
                     @include('front.tours.modules.popularTypes')
                 </div>
             </div>

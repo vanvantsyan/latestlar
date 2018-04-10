@@ -144,7 +144,7 @@ $('.search-completed-item-date a:not(.all-dates)').on({
 
         var tourDate = $(this).attr('data-date');
 
-        $(this).text(moment(tourDate, 'D.M.Y').format('DD.MM'));
+        $(this).text(moment(tourDate, 'D.M.Y').format('DD.MM.YY'));
         $(this).removeClass('order');
     },
     click: function (e) {

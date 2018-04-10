@@ -35,6 +35,18 @@ $(document).ready(function() {
 
 	$('.tours-sorting-items a').click(function() {
 		$('.tours-sorting-items').toggleClass('active');
+
+        $('body').toggleClass('sort-open');
+
+        if ($('body').hasClass('sort-open')) {
+
+            $('body.sort-open').on('click', function () {
+                $('.tours-sorting span')[0].click();
+            });
+        } else {
+            $('body').off();
+        }
+
 		return false;
 	});
 

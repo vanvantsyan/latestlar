@@ -244,7 +244,8 @@
                                 $images = json_decode($country->country->images);
                             @endphp
 
-                            <a href="/{{$country->url}}{{$tag ? "/" . $tag->value : ""}}{{$month ? "/" . $month : ""}}">
+                            {{--<a href="/{{$country->url}}{{$tag ? "/" . $tag->value : ""}}{{$month ? "/" . $month : ""}}">--}}
+                            <a href="/{{$country->url}}{{$month ? "/" . $month : ""}}">
                                 @if($country->country->flag)
                                     <img width="15" src="/uploads/countries/flags/{{$country->country->flag}}"/>
                                 @endif

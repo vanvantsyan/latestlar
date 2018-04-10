@@ -67,8 +67,7 @@
                     <ul>
                         <li>{{count($tour['par_points']) ?: 1}} {!! Gliss::numeralCase('город', count($tour['par_points']) ?: 1) !!}</li>
                         <li>14 экскурсий</li>
-                        <li>Поездка
-                            на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</li>
+                        <li>Поездка на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</li>
                     </ul>
                 </div>
                 <div class="search-completed-item-more-right">
@@ -115,13 +114,13 @@
 
                             @if(Carbon\Carbon::createFromTimestamp($date['value'])->format('m') >= $dateTime->format('m') && time() < $date['value'])
 
-                                @if ($num > 5)
+                                @if ($num > 4)
                                     @break
                                 @endif
                                 <a href="#" class="green"
                                    data-date="{{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m.Y')}}"
                                    data-toggle="modal" data-target="#tourOrderModal">
-                                    {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m')}}
+                                    {{Carbon\Carbon::createFromTimestamp($date['value'])->format('d.m.y')}}
                                 </a>
 
                                 @php $num++; @endphp
@@ -129,7 +128,7 @@
                             @endif
                         @endforeach
 
-                        @if(count($tour['dates']) > 6)
+                        @if(count($tour['dates']) > 5)
                             <a href="{{Gliss::tourLink($tour)}}" class="all-dates">Все даты <b>>>></b></a>
                         @endif
                     </div>

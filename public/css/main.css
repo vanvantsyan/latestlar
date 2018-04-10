@@ -32,6 +32,7 @@ label[for=tourDate] img{cursor: pointer}
 }
 .tours-sorting-items a {
     padding: 5px 0;
+    color: cadetblue;
 }
 .search-completed-item-date a:hover{
     background: #ff5500;
@@ -93,7 +94,6 @@ input[name=tourDate]{
 
 }
 
-
 .selectFirstLine{
     width:272px
 }
@@ -109,4 +109,10 @@ input[name=tourDate]{
 .stroke-desc{
     background: rgba(255,255,255,0.8);
     display: initial;
+}
+.sort-open{
+    z-index: -1;
+}
+a.order{
+    text-align: center;
 }

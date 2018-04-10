@@ -59,17 +59,50 @@ $('#sendPhone input[type=submit]').on('click', function (e) {
     });
 });
 
+function closeSortList() {
+    $('.tours-sorting-items').toggleClass('active');
+    $('body').toggleClass('sort-open');
+};
 
 
 $('.tours-sorting a span').on('click', function (e) {
-    e.preventDefault();
-    $('.tours-sorting-items').toggleClass('active');
-})
-$('.tours-sorting a b').on('click', function (e) {
-    e.preventDefault();
-    $('.tours-sorting-items').toggleClass('active');
-})
 
+    e.preventDefault();
+    $('.tours-sorting-items').toggleClass('active');
+
+    $('body').toggleClass('sort-open');
+
+    if ($('body').hasClass('sort-open')) {
+        e.stopPropagation();
+
+        $('body.sort-open').on('click', function () {
+            $('.tours-sorting span')[0].click();
+        });
+    } else {
+        $('body').off();
+    }
+
+
+});
+
+$('.tours-sorting a b').on('click', function (e) {
+
+    e.preventDefault();
+    $('.tours-sorting-items').toggleClass('active');
+
+    $('body').toggleClass('sort-open');
+
+    if ($('body').hasClass('sort-open')) {
+        e.stopPropagation();
+
+        $('body.sort-open').on('click', function () {
+            $('.tours-sorting span').trigger('click');
+        });
+    } else {
+        $('body').off();
+    }
+
+});
 
 
 $(function () {
@@ -112,16 +145,18 @@ $(document).ready(function () {
 });
 
 
-$('#dateFilterToggle').on('click', function() {
+$('#dateFilterToggle').on('click', function () {
 
-    if($(this).hasClass('off')) {
+    if ($(this).hasClass('off')) {
         $(this).text('выключить')
     }
 
-    if($(this).hasClass('on')) {
+    if ($(this).hasClass('on')) {
         $(this).text('включить')
     }
 
-    $( this ).toggleClass( "on", "off");
-    $('#tourDate').prop('disabled', function(i, v) { return !v; });
+    $(this).toggleClass("on", "off");
+    $('#tourDate').prop('disabled', function (i, v) {
+        return !v;
+    });
 });
