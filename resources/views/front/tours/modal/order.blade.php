@@ -1,5 +1,4 @@
-<div class="modal fade" id="tourOrderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="tourOrderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -19,7 +18,7 @@
                         <input type="email" name="email" class="form-control" placeholder="ivanov@mail.ru">
                     </div>
                     <div class="form-group" id="phone">
-                        <label for="phone">Телефон</label>
+                        <label for="phone">Телефон<i class="red">*</i></label>
                         <span></span>
                         <input type="text" name="phone" class="form-control" placeholder="8 920 888 88 88">
                     </div>
@@ -61,8 +60,8 @@
                     <div class="form-group">
                         <textarea class="form-control" name="comment" id="comment"></textarea>
                     </div>
+                    <div class="text-success">* — поле обязательно для заполнения</div>
                 </form>
-
             </div>
             <div class="modal-footer">
                 <a type="button" class="btn btn-default" data-dismiss="modal">Закрыть</a>

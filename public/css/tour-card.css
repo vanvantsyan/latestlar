@@ -1,0 +1,35 @@
+.tour-card-text table td {
+    border: 1px solid #d5d5d5;
+}
+
+.tour-card-text table tbody tr:nth-child(2n+1) td {
+    padding-top: 20px;
+    border-top: 1px solid #d5d5d5;
+}
+
+.tour-card-text table {
+    word-break: break-all;
+    margin: 20px auto;
+}
+
+.tour-card-text table td {
+    padding: 0 5px;
+}
+
+.card-desc {
+    display: inline-block;
+}
+
+a.order {
+    width: auto !important;
+}
+
+.card-tour-photo {
+    cursor: pointer;
+}
+
+form span {
+    float: right;
+    color: red;
+    margin-left: 10px;
+}

@@ -1,0 +1,19 @@
+.preloader {
+    background-image: url("/img/preloader.svg");
+    background-color: rgb(66, 176, 235);
+    background-repeat: repeat;
+}
+
+.poular-category-item-img {
+    overflow: hidden;
+}
+
+.subscription form {
+    color: #0f0f0f;
+}
+
+form span {
+    float: right;
+    color: red;
+    margin-left: 10px;
+}

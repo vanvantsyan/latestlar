@@ -20,7 +20,7 @@ class MailController extends Controller
     public function sendOrder(Request $request){
 
         $this->validate($request, [
-            'name' => 'required|min:3',
+            'name' => 'min:3',
             'phone' => 'required_without:email|phone',
             'email' => 'required_without:phone|email',
             'comment' => 'max:500'

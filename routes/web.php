@@ -113,9 +113,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-
-
-
         Route::resource('geo', 'Admin\GeoController');
         Route::resource('users', 'Admin\UsersController');
         Route::resource('roles', 'Admin\RolesController');
@@ -168,6 +165,8 @@ Route::post('tour/order', 'Front\MailController@sendOrder')->name('mail.order');
 Route::post('tour/phone', 'Front\MailController@sendPhone')->name('mail.phone');
 
 Route::post('tours/seo', 'Front\ToursController@getSeoTours')->name('tours.seo');
+
+Route::post('modals/getAll', 'Front\ToursController@getModals')->name('modal.all');
 
 
 

@@ -50,6 +50,17 @@ class ToursController extends Controller
         //
     }
 
+    public function getModals()
+    {
+        $modals = "";
+
+        $modals .= view('front.tours.modal.types');
+        $modals .= view('front.tours.modal.cities');
+        $modals .= view('front.tours.modal.countries');
+        $modals .= view('front.tours.modal.goldens');
+
+        return $modals;
+    }
 
     public function getSeo($params)
     {
@@ -107,7 +118,7 @@ class ToursController extends Controller
 
                 if ($tour_type = array_get($params, 'tour_type', null)) {
 
-                    if($tour_type == "Экскурсии") {
+                    if ($tour_type == "Экскурсии") {
                         if ($resort->url == 'moskva') {
                             $resortSeo = "по " . BladeHelper::case($resort->title, "П");
                         } else {

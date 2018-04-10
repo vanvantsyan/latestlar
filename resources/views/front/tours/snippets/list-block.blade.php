@@ -3,7 +3,7 @@
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
             <div class="row">
                 <div class="search-completed-preview-left">
-                    <div class="search-completed-item-title">{{$tour['title']}}</div>
+                    <div class="search-completed-item-title" onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')">{{$tour['title']}}</div>
                     <ul>
                         <li>{{count($tour['par_points']) ?: 1}} {!! Gliss::numeralCase('город', count($tour['par_points']) ?: 1) !!}</li>
                         <li>14 экскурсий</li>
@@ -36,19 +36,19 @@
     <div class="search-completed-item-more">
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
             <div class="row">
-                <a href="#" class="search-completed-item-img" data-images="{{ $tour['images'] }}" data-image-id="0"
-                   data-tour-id="{{$tour['id']}}" data-toggle="modal"
-                   data-target="#tourImagesModal">
+                <div class="search-completed-item-img">
                     @php
                         $images = (array) json_decode($tour['images']);
                     @endphp
                     @if(count($images))
-                        <img src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}" alt="">
+                        <img onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')" src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}" alt="">
                     @else
-                        <img src="{{asset('/img/search-completed-item-1.jpg')}}" alt="">
+                        <img onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')" src="{{asset('/img/search-completed-item-1.jpg')}}" alt="">
                     @endif
                     @if(count($images))
-                        <span class="tour-images-button">Все фото ({{count($images)}})</span>
+                        <span class="tour-images-button" data-images="{{ $tour['images'] }}" data-image-id="0"
+                              data-tour-id="{{$tour['id']}}" data-toggle="modal"
+                              data-target="#tourImagesModal">Все фото ({{count($images)}})</span>
                         <span class="mobile-visible">
                             @if($tour['price'] > 0)
                                 <b>от {{number_format($tour['price'], 0, '.',' ') }} <i class="glyphicon glyphicon-rub"
@@ -58,7 +58,7 @@
                             @endif
                         </span>
                     @endif
-                </a>
+                </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
@@ -135,7 +135,7 @@
                     </div>
                     <div class="search-completed-item-desc">
                         {!! Str::words($tour['description'], 17,'...') !!}
-                        <a href="{{Gliss::tourLink($tour)}}" target="_blank">Подробнее</a>
+                        {{--<a href="{{Gliss::tourLink($tour)}}" target="_blank">Подробнее</a>--}}
                     </div>
                     <div class="search-completed-item-tags">
                         @php

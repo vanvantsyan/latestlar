@@ -1,43 +1,7 @@
 @extends('layouts.front')
 
 @section('css')
-    <style>
-        .tour-card-text table td {
-            border: 1px solid #d5d5d5;
-        }
-
-        .tour-card-text table tbody tr:nth-child(2n+1) td {
-            padding-top: 20px;
-            border-top: 1px solid #d5d5d5;
-        }
-
-        .tour-card-text table {
-            word-break: break-all;
-            margin: 20px auto;
-        }
-
-        .tour-card-text table td {
-            padding: 0 5px;
-        }
-
-        .card-desc {
-            display: inline-block;
-        }
-
-        a.order {
-            width: auto !important;
-        }
-
-        .card-tour-photo {
-            cursor: pointer;
-        }
-
-        form span {
-            float: right;
-            color: red;
-            margin-left: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{asset('css/tour-card.css')}}">
 @endsection
 
 @section('title', $seo['bTitle'])
@@ -132,11 +96,11 @@
                                     <a href="{{route('tour.list')}}" class="back-tours-list">< Вернуться назад к
                                         списку</a>
 
-                                        @if(Gliss::wordsCount($tour->title) > 5)
-                                            <h1 class="font38">{{$tour->title}}</h1>
-                                        @else
-                                            <h1>{{$tour->title}}</h1>
-                                        @endif
+                                    @if(Gliss::wordsCount($tour->title) > 5)
+                                        <h1 class="font38">{{$tour->title}}</h1>
+                                    @else
+                                        <h1>{{$tour->title}}</h1>
+                                    @endif
                                     <div>
                                         <div class="slider-tour-price">
 
@@ -364,88 +328,16 @@
         @include('front.modules.partners')
         @include('front.modules.bigFooter')
     </div>
-    @include('front.tours.modal.images')
+    <div id="modalContainer"></div>
     @include('front.tours.modal.order', ['tour' => $currentTour])
+    @include('front.tours.modal.images')
 
-    @include('front.tours.modal.types')
-    @include('front.tours.modal.cities')
-    @include('front.tours.modal.countries')
-    @include('front.tours.modal.goldens')
 @endsection
 
 @section('js')
-
     <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="{{asset('/js/tour-card.js')}}"></script>
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $('.btn-more-dates').on('click', function () {
-
-            $('.card-tour-dates-item').removeClass('hide');
-            $(this).addClass('hide');
-
-            return false;
-        });
-
-
-        // See all photos of the tour
-
-        $('#tourImagesModal').on('show.bs.modal', function (e) {
-
-            var imgBlock = $(e.relatedTarget).closest('.card-tour-photo');
-            var imgActive = $(e.relatedTarget);
-
-            var tourId = imgBlock.attr('data-tour-id');
-            var images = imgBlock.attr('data-images');
-
-            var slideBlock = '';
-
-            var slideContainer = ".carousel-inner";
-            var indicators = '';
-            var active = '';
-
-            $.each($.parseJSON(images), function (key, value) {
-                if (imgActive.attr('data-image-id') && key == imgActive.attr('data-image-id')) active = "active"; else active = '';
-                slideBlock += "<div class='item " + active + "'> <img src=\'/img/tours/full/" + tourId.substr(0, 2) + "/" + value + "'></div>";
-
-                indicators += "<li data-target=\"#tourImagesCarousel\" data-slide-to='" + key + "' class='" + active + "'></li>";
-            });
-
-            $(slideContainer).html(slideBlock);
-            $('.carousel-indicators').html(indicators);
-        });
-    </script>
-
-
-
-    <script>
-        $('.card-tour-dates-item-day a').on({
-
-            mouseenter: function () {
-                $(this).text('Заказать');
-                $(this).addClass('order');
-            },
-            mouseleave: function () {
-                $(this).text($(this).attr('data-date'));
-                $(this).removeClass('order');
-            },
-            click: function (e) {
-
-                var tourDate = $(this).attr('data-date');
-                $('input[name=tourDate]').attr('value', tourDate);
-
-                e.preventDefault();
-                $('#tourOrderModal').modal('show');
-            }
-
-        });
-    </script>
-    <script>
-
         // Send order
         $('#tourOrderModal .modal-footer a:last-child').on('click', function (e) {
 

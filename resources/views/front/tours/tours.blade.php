@@ -5,19 +5,8 @@
     <link rel="stylesheet" href="{{asset('css/daterangepicker.css')}}">
     <link rel="stylesheet" href="{{asset('css/jquery-ui.css')}}">
     <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
+    <link rel="stylesheet" href="{{asset('css/tours.css')}}">
     <style>
-        .preloader {
-            background-image: url("/img/preloader.svg");
-            background-color: rgb(66, 176, 235);
-            background-repeat: repeat;
-        }
-
-        form span {
-            float: right;
-            color: red;
-            margin-left: 10px;
-        }
-
         @if($country && $country->banner)
         .tour-preview-wrap {
             background: url("/uploads/countries/banners/{{$country->banner}}") 50% 50% no-repeat !important;
@@ -71,7 +60,6 @@
                                 заявку<span> на подбор тура</span></a>
                         </div>
                     </div>
-                    {{--{{dd($postData)}}--}}
                     @include('front.tours.modules.filters', [
                         'tourTypes' => $tourTypes,
                         'way' => isset($way) ? $way : '',
@@ -207,48 +195,13 @@
     </div>
     @include('front.tours.modal.images')
     @include('front.tours.modal.order')
-    @include('front.tours.modal.types')
-    @include('front.tours.modal.cities')
-    @include('front.tours.modal.countries')
-    @include('front.tours.modal.goldens')
+    <div id="modalContainer"></div>
 @endsection
 
 @section('js')
-
     @include('front.tours.modules.list-scripts')
-
+    <script src="{{asset('/js/tours.js')}}"></script>
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-
-        // See all photos of the tour
-
-        $('#tourImagesModal').on('show.bs.modal', function (e) {
-            var tourId = $(e.relatedTarget).attr('data-tour-id');
-
-            var images = $(e.relatedTarget).attr('data-images');
-            var slideBlock = '';
-
-            var slideContainer = ".carousel-inner";
-            var indicators = '';
-
-            $.each($.parseJSON(images), function (key, value) {
-
-                if (key == 0) active = "active"; else active = '';
-                slideBlock += "<div class='item " + active + "'> <img src=\'/img/tours/full/" + tourId.substr(0, 2) + "/" + value + "'></div>";
-
-                indicators += "<li data-target=\"#tourImagesCarousel\" data-slide-to='" + key + "' class='" + active + "'></li>";
-            });
-
-            $(slideContainer).html(slideBlock);
-            $('.carousel-indicators').html(indicators);
-        });
-
-
         // Get more tours in tour list
 
         $('.btn-more-tours').on('click', function () {
@@ -384,26 +337,6 @@
         });
 
 
-        $("#tourPoint").on('keyup', function (event) {
-
-            var s = $("#tourPoint").val();
-            //String.fromCharCode(event.keyCode || event.charCode);
-
-            if (!/^[а-яё ]*$/i.test(s)) {
-                $("#tourPoint").val(autoKeyboardLang(s));
-            }
-        });
-
-        // Points title auto complete input
-        $("#tourPoint").autocomplete({
-            source: "/search/autocomplete",
-            minLength: 3,
-            select: function (event, ui) {
-
-                $('#tourPoint').val(ui.item.value);
-            }
-        });
-
         // Sort tours
         $('.tours-sorting-items a').on('click', function () {
 
@@ -459,106 +392,5 @@
             $('.tours-sorting a:first').attr('data-sort', $(this).attr('data-sort'));
 
         });
-
-        // Insert point
-        $('.search-completed-item-route a').on('click', function (e) {
-            e.preventDefault();
-            var point = $(this).text();
-
-            $('#tourPoint').attr('value', point.trim(','));
-
-            $('#filterTours').trigger('click');
-        });
     </script>
-
-    <script>
-        // Set hidden fields
-        $('#tourOrderModal').on('show.bs.modal', function (e) {
-
-            var tourBlock = $(e.relatedTarget).closest('.search-completed-item');
-            if (tourBlock.length) {
-                var tourName = tourBlock.find('.search-completed-item-preview .search-completed-item-title').text();
-
-                var route = (tourBlock.find('.search-completed-item-route').html()).trim();
-                var href = tourBlock.find('.btn-blue').attr('href');
-                var source = "magput";
-
-                $('input[name=source]').attr('value', source);
-                $('input[name=href]').attr('value', 'http://russia.startour.ru' + href);
-                $('input[name=tourName]').attr('value', tourName);
-                $('input[name=route]').attr('value', route);
-
-                $('#tourName').html('"<strong>' + tourName + '</strong>"');
-            }
-        });
-
-        // Send order
-        $('#tourOrderModal .modal-footer a:last-child').on('click', function (e) {
-
-            e.preventDefault();
-
-            var data = {};
-            $.each($('#tourOrderModal form').serializeArray(), function (i, field) {
-                if (field.value) data[field.name] = field.value;
-            });
-
-            // Request on server
-            $.ajax({
-                url: "{{route('mail.order')}}",
-                cache: false,
-                data: data,
-                type: "POST",
-
-            }).done(function (data) {
-
-                $('#tourOrderModal form span').text("");
-
-                if (!data.ok && data.errors) {
-
-                    $.each(data.errors, function (key, value) {
-
-                        $('#' + key + ' span').addClass("red");
-                        $('#' + key + ' span').text(value);
-                    })
-                } else {
-                    $('#tourOrderModal .modal-footer').remove();
-                    $('#tourOrderModal .modal-body').html("<p style='text-align: center' class=\"alert alert-success\">" + data.message + "</p>");
-                    setTimeout(function () {
-                        $('#tourOrderModal').modal('hide')
-                    }, 3000);
-                }
-
-            }).error(function () {
-                // If errors
-            });
-        });
-    </script>
-
-    <script>
-        $('.search-completed-item-date a:not(.all-dates)').on({
-
-            mouseenter: function () {
-                $(this).text('Заказать');
-                $(this).addClass('order');
-            },
-            mouseleave: function () {
-
-                var tourDate = $(this).attr('data-date');
-
-                $(this).text(moment(tourDate, 'D.M.Y').format('DD.MM'));
-                $(this).removeClass('order');
-            },
-            click: function (e) {
-
-                var tourDate = $(this).attr('data-date');
-
-                $('input[name=tourDate]').attr('value', moment(tourDate, 'D.M.Y').format('DD.MM'));
-
-                e.preventDefault();
-                // $('#tourOrderModal').modal('show');
-            }
-
-        });
-    </script>
-
 @endsection
