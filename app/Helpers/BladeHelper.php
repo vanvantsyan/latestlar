@@ -214,7 +214,7 @@ class BladeHelper
         }
 
         if ($descBlock)
-            $data['rest'] = self::removeTags(['span', 'span', 'br'],  preg_replace("!<a.*?href=\"?'? ?([^ \"'>]+)\"?'?.*?>!is", "", $descBlock->innertext));
+            $data['rest'] = self::removeTags(['span', 'span', 'br', 'strong'],  preg_replace("!<a.*?href=\"?'? ?([^ \"'>]+)\"?'?.*?>!is", "", $descBlock->innertext));
 
         return $data;
     }

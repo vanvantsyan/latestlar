@@ -29,6 +29,12 @@ $('.btn-more-dates').on('click', function () {
 $('#tourImagesModal').on('show.bs.modal', function (e) {
 
     var imgBlock = $(e.relatedTarget).closest('.card-tour-photo');
+
+    if(!imgBlock.length) {
+        imgBlock = $(e.relatedTarget);
+    } else {
+
+    }
     var imgActive = $(e.relatedTarget);
 
     var tourId = imgBlock.attr('data-tour-id');

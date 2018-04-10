@@ -41,7 +41,7 @@
                 </button>
                 <a class="navbar-brand" href="#">Все меню</a>
             </div>
-            <ul>
+            <ul class="desctop-view">
                 <li><a href="http://startour.ru/goryashhie-turyi/" class="hot">Горящие туры</a></li>
                 <li><a href="/tury">Поиск туров</a></li>
                 <li><a href="/russia">РОССИЯ</a></li>

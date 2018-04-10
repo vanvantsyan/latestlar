@@ -1481,7 +1481,7 @@ a.dp-choose-date {
 
 }
 .search-completed-item-desc {
-	font-family: 'pantonlight';
+	font-family: 'pantonregular';
 	margin-bottom: 17px;
 }
 .search-completed-item-desc a {
@@ -2388,7 +2388,7 @@ div.dp-popup h2 {
 	padding-right: 40px;
 }
 .search-completed-item-route {
-	font-family: 'pantonlight';
+	font-family: 'pantonbold';
 }
 .btn-basket,
 .search-completed-item-date a.btn-basket {
@@ -2520,4 +2520,8 @@ div.dp-popup h2 {
 	margin-bottom: 5px;
 	border-bottom: 1px solid #f8f8f8;
 	padding-bottom: 5px;
+}
+.desctop-view{
+    height: 50px;
+    overflow: hidden;
 }
