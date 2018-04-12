@@ -437,9 +437,12 @@
             <div class="clear"></div>
             <div class="seo-txt">
                 <h2>О стране</h2>
+                @php
+                $colSimbols = strlen(Str::words($country->description, 50, '...'));
+                @endphp
                 {!! Str::words($country->description, 50, '...') !!}
                 <div class="seo-txt-more">
-                    {!! $country->description !!}
+                    {!! substr($country->description, $colSimbols) !!}
                 </div>
                 <a href="#" class="seo-txt-btn">Больше информации</a>
             </div>

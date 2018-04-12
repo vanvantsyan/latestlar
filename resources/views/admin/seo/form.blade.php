@@ -77,6 +77,13 @@
                         </div>
                     </div>
 
+                    <div class="form-group m-form__group row">
+                        <div class="col-md-12 col-xs-12">
+                            <label for="bottomText">Текст снизу</label>
+                            <textarea class="summernote" class="form-control m-input m-input--square" name="bottomText">{{$item->bottomText or ''}}</textarea>
+                        </div>
+                    </div>
+
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-success">Сохранить</button>
                         <a href="{{url('admin/seo')}}" class="btn btn-danger">Отмена</a>

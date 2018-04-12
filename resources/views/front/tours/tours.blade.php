@@ -160,7 +160,7 @@
                             @endforelse
                         @endif
                         @if(count($tours) > 15)
-                                <a href="#" class="btn-more-tours">Показать еще туры</a>
+                            <a href="#" class="btn-more-tours">Показать еще туры</a>
                         @endif
                     </div>
                     <div class="tours-sort-other desk-hide">
@@ -179,13 +179,18 @@
             </div>
             <div class="clear"></div>
             <div class="seo-txt">
-                <h2>Подбор туров</h2>
-                <p>Бронирование туров онлайн: быстро и дешево. Подбор отличных туров от всех туроператоров на сайте
-                    STARTOUR.</p>
-                <div class="seo-txt-more">Распродажа горящих туров с вылетом из Москвы. Поиск цены на горящие туры всех
-                    туроператоров. Каталог горящих путёвок!
-                </div>
-                <a href="#" class="seo-txt-btn">Больше информации</a>
+                @isset($seo['bottomText'])
+                    {!! Gliss::templateVars($seo['bottomText']) !!}
+                @else
+                    <h2>Подбор туров</h2>
+                    <p>Бронирование туров онлайн: быстро и дешево. Подбор отличных туров от всех туроператоров на сайте
+                        STARTOUR.</p>
+                    <div class="seo-txt-more">Распродажа горящих туров с вылетом из Москвы. Поиск цены на горящие туры
+                        всех
+                        туроператоров. Каталог горящих путёвок!
+                    </div>
+                    <a href="#" class="seo-txt-btn">Больше информации</a>
+                @endif
             </div>
         </div>
         @include('front.modules.subscription')

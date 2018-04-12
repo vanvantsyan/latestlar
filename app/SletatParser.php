@@ -112,4 +112,10 @@ class SletatParser
         }
 
     }
+
+
+    public function parsHotels()
+    {
+
+    }
 }

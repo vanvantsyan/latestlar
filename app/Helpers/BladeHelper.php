@@ -219,6 +219,10 @@ class BladeHelper
         return $data;
     }
 
+    public static function templateVars($text){
+        return preg_replace("!(\|year\|)!is", date('Y'), $text);
+    }
+
     public static function removeTags(array $tags, $text)
     {
         foreach ($tags as $tag) {

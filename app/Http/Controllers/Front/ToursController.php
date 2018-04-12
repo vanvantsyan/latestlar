@@ -140,6 +140,7 @@ class ToursController extends Controller
                     $seo['metaKey'] = "купить $tour_type " . date("Y") . "  в " . $resortSeo . " из Москвы, цена, $country";
                     $seo['metaDesc'] = "Дешевые $tour_type " . date("Y") . " в " . $resortSeo . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
                     $seo['subText'] = "$tour_type " . date("Y") . " " . $resortSeo . " ($country) из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Отдыхайте на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+
                     return $seo;
                 }
 
