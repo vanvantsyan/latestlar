@@ -265,5 +265,5 @@
             </div>
         @endif
     </div>
-    <div class="sidebar-notice">{{$subText}}</div>
+    <div class="sidebar-notice">{!!$subText!!}</div>
 </div>

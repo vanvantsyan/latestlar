@@ -73,7 +73,7 @@
                     <div class="form-group m-form__group row">
                         <div class="col-md-12 col-xs-12">
                             <label for="subText">Текст сбоку</label>
-                            <textarea class="form-control m-input m-input--square" name="subText">{{$item->subText or ''}}</textarea>
+                            <textarea class="summernote" class="form-control m-input m-input--square" name="subText">{{$item->subText or ''}}</textarea>
                         </div>
                     </div>
 

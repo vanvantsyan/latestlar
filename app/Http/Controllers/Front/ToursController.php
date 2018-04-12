@@ -2,20 +2,29 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Helpers\BladeHelper;
 use App\Http\Controllers\Controller;
+
+use App\Helpers\BladeHelper;
+
 use App\Models\GeneratedSeo;
+
 use App\Models\Geo;
 use App\Models\Points;
-use App\Models\Sletat as SletatApi;
+
 use App\Models\Tours;
 use App\Models\ToursTagsValues;
 use App\Models\Ways;
+
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 use Intervention\Image\Facades\Image;
+
+use App\Models\Sletat as SletatApi;
+use App\SletatParser;
 
 class ToursController extends Controller
 {
@@ -1222,9 +1231,9 @@ class ToursController extends Controller
         };
     }
 
-    public function sletat(SletatApi $sletatApi)
+    public function sletat(SletatParser $sletatParser)
     {
-
+        $sletatParser->parsResorts();
 //        $cities = $sletatApi->GetTours([
 //            "cityFromId" => 832,
 //            "countryId" => 35,

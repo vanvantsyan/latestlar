@@ -28,7 +28,23 @@
 
 @section('breadcrumbs')
     <div class="breadcrumbs">
-        @include('front.tours.modules.breadcrumbs', ['pTitle' => "Слетать"])
+        <div class="container">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="row">
+                    <div itemscope itemtype="http://star.glissmedia.ru/Breadcrumb">
+                        <a href="/" itemprop="url">
+                            <span itemprop="title">Главная</span>
+                        </a>
+                    </div>
+
+                    <div itemscope itemtype="http://star.glissmedia.ru/Breadcrumb">
+                        <a href="{{route('tour.list')}}" itemprop="url">
+                            <span itemprop="title">Поиск тура</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -84,7 +100,8 @@
                             </div>
                             <div class="tour-filter-item" style="display: none">
                                 <label>Направление</label>
-                                <input name="tourWay" id="tourWay" type="text" placeholder="" value="{{$way->title or ''}}">
+                                <input name="tourWay" id="tourWay" type="text" placeholder=""
+                                       value="{{$way->title or ''}}">
                             </div>
                             <div class="tour-filter-item" style="display: none">
                                 <label>Длительность</label>
@@ -105,7 +122,8 @@
                                     @for($i=1; $i < 16; $i++)
 
                                         @if($currentFrom)
-                                            <option value="{{$i}}" @if($currentFrom == $i) selected @endif>от {{$i}}</option>
+                                            <option value="{{$i}}" @if($currentFrom == $i) selected @endif>
+                                                от {{$i}}</option>
                                         @else
 
                                             @if($i == 1)
@@ -129,7 +147,8 @@
                                     @for($i=1; $i < 15; $i++)
 
                                         @if($currentTo && $currentTo != "more")
-                                            <option value="{{$i}}" @if($currentTo == $i) selected @endif>до {{$i}}</option>
+                                            <option value="{{$i}}" @if($currentTo == $i) selected @endif>
+                                                до {{$i}}</option>
                                         @else
                                             @if($i == 8)
                                                 <option value="{{$i}}">до {{$i}}</option>
@@ -153,7 +172,8 @@
                                        @if(isset($postData['priceTo'])) value="{{$postData['priceTo']}}@endif">
                             </div>
                             <div class="tour-filter-item date-mob filterDate" style="display:none">
-                                <label>Даты начала тура <span data-toggle="tooltip" title="Укажите желаемые даты выезда">?</span>
+                                <label>Даты начала тура <span data-toggle="tooltip"
+                                                              title="Укажите желаемые даты выезда">?</span>
                                     <div id="dateFilterToggle" class="off">включить</div>
                                 </label>
                                 <input name="tourDate" id="tourDate" class="date-pick dp-applied" value="" disabled>
@@ -191,9 +211,6 @@
             </div>
 
 
-
-
-
             <div class="clear"></div>
             <div class="seo-txt">
                 <h2>Подбор туров</h2>
@@ -205,7 +222,6 @@
                 <a href="#" class="seo-txt-btn">Больше информации</a>
             </div>
         </div>
-
 
 
         @include('front.modules.subscription')
