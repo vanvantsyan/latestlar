@@ -12,7 +12,7 @@ class SletatParser extends Command
      *
      * @var string
      */
-    protected $signature = 'sletat:action {action}';
+    protected $signature = 'sletat {action}';
 
     /**
      * The console command description.

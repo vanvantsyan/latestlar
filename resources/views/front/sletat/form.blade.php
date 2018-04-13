@@ -83,21 +83,53 @@
                         </div>
                     </div>
 
-                    <div class="tour-filter">
+                    <div class="tour-filter" id="sletatForm">
                         <form method="POST">
                             {{ csrf_field() }}
                             <div class="tour-filter-item filterCountry">
-                                <label>Страна</label>
-                                <select name="tourCountry" id="tourCountry" class="selectFirstLine">
-                                    <option value="">Любая</option>
-
+                                <label>Откуда</label>
+                                <select name="departCity" id="departCity" class="selectFirstLine">
+                                    @foreach($slDepartCities as $departCity)
+                                        <option value="{{$departCity->id}}">{{$departCity->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="tour-filter-item" class="filterPoint">
-                                <label>Город или достопримечательность</label>
-                                <input name="tourPoint" id="tourPoint" type="text" placeholder="Введите название"
-                                       value="{{$point->title or ''}}">
+                                <label>Куда</label>
+                                <select name="countryWay" id="countryWay" class="selectFirstLine">
+                                    @foreach($slCountries as $countryWay)
+                                        <option value="{{$countryWay->id}}">{{$countryWay->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
+                            <div class="tour-filter-item date-mob filterDate">
+                                <label>Интервалы дат вылета <span data-toggle="tooltip"
+                                                                  title="Укажите желаемые даты вылета">?</span>
+                                    <div id="dateFilterToggle" class="off">включить</div>
+                                </label>
+                                <input name="tourDate" id="tourDate" class="date-pick dp-applied" value="" disabled>
+                                <label class="icon-calendar" for="tourDate">
+                                    <img src="/img/icon-date.png" alt="date-icon" title="Выберите даты выезда"/>
+                                </label>
+                            </div>
+                            <div class="tour-filter-item" class="filterPoint">
+                                <label>Курорт</label>
+                                <select name="resort" id="hotel" class="selectFirstLine">
+                                    @foreach($slResorts as $resort)
+                                        <option value="{{$resort->id}}">{{$resort->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="tour-filter-item" class="filterPoint">
+                                <label>Отели</label>
+                                <select name="hotel" id="hotel" class="selectFirstLine">
+                                    @foreach($slHotels as $hotel)
+                                        <option value="{{$hotel->id}}">{{$hotel->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+
                             <div class="tour-filter-item" style="display: none">
                                 <label>Направление</label>
                                 <input name="tourWay" id="tourWay" type="text" placeholder=""
@@ -171,16 +203,7 @@
                                 <input name="priceTo" type="text" placeholder="до 12000000"
                                        @if(isset($postData['priceTo'])) value="{{$postData['priceTo']}}@endif">
                             </div>
-                            <div class="tour-filter-item date-mob filterDate" style="display:none">
-                                <label>Даты начала тура <span data-toggle="tooltip"
-                                                              title="Укажите желаемые даты выезда">?</span>
-                                    <div id="dateFilterToggle" class="off">включить</div>
-                                </label>
-                                <input name="tourDate" id="tourDate" class="date-pick dp-applied" value="" disabled>
-                                <label class="icon-calendar" for="tourDate">
-                                    <img src="/img/icon-date.png" alt="date-icon" title="Выберите даты выезда"/>
-                                </label>
-                            </div>
+
                             <div class="tour-filter-item category">
                                 <label>Категория тура</label>
                                 <select name="tourType">
@@ -199,11 +222,7 @@
                                     @endisset
                                 </select>
                             </div>
-
-                            <a href="#" class="tour-filter-more"><span>Расширенный поиск</span>
-                                <div> &#9660;</div>
-                            </a>
-                            <input id="filterTours" type="submit" class="btn btn-blue" value="Подобрать варианты">
+                            <input id="filterTours" type="submit" class="btn btn-blue" value="Найти">
 
                         </form>
                     </div>

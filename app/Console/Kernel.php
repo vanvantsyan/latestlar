@@ -25,8 +25,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        // Еженедельно обновляем данные туроператоров, так как они могут изменить направление
+         $schedule->command('sletat parsOperators')->weekly();
+
+        // Еженедельно обновляем информацию о количестве отелей определенной категории по странам и курортам
+         $schedule->command('sletat parsHotelStars')->weekly();
     }
 
     /**

@@ -116,3 +116,6 @@ input[name=tourDate]{
 a.order{
     text-align: center;
 }
+#sletatForm .filterDate{
+    margin-right: 0;
+}

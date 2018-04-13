@@ -2,29 +2,27 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
-
 use App\Helpers\BladeHelper;
-
+use App\Http\Controllers\Controller;
 use App\Models\GeneratedSeo;
-
 use App\Models\Geo;
 use App\Models\Points;
-
+use App\Models\SlCountries;
+use App\Models\SlDepartCities;
+use App\Models\SlHotels;
+use App\Models\SlHotelStars;
+use App\Models\SlMeals;
+use App\Models\SlOperators;
+use App\Models\SlResorts;
 use App\Models\Tours;
 use App\Models\ToursTagsValues;
 use App\Models\Ways;
-
+use App\SletatParser;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\DB;
-
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 use Intervention\Image\Facades\Image;
-
-use App\Models\Sletat as SletatApi;
-use App\SletatParser;
 
 class ToursController extends Controller
 {
@@ -1234,7 +1232,7 @@ class ToursController extends Controller
 
     public function sletat(SletatParser $sletatParser)
     {
-        $sletatParser->parsResorts();
+
 //        $cities = $sletatApi->GetTours([
 //            "cityFromId" => 832,
 //            "countryId" => 35,
@@ -1247,7 +1245,15 @@ class ToursController extends Controller
 //        ]);
 //        dd($cities);
 
-        return view('front.sletat.form');
+        return view('front.sletat.form', [
+            'slDepartCities' => SlDepartCities::all(),
+            'slCountries' => SlCountries::all(),
+            'slHotels' => SlHotels::all(),
+            'slHotelStars' => SlHotelStars::all(),
+            'slMeals' => SlMeals::all(),
+            'slOperators' => SlOperators::all(),
+            'slResorts' => SlResorts::all(),
+        ]);
     }
 
     public function applyFilters($tours, $filters)
