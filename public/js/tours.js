@@ -105,7 +105,7 @@ $('#tourOrderModal .modal-footer a:last-child').on('click', function (e) {
 
     // Request on server
     $.ajax({
-        url: "{{route('mail.order')}}",
+        url: "/tour/order",
         cache: false,
         data: data,
         type: "POST",

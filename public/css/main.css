@@ -132,3 +132,8 @@ a.order{
 }
 .scrollingBlock div{height: 25px;}
 .scrollingBlock span{float: none;color: brown;}
+.allChecked{padding: 5px 0;border-bottom: 1px dashed #3aaae4;margin-bottom: 10px;}
+.allChecked input{
+    width: 30px;
+    height: 0;
+}

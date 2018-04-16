@@ -114,11 +114,11 @@
                             </div>
                             <div class="tour-filter-item" class="filterPoint">
                                 <label>Курорт</label>
-                                <div class="allChecked"><input name="allResorts" id="allResorts" type="checkbox"><span>Выбраны все курорты</span></div>
+                                <div class="allChecked"><input name="allResorts" id="allResorts" type="checkbox" checked>Выбраны все курорты</div>
                                 <div class="scrollingBlock">
                                     @foreach($slResorts as $resort)
                                         <div>
-                                            <input name="resort" id="resort" type="checkbox" value="{{$resort->id}}" title="{{$resort->name}}"><span>{{Str::limit($resort->name, 25)}}</span>
+                                            <input name="resort" id="resort" type="checkbox" value="{{$resort->id}}" title="{{$resort->name}}" ><span>{{Str::limit($resort->name, 25)}}</span>
                                         </div>
                                     @endforeach
                                 </div>
@@ -126,7 +126,7 @@
 
                             <div class="tour-filter-item" class="filterPoint">
                                 <label>Отели</label>
-                                <div class="allChecked"><input name="allHotel" id="allHotel" type="checkbox"><span>Выбраны все отели</span></div>
+                                <div class="allChecked"><input name="allHotel" id="allHotel" type="checkbox" checked>Выбраны все отели</div>
                                 <div class="scrollingBlock">
                                     @foreach($slHotels as $hotel)
                                         <div>

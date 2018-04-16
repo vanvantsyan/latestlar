@@ -478,7 +478,7 @@
 
             // Request on server
             $.ajax({
-                url: "{{route('mail.order')}}",
+                url: "{!! route('mail.order')!!}",
                 cache: false,
                 data: data,
                 type: "POST",
@@ -509,7 +509,7 @@
         // Tours filter apply
         $('#filterTours').on('click', function (e) {
 
-            $('.tour-filter form').attr('action', '{{route('tour.list')}}');
+            $('.tour-filter form').attr('action', '{!! route('tour.list')!!}');
             $('.tour-filter form').submit();
 
             var filterBtn = $(this);
