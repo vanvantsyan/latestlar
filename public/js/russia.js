@@ -52,12 +52,6 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
 
-
-$('#sendPhone input[type=submit]').on('click', function (e) {
-    e.preventDefault();
-    $('#sendPhone').html('<div class="popular-tours-item-title">Заявка отправлена</div><p>Благодарим за обращение</p>');
-});
-
 // Points title auto complete input
 $("#tourPoint").autocomplete({
     source: "/search/autocomplete",

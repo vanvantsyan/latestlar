@@ -36,14 +36,17 @@ $('#sendPhone input[type=submit]').on('click', function (e) {
 
     // Request on server
     $.ajax({
-        url: "{{route('mail.phone')}}",
+        url: "/tour/phone",
         cache: false,
         data: data,
         type: "POST",
     }).done(function (data) {
+
+
         if (!data.ok && data.errors) {
 
             $.each(data.errors, function (key, value) {
+                console.info(key);
                 $('#' + key + '').addClass("has-error");
                 setTimeout(function () {
                     $('#' + key + '').removeClass("has-error")
@@ -57,6 +60,8 @@ $('#sendPhone input[type=submit]').on('click', function (e) {
     }).error(function () {
         // If errors
     });
+
+    return false;
 });
 
 function closeSortList() {

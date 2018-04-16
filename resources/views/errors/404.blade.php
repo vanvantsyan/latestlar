@@ -131,12 +131,6 @@
             $('[data-toggle="tooltip"]').tooltip()
         })</script>
     <script>
-        $('#sendPhone input[type=submit]').on('click', function (e) {
-            e.preventDefault();
-            $('#sendPhone').html('<div class="popular-tours-item-title">Заявка отправлена</div><p>Благодарим за обращение</p>');
-        });
-    </script>
-    <script>
         moment.locale('ru');
 
         $('#tourDate').daterangepicker({
