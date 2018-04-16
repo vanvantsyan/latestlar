@@ -66,7 +66,7 @@
                         <option value="{{$i}}" @if($currentTo == $i) selected @endif>до {{$i}}</option>
                     @else
                         @if($i == 8)
-                            <option value="{{$i}}">до {{$i}}</option>
+                            <option value="{{$i}}" selected>до {{$i}}</option>
                         @else
                             <option value="{{$i}}">до {{$i}}</option>
                         @endif

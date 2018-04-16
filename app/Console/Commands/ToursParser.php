@@ -57,6 +57,11 @@ class ToursParser extends Command
                 break;
             case('parsHoliday'):
                 $this->parser->relateWithHolidays();
+                break;
+            case('clearAll'):
+                $this->call('route:clear');
+                $this->call('view:clear');
+                $this->call('cache:clear');
         }
 
     }

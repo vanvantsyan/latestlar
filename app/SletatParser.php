@@ -268,7 +268,6 @@ class SletatParser
 
     public function parsOperators()
     {
-
         geoRel::where([
             'sub_ess' => 'operator',
             'par_ess' => 'country',
@@ -304,7 +303,7 @@ class SletatParser
                             'par_ess' => 'departCity',
 
                             'sub_id' => $item->Id,
-                            'par_id' => $country->id,
+                            'par_id' => $city->id,
                         ]);
 
 

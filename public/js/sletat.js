@@ -4,29 +4,17 @@ $.ajaxSetup({
     }
 });
 
+$('#sletatForm form').submit(function(e){
+    e.preventDefault();
+
+    var data = $(this).serializeArray();
+    console.log(data);
+
+    return false;
+});
+
 $('select').styler({
     selectSearch: true
-});
-
-
-$("#tourPoint").on('keyup', function (event) {
-
-    var s = $("#tourPoint").val();
-    //String.fromCharCode(event.keyCode || event.charCode);
-
-    if (!/^[а-яё ]*$/i.test(s)) {
-        $("#tourPoint").val(autoKeyboardLang(s));
-    }
-});
-
-// Points title auto complete input
-$("#tourPoint").autocomplete({
-    source: "/search/autocomplete",
-    minLength: 3,
-    select: function (event, ui) {
-
-        $('#tourPoint').val(ui.item.value);
-    }
 });
 
 $('.search-completed-item-date a:not(.all-dates)').on({

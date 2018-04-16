@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\ToursParser::class,
         Commands\SletatParser::class,
+        Commands\CustomCommands::class,
     ];
 
     /**

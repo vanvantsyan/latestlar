@@ -1258,6 +1258,20 @@ class ToursController extends Controller
             'par_id' => 119
         ])->pluck('id');
 
+        $operatorsIdsByCountries = slGeoRelation::where([
+            'sub_ess' => 'operator',
+            'par_ess' => 'country',
+            'par_id' => 119
+        ])->pluck('sub_id')->toArray();
+
+        $operatorsIdsByCities = slGeoRelation::where([
+            'sub_ess' => 'operator',
+            'par_ess' => 'departCity',
+            'par_id' => 832
+        ])->pluck('sub_id')->toArray();
+
+        $operatorsId =array_intersect($operatorsIdsByCountries, $operatorsIdsByCities);
+
         return view('front.sletat.form'
             ,
             [
@@ -1266,7 +1280,7 @@ class ToursController extends Controller
                 'slHotels' => SlHotels::whereIn('id', $hotelsIds)->get(),
                 'slHotelStars' => SlHotelStars::all(),
                 'slMeals' => SlMeals::all(),
-                'slOperators' => SlOperators::all(),
+                'slOperators' => SlOperators::whereIn('id', $operatorsId)->get(),
                 'slResorts' => SlResorts::all(),
             ]
         );

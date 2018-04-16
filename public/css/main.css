@@ -1,12 +1,14 @@
-select[name=tourType]{
+select[name=tourType] {
     width: 100%;
     color: #000;
 }
-select[name=durationFrom],select[name=durationTo]{
+
+select[name=durationFrom], select[name=durationTo] {
     width: 49%;
     color: #000;
 }
-select{
+
+select {
     padding: 0 45px 0 5px;
     height: 40px;
     border: none;
@@ -15,7 +17,11 @@ select{
     border-radius: 0;
     background: #fff;
 }
-label[for=tourDate] img{cursor: pointer}
+
+label[for=tourDate] img {
+    cursor: pointer
+}
+
 .popular-item-phone.has-error input {
     border: 1px solid #f00 !important;
     color: red;
@@ -25,35 +31,45 @@ label[for=tourDate] img{cursor: pointer}
     -o-transition: ease-in-out 0.2s;
     transition: ease-in-out 0.2s;
 }
+
 @media (max-width: 768px) {
     .header .menu .navbar-collapse li a.hot {
         padding-left: 15px !important;
     }
 }
+
 .tours-sorting-items a {
     padding: 5px 0;
     color: cadetblue;
 }
-.search-completed-item-date a:hover{
+
+.search-completed-item-date a:hover {
     background: #ff5500;
     color: #fff;
 }
-.font38{
+
+.font38 {
     font-size: 38px;
 }
-.slider-tour-price{
+
+.slider-tour-price {
     background: rgb(253, 228, 14);
     display: inline-block;
 
 }
 
-.slider-tour-price span{margin: 5px;}
-input[name=tourDate]{
+.slider-tour-price span {
+    margin: 5px;
+}
+
+input[name=tourDate] {
     letter-spacing: 0.7px;
 }
+
 .march-icon {
     position: relative;
 }
+
 .march-icon::before {
     content: "";
     width: 25px;
@@ -68,6 +84,7 @@ input[name=tourDate]{
 .may-icon {
     position: relative;
 }
+
 .may-icon::before {
     content: "";
     width: 25px;
@@ -78,7 +95,8 @@ input[name=tourDate]{
     transform: translateY(-50%);
     background: url(/img/9icon.png);
 }
-#dateFilterToggle{
+
+#dateFilterToggle {
     display: inline-block;
     padding: 0px;
     margin-left: 10px;
@@ -89,51 +107,129 @@ input[name=tourDate]{
     float: right;
     cursor: pointer;
 }
-.back-tours{
+
+.back-tours {
     background: url(../img/back-tours.jpg) 50% 50% no-repeat !important;
 
 }
 
-.selectFirstLine{
-    width:272px
+.selectFirstLine {
+    width: 272px
 }
-.filterDate {}
-.tour-filter-more > div{
+
+.filterDate {
+}
+
+.tour-filter-more > div {
     display: inline-block;
 }
-.stroke-h{
-    background: rgba(255,255,255,0.8);
+
+.stroke-h {
+    background: rgba(255, 255, 255, 0.8);
     display: initial;
     line-height: initial;
 }
-.stroke-desc{
-    background: rgba(255,255,255,0.8);
+
+.stroke-desc {
+    background: rgba(255, 255, 255, 0.8);
     display: initial;
 }
-.sort-open{
+
+.sort-open {
     z-index: -1;
 }
-a.order{
+
+a.order {
     text-align: center;
 }
-#sletatForm .filterDate{
+
+#sletatForm .filterDate {
     margin-right: 0;
 }
-.scrollingBlock{
+
+.scrollingBlock {
     height: 200px;
     overflow: scroll;
     background: #fff;
     color: #000;
     padding: 5px 0;
 }
-.scrollingBlock input{
+
+.scrollingBlock input {
     width: 30px;
     height: 0px;
 }
-.scrollingBlock div{height: 25px;}
-.scrollingBlock span{float: none;color: brown;}
-.allChecked{padding: 5px 0;border-bottom: 1px dashed #3aaae4;margin-bottom: 10px;}
-.allChecked input{
+
+.scrollingBlock div {
+    height: 25px;
+}
+
+.scrollingBlock span {
+    float: none;
+    color: brown;
+}
+
+.allChecked {
+    padding: 5px 0;
+    border-bottom: 1px dashed #3aaae4;
+    margin-bottom: 10px;
+}
+
+.allChecked input {
     width: 30px;
     height: 0;
+}
+
+.no-margin-right {
+    margin-right: 0;
+}
+
+#sletatForm .filterDurations {
+    margin-right: 10px !important;
+}
+
+.tour-filter-item.half {
+    width: 136px;
+    margin-right: 0;
+}
+
+.tour-filter-item.half .jq-selectbox {
+    width: 100%;
+}
+
+.tour-filter-item.meals div {
+    display: inline-block;
+    text-align: center;
+}
+
+.tour-filter-item.meals input {
+    width: 30px;
+    height: 0;
+}
+
+.tour-filter-item.meals span {
+    float: none;
+    color: #fff;
+    margin: 0;
+}
+
+.tour-filter-item.stars div {
+    display: inline-block;
+    text-align: center;
+}
+
+.tour-filter-item.stars input {
+    width: 30px;
+    height: 0;
+}
+
+.tour-filter-item.stars span {
+    float: none;
+    color: #fff;
+    margin: 0;
+}
+
+#sletatForm input[type=submit] {
+    width: 270px;
+
 }

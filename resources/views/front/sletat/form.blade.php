@@ -98,7 +98,12 @@
                                 <label>Куда</label>
                                 <select name="countryWay" id="countryWay" class="selectFirstLine">
                                     @foreach($slCountries as $countryWay)
-                                        <option value="{{$countryWay->id}}">{{$countryWay->name}}</option>
+                                        @if($countryWay->id == 119)
+                                            <option value="{{$countryWay->id}}" selected>{{$countryWay->name}}</option>
+                                        @else
+                                            <option value="{{$countryWay->id}}">{{$countryWay->name}}</option>
+                                            @enif
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -114,11 +119,14 @@
                             </div>
                             <div class="tour-filter-item" class="filterPoint">
                                 <label>Курорт</label>
-                                <div class="allChecked"><input name="allResorts" id="allResorts" type="checkbox" checked>Выбраны все курорты</div>
+                                <div class="allChecked"><input name="allResorts" id="allResorts" type="checkbox"
+                                                               checked>Выбраны все курорты
+                                </div>
                                 <div class="scrollingBlock">
                                     @foreach($slResorts as $resort)
                                         <div>
-                                            <input name="resort" id="resort" type="checkbox" value="{{$resort->id}}" title="{{$resort->name}}" ><span>{{Str::limit($resort->name, 25)}}</span>
+                                            <input name="resort" id="resort" type="checkbox" value="{{$resort->id}}"
+                                                   title="{{$resort->name}}"><span>{{Str::limit($resort->name, 25)}}</span>
                                         </div>
                                     @endforeach
                                 </div>
@@ -126,80 +134,61 @@
 
                             <div class="tour-filter-item" class="filterPoint">
                                 <label>Отели</label>
-                                <div class="allChecked"><input name="allHotel" id="allHotel" type="checkbox" checked>Выбраны все отели</div>
+                                <div class="allChecked"><input name="allHotel" id="allHotel" type="checkbox" checked>Выбраны
+                                    все отели
+                                </div>
                                 <div class="scrollingBlock">
                                     @foreach($slHotels as $hotel)
                                         <div>
-                                            <input name="hotel" id="hotel" type="checkbox" value="{{$hotel->id}}" title="{{$hotel->name}}"><span>{{Str::limit($hotel->name, 25)}}</span>
+                                            <input name="hotel" id="hotel" type="checkbox" value="{{$hotel->id}}"
+                                                   title="{{$hotel->name}}"><span>{{Str::limit($hotel->name, 25)}}</span>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <div class="tour-filter-item no-margin-right">
+                                <label>Операторы</label>
+                                <div class="allChecked"><input name="allOperatorsa" id="allOperatorsa" type="checkbox"
+                                                               checked>Выбраны
+                                    все операторы
+                                </div>
+                                <div class="scrollingBlock">
+                                    @foreach($slOperators as $operator)
+                                        <div>
+                                            <input name="hotel" id="hotel" type="checkbox" value="{{$operator->id}}"
+                                                   title="{{$operator->name}}"><span>{{Str::limit($operator->name, 25)}}</span>
                                         </div>
                                     @endforeach
                                 </div>
                             </div>
 
 
-                            <div class="tour-filter-item" style="display: none">
-                                <label>Направление</label>
-                                <input name="tourWay" id="tourWay" type="text" placeholder=""
-                                       value="{{$way->title or ''}}">
-                            </div>
-                            <div class="tour-filter-item" style="display: none">
-                                <label>Длительность</label>
-                                {{--<input name="duration" id="duration" type="text" placeholder="" value="{{$duration or ''}}">--}}
-                            </div>
-                            <div class="tour-filter-item time-mob" class="filterDuration">
-                                <label>Длительность тура (дни)</label>
-                                @if(isset($postData['durationFrom']) or isset($durationFrom))
-                                    @php
-                                        $currentFrom = isset($postData['durationFrom']) ? $postData['durationFrom'] : $durationFrom;
-                                    @endphp
-                                @else
-                                    @php
-                                        $currentFrom = '';
-                                    @endphp
-                                @endif
+                            <div class="tour-filter-item time-mob filterDurations">
+                                <label>Ночей</label>
+
                                 <select name="durationFrom" id="durationFrom">
-                                    @for($i=1; $i < 16; $i++)
+                                    @for($i=1; $i < 30; $i++)
 
-                                        @if($currentFrom)
-                                            <option value="{{$i}}" @if($currentFrom == $i) selected @endif>
-                                                от {{$i}}</option>
+                                        @if($i == 7)
+                                            <option value="{{$i}}" selected>от {{$i}}</option>
                                         @else
-
-                                            @if($i == 1)
-                                                <option value="{{$i}}" selected>от {{$i}}</option>
-                                            @else
-                                                <option value="{{$i}}">от {{$i}}</option>
-                                            @endif
+                                            <option value="{{$i}}">от {{$i}}</option>
                                         @endif
+
                                     @endfor
                                 </select>
-                                @if((isset($postData['durationTo']) && $postData['durationTo'] != "more") or isset($durationTo))
-                                    @php
-                                        $currentTo = isset($postData['durationTo']) ? $postData['durationTo'] : $durationTo;
-                                    @endphp
-                                @else
-                                    @php
-                                        $currentTo = '';
-                                    @endphp
-                                @endif
-                                <select name="durationTo" id="durationTo">
-                                    @for($i=1; $i < 15; $i++)
 
-                                        @if($currentTo && $currentTo != "more")
-                                            <option value="{{$i}}" @if($currentTo == $i) selected @endif>
-                                                до {{$i}}</option>
+                                <select name="durationTo" id="durationTo">
+                                    @for($i=1; $i < 30; $i++)
+
+                                        @if($i == 14)
+                                            <option value="{{$i}}" selected>до {{$i}}</option>
                                         @else
-                                            @if($i == 8)
-                                                <option value="{{$i}}">до {{$i}}</option>
-                                            @else
-                                                <option value="{{$i}}">до {{$i}}</option>
-                                            @endif
+                                            <option value="{{$i}}">до {{$i}}</option>
                                         @endif
+
                                     @endfor
-                                    <option value="more"
-                                            @if(!$currentTo || (isset($postData['durationTo']) && $postData['durationTo'] == "more")) selected @endif>
-                                        неограниченно
-                                    </option>
                                 </select>
                             </div>
 
@@ -211,23 +200,52 @@
                                        @if(isset($postData['priceTo'])) value="{{$postData['priceTo']}}@endif">
                             </div>
 
-                            <div class="tour-filter-item category">
-                                <label>Категория тура</label>
-                                <select name="tourType">
-                                    <option value="0">Все варианты</option>
-                                    @isset($tourTypes)
-                                        @forelse($tourTypes as $tourType)
-                                            @if(isset($postData['tourType']))
-                                                <option value="{{$tourType->id}}"
-                                                        @if($tourType->id == $postData['tourType'])selected="selected"@endif>{{$tourType->alias}}</option>
-                                            @else
-                                                <option value="{{$tourType->id}}"
-                                                        @if(is_object($tag) && $tourType->id == $tag->id)selected="selected"@endif>{{$tourType->alias}}</option>
-                                            @endif
-                                        @empty
-                                        @endforelse
-                                    @endisset
+                            <div class="tour-filter-item half">
+                                <label>Взрослых</label>
+
+                                <select name="adults" id="adults">
+                                    @for($i=1; $i < 5; $i++)
+
+                                        @if($i == 1)
+                                            <option value="{{$i}}" selected>{{$i}}</option>
+                                        @else
+                                            <option value="{{$i}}">{{$i}}</option>
+                                        @endif
+
+                                    @endfor
                                 </select>
+                            </div>
+
+                            <div class="tour-filter-item half">
+                                <label>Детей</label>
+
+                                <select name="childen" id="childen">
+                                    @for($i=0; $i < 4; $i++)
+
+                                        @if($i == 0)
+                                            <option value="{{$i}}" selected>{{$i}}</option>
+                                        @else
+                                            <option value="{{$i}}">{{$i}}</option>
+                                        @endif
+
+                                    @endfor
+                                </select>
+                            </div>
+
+                            <div class="tour-filter-item meals">
+                                <label>Питание</label>
+                                @foreach($slMeals as $meal)
+                                    <div><input type="checkbox" name="mials[]"
+                                                value="{{$meal['id']}}"><span>{{$meal['name']}}</span></div>
+                                @endforeach
+                            </div>
+
+                            <div class="tour-filter-item stars">
+                                <label>Категории отеля</label>
+                                @foreach($slHotelStars as $star)
+                                    <div><input type="checkbox" name="stars[]"
+                                                value="{{$star['id']}}"><span>{{$star['name']}}</span></div>
+                                @endforeach
                             </div>
                             <input id="filterTours" type="submit" class="btn btn-blue" value="Найти">
 
