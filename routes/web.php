@@ -151,7 +151,7 @@ Route::get('{country}/{url}', 'Front\ToursController@unitCountry')->where('url',
 
 Route::any('tury/{slug2?}/{slug3?}', 'Front\ToursController@list')->name('tour.list');
 Route::get('{country}', 'Front\ToursController@countryMain')->name('countryMain');
-Route::get('{country}/{slug2?}/{slug3?}', 'Front\ToursController@list')->name('tourCountry')->where('slug3','[^.]*'); //->where('country', 'russia')
+Route::get('{country}/{slug2?}/{slug3?}', 'Front\ToursController@list')->name('tourCountry')->where('slug3','[^.]*')->where('slug2','[^.]*'); //->where('country', 'russia')
 
 Route::post('moreTours', 'Front\ToursController@getMore')->name('moreTours');
 Route::post('filterTours', 'Front\ToursController@filters')->name('filterTours');

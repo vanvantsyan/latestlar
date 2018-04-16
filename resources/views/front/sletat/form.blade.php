@@ -103,8 +103,8 @@
                                 </select>
                             </div>
                             <div class="tour-filter-item date-mob filterDate">
-                                <label>Интервалы дат вылета <span data-toggle="tooltip"
-                                                                  title="Укажите желаемые даты вылета">?</span>
+                                <label>Интервал дат вылета <span data-toggle="tooltip"
+                                                                 title="Укажите желаемые даты вылета">?</span>
                                     <div id="dateFilterToggle" class="off">включить</div>
                                 </label>
                                 <input name="tourDate" id="tourDate" class="date-pick dp-applied" value="" disabled>
@@ -114,20 +114,26 @@
                             </div>
                             <div class="tour-filter-item" class="filterPoint">
                                 <label>Курорт</label>
-                                <select name="resort" id="hotel" class="selectFirstLine" multiple>
+                                <div class="allChecked"><input name="allResorts" id="allResorts" type="checkbox"><span>Выбраны все курорты</span></div>
+                                <div class="scrollingBlock">
                                     @foreach($slResorts as $resort)
-                                        <option value="{{$resort->id}}">{{$resort->name}}</option>
+                                        <div>
+                                            <input name="resort" id="resort" type="checkbox" value="{{$resort->id}}" title="{{$resort->name}}"><span>{{Str::limit($resort->name, 25)}}</span>
+                                        </div>
                                     @endforeach
-                                </select>
+                                </div>
                             </div>
 
                             <div class="tour-filter-item" class="filterPoint">
                                 <label>Отели</label>
-                                <select name="hotel" id="hotel" class="selectFirstLine" multiple>
+                                <div class="allChecked"><input name="allHotel" id="allHotel" type="checkbox"><span>Выбраны все отели</span></div>
+                                <div class="scrollingBlock">
                                     @foreach($slHotels as $hotel)
-                                        <option value="{{$hotel->id}}">{{$hotel->name}}</option>
+                                        <div>
+                                            <input name="hotel" id="hotel" type="checkbox" value="{{$hotel->id}}" title="{{$hotel->name}}"><span>{{Str::limit($hotel->name, 25)}}</span>
+                                        </div>
                                     @endforeach
-                                </select>
+                                </div>
                             </div>
 
 
