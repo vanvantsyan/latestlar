@@ -9,6 +9,7 @@ use App\Models\Geo;
 use App\Models\Points;
 use App\Models\SlCountries;
 use App\Models\SlDepartCities;
+use App\Models\SlGeoRelation;
 use App\Models\SlHotels;
 use App\Models\SlHotelStars;
 use App\Models\SlMeals;
@@ -338,6 +339,12 @@ class ToursController extends Controller
 
             // Курорт
             if ($resort = array_get($params, 'resort', null)) {
+
+                if (!$resort->url == 'moskva') {
+                    $resortSeo = "по " . BladeHelper::case($resort->title, "П");
+                } else {
+                    $resortSeo = BladeHelper::case($resort->title, "куда");;
+                }
 
                 if ($tour_type = array_get($params, 'tour_type', null)) {
                     $seo['pTitle'] = "$tour_type " . date("Y") . " " . $resortSeo . "";
@@ -1245,15 +1252,24 @@ class ToursController extends Controller
 //        ]);
 //        dd($cities);
 
-        return view('front.sletat.form', [
-            'slDepartCities' => SlDepartCities::all(),
-            'slCountries' => SlCountries::all(),
-            'slHotels' => SlHotels::all(),
-            'slHotelStars' => SlHotelStars::all(),
-            'slMeals' => SlMeals::all(),
-            'slOperators' => SlOperators::all(),
-            'slResorts' => SlResorts::all(),
-        ]);
+        $hotelsIds = slGeoRelation::where([
+            'sub_ess' => 'hotel',
+            'par_ess' => 'country',
+            'par_id' => 119
+        ])->pluck('id');
+
+        return view('front.sletat.form'
+            ,
+            [
+                'slDepartCities' => SlDepartCities::all(),
+                'slCountries' => SlCountries::all(),
+                'slHotels' => SlHotels::whereIn('id', $hotelsIds)->get(),
+                'slHotelStars' => SlHotelStars::all(),
+                'slMeals' => SlMeals::all(),
+                'slOperators' => SlOperators::all(),
+                'slResorts' => SlResorts::all(),
+            ]
+        );
     }
 
     public function applyFilters($tours, $filters)

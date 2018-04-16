@@ -53,7 +53,11 @@
                             <h1 class="stroke-h">{{$seo['pTitle']}}</h1>
                             <div class="tour-preview-desc">
                                 <div class="stroke-desc">
-                                    Компания STARTOUR предлагает лучшие туры по России. <span>Только самые интересные и проверенные маршруты!</span>
+                                    @if(isset($seo['topText']) && $seo['topText'])
+                                        {!! $seo['topText'] !!}
+                                    @else
+                                        Компания STARTOUR предлагает лучшие туры по России. <span>Только самые интересные и проверенные маршруты!</span>
+                                    @endif
                                 </div>
                             </div>
                             <a href="#" class="btn btn-yellow" data-toggle="modal" data-target="#tourOrderModal">Отправить

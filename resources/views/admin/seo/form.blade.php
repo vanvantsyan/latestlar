@@ -72,6 +72,13 @@
 
                     <div class="form-group m-form__group row">
                         <div class="col-md-12 col-xs-12">
+                            <label for="topText">Текст сверху</label>
+                            <textarea class="summernote" class="form-control m-input m-input--square" name="topText">{{$item->topText or ''}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group m-form__group row">
+                        <div class="col-md-12 col-xs-12">
                             <label for="subText">Текст сбоку</label>
                             <textarea class="summernote" class="form-control m-input m-input--square" name="subText">{{$item->subText or ''}}</textarea>
                         </div>
