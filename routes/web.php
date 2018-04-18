@@ -142,9 +142,17 @@ Route::group(['middleware' => 'auth'], function () {
 
 /* Tour routes*/
 
+/* Pages */
+
+Route::get('/sanatorii-i-pansionatyi', 'Front\PagesController@sanatorii')->name('pages.sanatorii');
+
+/* sletat api */
+
 Route::get('sletat', 'Front\SletatController@index')->name('sletat');
 Route::post('sletat/getTours', 'Front\SletatController@getTours')->name('sletat.tours');
 Route::post('sletat/getStatus', 'Front\SletatController@getStatus')->name('sletat.status');
+
+/* tours */
 
 Route::get('search/autocomplete', 'Front\ToursController@autocomplete');
 

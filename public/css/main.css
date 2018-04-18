@@ -237,3 +237,7 @@ a.order {
 .meals .allChecked, .stars .allChecked {
     display: block !important;
 }
+
+.background-white{
+    background: #fff;
+}

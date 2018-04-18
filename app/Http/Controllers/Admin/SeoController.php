@@ -9,7 +9,7 @@ use App\Models\GeneratedSeo;
 class SeoController extends Controller
 {
     public function index(){
-        $units = GeneratedSeo::all();
+        $units = GeneratedSeo::select('id','url')->orderBy('id')->get();
         return view('admin.seo.index', ['units' => $units]);
     }
 
