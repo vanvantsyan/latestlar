@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset('css/russia.css')}}">
     <style>
         @if($country->banner)
-        .page-{{$country->slug}}  {
+        .page-{{$country->slug}}   {
             background: url(/uploads/countries/banners/{{$country->banner}}) 50% 0 no-repeat;
         }
         @endif
@@ -80,6 +80,31 @@
                             <div class="popular-tours-items">
                                 <table>
                                     <tbody>
+                                    <tr>
+                                        <td style="background-color: #007cbc;">
+                                            <div class="popular-tours-item small" id="sendPhone">
+                                                <div class="popular-tours-item-title">Подберем тур по Вашим запросам!
+                                                </div>
+                                                <form>
+                                                    <div class="popular-item-phone" id="phone">
+                                                        <i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>
+                                                        <input name="phone" type="text"
+                                                               placeholder="+7 (095) 322-44-54">
+                                                    </div>
+                                                    <input class="btn btn-blue" type="submit" value="Жду звонка">
+                                                </form>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="popular-tours-item small">
+                                                <a href="/sanatorii-i-pansionatyi">
+                                                    <img src="img/popular-tours-item-8.jpg" alt="">
+                                                    <span class="orange">Все санатории России.</span>
+                                                    <span>Бронируйте он-лайн <br> через STARTOUR!</span>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td rowspan="2">
                                             <a href="/russia/tury-zolotoe-kolczo" class="popular-tours-item big">
@@ -222,28 +247,6 @@
                                             </a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td style="background-color: #007cbc;">
-                                            <div class="popular-tours-item small" id="sendPhone">
-                                                <div class="popular-tours-item-title">Подберем тур по Вашим запросам!
-                                                </div>
-                                                <form>
-                                                    <div class="popular-item-phone" id="phone">
-                                                        <i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>
-                                                        <input name="phone" type="text" placeholder="+7 (095) 322-44-54">
-                                                    </div>
-                                                    <input class="btn btn-blue" type="submit" value="Жду звонка">
-                                                </form>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="popular-tours-item small">
-                                                <img src="img/popular-tours-item-8.jpg" alt="">
-                                                <span class="orange">Все санатории России.</span>
-                                                <span>Бронируйте он-лайн <br> через STARTOUR!</span>
-                                            </div>
-                                        </td>
-                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -274,7 +277,9 @@
                                                             @php
                                                                 $images = (array) json_decode($tour['images']);
                                                             @endphp
-                                                            <img onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')" src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}" alt="">
+                                                            <img onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')"
+                                                                 src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
+                                                                 alt="">
                                                             @if($tour['price'] > 0)
                                                                 <span>от {{number_format($tour['price'], 0 ,'.','')}}
                                                                     <span
@@ -313,7 +318,8 @@
                                                             @php
                                                                 $images = (array) json_decode($tour['images']);
                                                             @endphp
-                                                            <img onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')" src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
+                                                            <img onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')"
+                                                                 src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
                                                                  alt="">
                                                             @if($tour['price'] > 0)
                                                                 <span>от {{number_format($tour['price'], 0 ,'.','')}}
@@ -353,7 +359,8 @@
                                                             @php
                                                                 $images = (array) json_decode($tour['images']);
                                                             @endphp
-                                                            <img onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')" src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
+                                                            <img onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')"
+                                                                 src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
                                                                  alt="">
                                                             @if($tour['price'] > 0)
                                                                 <span>от {{number_format($tour['price'], 0 ,'.','')}}
@@ -393,7 +400,8 @@
                                                             @php
                                                                 $images = (array) json_decode($tour['images']);
                                                             @endphp
-                                                            <img onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')" src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
+                                                            <img onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')"
+                                                                 src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
                                                                  alt="">
                                                             @if($tour['price'] > 0)
                                                                 <span>от {{number_format($tour['price'], 0 ,'.','')}}
@@ -438,7 +446,7 @@
             <div class="seo-txt">
                 <h2>О стране</h2>
                 @php
-                $colSimbols = strlen(Str::words($country->description, 50, '...'));
+                    $colSimbols = strlen(Str::words($country->description, 50, '...'));
                 @endphp
                 {!! Str::words($country->description, 50, '...') !!}
                 <div class="seo-txt-more">
@@ -489,7 +497,7 @@
 
                 if (!data.ok && data.errors) {
                     $.each(data.errors, function (key, value) {
-                        console.log(key+ ' - ' + value + '\n');
+                        console.log(key + ' - ' + value + '\n');
                         $('#' + key + ' span').addClass("red");
                         $('#' + key + ' span').text(value);
                     })
