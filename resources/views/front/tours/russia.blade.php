@@ -15,9 +15,9 @@
     </style>
 @endsection
 
-@section('title', $seo['bTitle'])
-@section('description', $seo['metaDesc'])
-@section('keywords', $seo['metaKey'])
+@section('title', Gliss::templateVars($seo['bTitle']))
+@section('description', Gliss::templateVars($seo['metaDesc']))
+@section('keywords', Gliss::templateVars($seo['metaKey']))
 
 @section('breadcrumbs')
     <div class="breadcrumbs">
