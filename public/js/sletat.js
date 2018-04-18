@@ -61,16 +61,16 @@ $('#sletatForm form').submit(function (e) {
                             console.log(data);
 
                             // Request on server
-                            $.ajax({
-                                url: "/sletat/getTours",
-                                cache: false,
-                                data: data,
-                                type: "POST",
-                                dataType: "json"
-
-                            }).done(function (data) {
-                                // console.log(data)
-                            });
+                            // $.ajax({
+                            //     url: "/sletat/getTours",
+                            //     cache: false,
+                            //     data: data,
+                            //     type: "POST",
+                            //     dataType: "json"
+                            //
+                            // }).done(function (data) {
+                            //     // console.log(data)
+                            // });
                             console.log('finish end - ' + end);
                             this.end = end;
                         }

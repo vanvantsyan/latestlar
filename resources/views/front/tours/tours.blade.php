@@ -78,7 +78,9 @@
                     <div class="search-completed">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
-                                <div class="title"><span id="toursFrom">{!! Gliss::templateVars($seo['pTitle']) !!}</span> из г. Москва,
+                                <div class="title"><span
+                                            id="toursFrom">{!! Gliss::templateVars($seo['pTitle']) !!}</span> из г.
+                                    Москва,
                                     найдено: <span
                                             id="countFound">{{$countTours}}</span></div>
                                 <a href="#" class="btn sorting-btn">Кратко</a>
@@ -146,9 +148,11 @@
                                     </td>
                                     <td>
                                         <div class="popular-tours-item small">
-                                            <img src="/img/popular-tours-item-8.jpg" alt="">
-                                            <span class="orange">Все санатории России.</span>
-                                            <span>Бронируйте он-лайн <br> через STARTOUR!</span>
+                                            <a href="/sanatorii-i-pansionatyi">
+                                                <img src="/img/popular-tours-item-8.jpg" alt="">
+                                                <span class="orange">Все санатории России.</span>
+                                                <span>Бронируйте он-лайн <br> через STARTOUR!</span>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
