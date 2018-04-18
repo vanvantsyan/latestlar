@@ -88,7 +88,7 @@
                             {{ csrf_field() }}
                             <div class="tour-filter-item filterCountry">
                                 <label>Откуда</label>
-                                <select name="departCity" id="departCity" class="selectFirstLine">
+                                <select name="cityFromId" id="cityFromId" class="selectFirstLine">
                                     @foreach($slDepartCities as $departCity)
                                         <option value="{{$departCity->id}}">{{$departCity->name}}</option>
                                     @endforeach
@@ -96,7 +96,7 @@
                             </div>
                             <div class="tour-filter-item" class="filterPoint">
                                 <label>Куда</label>
-                                <select name="countryWay" id="countryWay" class="selectFirstLine">
+                                <select name="countryId" id="countryId" class="selectFirstLine">
                                     @foreach($slCountries as $countryWay)
                                         @if($countryWay->id == 119)
                                             <option value="{{$countryWay->id}}" selected>{{$countryWay->name}}</option>
@@ -119,14 +119,13 @@
                             </div>
                             <div class="tour-filter-item" class="filterPoint">
                                 <label>Курорт</label>
-                                <div class="allChecked"><input name="allResorts" id="allResorts" type="checkbox"
-                                                               checked>Выбраны все курорты
+                                <div class="allChecked">
+                                    <input name="allResorts" id="allResorts" type="checkbox" data-check="all" checked>Выбраны все курорты
                                 </div>
                                 <div class="scrollingBlock">
                                     @foreach($slResorts as $resort)
                                         <div>
-                                            <input name="resort" id="resort" type="checkbox" value="{{$resort->id}}"
-                                                   title="{{$resort->name}}"><span>{{Str::limit($resort->name, 25)}}</span>
+                                            <input name="resort[]" id="resort" type="checkbox" value="{{$resort->id}}" title="{{$resort->name}}"><span>{{Str::limit($resort->name, 25)}}</span>
                                         </div>
                                     @endforeach
                                 </div>
@@ -134,7 +133,8 @@
 
                             <div class="tour-filter-item" class="filterPoint">
                                 <label>Отели</label>
-                                <div class="allChecked"><input name="allHotel" id="allHotel" type="checkbox" checked>Выбраны
+                                <div class="allChecked">
+                                    <input name="allHotel" id="allHotel" type="checkbox" data-check="all" checked>Выбраны
                                     все отели
                                 </div>
                                 <div class="scrollingBlock">
@@ -149,8 +149,8 @@
 
                             <div class="tour-filter-item no-margin-right">
                                 <label>Операторы</label>
-                                <div class="allChecked"><input name="allOperatorsa" id="allOperatorsa" type="checkbox"
-                                                               checked>Выбраны
+                                <div class="allChecked">
+                                    <input name="allOperatorsa" id="allOperatorsa" type="checkbox" data-check="all" checked>Выбраны
                                     все операторы
                                 </div>
                                 <div class="scrollingBlock">
@@ -234,6 +234,10 @@
 
                             <div class="tour-filter-item meals">
                                 <label>Питание</label>
+                                <div class="allChecked">
+                                    <input name="allMeals" id="allMeals" type="checkbox" data-check="all" checked>Выбраны
+                                    все
+                                </div>
                                 @foreach($slMeals as $meal)
                                     <div><input type="checkbox" name="mials[]"
                                                 value="{{$meal['id']}}"><span>{{$meal['name']}}</span></div>
@@ -242,6 +246,9 @@
 
                             <div class="tour-filter-item stars">
                                 <label>Категории отеля</label>
+                                <div class="allChecked"><input name="allStars" id="allStars" type="checkbox" data-check="all" checked>Выбраны
+                                    все
+                                </div>
                                 @foreach($slHotelStars as $star)
                                     <div><input type="checkbox" name="stars[]"
                                                 value="{{$star['id']}}"><span>{{$star['name']}}</span></div>

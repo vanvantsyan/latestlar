@@ -233,3 +233,7 @@ a.order {
     width: 270px;
 
 }
+
+.meals .allChecked, .stars .allChecked {
+    display: block !important;
+}

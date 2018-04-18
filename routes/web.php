@@ -142,7 +142,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 /* Tour routes*/
 
-Route::get('sletat', 'Front\ToursController@sletat')->name('sletat');
+Route::get('sletat', 'Front\SletatController@index')->name('sletat');
+Route::post('sletat/getTours', 'Front\SletatController@getTours')->name('sletat.tours');
+Route::post('sletat/getStatus', 'Front\SletatController@getStatus')->name('sletat.status');
 
 Route::get('search/autocomplete', 'Front\ToursController@autocomplete');
 
@@ -167,6 +169,8 @@ Route::post('tour/phone', 'Front\MailController@sendPhone')->name('mail.phone');
 Route::post('tours/seo', 'Front\ToursController@getSeoTours')->name('tours.seo');
 
 Route::post('modals/getAll', 'Front\ToursController@getModals')->name('modal.all');
+
+
 
 
 

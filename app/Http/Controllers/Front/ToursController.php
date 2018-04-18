@@ -7,18 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\GeneratedSeo;
 use App\Models\Geo;
 use App\Models\Points;
-use App\Models\SlCountries;
-use App\Models\SlDepartCities;
-use App\Models\SlGeoRelation;
-use App\Models\SlHotels;
-use App\Models\SlHotelStars;
-use App\Models\SlMeals;
-use App\Models\SlOperators;
-use App\Models\SlResorts;
 use App\Models\Tours;
 use App\Models\ToursTagsValues;
 use App\Models\Ways;
-use App\SletatParser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -1235,55 +1226,6 @@ class ToursController extends Controller
         } else {
             return view('front.tours.empty');
         };
-    }
-
-    public function sletat(SletatParser $sletatParser)
-    {
-
-//        $cities = $sletatApi->GetTours([
-//            "cityFromId" => 832,
-//            "countryId" => 35,
-//            "cities" => 724,
-//            "meals" => 114,
-//            "stars" => 401,
-//            "s_adults" => 2,
-//            'requestId' => 1204004600,
-//            'updateResult' => 1
-//        ]);
-//        dd($cities);
-
-        $hotelsIds = slGeoRelation::where([
-            'sub_ess' => 'hotel',
-            'par_ess' => 'country',
-            'par_id' => 119
-        ])->pluck('id');
-
-        $operatorsIdsByCountries = slGeoRelation::where([
-            'sub_ess' => 'operator',
-            'par_ess' => 'country',
-            'par_id' => 119
-        ])->pluck('sub_id')->toArray();
-
-        $operatorsIdsByCities = slGeoRelation::where([
-            'sub_ess' => 'operator',
-            'par_ess' => 'departCity',
-            'par_id' => 832
-        ])->pluck('sub_id')->toArray();
-
-        $operatorsId =array_intersect($operatorsIdsByCountries, $operatorsIdsByCities);
-
-        return view('front.sletat.form'
-            ,
-            [
-                'slDepartCities' => SlDepartCities::all(),
-                'slCountries' => SlCountries::all(),
-                'slHotels' => SlHotels::whereIn('id', $hotelsIds)->get(),
-                'slHotelStars' => SlHotelStars::all(),
-                'slMeals' => SlMeals::all(),
-                'slOperators' => SlOperators::whereIn('id', $operatorsId)->get(),
-                'slResorts' => SlResorts::all(),
-            ]
-        );
     }
 
     public function applyFilters($tours, $filters)
