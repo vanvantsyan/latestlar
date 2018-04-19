@@ -240,7 +240,8 @@ class Sletat
     public function GetTours(array $paramsArr) {
 
         $params = $this->setParams($paramsArr);
-        $output = $this->curlRequest('http://module.sletat.ru/Main.svc/GetTours' . $params . "&login=" . $this->login . "&password=" . $this->password);
+
+        $output = $this->curlRequest('http://module.sletat.ru/Main.svc/GetTours' . $params . "&login=" . $this->login . "&password=" . $this->password . "");
 
         return json_decode($output);
 

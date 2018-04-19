@@ -239,6 +239,7 @@ return [
         'Blog' => App\Facades\BlogFacade::class,
         'Slug' => Alexusmai\Ruslug\RuslugFacade::class,
         'Gliss' => App\Helpers\BladeHelper::class,
+        'Sletat' => App\Helpers\SletatHelper::class,
         'Date' => Jenssegers\Date\Date::class,
     ],
 

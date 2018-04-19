@@ -68,6 +68,9 @@ class SletatController extends Controller
         $filters['cityFromId'] = $data['cityFromId'];
         $filters['countryId'] = $data['countryId'];
 
+//        if (isset($data['includeDescriptions']))
+//            $filters['includeDescriptions'] = $data['includeDescriptions'];
+
         if (isset($data['resort']) && ($data['resort'] or count($data['resort']))) {
 
             if (is_array($data['resort'])) {
@@ -91,6 +94,12 @@ class SletatController extends Controller
 //            'requestId' => 1204004600,
 //            'updateResult' => 1
 //        ]);
+
+        if (isset($data['requestId']) && $data['requestId']) {
+            dd($response);
+//            return json_encode($response->GetToursResult->Data->aaData);
+            return view('front.sletat.list', ['tours' => $response->GetToursResult->Data->aaData]);
+        }
 
         return json_encode($response);
     }

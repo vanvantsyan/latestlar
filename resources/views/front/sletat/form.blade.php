@@ -258,6 +258,9 @@
 
                         </form>
                     </div>
+
+                    <div class="search-completed-items"></div>
+
                 </div>
             </div>
 

@@ -4,12 +4,75 @@ $.ajaxSetup({
     }
 });
 
+var getSletatTours = function(i, requestId, data){
+
+    return function(){
+
+        // Request on server
+        $.ajax({
+            url: "/sletat/getStatus",
+            cache: false,
+            data: {'requestId': requestId},
+            type: "POST",
+            dataType: "json"
+
+        }).done(function (processed) {
+
+            console.info('processed: ' + processed * 100 + ' % iteration — ' + i);
+
+            // If 100% processed
+            if (processed == 1) {
+
+                data.push({
+                    'name': 'requestId',
+                    'value': requestId
+                });
+
+                data.push({
+                    'name': 'updateResult',
+                    'value': 1
+                });
+
+                // data.push({
+                //     'name': 'includeDescriptions',
+                //     'value': 'true'
+                // });
+
+                console.log(" — finish — ");
+                console.log(data);
+
+                //Request on server
+                $.ajax({
+                    url: "/sletat/getTours",
+                    cache: false,
+                    data: data,
+                    type: "POST",
+
+                }).done(function (tours) {
+
+                    console.info('tours got');
+                    $('.search-completed-items').html(tours);
+                });
+
+            } else {
+
+                setTimeout(getSletatTours(++i, requestId, data), 2000);
+            }
+
+        }).error(function () {
+            // If errors
+        });
+    }
+};
+
+
 $('#sletatForm form').submit(function (e) {
+
     e.preventDefault();
 
     var data = $(this).serializeArray();
 
-    console.info('Request on server');
+    console.log('Request on server');
 
     // Request on server
     $.ajax({
@@ -24,68 +87,9 @@ $('#sletatForm form').submit(function (e) {
 
         var requestId = response.GetToursResult.Data.requestId;
 
-        console.info('get response id = ' + requestId);
+        console.log('get response id = ' + requestId);
 
-        var end;
-        for (var i = 0, end = false; i < 30; i++) {
-
-            if (end) break;
-
-            (function (i, end) {
-                var requestCycle = setTimeout(function () {
-
-                    // Request on server
-                    $.ajax({
-                        url: "/sletat/getStatus",
-                        cache: false,
-                        data: {'requestId': requestId},
-                        type: "POST",
-                        dataType: "json"
-
-                    }).done(function (processed) {
-
-                        console.info('processed: ' + processed * 100 + ' % iteration — ' + i);
-
-                        // If 100% processed
-                        if (processed == 1) {
-
-                            end = true;
-
-                            clearTimeout(requestCycle);
-
-                            data.push({
-                                'requestId': requestId,
-                                'updateResult': 1
-                            });
-                            console.info(" — finish — ");
-                            console.log(data);
-
-                            // Request on server
-                            // $.ajax({
-                            //     url: "/sletat/getTours",
-                            //     cache: false,
-                            //     data: data,
-                            //     type: "POST",
-                            //     dataType: "json"
-                            //
-                            // }).done(function (data) {
-                            //     // console.log(data)
-                            // });
-                            console.log('finish end - ' + end);
-                            this.end = end;
-                        }
-
-                    }).error(function () {
-                        // If errors
-                    });
-
-                    console.log(end);
-                    if (end) return false;
-                }, i * 2000)
-            })(i, end);
-        }
-
-        // This code get result data aa[]
+        setTimeout(getSletatTours(0, requestId, data), 2000);
 
     }).error(function () {
         // If errors
