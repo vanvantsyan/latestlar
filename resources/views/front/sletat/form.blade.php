@@ -259,6 +259,12 @@
                         </form>
                     </div>
 
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-bar" style="display: none;">
+                            <img style="position: absolute;margin-left: -69px;margin-top: 3px;" src="/img/preloader.svg">
+                            <span class="progress-bar-fill" style="width: 0%"></span>
+                        </div>
+                    </div>
                     <div class="search-completed-items"></div>
 
                 </div>

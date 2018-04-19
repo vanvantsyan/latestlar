@@ -13,6 +13,8 @@ use App\Models\SlMeals;
 use App\Models\SlOperators;
 use App\Models\SlResorts;
 use Illuminate\Http\Request;
+use sletatru\XmlGate;
+use sletatru\BaseServiceSoap;
 
 class SletatController extends Controller
 {
@@ -25,6 +27,15 @@ class SletatController extends Controller
 
     public function index()
     {
+        $xml = new XmlGate([
+            'login' => 'info@startour.ru',
+            'password' => 'YwO49DFBfwEe6qC',
+        ]);
+
+        $departCities = $xml->GetHotelInformation(17);
+
+        dd($departCities);
+
         $hotelsIds = slGeoRelation::where([
             'sub_ess' => 'hotel',
             'par_ess' => 'country',
@@ -96,8 +107,8 @@ class SletatController extends Controller
 //        ]);
 
         if (isset($data['requestId']) && $data['requestId']) {
-            dd($response);
-//            return json_encode($response->GetToursResult->Data->aaData);
+//            dd($response);
+//            return $response->GetToursResult->Data->aaData;
             return view('front.sletat.list', ['tours' => $response->GetToursResult->Data->aaData]);
         }
 

@@ -18,7 +18,10 @@ var getSletatTours = function(i, requestId, data){
 
         }).done(function (processed) {
 
-            console.info('processed: ' + processed * 100 + ' % iteration — ' + i);
+            percent = Math.round(processed * 100)
+
+            console.info('processed: ' + percent + ' % iteration — ' + i);
+            $('.progress-bar-fill').width(percent + '%');
 
             // If 100% processed
             if (processed == 1) {
@@ -49,7 +52,7 @@ var getSletatTours = function(i, requestId, data){
                     type: "POST",
 
                 }).done(function (tours) {
-
+                    $('.progress-bar').hide();
                     console.info('tours got');
                     $('.search-completed-items').html(tours);
                 });
@@ -88,6 +91,8 @@ $('#sletatForm form').submit(function (e) {
         var requestId = response.GetToursResult.Data.requestId;
 
         console.log('get response id = ' + requestId);
+
+        $('.progress-bar').show();
 
         setTimeout(getSletatTours(0, requestId, data), 2000);
 
