@@ -260,3 +260,6 @@ a.order {
     border-radius: 3px;
     transition: width 500ms ease-in-out;
 }
+.modal-body .items img{
+    padding-bottom: 5px;
+}

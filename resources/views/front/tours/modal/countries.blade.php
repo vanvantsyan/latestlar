@@ -8,7 +8,11 @@
             <div class="modal-body">
                 <div class="row">
                     @foreach($countries as $country)
-                        <a class="col-xs-6 col-sm-4 items" href="/{{$country->slug}}">{{$country->country}}</a>
+                        <a class="col-xs-6 col-sm-4 items" href="/{{$country->slug}}">
+                            @if($country->flag)
+                                <img width="15" src="/uploads/countries/flags/{{$country->flag}}"/>
+                            @endif
+                            {{$country->country}} ({{$country->count_tours}})</a>
                     @endforeach
                 </div>
             </div>

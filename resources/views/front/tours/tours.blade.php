@@ -167,7 +167,7 @@
                             @empty
                             @endforelse
                         @endif
-                        @if(count($tours) > 15)
+                        @if($countTours > 15)
                             <a href="#" class="btn-more-tours">Показать еще туры</a>
                         @endif
                     </div>
