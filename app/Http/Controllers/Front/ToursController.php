@@ -1144,8 +1144,9 @@ class ToursController extends Controller
         // Join with dates by sorting
         $toursIds = $tours->pluck('tours.id')->toArray();
 
-        $tours->leftJoin(
-            DB::raw("
+        if($toursIds) {
+            $tours->leftJoin(
+                DB::raw("
             (
             SELECT tour_id, MIN(value) as nearestDate 
                 FROM tour_tags_relations 
@@ -1156,15 +1157,18 @@ class ToursController extends Controller
             GROUP BY tour_id
             ) as dv
             ")
-            ,
-            'tours.id', '=', 'dv.tour_id'
-        );
+                ,
+                'tours.id', '=', 'dv.tour_id'
+            );
 
-        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration', DB::raw("MIN(dv.nearestDate) as nearestDate"));
+            $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration', DB::raw("MIN(dv.nearestDate) as nearestDate"));
 
-        $tours->groupBy('tours.id', 'dv.nearestDate');
-        $tours->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '99999999999999999999999' ELSE dv.nearestDate END");
+            $tours->groupBy('tours.id', 'dv.nearestDate');
+            $tours->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '99999999999999' ELSE dv.nearestDate END");
 
+        } else {
+
+        }
 
         // SET limits
         $limit = $request->input('limit');
@@ -1194,8 +1198,9 @@ class ToursController extends Controller
         // Join with dates by sorting
         $toursIds = $tours->pluck('tours.id')->toArray();
 
-        $tours->leftJoin(
-            DB::raw("
+        if ($toursIds) {
+            $tours->leftJoin(
+                DB::raw("
             (
             SELECT tour_id, MIN(value) as nearestDate 
                 FROM tour_tags_relations 
@@ -1206,14 +1211,20 @@ class ToursController extends Controller
             GROUP BY tour_id
             ) as dv
             ")
-            ,
-            'tours.id', '=', 'dv.tour_id'
-        );
+                ,
+                'tours.id', '=', 'dv.tour_id'
+            );
 
-        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration', DB::raw("MIN(dv.nearestDate) as nearestDate"));
+            $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration', DB::raw("MIN(dv.nearestDate) as nearestDate"));
+            $tours->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '99999999999999999999999' ELSE dv.nearestDate END");
 
-        $tours->groupBy('tours.id');
-        $tours->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '99999999999999999999999' ELSE dv.nearestDate END");
+        } else {
+
+            $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration');
+        }
+
+        $tours->groupBy('tours.id'); // dv.nearestDate ??
+
 
         // Apply limits
         $limit = $request->input('limit', 15);

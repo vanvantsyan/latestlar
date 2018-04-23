@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset('css/russia.css')}}">
     <style>
         @if($country->banner)
-        .page-{{$country->slug}}   {
+        .page-{{$country->slug}}      {
             background: url(/uploads/countries/banners/{{$country->banner}}) 50% 0 no-repeat;
         }
         @endif
@@ -257,37 +257,50 @@
                             <h2 class="hot">Горящие туры по {{Gliss::case($country->country, "Д")}} из <a href="#">Москвы</a>
                             </h2>
                             <div class="burning-tours-filter" id="toursTab">
-                                @if(count($hotToursAny))<a class="active" href="#allTours" class="active"
+                                @if(count($hotToursAny))<a class="active" href="#hotToursAny" class="active"
                                                            data-toggle="tab">Все</a>@endif
-                                @if(count($hotToursOne))<a href="#oneDay" data-toggle="tab">Однодневные</a>@endif
-                                @if(count($hotToursMany))<a href="#manyDay" data-toggle="tab">Многодневные</a>@endif
-                                @if(count($hotToursActive))<a href="#activeTours" data-toggle="tab">Активный
+                                @if(count($hotToursOne))<a href="#hotToursOne" data-toggle="tab">Однодневные</a>@endif
+                                @if(count($hotToursMany))<a href="#hotToursMany"
+                                                            data-toggle="tab">Многодневные</a>@endif
+                                @if(count($hotToursActive))<a href="#hotToursActive" data-toggle="tab">Активный
                                     отдых</a>@endif
                             </div>
                         </div>
                         <div class="burning-tours-items-wrap">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="row tab-content">
-                                    <div class="burning-tours-items tab-pane fade in active" id="allTours">
-                                        @foreach($hotToursAny as $tour)
-                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                                <div class="row">
-                                                    <div class="burning-tours-item">
-                                                        <div class="burning-tours-item-img">
-                                                            @php
-                                                                $images = (array) json_decode($tour['images']);
-                                                            @endphp
-                                                            <img onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')"
-                                                                 src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
-                                                                 alt="">
-                                                            @if($tour['price'] > 0)
-                                                                <span>от {{number_format($tour['price'], 0 ,'.','')}}
-                                                                    <span
-                                                                            class="glyphicon glyphicon-rub"
-                                                                            aria-hidden="true"></span> / чел.</span>
-                                                            @endif
-                                                        </div>
-                                                        <div class="burning-tours-item-desc">
+                                    @php
+                                        $hot = [
+                                            'hotToursAny',
+                                            'hotToursOne',
+                                            'hotToursMany',
+                                            'hotToursActive'
+                                        ];
+                                    @endphp
+
+                                    @foreach($hot as $hotTypeName)
+                                        <div class="burning-tours-items tab-pane fade in @if($loop->first) active @endif" id="{{$hotTypeName}}">
+                                            @foreach($$hotTypeName as $tour)
+                                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                                    <div class="row">
+                                                        <div class="burning-tours-item">
+                                                            <div class="burning-tours-item-img">
+                                                                @php
+                                                                    $images = (array) json_decode($tour['images']);
+                                                                @endphp
+                                                                <img onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')"
+                                                                     src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
+                                                                     alt="">
+                                                                @if($tour['price'] > 0)
+                                                                    <span>от {{number_format($tour['price'], 0 ,'.','')}}
+                                                                        <span class="glyphicon glyphicon-rub"
+                                                                              aria-hidden="true"></span> / чел.
+                                                                </span>
+                                                                @else
+                                                                    <span>Цена не указана</span>
+                                                                @endif
+                                                            </div>
+                                                            <div class="burning-tours-item-desc">
                                                             <span>
                                                                 @if(count($tour['par_ways']))
                                                                     {{$tour['par_ways'][0]['ways_par']['title']}}
@@ -295,143 +308,22 @@
                                                                     Россия
                                                                 @endif
                                                             </span>
-                                                            <b>{{$tour['title']}}</b>
-                                                            <span>на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</span>
-                                                            <div class="btn btn-orange" data-toggle="modal"
-                                                                 data-target="#tourOrderModal">Забронировать
-                                                            </div>
+                                                                <b>{{$tour['title']}}</b>
+                                                                <span>на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</span>
+                                                                <div class="btn btn-orange" data-toggle="modal"
+                                                                     data-target="#tourOrderModal">Забронировать
+                                                                </div>
 
-                                                            <a href="{{Gliss::tourLink($tour)}}"
-                                                               class="burning-tours-item-more">Узнать подробнее</a>
+                                                                <a href="{{Gliss::tourLink($tour)}}"
+                                                                   class="burning-tours-item-more">Узнать подробнее</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="burning-tours-items tab-pane fade in" id="oneDay">
-                                        @foreach($hotToursOne as $tour)
-                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                                <div class="row">
-                                                    <div class="burning-tours-item">
-                                                        <div class="burning-tours-item-img">
-                                                            @php
-                                                                $images = (array) json_decode($tour['images']);
-                                                            @endphp
-                                                            <img onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')"
-                                                                 src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
-                                                                 alt="">
-                                                            @if($tour['price'] > 0)
-                                                                <span>от {{number_format($tour['price'], 0 ,'.','')}}
-                                                                    <span
-                                                                            class="glyphicon glyphicon-rub"
-                                                                            aria-hidden="true"></span> / чел.</span>
-                                                            @endif
-                                                        </div>
-                                                        <div class="burning-tours-item-desc">
-                                                            <span>
-                                                                @if(count($tour['par_ways']))
-                                                                    {{$tour['par_ways'][0]['ways_par']['title']}}
-                                                                @else
-                                                                    Россия
-                                                                @endif
-                                                            </span>
-                                                            <b>{{$tour['title']}}</b>
-                                                            <span>на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</span>
-                                                            <div class="btn btn-orange" data-toggle="modal"
-                                                                 data-target="#tourOrderModal">Забронировать
-                                                            </div>
+                                            @endforeach
+                                        </div>
+                                    @endforeach
 
-                                                            <a href="{{Gliss::tourLink($tour)}}"
-                                                               class="burning-tours-item-more">Узнать подробнее</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="burning-tours-items tab-pane fade in" id="manyDay">
-                                        @foreach($hotToursMany as $tour)
-                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                                <div class="row">
-                                                    <div class="burning-tours-item">
-                                                        <div class="burning-tours-item-img">
-                                                            @php
-                                                                $images = (array) json_decode($tour['images']);
-                                                            @endphp
-                                                            <img onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')"
-                                                                 src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
-                                                                 alt="">
-                                                            @if($tour['price'] > 0)
-                                                                <span>от {{number_format($tour['price'], 0 ,'.','')}}
-                                                                    <span
-                                                                            class="glyphicon glyphicon-rub"
-                                                                            aria-hidden="true"></span> / чел.</span>
-                                                            @endif
-                                                        </div>
-                                                        <div class="burning-tours-item-desc">
-                                                            <span>
-                                                                @if(count($tour['par_ways']))
-                                                                    {{$tour['par_ways'][0]['ways_par']['title']}}
-                                                                @else
-                                                                    Россия
-                                                                @endif
-                                                            </span>
-                                                            <b>{{$tour['title']}}</b>
-                                                            <span>на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</span>
-                                                            <div class="btn btn-orange" data-toggle="modal"
-                                                                 data-target="#tourOrderModal">Забронировать
-                                                            </div>
-
-                                                            <a href="{{Gliss::tourLink($tour)}}"
-                                                               class="burning-tours-item-more">Узнать подробнее</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="burning-tours-items tab-pane fade in" id="activeTours">
-                                        @foreach($hotToursActive as $tour)
-                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                                <div class="row">
-                                                    <div class="burning-tours-item">
-                                                        <div class="burning-tours-item-img">
-                                                            @php
-                                                                $images = (array) json_decode($tour['images']);
-                                                            @endphp
-                                                            <img onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')"
-                                                                 src="{{ Gliss::tourThumb(array_shift($images), $tour['id']) }}"
-                                                                 alt="">
-                                                            @if($tour['price'] > 0)
-                                                                <span>от {{number_format($tour['price'], 0 ,'.','')}}
-                                                                    <span
-                                                                            class="glyphicon glyphicon-rub"
-                                                                            aria-hidden="true"></span> / чел.</span>
-                                                            @endif
-                                                        </div>
-                                                        <div class="burning-tours-item-desc">
-                                                            <span>
-                                                                @if(count($tour['par_ways']))
-                                                                    {{$tour['par_ways'][0]['ways_par']['title']}}
-                                                                @else
-                                                                    Россия
-                                                                @endif
-                                                            </span>
-                                                            <b>{{$tour['title']}}</b>
-                                                            <span>на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</span>
-                                                            <div class="btn btn-orange" data-toggle="modal"
-                                                                 data-target="#tourOrderModal">Забронировать
-                                                            </div>
-
-                                                            <a href="{{Gliss::tourLink($tour)}}"
-                                                               class="burning-tours-item-more">Узнать подробнее</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
                                     <a target="_blank" href="http://startour.ru/goryashhie-turyi/"
                                        class="btn-more-tours">Показать еще больше горящих туров</a>
                                 </div>
