@@ -9,12 +9,12 @@
             <div class="modal-body">
                 <div class="row">
                     @foreach($countries as $country)
-                        @if($country->count_tours)
+                        @if($country->slug && $countTours = Gliss::countTours("/" . $country->slug))
                             <a class="col-xs-6 col-sm-4 items" href="/{{$country->slug}}">
                                 @if($country->flag)
                                     <img width="15" src="/uploads/countries/flags/{{$country->flag}}"/>
                                 @endif
-                                {{$country->country}} ({{$country->count_tours}})</a>
+                                {{$country->country}} ({{$countTours}})</a>
                         @endif
                     @endforeach
                 </div>

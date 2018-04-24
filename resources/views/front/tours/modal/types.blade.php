@@ -9,7 +9,10 @@
             <div class="modal-body">
                 <div class="row">
                     @foreach($types as $type)
-                        <a class="col-xs-6 col-sm-4 items" href="/tury/{{$type->value}}">{{$type->alias}}</a>
+                        @if($countTours = Gliss::countTours("/tury/". $type->value))
+                            <a class="col-xs-6 col-sm-4 items" href="/tury/{{$type->value}}">{{$type->alias}}
+                                ({{$countTours}})</a>
+                        @endif
                     @endforeach
                 </div>
             </div>

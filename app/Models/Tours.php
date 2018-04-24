@@ -97,6 +97,27 @@ class Tours extends Model
         return $tours;
     }
 
+    public function scopeActualDate($tours)
+    {
+        $tours->leftJoin(
+            DB::raw("
+            (
+            SELECT tour_id, MIN(value) as nearestDate
+            
+                FROM tour_tags_relations 
+                
+                WHERE tag_id = 2 
+                AND value > " . time() . " 
+            GROUP BY tour_id
+            ) as dv
+            ")
+            ,
+            'tours.id', '=', 'dv.tour_id'
+        );
+
+        return $tours;
+    }
+
     public function scopePriceFrom($tours, $priceFrom)
     {
         if ($priceFrom) {
@@ -129,7 +150,7 @@ class Tours extends Model
         $tours->leftJoin('tour_tags_relations AS ttrDate', function ($query) use ($dateFrom, $dateTo, $dateRelation) {
             $query->on('ttrDate.tour_id', '=', 'tours.id')
                 ->where('ttrDate.tag_id', '=', 2);
-        })->whereIn('ttrDate.tour_id', $dateRelation);
+        })->whereIn('ttrDate.tour_id', array_unique($dateRelation));
 
         return $tours;
 //            $tours->addSelect('ttrDate.value','ttrDate.tour_id');

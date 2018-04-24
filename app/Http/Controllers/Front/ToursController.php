@@ -827,7 +827,7 @@ class ToursController extends Controller
         $toursIds = $tours->pluck('tours.id')->toArray();
 
         if (count($toursIds)) {
-            $tours->withDates($toursIds);
+            $tours->withDates(array_unique($toursIds));
         }
 
         // Select count for counter
@@ -900,6 +900,7 @@ class ToursController extends Controller
         $countryUrl = $request->route('country') ?? $country;
 
         $country = Geo::where('slug', $countryUrl)->firstOrFail() ?? Geo::where('slug', 'russia')->first();
+
         $slug2 = $request->route('slug2');
         $slug3 = $request->route('slug3');
 

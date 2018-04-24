@@ -9,6 +9,8 @@ class Points extends Model
 
     protected $table = 'points';
 
+    protected $appends = ['count_tours'];
+
     public function geoRelationSub()
     {
         return $this->hasMany('App\Models\GeoRelation', 'sub_id')->where('sub_ess', 'point');
@@ -32,6 +34,11 @@ class Points extends Model
         }])->where('off', 0)
             ->where('popular', '1')
             ->get();
+    }
+
+    public function getCountToursAttribute()
+    {
+        return $this->geoRelationPar()->where('sub_ess','tour')->count();
     }
 
 }

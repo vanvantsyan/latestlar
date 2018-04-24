@@ -11,6 +11,8 @@ class Ways extends Model
     protected $table = 'ways';
     protected $guarded = [];
 
+    protected $appends = ['count_tours'];
+
     public function relGeoSub()
     {
         return $this->hasMany('App\Models\GeoRelation', 'sub_id')->where('sub_id', 'way');
@@ -44,6 +46,12 @@ class Ways extends Model
             ->take(6)
             ->get()
             ->keyBy('id');
+    }
+
+    public function getCountToursAttribute()
+    {
+        return $this->relGeoPar()->where('sub_ess','tour')->count();
+
     }
 
 

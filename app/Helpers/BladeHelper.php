@@ -2,6 +2,15 @@
 
 namespace App\Helpers;
 
+use App\Http\Controllers\Front\ToursController;
+use App\Models\Geo;
+use App\Models\Points;
+use App\Models\Tours;
+use App\Models\ToursTagsValues;
+use App\Models\Ways;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Sunra\PhpSimple\HtmlDomParser;
 
 class BladeHelper
@@ -67,6 +76,122 @@ class BladeHelper
             return $arr[$text][$padeg];
 
         }
+    }
+
+    public static function countTours($link, $debug = 0)
+    {
+        $linkId = base64_encode($link);
+
+        if (Cache::has('countTours.' . $linkId)) {
+
+            return Cache::get('countTours.' . $linkId);
+
+        } else {
+
+            $monthsRus = config('main.month');
+            $months = array_flip($monthsRus);
+            $month = $resort = $tag = $duration = $tourType = null;
+
+            $params = array_diff(explode('/', $link), array(''));
+            $firstParam = array_shift($params);
+
+            // Если это страна
+            $country = Geo::where('slug', $firstParam)->first();
+
+            if (count($params)) {
+                if ($debug)
+                    dd('test');
+
+                if (count($params) > 1) {
+
+                    foreach ($params as $param) {
+
+                        if (preg_match('/tury-(.*)/', $param, $match)) {
+
+                            $resort = Ways::where('url', last($match))->first() ?? Points::where('url', last($match))->first();
+
+                        } elseif (ToursTagsValues::with('tag')->where('value', $param)->exists()) {
+
+                            // Set var tag type
+                            $tag = ToursTagsValues::with('tag')->where('value', $param)->first();
+                            $tagName = $tag->tag->title;
+                            $$tagName = $tag->alias;
+
+                        } elseif (preg_match('/^na-(.*)-d/', $param, $dayCoin)) {
+                            $duration = $dayCoin[1];
+                            $durationUrl = $param;
+
+                        } elseif (in_array($param, $months)) {
+                            $month = $param;
+                        }
+                    }
+
+                } else {
+
+                    $param = head($params);
+
+                    if (preg_match('/tury-(.*)/', $param, $match)) {
+
+                        $resort = Ways::where('url', last($match))->first() ?? Points::where('url', last($match))->first();
+
+                    } elseif (ToursTagsValues::with('tag')->where('value', $param)->exists()) {
+
+                        // Set var tag type
+                        $tag = ToursTagsValues::with('tag')->where('value', $param)->first();
+                        $tagName = $tag->tag->title;
+                        $$tagName = $tag->alias;
+
+                    } elseif (preg_match('/^na-(.*)-d/', $param, $dayCoin)) {
+                        $duration = $dayCoin[1];
+                        $durationUrl = $param;
+
+                    } elseif (in_array($param, $months)) {
+                        $month = $param;
+                    }
+
+                }
+
+            }
+
+            $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
+
+            $toursController = new ToursController();
+            $tours = $toursController->applyFilters($tours, [
+                'tourDate' => $tourDate ?? '',
+                'country' => is_object($country) ? $country->slug : null,
+                'resort' => is_object($resort) ? $resort : null,
+                'tourType' => is_object($tag) ? $tag->id : $tourType,
+                'duration' => $duration,
+                'month' => $month ?? ''
+            ]);
+
+            $countTours = $tours->count(DB::raw('DISTINCT tours.id'));
+
+            $time = Carbon::now()->addDay(1);
+            Cache::put('countTours.' . $linkId, $countTours, $time);
+
+            return $countTours;
+        }
+    }
+
+    public static function generatedCityLink($base, $tag, $month, $duration)
+    {
+        return $base . (($tag) ? "/" . $tag->value : "") . ($month ? "/" . $month : "") . ($duration ? "/" . $duration : "");
+    }
+
+    public static function generatedMonthLink($level, $way, $point, $tag, $month, $duration)
+    {
+        return "/$level/" . ($way ? "tury-" . $way->url . "/" : "") . (($point) ? "tury-" . $point->url . "/" : "") . (($tag) ? $tag->value . "/" : "") . ($month) . ($duration ? "/" . $duration : "");
+    }
+
+    public static function generatedDurationLink($level, $month, $way, $point, $tag, $key)
+    {
+        return "/$level/" . ($month ? $month . "/" : "") . ($way ? "tury-" . $way->url . "/" : "") . (($point) ? "tury-" . $point->url . "/" : "") . ($tag ? $tag->value . "/" : "") . "na-$key";
+    }
+
+    public static function generatedTypeLink($level, $way, $point, $tag, $type)
+    {
+        return "/$level/" . ($way ? "tury-" . $way->url . "/" : "") . (($point) ? "tury-" . $point->url . "/" : "") . (($tag && in_array($tag->tag->title, ['holiday', 'status'])) ? $tag->value . "/" : "") . ($type->value);
     }
 
     public static function numeralCase($text, $num, $padeg = "И")
@@ -162,7 +287,7 @@ class BladeHelper
 //        if ($mainDiv) $descBlock = $mainDiv; else
         $descBlock = $html;
 
-        if($descBlock) {
+        if ($descBlock) {
             $data['tourDays'] = [];
             $desctables = $descBlock->find('table');
 
@@ -214,12 +339,13 @@ class BladeHelper
         }
 
         if ($descBlock)
-            $data['rest'] = self::removeTags(['span', 'span', 'br', 'strong'],  preg_replace("!<a.*?href=\"?'? ?([^ \"'>]+)\"?'?.*?>!is", "", $descBlock->innertext));
+            $data['rest'] = self::removeTags(['span', 'span', 'br', 'strong'], preg_replace("!<a.*?href=\"?'? ?([^ \"'>]+)\"?'?.*?>!is", "", $descBlock->innertext));
 
         return $data;
     }
 
-    public static function templateVars($text){
+    public static function templateVars($text)
+    {
         return preg_replace("!(\|year\|)!is", date('Y'), $text);
     }
 

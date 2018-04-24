@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset('css/russia.css')}}">
     <style>
         @if($country->banner)
-        .page-{{$country->slug}}      {
+        .page-{{$country->slug}}       {
             background: url(/uploads/countries/banners/{{$country->banner}}) 50% 0 no-repeat;
         }
         @endif
@@ -49,6 +49,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <div class="row">
                     <div class="tour-preview">
+                        <span class="country-tour-count">{{$country->count_tours}} {{Gliss::numeralCase('тур', $country->count_tours)}}</span>
                         <h1 class="stroke-h">
                             @if($country->slug == 'russia')
                                 Туры {{Gliss::case($country->country, "Д")}}
@@ -279,7 +280,8 @@
                                     @endphp
 
                                     @foreach($hot as $hotTypeName)
-                                        <div class="burning-tours-items tab-pane fade in @if($loop->first) active @endif" id="{{$hotTypeName}}">
+                                        <div class="burning-tours-items tab-pane fade in @if($loop->first) active @endif"
+                                             id="{{$hotTypeName}}">
                                             @foreach($$hotTypeName as $tour)
                                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                                     <div class="row">

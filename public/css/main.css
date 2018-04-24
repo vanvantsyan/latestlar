@@ -263,3 +263,22 @@ a.order {
 .modal-body .items img{
     padding-bottom: 5px;
 }
+.country-tour-count{
+    position: absolute;
+    top: -38px;
+    background: #007cbc;;
+    color: #fff;
+    padding: 8px 10px 5px;
+    border-radius: 20px 20px 0 0;
+    font-size: larger;
+    font-family: panton;
+}
+.sidebar li span {
+    background: #007cbc33;
+    border-radius: 25px;
+    padding: 3px 4px;
+    position: absolute;
+    font-size: 10px;
+    right: 41px;
+    text-align: center;
+}

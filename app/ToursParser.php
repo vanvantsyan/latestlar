@@ -234,13 +234,15 @@ class ToursParser
                     foreach ($matchesDate[0] as $dateIn) {
                         $data_viezda = strtotime($dateIn);
 
-                        $newTagRel = new ToursTagsRelation();
+                        if($data_viezda > time()) {
+                            $newTagRel = new ToursTagsRelation();
 
-                        $newTagRel->tour_id = $id;
-                        $newTagRel->tag_id = $tagDataId;
-                        $newTagRel->value = $data_viezda;
+                            $newTagRel->tour_id = $id;
+                            $newTagRel->tag_id = $tagDataId;
+                            $newTagRel->value = $data_viezda;
 
-                        $newTagRel->save();
+                            $newTagRel->save();
+                        }
                     }
 
                 }

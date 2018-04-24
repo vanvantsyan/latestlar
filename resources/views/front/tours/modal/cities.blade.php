@@ -9,7 +9,9 @@
             <div class="modal-body">
                 <div class="row">
                     @foreach($cities as $city)
-                        <a class="col-xs-6 col-sm-4 items" href="/russia/tury-{{$city->url}}">{{$city->title}}</a>
+                        @if($countTours = Gliss::countTours("/tury/tury-" . $city->url))
+                            <a class="col-xs-6 col-sm-4 items" href="/russia/tury-{{$city->url}}">{{$city->title}} ({{$countTours}})</a>
+                        @endif
                     @endforeach
                 </div>
             </div>
