@@ -1,9 +1,11 @@
-<div class="modal fade" id="tourOrderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="tourOrderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Заказать тур <span id="tourName">@isset($tour) "<strong>{{$tour['title']}}</strong>" @endif</span></h4>
+                <h4 class="modal-title" id="myModalLabel">Заказать тур <span id="tourName">@isset($tour) "
+                        <strong>{{$tour['title']}}</strong>" @endif</span></h4>
             </div>
             <div class="modal-body">
                 <form role="form">
@@ -26,7 +28,7 @@
                     @isset($tour)
                         <input type="hidden" name="source" value=""/>
                         <input type="hidden" name="route" value="<span>Маршрут тура:</span>
-                    @if(count($tour['par_points']))
+                    @if((is_array($tour['par_points']) || is_object($tour['par_points'])) && count($tour['par_points']))
                         @php
                             $i = 1;
                         @endphp
