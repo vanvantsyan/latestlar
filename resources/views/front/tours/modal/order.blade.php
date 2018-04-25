@@ -43,9 +43,9 @@
                         @endforeach
 
                         @else
-                        @if(count($tour['par_ways']))
-                        {{$tour['par_ways'][0]['ways_par']['title']}}
-                        @endif
+                            @if((is_array($tour['par_points']) || is_object($tour['par_points'])) && count($tour['par_ways']))
+                            {{$tour['par_ways'][0]['ways_par']['title']}}
+                            @endif
                         @endif
                                 "/>
                         <input type="hidden" name="tourName" value="{{$tour['title']}}"/>
