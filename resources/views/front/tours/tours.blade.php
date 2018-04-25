@@ -215,8 +215,8 @@
     @include('front.tours.modules.list-scripts')
     <script src="{{asset('/js/tours.js')}}"></script>
     <script>
-        // Get more tours in tour list
 
+        // Get more tours in tour list
         $('.btn-more-tours').on('click', function () {
 
             var btn = $(this);
@@ -330,7 +330,19 @@
                     data: data,
                     type: "POST",
                 }).done(function (count) {
+
                     $('#countFound').text(count);
+
+                    if (0 == count) {
+
+                        $('.tours-sorting:first').hide();
+                        $('.sorting-btn').hide();
+                    } else {
+
+                        $('.tours-sorting:first').show();
+                        $('.sorting-btn').show();
+                    }
+
                 });
 
                 // Get seo tours for inscription

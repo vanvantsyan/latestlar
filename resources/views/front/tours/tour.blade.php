@@ -130,7 +130,7 @@
                         <a href="#card-tour-desc" class="active">Описание и фото тура</a>
                         <a href="#card-tour-dates">Даты начала тура</a>
                         <a href="#card-base-price">Что включено в стоимость?</a>
-                        <a href="#card-schedule">Расписание тура</a>
+                        <a href="#card-schedule">Программа тура</a>
                         <a href="#accommodation-options">Варианты размещения</a>
                         <a href="#" data-toggle="modal" data-target="#tourOrderModal">Заявка на тур</a>
                     </div>
@@ -259,7 +259,7 @@
                     <div class="card-schedule" id="card-schedule">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
-                                <div class="title">Расписание тура</div>
+                                <div class="title">Программа тура</div>
 
                                     @forelse($textData['tourDays'] as $day => $dayDesc)
                                         <div class="card-schedule-day-item">
