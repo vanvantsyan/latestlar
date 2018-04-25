@@ -256,7 +256,7 @@ class BladeHelper
     {
         $firstWay = '';
 
-        if (count($tour['par_ways'])) {
+        if ((is_array($tour['par_points']) || is_object($tour['par_points'])) && count($tour['par_ways'])) {
             foreach ($tour['par_ways'] as $way) {
                 if (array_get($way, 'ways_par.status') != 'country') {
                     $firstWay = 'tury-' . array_get($way, 'ways_par.url', 'error_way') . '/';
