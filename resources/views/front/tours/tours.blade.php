@@ -207,6 +207,9 @@
         @include('front.modules.bigFooter')
     </div>
     @include('front.tours.modal.images')
+    @php
+    unset($tour);
+    @endphp
     @include('front.tours.modal.order')
     <div id="modalContainer"></div>
 @endsection
