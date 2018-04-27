@@ -282,3 +282,16 @@ a.order {
     right: 41px;
     text-align: center;
 }
+.card-schedule .title{
+    display: inline-block;
+}
+.btn-expand{
+    border: 1px solid #ddd;
+    color: #000;
+    float: right;
+    cursor: pointer;
+}
+.btn-expand:hover{
+    background: #ddd;
+    color: #fff;
+}

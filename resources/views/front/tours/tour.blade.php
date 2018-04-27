@@ -259,7 +259,7 @@
                     <div class="card-schedule" id="card-schedule">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
-                                <div class="title">Программа тура</div>
+                                <div class="title">Программа тура</div><a class="btn btn-expand">Раскрыть все</a>
 
                                     @forelse($textData['tourDays'] as $day => $dayDesc)
                                         <div class="card-schedule-day-item">

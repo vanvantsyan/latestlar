@@ -108,8 +108,24 @@ $(document).ready(function() {
 	});
 
 	$(".card-schedule-day, .accommodation-options-day").click(function() {
+
 		$(this).toggleClass("active");
 		$(this).next().slideToggle();
+
+		var btnEx =  $('.card-schedule .btn-expand');
+
+        if($('.card-schedule-day').hasClass('active')) {
+        	if(!btnEx.hasClass('active')) {
+        		btnEx.addClass('active');
+			}
+            btnEx.text('Закрыть все');
+        } else {
+            if(btnEx.hasClass('active')) {
+                btnEx.removeClass('active');
+            }
+            btnEx.text('Раскрыть все');
+		}
+
 		return false;
 	});
 

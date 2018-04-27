@@ -17,6 +17,21 @@ window.onload = function () {
     });
 }
 
+// Expand tour programm
+$('.card-schedule .btn-expand').on('click', function() {
+
+    $(this).toggleClass('active');
+
+    $('.card-schedule-day').toggleClass("active");
+    $('.card-schedule-day').next().slideToggle();
+
+    if($(this).hasClass('active')){
+        $(this).text('Закрыть все')
+    } else {
+        $(this).text('Раскрыть все')
+    }
+});
+
 $('.btn-more-dates').on('click', function () {
 
     $('.card-tour-dates-item').removeClass('hide');
