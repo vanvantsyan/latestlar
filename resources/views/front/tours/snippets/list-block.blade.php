@@ -126,10 +126,11 @@
                                 @php $num++; @endphp
 
                             @endif
+
                         @endforeach
 
-                        @if(count($tour['dates']) > 5)
-                            <a href="{{Gliss::tourLink($tour)}}" class="all-dates">Все даты <b>>>></b></a>
+                        @if(count($tour['dates']) > 5 && $num > 5)
+                            <a href="{{Gliss::tourLink($tour)}}" class="all-dates" target="_blank">Все даты <b>>>></b></a>
                         @endif
                     </div>
                     <div class="search-completed-item-desc">

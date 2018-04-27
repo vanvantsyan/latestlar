@@ -11,21 +11,21 @@ window.onload = function () {
         url: '/modals/getAll',
         success: function (modals) {
             setTimeout(function () {
-                  $('#modalContainer').html(modals)
+                $('#modalContainer').html(modals)
             }, 1000);
         }
     });
 }
 
 // Expand tour programm
-$('.card-schedule .btn-expand').on('click', function() {
+$('.card-schedule .btn-expand').on('click', function () {
 
     $(this).toggleClass('active');
 
     $('.card-schedule-day').toggleClass("active");
     $('.card-schedule-day').next().slideToggle();
 
-    if($(this).hasClass('active')){
+    if ($(this).hasClass('active')) {
         $(this).text('Закрыть все')
     } else {
         $(this).text('Раскрыть все')
@@ -45,7 +45,7 @@ $('#tourImagesModal').on('show.bs.modal', function (e) {
 
     var imgBlock = $(e.relatedTarget).closest('.card-tour-photo');
 
-    if(!imgBlock.length) {
+    if (!imgBlock.length) {
         imgBlock = $(e.relatedTarget);
     } else {
 

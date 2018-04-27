@@ -10,15 +10,15 @@
     });
 
     //Insert dates
-    $('.search-completed-item-date a').on('click', function (e) {
-        e.preventDefault();
-        var date = $(this).attr('data-date');
-
-        $('#tourDate').data('daterangepicker').setStartDate(date);
-        $('#tourDate').data('daterangepicker').setEndDate(date);
-
-        $('#filterTours').trigger('click');
-    });
+    // $('.search-completed-item-date a:not(.all-dates)').on('click', function (e) {
+    //     e.preventDefault();
+    //     var date = $(this).attr('data-date');
+    //
+    //     $('#tourDate').data('daterangepicker').setStartDate(date);
+    //     $('#tourDate').data('daterangepicker').setEndDate(date);
+    //
+    //     $('#filterTours').trigger('click');
+    // });
 
     // Insert point
     $('.search-completed-item-route a').on('click', function (e) {

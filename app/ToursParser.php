@@ -55,6 +55,8 @@ class ToursParser
 
     public function getMany()
     {
+        $this->createThumbs();
+
         list($tagTravelId, $tagDataId) = $this->setDefaultTags();
 
         // Get all way for foreach

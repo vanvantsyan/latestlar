@@ -74,10 +74,12 @@
                         </li>
                     @endif
                 @endif
-
-                <li><a href="/{{$level}}/na-1-den">Однодневные
-                        туры</a><span>{{Gliss::countTours("/$level/na-1-den")}}</span></li>
-                <li><a href="/{{$level}}/">Многодневные туры</a><span>{{Gliss::countTours("/$level")}}</span></li>
+                @if(Gliss::countTours("/$level/na-1-den"))
+                    <li><a href="/{{$level}}/na-1-den">Однодневные туры</a><span>{{Gliss::countTours("/$level/na-1-den")}}</span></li>
+                @endif
+                @if(Gliss::countTours("/$level"))
+                    <li><a href="/{{$level}}/">Многодневные туры</a><span>{{Gliss::countTours("/$level")}}</span></li>
+                @endif
             </ul>
         </div>
         @if(in_array($level, ['russia','tury']))
@@ -118,7 +120,7 @@
                         @endif
                         @if($countTours = Gliss::countTours("/russia/tury-kazani"))
                             <li>
-                                <a href="/russia/tury-kazani">Туры в Казани</a>
+                                <a href="/russia/tury-kazan">Туры в Казани</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif

@@ -148,12 +148,11 @@ $('.search-completed-item-date a:not(.all-dates)').on({
         $(this).removeClass('order');
     },
     click: function (e) {
+        e.preventDefault();
 
         var tourDate = $(this).attr('data-date');
-
         $('input[name=tourDate]').attr('value', moment(tourDate, 'D.M.Y').format('DD.MM'));
 
-        e.preventDefault();
         // $('#tourOrderModal').modal('show');
     }
 

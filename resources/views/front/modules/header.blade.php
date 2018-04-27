@@ -42,8 +42,31 @@
                 <a class="navbar-brand" href="#">Все меню</a>
             </div>
             <ul class="desctop-view">
-                <li><a href="http://startour.ru/goryashhie-turyi/" class="hot">Горящие туры</a></li>
-                <li><a href="/tury">Поиск туров</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="hot">Туры и круизы</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://startour.ru/poisk-turov">Пляжный отдых (Поиск туров)</a></li>
+                        <li><a href="http://russia.startour.ru/sanatorii-i-pansionatyi">Пансионаты и санатории</a></li>
+                        <li><a href="http://startour.ru/goryashhie-turyi/">Горящие туры и спецпредложения</a></li>
+                        <li><a href="http://startour.ru/europe/avtobusnyy-tur">Автобусные туры по Европе</a></li>
+                        <li><a href="http://russia.startour.ru/tury/sobytiya">Событийные туры</a></li>
+                        <li><a href="http://startour.ru/ekskursyi/">Экскурсионные туры</a></li>
+                        <li><a href="http://startour.ru/kruizyi/">Круизы</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="hot">Туристические услуги</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://startour.ru/vizy">Визовая поддержка</a></li>
+                        <li><a href="">Трансферы</a></li>
+                        <li><a href="http://startour.ru/poisk-turov">Страхование ВЗР</a></li>
+                        <li><a href="http://startour.ru/poisk-turov">Аренда авто</a></li>
+                        <li><a href="http://startour.ru/poisk-turov">Авиабилеты</a></li>
+                        <li><a href="http://startour.ru/poisk-turov">Подбор и бронирование туров</a></li>
+                        <li><a href="http://startour.ru/poisk-turov">Индивидуальные туры</a></li>
+                        <li><a href="http://startour.ru/poisk-turov">ВИП трансферы и ВИП залы</a></li>
+                    </ul>
+                </li>
                 <li><a href="/russia">РОССИЯ</a></li>
 
                 <li><a href="http://startour.ru/countries/">Страны</a></li>
