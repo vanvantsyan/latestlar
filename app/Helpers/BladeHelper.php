@@ -282,12 +282,14 @@ class BladeHelper
 
 
         $html = HtmlDomParser::str_get_html($text);
+
 //        $mainDiv = $html->find('div', 0);
 //
 //        if ($mainDiv) $descBlock = $mainDiv; else
         $descBlock = $html;
 
         if ($descBlock) {
+
             $data['tourDays'] = [];
             $desctables = $descBlock->find('table');
 

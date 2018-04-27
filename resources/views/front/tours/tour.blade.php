@@ -23,6 +23,7 @@
 @endsection
 
 @section('content')
+
     <div class="wrapper tours-card-page">
         <div class="container">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
@@ -126,10 +127,14 @@
 
                     </div>
 
+                    @php
+                        $textData = Gliss::parsTourDescription($tour->text);
+                    @endphp
+
                     <div class="card-tour-filter">
-                        <a href="#card-tour-desc" class="active">Описание и фото тура</a>
-                        <a href="#card-tour-dates">Даты начала тура</a>
-                        <a href="#card-base-price">Что включено в стоимость?</a>
+                        @if(count(json_decode($tour->images)))<a href="#card-tour-desc" class="active">Описание и фото
+                            тура</a>@endif
+                        @if(count($tour->dates))<a href="#card-tour-dates">Даты начала тура</a>@endif
                         <a href="#card-schedule">Программа тура</a>
                         <a href="#accommodation-options">Варианты размещения</a>
                         <a href="#" data-toggle="modal" data-target="#tourOrderModal">Заявка на тур</a>
@@ -236,16 +241,15 @@
                         </div>
                     @endif
 
-                    @php
-                        $textData = Gliss::parsTourDescription($tour->text);
-                    @endphp
                     @if(isset($textData['includedInPrice']) && $textData['includedInPrice'] && iconv_strlen($textData['includedInPrice']) > 40)
                         <div class="card-base-price" id="card-base-price">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="row">
                                     @if($tour['price'] > 0)
-                                        <div class="title">Что включено в базовую стоимость {{number_format($tour['price'], 0, '.',' ')}}
-                                            <span class="glyphicon glyphicon-rub" aria-hidden="true"></span> за человека?
+                                        <div class="title">Что включено в базовую
+                                            стоимость {{number_format($tour['price'], 0, '.',' ')}}
+                                            <span class="glyphicon glyphicon-rub" aria-hidden="true"></span> за
+                                            человека?
                                         </div>
                                     @endif
                                     {!!  $textData['includedInPrice'] !!}

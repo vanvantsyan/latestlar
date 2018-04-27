@@ -633,6 +633,7 @@ class ToursController extends Controller
      */
     public function unit($country = 'russia', $action = '', $url)
     {
+        $start = microtime(true);
         preg_match('/[\d]{2,8}/', $url, $extractId);
 
         if (count($extractId)) {
@@ -667,7 +668,7 @@ class ToursController extends Controller
                 ->where('par_ess', 'way')
                 ->where('par_id', array_get($tour, 'parWays.0.waysPar.id', 0));
         })->where('tours.id', '!=', $id)->take(3)->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')->get();
-
+//dd(round(microtime(true) - $start, 4));
         return view('front.tours.tour', [
             'seo' => [
                 'bTitle' => $tour->title . " - бронирование тура",
@@ -683,7 +684,8 @@ class ToursController extends Controller
 
             'similars' => $similars,
 
-            'tour' => $tour
+            'tour' => $tour,
+            'start' => $start
         ]);
     }
 

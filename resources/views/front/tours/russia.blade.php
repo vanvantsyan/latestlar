@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset('css/russia.css')}}">
     <style>
         @if($country->banner)
-        .page-{{$country->slug}}       {
+        .page-{{substr($country->slug,0,10)}}       {
             background: url(/uploads/countries/banners/{{$country->banner}}) 50% 0 no-repeat;
         }
         @endif
@@ -26,7 +26,7 @@
 @endsection
 
 @section('content')
-    <div class="wrapper @if($country->banner) page-{{$country->slug}} @else page-russia @endif">
+    <div class="wrapper @if($country->banner) page-{{substr($country->slug, 0, 10)}} @else page-russia @endif">
         <div class="container">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
                 <div class="row">
