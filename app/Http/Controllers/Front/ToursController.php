@@ -1289,17 +1289,15 @@ class ToursController extends Controller
         $durationTo = array_get($filters, 'durationTo', null);
         $duration = array_get($filters, 'duration', null);
 
-        if ($durationFrom) $tours->where('duration', '>=', $durationFrom);
-        if ($durationTo && $durationTo != "more") $tours->where('duration', '<=', $durationTo);
-
-
         if ($duration) {
             if (preg_match('/^na-(.*)-d/', $duration, $dayCoin)) {
                 $tours->where('duration', '=', $dayCoin[1]);
             } else {
                 $tours->where('duration', '=', $duration);
             }
-
+        } else {
+            if ($durationFrom) $tours->where('duration', '>=', $durationFrom);
+            if ($durationTo && $durationTo != "more") $tours->where('duration', '<=', $durationTo);
         }
 
         return $tours;

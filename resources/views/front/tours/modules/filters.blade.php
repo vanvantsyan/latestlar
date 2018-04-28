@@ -22,7 +22,7 @@
         </div>
         <div class="tour-filter-item" style="display: none">
             <label>Длительность</label>
-            {{--<input name="duration" id="duration" type="text" placeholder="" value="{{$duration or ''}}">--}}
+            <input name="duration" id="duration" type="text" placeholder="" value="{{$duration or ''}}">
         </div>
         <div class="tour-filter-item time-mob" class="filterDuration">
             <label>Длительность тура (дни)</label>

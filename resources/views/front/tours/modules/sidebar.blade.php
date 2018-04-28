@@ -3,6 +3,7 @@
         <div class="sidebar-city-tour">
             <div class="sidebar-tour-title">Категории туров</div>
             <ul>
+
                 @if($layer == 3)
                     {{--<li><a class="march-icon" href="/{{$level}}/8-marta">Туры на 8 марта</a></li>--}}
                     @if($countTours = Gliss::countTours("/$level/mayskie-prazdniki"))
@@ -13,7 +14,6 @@
                     @endif
                     {{--<li><a href="/{{$level}}/vip">ВИП туры</a></li>--}}
                 @else
-
                     {{--<li><a class="march-icon"--}}
                     {{--href="/{{$level}}/{{($tag && $tag->tag->title == "status") ? $tag->value . "/" : ""}}{{$way ? "tury-" . $way->url ."/" : ""}}{{($point) ? "tury-" . $point->url ."/" : ""}}8-marta{{($tag && in_array($tag->tag->title, ["tour_type"])) ? "/" . $tag->value : ''}}{{$duration ? "/". $duration : ""}}/">Туры--}}
                     {{--на 8 марта</a></li>--}}
@@ -270,8 +270,9 @@
         @endif
 
         @if($tag or $way or $point or !$country or $duration)
+
             <div class="sidebar-city-tour">
-                <div class="sidebar-tour-subtitle">Туры по месяцам</div>
+                <div class="sidebar-tour-subtitle">Туры @if($way) {{Gliss::case($way->title, "куда")}} @endif @if($point) {{Gliss::case($point->title, "куда")}} @endif по месяцам</div>
                 <ul>
                     @forelse(config('main.month') as $key => $value)
 
@@ -306,7 +307,7 @@
         @endif
         @if($country or $tag or $month)
             <div class="sidebar-city-tour">
-                <div class="sidebar-tour-subtitle">Туры по длительности</div>
+                <div class="sidebar-tour-subtitle">Туры @if($way) {{Gliss::case($way->title, "куда")}} @endif @if($point) {{Gliss::case($point->title, "куда")}} @endif по длительности</div>
                 <ul class="restType">
                     @foreach(config('main.duration') as $key => $value)
 
@@ -343,7 +344,7 @@
         @endif
         @if(count($tourTypes))
             <div class="sidebar-city-tour">
-                <div class="sidebar-tour-title">Виды отдыха</div>
+                <div class="sidebar-tour-title">Виды отдыха @if($way) {{Gliss::case($way->title, "где")}} @endif @if($point) {{Gliss::case($point->title, "где")}} @endif</div>
                 <ul>
                     @forelse($tourTypes as $type)
                         @if($layer == 3)
@@ -387,7 +388,7 @@
 
         @if(count($tourTypes))
             <div class="sidebar-city-tour">
-                <div class="sidebar-tour-title">Типы туров</div>
+                <div class="sidebar-tour-title">Типы туров @if($way) {{Gliss::case($way->title, "где")}} @endif @if($point) {{Gliss::case($point->title, "где")}} @endif</div>
                 <ul>
                     @forelse($tourTypes as $type)
 
