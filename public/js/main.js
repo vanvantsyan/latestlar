@@ -151,6 +151,9 @@ $(document).ready(function() {
 
     $('.header .menu .navbar-collapse li a').click(function() {
     	$(this).parent().find('.header-submenu').toggleClass('active');
+    	if($(this).parent().find('ul').hasClass('header-submenu')) {
+    		return false;
+    	}
     });
 
     $(".card-tour-filter a").click(function () {
