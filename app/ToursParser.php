@@ -134,7 +134,7 @@ class ToursParser
 
                 if ($routeBlock) preg_match('/Маршрут: (.*)/u', $routeBlock->plaintext, $matches);
 
-                if (isset($matches[1]) && !empty($matches[1]) && count($matches[1])) {
+                if (isset($matches[1]) && !empty($matches[1]) && (is_array($matches[1]) || is_object($matches[1])) && count($matches[1])) {
 
                     $route = $matches[1];
 
