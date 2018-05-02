@@ -43,7 +43,7 @@
             </div>
             <ul>
                 <li>
-                    <a href="#">Туры и круизы <span class="caret"></span></a>
+                    <a href="#" class="hot">Туры и круизы <span class="caret"></span></a>
                     <ul class="header-submenu">
                         <li><a href="http://startour.ru/poisk-turov">Пляжный отдых (Поиск туров)</a></li>
                         <li><a href="http://russia.startour.ru/sanatorii-i-pansionatyi">Пансионаты и санатории</a></li>
