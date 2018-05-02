@@ -204,12 +204,12 @@ label {
 .header .menu li:last-child {
 	margin-right: 0;
 }
-.header .menu li a {
+.header .menu .container > ul > li > a {
 	color: #fff;
 	padding: 0 18.9px;
 	display: block;
 }
-.header .menu li a:hover {
+.header .menu .container > ul > li > a:hover {
 	text-decoration: none;
 	background: #284a76;
 	box-shadow: 0 -2px 0 0 #e74530, 0 1px 0 0 #e74530 inset;
@@ -219,10 +219,10 @@ label {
 	-o-transition: ease-in-out 0.2s;
 	transition: ease-in-out 0.2s;
 }
-.header .menu li a.hot {
+.header .menu .container > ul > li > a.hot {
 	padding-left: 37px;
 }
-.header .menu li a.hot:before {
+.header .menu .container > ul > li > a.hot:before {
 	left: 18.9px;
 }
 .header .menu li.submenu ul {
@@ -259,6 +259,52 @@ label {
 	background: url(../img/sprite.png) -84px 0 no-repeat;
 	width: 14px;
 	height: 7px;
+}
+.header-submenu {
+	position: absolute;
+    top: 29px;
+    left: -50px;
+    opacity: 0;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    z-index: 9999;
+    list-style: none;
+	transition: .5s;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.7);
+    background-color: #fff;
+}
+.b-main-header-menu > li:hover > .header-submenu,
+.header .navbar > .container > ul > li:hover > .header-submenu {
+    opacity: 1;
+    visibility: visible;
+    top: 29px;
+    z-index: 99999;
+}
+.header-submenu li {
+    background-color: #fff;
+}
+.header-submenu a {
+    display: block;
+    color: #0088cc;
+    -webkit-transition: all 0.1s ease-out;
+    -moz-transition: all 0.1s ease-out;
+    -o-transition: all 0.1s ease-out;
+    transition: all 0.1s ease-out;
+    background: #fff;
+    font-size: 13px;
+    text-decoration: none;
+    border-top: 1px solid #edeff2;
+    margin: 0 30px;
+    min-width: 200px;
+    padding: 15px 0;
+    line-height: normal;
+}
+.header-submenu a:hover {
+	background: #fff;
+	color: #ff6900;
+	text-decoration: none;
 }
 .breadcrumbs {
 	margin: 20px 0;
@@ -2079,6 +2125,20 @@ div.dp-popup h2 {
 	margin-top: 10px;
 	width: 100%;
 }
+.card-tour-filter #mCSB_4_container {
+	display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
 .card-tour-filter a {
 	display: inline-block;
 	padding: 0 8.64px;
@@ -2087,6 +2147,8 @@ div.dp-popup h2 {
 	line-height: 44px;
 	font-family: 'pantonlight';
 	font-size: 14px;
+	flex-grow: 1;
+	text-align: center;
 	-webkit-transition: ease-in-out 0.2s;
 	-moz-transition: ease-in-out 0.2s;
 	-ms-transition: ease-in-out 0.2s;
