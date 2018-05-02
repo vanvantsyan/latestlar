@@ -155,11 +155,13 @@
                                                 @if(count($images))
                                                     <img src="{{asset('/img/ways/full/' . (head($images)))}}" alt="">
                                                 @endif
+                                                @isset($countriesGrid['419'])
                                                 <div class="price">
                                                     от {{number_format($countriesGrid['419']['minPrice'],0,'.','')}}
                                                     <span
                                                             class="glyphicon glyphicon-rub" aria-hidden="true"></span>
                                                 </div>
+                                                @endif
                                                 <div class="popular-tours-item-cont">
                                                     <div class="popular-tours-item-title">{{$countriesGrid['419']['title']}}</div>
                                                     <p>{!! $countriesGrid['419']['description'] !!}</p>
