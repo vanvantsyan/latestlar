@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset('css/russia.css')}}">
     <style>
         @if($country->banner)
-        .page-{{substr($country->slug,0,10)}}        {
+        .page-{{substr($country->slug,0,10)}}         {
             background: url(/uploads/countries/banners/{{$country->banner}}) 50% 0 no-repeat;
         }
         @endif
@@ -164,11 +164,12 @@
                                                                 class="glyphicon glyphicon-rub"
                                                                 aria-hidden="true"></span>
                                                     </div>
+
+                                                    <div class="popular-tours-item-cont">
+                                                        <div class="popular-tours-item-title">{{$countriesGrid['419']['title']}}</div>
+                                                        <p>{!! $countriesGrid['419']['description'] !!}</p>
+                                                    </div>
                                                 @endif
-                                                <div class="popular-tours-item-cont">
-                                                    <div class="popular-tours-item-title">{{$countriesGrid['419']['title']}}</div>
-                                                    <p>{!! $countriesGrid['419']['description'] !!}</p>
-                                                </div>
                                             </a>
                                         </td>
                                     </tr>
