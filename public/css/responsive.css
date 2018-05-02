@@ -2,7 +2,7 @@
 	.mail {
 		display: none;
 	}
-	.header .menu li {
+	.header .menu .container > ul > li {
 		padding: 0;
 	}
 	.header .menu li.desk-hide {
@@ -42,13 +42,14 @@
 		width: auto;
 	}
 	.header .navbar-collapse {
-		padding: 0;
+		padding: 10px 0;
 		border: none;
 		width: 100%;
 		margin: 0;
 	}
 	.header .navbar-collapse.collapse.in {
 		display: block !important;
+		overflow: hidden;
 	}
 	.header .navbar-default .navbar-brand {
 		color: #fff
@@ -67,6 +68,7 @@
 	.header .navbar-collapse ul li {
 		display: block;
 		margin-right: 0;
+		background: transparent;
 	}
 	.header .menu li.dropdown ul {
 		border: none;
@@ -345,19 +347,22 @@
 	.burning-tours-items-wrap .btn-more-tours {
 		display: none;
 	}
-	.header .menu li a {
+	.header .menu .container > ul > li > a {
 		color: #fff;
 		padding: 0 9px;
 		display: block;
 	}
-	.header .menu li a.hot {
+	.header .menu .container > ul > li > a.hot {
 		padding-left: 29px;
 	}
-	.header .menu li a.hot:before {
+	.header .menu .container > ul > li > a.hot:before {
 		left: 10px;
 	}
 	.header .menu .navbar-collapse li a {
 		padding: 5px 15px;
+		color: #fff;
+		background: transparent;
+		border: none;
 	}
 	.header .menu .navbar-collapse li a.hot {
 		padding-left: 30px;
@@ -765,6 +770,15 @@
 	}
 	.tour-card-text {
 		padding: 0 10px;
+	}
+	.header .navbar-collapse ul li .header-submenu.active {
+		display: block;
+		visibility: visible;
+		opacity: 1;
+		position: relative;
+		top: 0;
+		left: 0;
+		background: transparent;
 	}
 }
 @media (max-width: 767px) {

@@ -43,7 +43,7 @@
             </div>
             <ul>
                 <li>
-                    <a href="#">Туры и круизы</a>
+                    <a href="#">Туры и круизы <span class="caret"></span></a>
                     <ul class="header-submenu">
                         <li><a href="http://startour.ru/poisk-turov">Пляжный отдых (Поиск туров)</a></li>
                         <li><a href="http://russia.startour.ru/sanatorii-i-pansionatyi">Пансионаты и санатории</a></li>
@@ -55,7 +55,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Туристические услуги</a>
+                    <a href="#">Туристические услуги <span class="caret"></span></a>
                     <ul class="header-submenu">
                         <li><a href="http://startour.ru/vizy">Визовая поддержка</a></li>
                         <li><a href="http://startour.ru/transferyi/">Трансферы</a></li>
@@ -69,7 +69,7 @@
                 </li>
                 <li><a href="http://russia.startour.ru/russia">Россия</a></li>
                 <li>
-                    <a href="http://startour.ru/countries/">Страны</a>
+                    <a href="http://startour.ru/countries/">Страны <span class="caret"></span></a>
                     <ul class="header-submenu">
                         <li><a href="http://startour.ru/gretsiya/">Греция</a></li>
                         <li><a href="http://startour.ru/italiya/">Италия</a></li>
@@ -79,33 +79,52 @@
                         <li><a href="http://startour.ru/countries/">Все страны</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Бонусная STAR-карта</a></li>
-                <li><a href="http://startour.ru/blog">Блог</a></li>
+                <li class="hidden-sm"><a href="#">Бонусная STAR-карта</a></li>
+                <li class="hidden-sm"><a href="http://startour.ru/blog">Блог</a></li>
                 <li><a href="http://startour.ru/kompaniya/">О компании</a></li>
             </ul>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="http://startour.ru/goryashhie-turyi/" class="hot">Горящие туры</a></li>
-                    <li><a href="/tury">Поиск туров</a></li>
-                    <li><a href="/russia">РОССИЯ</a></li>
-
-                    <li><a href="http://startour.ru/countries/">Страны</a></li>
-                    <li><a href="/tury/sobytiya">Событийные туры</a></li>
-                    <li><a href="/tury/avtobusnyy-tur">Автобусные туры по Европе</a></li>
-                    {{--<li><a href="#">Туры до 10 т.р</a></li>--}}
-                    <li><a href="http://startour.ru/vizy/">Виза</a></li>
-                    {{--<li><a href="http://startour.ru/kruizyi/">Круизы</a></li>--}}
+                    <li>
+                        <a href="#">Туры и круизы <span class="caret"></span></a>
+                        <ul class="header-submenu">
+                            <li><a href="http://startour.ru/poisk-turov">Пляжный отдых (Поиск туров)</a></li>
+                            <li><a href="http://russia.startour.ru/sanatorii-i-pansionatyi">Пансионаты и санатории</a></li>
+                            <li><a href="http://startour.ru/goryashhie-turyi/">Горящие туры и спецпредложения</a></li>
+                            <li><a href="http://startour.ru/europe/avtobusnyy-tur">Автобусные туры по Европе</a></li>
+                            <li><a href="http://russia.startour.ru/tury/sobytiya">Событийные туры</a></li>
+                            <li><a href="http://startour.ru/ekskursyi/">Экскурсионные туры</a></li>
+                            <li><a href="http://startour.ru/kruizyi/">Круизы</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Туристические услуги <span class="caret"></span></a>
+                        <ul class="header-submenu">
+                            <li><a href="http://startour.ru/vizy">Визовая поддержка</a></li>
+                            <li><a href="http://startour.ru/transferyi/">Трансферы</a></li>
+                            <li><a href="http://startour.ru/straxovanie/">Страхование ВЗР</a></li>
+                            <li><a href="#">Аренда авто</a></li>
+                            <li><a href="http://startour.ru/aviabiletyi/">Авиабилеты</a></li>
+                            <li><a href="http://startour.ru/podbor-i-bronirovanie-turov/">Подбор и бронирование туров</a></li>
+                            <li><a href="http://startour.ru/individualnyie-turyi/">Индивидуальные туры</a></li>
+                            <li><a href="http://startour.ru/vip-transferyi-i-vip-zalyi/">ВИП трансферы и ВИП залы</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="http://russia.startour.ru/russia">Россия</a></li>
+                    <li>
+                        <a href="http://startour.ru/countries/">Страны <span class="caret"></span></a>
+                        <ul class="header-submenu">
+                            <li><a href="http://startour.ru/gretsiya/">Греция</a></li>
+                            <li><a href="http://startour.ru/italiya/">Италия</a></li>
+                            <li><a href="http://startour.ru/kipr/">Кипр</a></li>
+                            <li><a href="http://startour.ru/tunis/">Тунис</a></li>
+                            <li><a href="http://startour.ru/turtsiya/">Турция</a></li>
+                            <li><a href="http://startour.ru/countries/">Все страны</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Бонусная STAR-карта</a></li>
+                    <li><a href="http://startour.ru/blog">Блог</a></li>
                     <li><a href="http://startour.ru/kompaniya/">О компании</a></li>
-                    <li><a href="http://startour.ru/uslugi/">Услуги</a></li>
-
-                    {{--<li class="dropdown">--}}
-                        {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Еще<span class="caret"></span></a>--}}
-                        {{--<ul class="dropdown-menu">--}}
-                            {{--<li><a href="#">Меню 1</a></li>--}}
-                            {{--<li><a href="#">Меню 2</a></li>--}}
-                            {{--<li><a href="#">Меню 3</a></li>--}}
-                        {{--</ul>--}}
-                    {{--</li>--}}
                 </ul>
             </div>
         </div>

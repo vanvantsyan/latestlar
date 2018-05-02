@@ -204,6 +204,9 @@ label {
 .header .menu li:last-child {
 	margin-right: 0;
 }
+.header .navbar-collapse ul li .header-submenu {
+	display: none;
+}
 .header .menu .container > ul > li > a {
 	color: #fff;
 	padding: 0 18.9px;
@@ -263,7 +266,7 @@ label {
 .header-submenu {
 	position: absolute;
     top: 29px;
-    left: -50px;
+    left: -55px;
     opacity: 0;
     visibility: hidden;
     display: flex;

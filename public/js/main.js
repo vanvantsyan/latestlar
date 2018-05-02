@@ -149,6 +149,10 @@ $(document).ready(function() {
         scrollbarPosition: "inside"
     });
 
+    $('.header .menu .navbar-collapse li a').click(function() {
+    	$(this).parent().find('.header-submenu').toggleClass('active');
+    });
+
     $(".card-tour-filter a").click(function () {
         var elementClick = $(this).attr("href");
         var destination = $(elementClick).offset().top;
