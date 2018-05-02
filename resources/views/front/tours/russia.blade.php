@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset('css/russia.css')}}">
     <style>
         @if($country->banner)
-        .page-{{substr($country->slug,0,10)}}         {
+        .page-{{substr($country->slug,0,10)}}          {
             background: url(/uploads/countries/banners/{{$country->banner}}) 50% 0 no-repeat;
         }
         @endif
@@ -196,20 +196,25 @@
                                         <td>
                                             <a href="/russia/tury-bajkal" class="popular-tours-item">
                                                 @php
-                                                    $images = json_decode($countriesGrid['405']['images']);
+                                                    if(isset($countriesGrid[405]))
+                                                        $images = json_decode($countriesGrid['405']['images']);
+                                                    else $images = [];
                                                 @endphp
                                                 @if(count($images))
                                                     <img src="{{asset('/img/ways/full/' . (head($images)))}}" alt="">
                                                 @endif
-                                                <div class="price">
-                                                    от {{number_format($countriesGrid['405']['minPrice'],0,'.','')}}
-                                                    <span
-                                                            class="glyphicon glyphicon-rub" aria-hidden="true"></span>
-                                                </div>
-                                                <div class="popular-tours-item-cont">
-                                                    <div class="popular-tours-item-title">{{$countriesGrid['405']['title']}}</div>
-                                                    <p>{!! $countriesGrid['405']['description'] !!}</p>
-                                                </div>
+                                                @isset($countriesGrid[405])
+                                                    <div class="price">
+                                                        от {{number_format($countriesGrid['405']['minPrice'],0,'.','')}}
+                                                        <span
+                                                                class="glyphicon glyphicon-rub"
+                                                                aria-hidden="true"></span>
+                                                    </div>
+                                                    <div class="popular-tours-item-cont">
+                                                        <div class="popular-tours-item-title">{{$countriesGrid['405']['title']}}</div>
+                                                        <p>{!! $countriesGrid['405']['description'] !!}</p>
+                                                    </div>
+                                                @endif
                                             </a>
                                         </td>
                                     </tr>
