@@ -2128,7 +2128,7 @@ div.dp-popup h2 {
 	margin-top: 10px;
 	width: 100%;
 }
-.card-tour-filter #mCSB_4_container {
+.card-tour-filter .mCSB_container {
 	display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
