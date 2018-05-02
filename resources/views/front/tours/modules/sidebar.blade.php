@@ -448,7 +448,7 @@
                 <div class="sidebar-tour-title">Другие страны</div>
                 <ul>
                     @forelse($countries as $countryItem)
-                        @if(isset($country))
+                        @if(isset($country) && isset($country->slug))
                             @if( ($country->slug != $countryItem->url))
                                 <li class="with-flag">
                                     @php
