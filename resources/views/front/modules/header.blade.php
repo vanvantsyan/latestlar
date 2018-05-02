@@ -85,7 +85,7 @@
             </ul>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li>
+                    <li class="visible-xs hidden-sm">
                         <a href="#">Туры и круизы <span class="caret"></span></a>
                         <ul class="header-submenu">
                             <li><a href="http://startour.ru/poisk-turov">Пляжный отдых (Поиск туров)</a></li>
@@ -97,7 +97,7 @@
                             <li><a href="http://startour.ru/kruizyi/">Круизы</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li class="visible-xs hidden-sm">
                         <a href="#">Туристические услуги <span class="caret"></span></a>
                         <ul class="header-submenu">
                             <li><a href="http://startour.ru/vizy">Визовая поддержка</a></li>
@@ -110,8 +110,8 @@
                             <li><a href="http://startour.ru/vip-transferyi-i-vip-zalyi/">ВИП трансферы и ВИП залы</a></li>
                         </ul>
                     </li>
-                    <li><a href="http://russia.startour.ru/russia">Россия</a></li>
-                    <li>
+                    <li class="visible-xs hidden-sm"><a href="http://russia.startour.ru/russia">Россия</a></li>
+                    <li class="visible-xs hidden-sm">
                         <a href="http://startour.ru/countries/">Страны <span class="caret"></span></a>
                         <ul class="header-submenu">
                             <li><a href="http://startour.ru/gretsiya/">Греция</a></li>
@@ -124,7 +124,7 @@
                     </li>
                     <li><a href="#">Бонусная STAR-карта</a></li>
                     <li><a href="http://startour.ru/blog">Блог</a></li>
-                    <li><a href="http://startour.ru/kompaniya/">О компании</a></li>
+                    <li class="visible-xs hidden-sm"><a href="http://startour.ru/kompaniya/">О компании</a></li>
                 </ul>
             </div>
         </div>
