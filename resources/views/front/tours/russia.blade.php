@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset('css/russia.css')}}">
     <style>
         @if($country->banner)
-        .page-{{substr($country->slug,0,10)}}       {
+        .page-{{substr($country->slug,0,10)}}        {
             background: url(/uploads/countries/banners/{{$country->banner}}) 50% 0 no-repeat;
         }
         @endif
@@ -150,17 +150,20 @@
                                         <td>
                                             <a href="/russia/tury-velikij-ustyug" class="popular-tours-item">
                                                 @php
-                                                    $images = json_decode($countriesGrid['419']['images']);
+                                                    if(isset($countriesGrid['419']))
+                                                        $images = json_decode($countriesGrid['419']['images']);
+                                                    else $images = [];
                                                 @endphp
                                                 @if(count($images))
                                                     <img src="{{asset('/img/ways/full/' . (head($images)))}}" alt="">
                                                 @endif
                                                 @isset($countriesGrid['419'])
-                                                <div class="price">
-                                                    от {{number_format($countriesGrid['419']['minPrice'],0,'.','')}}
-                                                    <span
-                                                            class="glyphicon glyphicon-rub" aria-hidden="true"></span>
-                                                </div>
+                                                    <div class="price">
+                                                        от {{number_format($countriesGrid['419']['minPrice'],0,'.','')}}
+                                                        <span
+                                                                class="glyphicon glyphicon-rub"
+                                                                aria-hidden="true"></span>
+                                                    </div>
                                                 @endif
                                                 <div class="popular-tours-item-cont">
                                                     <div class="popular-tours-item-title">{{$countriesGrid['419']['title']}}</div>
