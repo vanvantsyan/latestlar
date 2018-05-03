@@ -384,7 +384,7 @@ class ToursParser
 
                             $workingImage = Image::make($img);
                             $workingImage->flip();
-                            $workingImage->save($path);
+                            $workingImage->save($path, 75);
 
                             if (!File::exists(base_path('public/img/tours/thumbs/' . $folder . '/' . $imageName))) {
 
@@ -395,7 +395,7 @@ class ToursParser
                                 $workingImage->resize(null, 235, function ($constraint) {
                                     $constraint->aspectRatio();
                                 });
-                                $workingImage->save(base_path('public/img/tours/thumbs/' . $folder . '/' . $imageName));
+                                $workingImage->save(base_path('public/img/tours/thumbs/' . $folder . '/' . $imageName), 75);
                             }
                         }
 
@@ -801,7 +801,7 @@ class ToursParser
 
                         $workingImage = Image::make($img);
                         $workingImage->flip();
-                        $workingImage->save($path);
+                        $workingImage->save($path, 75);
 
                         if (!File::exists(base_path('/public/img/tours/thumbs/' . $folder . '/' . $imageName))) {
                             $workingImage->resize(null, 235, function ($constraint) {
@@ -812,7 +812,7 @@ class ToursParser
                                 mkdir(base_path('/public/img/tours/thumbs/' . $folder));
                             }
 
-                            $workingImage->save(base_path('/public/img/tours/thumbs/' . $folder . '/' . $imageName));
+                            $workingImage->save(base_path('/public/img/tours/thumbs/' . $folder . '/' . $imageName), 75);
                         }
                     }
 

@@ -1004,6 +1004,7 @@ class ToursController extends Controller
 
 
         /* Get hot tours */
+        // TODO рефакторинг сделать один запрос к которому прибавлять условия
 
         $hotToursAny = Tours::take(8)
             ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])

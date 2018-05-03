@@ -54,7 +54,7 @@ class ImageController extends Controller
             });
         }
 
-        $imgObj->save($folderFullPath . '/' . $imageName, 100);
+        $imgObj->save($folderFullPath . '/' . $imageName, 75);
 
         $folderThumbPath = public_path('img\\' . strtolower($essence) . '\thumbs');
 
