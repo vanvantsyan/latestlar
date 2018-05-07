@@ -235,50 +235,54 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-6 col-xs-12 margTop15">
-                                        <label for="seo_desc">Направление</label>
-                                        @php
-                                            if(count($item->parWays)) {
-                                                $currentWay = array_get(head(head($item->parWays)),'waysPar');
-                                            } else {
-                                                $currentWay = 0;
-                                            }
-                                        @endphp
+                                    {{--<div class="col-md-6 col-xs-12 margTop15">--}}
+                                        {{--<label for="seo_desc">Направление</label>--}}
+                                        {{--@php--}}
+                                            {{--if(count($item->parWays)) {--}}
+                                                {{--$currentWay = array_get(head(head($item->parWays)),'waysPar');--}}
+                                            {{--} else {--}}
+                                                {{--$currentWay = 0;--}}
+                                            {{--}--}}
+                                        {{--@endphp--}}
 
-                                        <select class="bs-select form-control" name="way">
-                                            <option value="0">Не указано</option>
-                                            @foreach($ways as $way)
-                                                <option value="{{$way->id}}">{{$way->title}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 col-xs-12 margTop15">
-                                        <label for="cities">Города (маршрут)</label>
-                                        @isset($item)
-                                            <div class="routeList">
-                                                @if(count($item['parPoints']))
-                                                    @foreach($item->parPoints as $point)
-                                                        <span class="alert-success">
-                                                            <input type="hidden"
-                                                                   value="{{array_get($point,'pointsPar.id')}}"
-                                                                   name="cities"/>{{array_get($point,'pointsPar.title')}}
-                                                            <i data-tour-id="{{$item->id}}" data-date="{{$date->value}}"
-                                                               class="flaticon-circle"></i>
-                                                        </span>
-                                                    @endforeach
-                                                @else
-                                                    <div>Нет городов</div>
-                                                @endif
-                                            </div>
-                                        @endif
-                                        <select class="bs-select form-control">
-                                            <option value="0">Не указано</option>
-                                            @foreach($cities as $city)
-                                                <option value="{{$city->id}}">{{$city->title}}</option>
-                                            @endforeach
-                                        </select>
-                                        <span class="btn btn-info">Добавить</span>
-                                    </div>
+                                        {{--<select class="bs-select form-control" name="way">--}}
+                                            {{--<option value="0">Не указано</option>--}}
+                                            {{--@foreach($ways as $way)--}}
+                                                {{--@if(isset($curentWay) && $curentWay->id = $way->id)--}}
+                                                    {{--<option value="{{$way->id}}">{{$way->title}}</option>--}}
+                                                {{--@else--}}
+                                                    {{--<option value="{{$way->id}}">{{$way->title}}</option>--}}
+                                                {{--@endif--}}
+                                            {{--@endforeach--}}
+                                        {{--</select>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-6 col-xs-12 margTop15">--}}
+                                        {{--<label for="cities">Города (маршрут)</label>--}}
+                                        {{--@isset($item)--}}
+                                            {{--<div class="routeList">--}}
+                                                {{--@if(count($item['parPoints']))--}}
+                                                    {{--@foreach($item->parPoints as $point)--}}
+                                                        {{--<span class="alert-success">--}}
+                                                            {{--<input type="hidden"--}}
+                                                                   {{--value="{{array_get($point,'pointsPar.id')}}"--}}
+                                                                   {{--name="cities"/>{{array_get($point,'pointsPar.title')}}--}}
+                                                            {{--<i data-tour-id="{{$item->id}}" data-date="{{$date->value}}"--}}
+                                                               {{--class="flaticon-circle"></i>--}}
+                                                        {{--</span>--}}
+                                                    {{--@endforeach--}}
+                                                {{--@else--}}
+                                                    {{--<div>Нет городов</div>--}}
+                                                {{--@endif--}}
+                                            {{--</div>--}}
+                                        {{--@endif--}}
+                                        {{--<select class="bs-select form-control">--}}
+                                            {{--<option value="0">Не указано</option>--}}
+                                            {{--@foreach($cities as $city)--}}
+                                                {{--<option value="{{$city->id}}">{{$city->title}}</option>--}}
+                                            {{--@endforeach--}}
+                                        {{--</select>--}}
+                                        {{--<span class="btn btn-info">Добавить</span>--}}
+                                    {{--</div>--}}
                                     <div class="col-md-6 col-xs-12"></div>
                                     <div class="col-md-6 col-xs-12"></div>
                                 </div>
