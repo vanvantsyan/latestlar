@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Ways extends Model
+class Ways extends Base
 {
 
     protected $table = 'ways';

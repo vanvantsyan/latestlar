@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use DB;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 
-class Geo extends Model
+class Geo extends Base
 {
+    use Cachable;
 
     protected $table = 'geo_countries';
     protected $fillable = ['country', 'description', 'slug'];

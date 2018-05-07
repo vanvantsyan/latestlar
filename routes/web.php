@@ -135,6 +135,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('cases/{id}/edit', 'Admin\CaseController@edit');
         Route::post('cases/store', 'Admin\CaseController@store');
 
+        Route::post('tours/dates/destroy', 'Admin\ToursController@destroyDate')->name('dates.remove');;
+        Route::post('tours/dates/add', 'Admin\ToursController@addDate')->name('dates.add');;
+
     });
 });
 

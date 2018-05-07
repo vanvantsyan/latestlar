@@ -6,7 +6,7 @@
         <div class="d-flex align-items-center">
             <div class="mr-auto">
                 <h3 class="m-subheader__title m-subheader__title--separator">
-                    Добавить направление
+                    @isset($item) Редактировать направление @else Добавить направление @endif
                 </h3>
                 {!! Breadcrumbs::generate(['Рабочий стол', 'Направление', 'Добавить направление'], 'metronic') !!}
             </div>
@@ -154,7 +154,7 @@
 
             sending: function(file, xhr, formData) {
                 formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
-                formData.append("id", '{{$item->id}}');
+                formData.append("id", '{{$item->id or 0}}');
                 formData.append("ess", 'Ways');
             },
 
@@ -166,7 +166,7 @@
                     url: "{{route('image.get')}}",
                     cache: false,
                     data: {
-                        id: '{{$item->id}}',
+                        id: '{{$item->id or 0}}',
                         ess: 'Ways'
                     },
                     type: "POST",
@@ -198,7 +198,7 @@
                     $.ajax({
                         url: "{{route('image.remove')}}",
                         cache: false,
-                        data: {id: '{{$item->id}}', name: file.name, ess: 'Ways'},
+                        data: {id: '{{$item->id or 0}}', name: file.name, ess: 'Ways'},
                         type: "POST",
                     }).done(function (data) {
 

@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class GeoRelation extends Model
+class GeoRelation extends Base
 {
 
     protected $table = 'geo_relation';
@@ -26,6 +24,10 @@ class GeoRelation extends Model
 
     public function minPrice(){
         return $this->tours()->min('price');
+    }
+
+    public function countryPar(){
+        return $this->belongsTo('App\Models\Geo','par_id','id');
     }
 
 

@@ -2,16 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Tours extends Model
+class Tours extends Base
 {
 
     protected $table = 'tours';
     protected $fillable = ['id', 'title', 'description', 'text', 'price', 'duration', 'source', 'url', 'created_at', 'updated_at'];
 
-    protected $appends = ['dates']; //,'nearestDate'
+    protected $appends = ['dates', 'country']; //,'nearestDate'
 //    protected $casts = ['nearestDate' => 'string'];
 
     public function tourTags()
@@ -19,10 +18,20 @@ class Tours extends Model
         return $this->hasMany('App\Models\ToursTagsRelation', 'tour_id');
     }
 
-    public function getDatesAttribute($value)
+    public function getDatesAttribute()
     {
         return $this->tourTags->where('tag_id', 2)->sortBy('value');
     }
+
+    public function getCountryAttribute()
+    {
+        $rel = $this->tourGeoSub->where('par_ess', 'country')->first()->toArray('par_id');
+        if($rel['par_id']) {
+            return Geo::find($rel['par_id']);
+        }
+        return 0;
+    }
+
     public function getNearestDateAttribute($value)
     {
         return $this->tourTags->where('tag_id', 2)->where('value','>',time())->sortBy('value')->first();
@@ -35,17 +44,17 @@ class Tours extends Model
 
     public function tourGeoSub()
     {
-        return $this->hasMany('App\Models\GeoRelation', 'sub_id');
+        return $this->hasMany('App\Models\GeoRelation', 'sub_id')->where('sub_ess','tour');
     }
 
     public function parPoints()
     {
-        return $this->hasMany('App\Models\GeoRelation', 'sub_id')->where('par_ess', 'point');
+        return $this->hasMany('App\Models\GeoRelation', 'sub_id')->where('sub_ess','tour')->where('par_ess', 'point');
     }
 
     public function parWays()
     {
-        return $this->hasMany('App\Models\GeoRelation', 'sub_id')->where('par_ess', 'way');
+        return $this->hasMany('App\Models\GeoRelation', 'sub_id')->where('sub_ess','tour')->where('par_ess', 'way');
     }
 
     // Scopes

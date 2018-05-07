@@ -52,15 +52,15 @@
                                     </span>
                                 </span>
                             </a>
-                            <a href="{{url('admin/types/create')}}"
-                               class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
-                                <span>
-                                    <i class="la la-cart-plus"></i>
-                                    <span>
-                                        Добавить направление
-                                    </span>
-                                </span>
-                            </a>
+                            {{--<a href="{{url('admin/types/create')}}"--}}
+                               {{--class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">--}}
+                                {{--<span>--}}
+                                    {{--<i class="la la-cart-plus"></i>--}}
+                                    {{--<span>--}}
+                                        {{--Добавить направление--}}
+                                    {{--</span>--}}
+                                {{--</span>--}}
+                            {{--</a>--}}
                             <div class="m-separator m-separator--dashed d-xl-none"></div>
                         </div>
                     </div>

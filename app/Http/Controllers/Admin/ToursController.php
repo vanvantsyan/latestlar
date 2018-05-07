@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\TourHelper;
 use App\Http\CBRAgent;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ToursRequest;
+use App\Models\Geo;
 use App\Models\GeoRelation;
 use App\Models\Points;
 use App\Models\Tours;
 use App\Models\ToursTags;
 use App\Models\ToursTagsRelation;
+use App\Models\ToursTagsValues;
 use App\Models\Ways;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -30,8 +33,8 @@ class ToursController extends Controller
     {
         $text = $request->input('text');
 
-        $coins = Tours::where('title', 'LIKE', '%' . $text . '%')
-            ->paginate(15);
+        $coins = Tours::where('title', 'LIKE', '%' . $text . '%')->paginate(15);
+
         if ($request->ajax()) {
             return Response::json(View::make('admin.tours.search', ['tours' => $coins, 'text' => $text])->render());
         }
@@ -41,9 +44,14 @@ class ToursController extends Controller
 
     public function edit($id)
     {
-        $item = Tours::find($id);
+        $item = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])->find($id);
         $images = json_decode($item->images);
         return view('admin.tours.form', [
+            'types' => ToursTagsValues::where('tag_id', 4)->get(),
+            'countries' => Geo::all(),
+            'ways' => Ways::where('status', '!=', 'country')->get(),
+            'cities' => Points::where('status', 'city')->where('off', 0)->get(),
+
             'item' => $item,
             'images' => $images,
             'imgFolder' => substr($item->id, 0, 2),
@@ -58,12 +66,18 @@ class ToursController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $data = $request->all();
+
+        $country = $data['country'];
+        $tourTypes = $data['tourType'] ?? [];
 
         unset($data['_token']);
         unset($data['_method']);
         unset($data['files']);
+        unset($data['tourType']);
+        unset($data['country']);
+        unset($data['way']);
+        unset($data['cities']);
 
         try {
             Tours::where('id', $id)->update($data);
@@ -71,16 +85,109 @@ class ToursController extends Controller
             return $e->getMessage();
         }
 
-        return redirect('admin/tours')
+
+        // Edit types
+        if (count($tourTypes))
+            ToursTagsRelation::where([
+                'tour_id' => $id,
+                'tag_id' => 4,
+            ])->delete();
+
+        foreach ($tourTypes as $type) {
+
+            ToursTagsRelation::insert([
+                'tour_id' => $id,
+                'tag_id' => 4,
+                'value' => $type,
+                'not_update' => 1
+            ]);
+        }
+
+        if ($country) {
+
+            GeoRelation::where([
+                'sub_id' => $id,
+                'sub_ess' => 'tour',
+                'par_ess' => 'country',
+            ])->delete();
+
+            GeoRelation::insert([
+                'sub_id' => $id,
+                'sub_ess' => 'tour',
+                'par_ess' => 'country',
+                'par_id' => $country,
+            ]);
+        }
+
+        return redirect('admin/tours/' . $id . "/edit")
             ->with('message', 'Тур "' . $request->get('title') . '"успешно обновлен');
     }
 
     public function create()
     {
-        $categories = Tours::all();
         return view('admin.tours.form', [
-            'categories' => $categories
+            'types' => ToursTagsValues::where('tag_id', 4)->get()
         ]);
+    }
+
+    public function destroyDate(Request $request)
+    {
+        $data = $request->all();
+
+        return ToursTagsRelation::where([
+            'tour_id' => $data['tour_id'],
+            'tag_id' => 2,
+            'value' => $data['date'],
+        ])->delete();
+    }
+
+    public function addDate(Request $request)
+    {
+        $data = $request->all();
+
+        $res = ToursTagsRelation::insert([
+            'tour_id' => $data['tour_id'],
+            'tag_id' => 2,
+            'value' => $data['date'],
+        ]);
+
+        if ($res) return 1;
+        else return 0;
+    }
+
+    public function store(ToursRequest $request)
+    {
+
+        $data = $request->all();
+
+        $tourTypes = $data['tourType'] or [];
+
+        unset($data['_token']);
+        unset($data['tourType']);
+
+        $tour = new Tours();
+
+        foreach ($data as $key => $value) {
+            $tour->$key = $value;
+        }
+
+        $tour->save();
+
+        $tour->url = TourHelper::tour2url($tour->title, $tour->id);
+        $tour->save();
+
+        foreach ($tourTypes as $type) {
+            ToursTagsRelation::insert([
+                'tour_id' => $tour->id,
+                'tag_id' => 4,
+                'value' => $type,
+                'not_update' => 1
+            ]);
+        }
+
+        return redirect('admin/tours/' . $tour->id . "/edit")
+            ->with('message', 'Тур добавлен');
+
     }
 
     public function parser()

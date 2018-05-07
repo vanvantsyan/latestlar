@@ -15,7 +15,7 @@ window.onload = function () {
             }, 1000);
         }
     });
-}
+};
 
 // Expand tour programm
 $('.card-schedule .btn-expand').on('click', function () {

@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class ToursTagsValues extends Model
+class ToursTagsValues extends Base
 {
     protected $table = 'tours_tags_values';
 

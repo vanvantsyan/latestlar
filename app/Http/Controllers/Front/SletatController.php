@@ -34,7 +34,7 @@ class SletatController extends Controller
 
         $departCities = $xml->GetHotelInformation(17);
 
-        dd($departCities);
+//        dd($departCities);
 
         $hotelsIds = slGeoRelation::where([
             'sub_ess' => 'hotel',

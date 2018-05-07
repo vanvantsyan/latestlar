@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Worldparts extends Model
+class Worldparts extends Base
 {
 
     protected $table = 'ways';

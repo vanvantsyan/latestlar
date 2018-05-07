@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Points extends Model
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
+class Points extends Base
 {
-
+    use Cachable;
     protected $table = 'points';
 
     protected $appends = ['count_tours'];

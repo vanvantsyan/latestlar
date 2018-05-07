@@ -10,6 +10,7 @@
         "caouecs/laravel-lang": "^3.0",
         "doctrine/dbal": "^2.6",
         "fideloper/proxy": "~3.3",
+        "genealabs/laravel-model-caching": "^0.2.55",
         "glissmedia/breadcrumbs": "dev-master",
         "guzzlehttp/guzzle": "^6.3",
         "ignasbernotas/laravel-model-generator": "^1.2",
@@ -17,9 +18,11 @@
         "jenssegers/date": "^3.2",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
+        "marvin255/sletatru": "*",
+        "predis/predis": "^1.1",
+        "spiritix/lada-cache": "^2.1",
         "sunra/php-simple-html-dom-parser": "1.5.2",
-        "zizaco/entrust": "^1.8",
-        "marvin255/sletatru": "*"
+        "zizaco/entrust": "^1.8"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",

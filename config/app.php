@@ -182,6 +182,7 @@ return [
         App\Providers\BlogServiceProvider::class,
         Alexusmai\Ruslug\RuslugServiceProvider::class,
         Jenssegers\Date\DateServiceProvider::class,
+        Spiritix\LadaCache\LadaCacheServiceProvider::class,
 
     ],
 

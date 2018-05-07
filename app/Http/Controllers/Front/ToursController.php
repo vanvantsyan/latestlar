@@ -11,6 +11,7 @@ use App\Models\Tours;
 use App\Models\ToursTagsValues;
 use App\Models\Ways;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
@@ -1006,108 +1007,116 @@ class ToursController extends Controller
         /* Get hot tours */
         // TODO рефакторинг сделать один запрос к которому прибавлять условия
 
-        $hotToursAny = Tours::take(8)
-            ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])
-            ->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')
-            ->join('geo_relation as geo_r', function ($join) use ($country) {
-                $join->on('geo_r.sub_id', '=', 'tours.id')
-                    ->where('geo_r.sub_ess', 'tour')
-                    ->where('geo_r.par_ess', 'country')
-                    ->where('geo_r.par_id', $country->id);
-            })
-            ->take(8);
+        $hotToursAny = Cache::remember('hotToursAny-'. $country->slug, 1440, function() use($country){
+            $hotToursAny = Tours::take(8)
+                ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])
+                ->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')
+                ->join('geo_relation as geo_r', function ($join) use ($country) {
+                    $join->on('geo_r.sub_id', '=', 'tours.id')
+                        ->where('geo_r.sub_ess', 'tour')
+                        ->where('geo_r.par_ess', 'country')
+                        ->where('geo_r.par_id', $country->id);
+                })
+                ->take(8);
 
-        // Join with dates for order
-        $toursIds = $hotToursAny->pluck('tours.id')->toArray();
+            // Join with dates for order
+            $toursIds = $hotToursAny->pluck('tours.id')->toArray();
 
-        if ($toursIds) {
+            if ($toursIds) {
 
-            $hotToursAny = $hotToursAny->withDates($toursIds)
-                ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
-                ->get();
-        } else {
-
-            $hotToursAny = [];
-        }
+                return $hotToursAny = $hotToursAny->withDates($toursIds)
+                    ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
+                    ->get();
+            } else {
+                return $hotToursAny = [];
+            }
+        });
 
 
         /* Get hot tours with 1 day duration */
 
-        $hotToursOne = Tours::where('duration', 1)
-            ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])
-            ->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')
-            ->join('geo_relation as geo_r', function ($join) use ($country) {
-                $join->on('geo_r.sub_id', '=', 'tours.id')
-                    ->where('geo_r.sub_ess', 'tour')
-                    ->where('geo_r.par_ess', 'country')
-                    ->where('geo_r.par_id', $country->id);
-            })
-            ->take(8);
+        $hotToursOne = Cache::remember('hotToursOne-'.$country->slug, 1440, function() use($country) {
+            $hotToursOne = Tours::where('duration', 1)
+                ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])
+                ->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')
+                ->join('geo_relation as geo_r', function ($join) use ($country) {
+                    $join->on('geo_r.sub_id', '=', 'tours.id')
+                        ->where('geo_r.sub_ess', 'tour')
+                        ->where('geo_r.par_ess', 'country')
+                        ->where('geo_r.par_id', $country->id);
+                })
+                ->take(8);
 
-        // Join with dates for order
-        $toursIds = $hotToursOne->pluck('tours.id')->toArray();
+            // Join with dates for order
+            $toursIds = $hotToursOne->pluck('tours.id')->toArray();
 
-        if ($toursIds) {
-            $hotToursOne = $hotToursOne->withDates($toursIds)
-                ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
-                ->get();
-        } else {
-            $hotToursOne = [];
-        }
+            if ($toursIds) {
+                return $hotToursOne = $hotToursOne->withDates($toursIds)
+                    ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
+                    ->get();
+            } else {
+                return $hotToursOne = [];
+            }
+        });
+
 
 
         /* Get hot tours with many day duration */
 
-        $hotToursMany = Tours::where('duration', '>', 1)
-            ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])
-            ->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')
-            ->join('geo_relation as geo_r', function ($join) use ($country) {
-                $join->on('geo_r.sub_id', '=', 'tours.id')
-                    ->where('geo_r.sub_ess', 'tour')
-                    ->where('geo_r.par_ess', 'country')
-                    ->where('geo_r.par_id', $country->id);
-            });
+        $hotToursMany = Cache::remember('hotToursMany-'.$country->slug, 1440, function() use($country) {
+            $hotToursMany = Tours::where('duration', '>', 1)
+                ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])
+                ->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')
+                ->join('geo_relation as geo_r', function ($join) use ($country) {
+                    $join->on('geo_r.sub_id', '=', 'tours.id')
+                        ->where('geo_r.sub_ess', 'tour')
+                        ->where('geo_r.par_ess', 'country')
+                        ->where('geo_r.par_id', $country->id);
+                });
 
 
-        // Join with dates for order
-        $toursIds = $hotToursMany->pluck('tours.id')->toArray();
+            // Join with dates for order
+            $toursIds = $hotToursMany->pluck('tours.id')->toArray();
 
-        if ($toursIds) {
-            $hotToursMany = $hotToursMany->withDates($toursIds)
-                ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
-                ->take(8)
-                ->get();
-        } else {
-            $hotToursMany = [];
-        }
-
+            if ($toursIds) {
+                return $hotToursMany = $hotToursMany->withDates($toursIds)
+                    ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
+                    ->take(8)
+                    ->get();
+            } else {
+                return $hotToursMany = [];
+            }
+        });
 
         /* Get hot tours with active rest */
 
-        $hotToursActive = Tours::join('tour_tags_relations AS ttr', 'ttr.tour_id', '=', 'tours.id')
-            ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])
-            ->where('ttr.tag_id', 4)
-            ->where('ttr.value', 13)
-            ->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')
-            ->join('geo_relation as geo_r', function ($join) use ($country) {
-                $join->on('geo_r.sub_id', '=', 'tours.id')
-                    ->where('geo_r.sub_ess', 'tour')
-                    ->where('geo_r.par_ess', 'country')
-                    ->where('geo_r.par_id', $country->id);
-            });
+        $hotToursActive = Cache::remember('hotToursActive-' . $country->slug, 1440, function () use($country){
+            $hotToursActive = Tours::join('tour_tags_relations AS ttr', 'ttr.tour_id', '=', 'tours.id')
+                ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])
+                ->where('ttr.tag_id', 4)
+                ->where('ttr.value', 13)
+                ->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')
+                ->join('geo_relation as geo_r', function ($join) use ($country) {
+                    $join->on('geo_r.sub_id', '=', 'tours.id')
+                        ->where('geo_r.sub_ess', 'tour')
+                        ->where('geo_r.par_ess', 'country')
+                        ->where('geo_r.par_id', $country->id);
+                });
 
-        // Join with dates for order
-        $toursIds = $hotToursActive->pluck('tours.id')->toArray();
+            // Join with dates for order
+            $toursIds = $hotToursActive->pluck('tours.id')->toArray();
 
-        if ($toursIds) {
+            if ($toursIds) {
 
-            $hotToursActive = $hotToursActive->withDates($toursIds)
-                ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
-                ->take(8)
-                ->get();
-        } else {
-            $hotToursActive = [];
-        }
+                return $hotToursActive = $hotToursActive->withDates($toursIds)
+                    ->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END")
+                    ->take(8)
+                    ->get();
+            } else {
+                return $hotToursActive = [];
+            }
+        });
+
 
 
         return view('front.tours.russia', [
@@ -1148,7 +1157,7 @@ class ToursController extends Controller
         // Join with dates by sorting
         $toursIds = $tours->pluck('tours.id')->toArray();
 
-        if($toursIds) {
+        if ($toursIds) {
             $tours->leftJoin(
                 DB::raw("
             (
@@ -1383,10 +1392,10 @@ class ToursController extends Controller
 
         $imgObj->save($folderThumbPath . '/' . $imageName, 75);
 
-        $imagesList = get_object_vars(json_decode($tour->images));
+        $imagesList = $tour->images ? get_object_vars(json_decode($tour->images)) : [];
         $imagesList[] = $imageName;
-
         $tour->images = json_encode($imagesList);
+
 
         if ($tour->save()) {
             return response()->json(['success' => $imageName]);

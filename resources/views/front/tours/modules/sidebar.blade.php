@@ -301,6 +301,7 @@
                         @endif
 
                         @if($loop->iteration == 8)
+
                             @break
                         @endif
 
@@ -309,6 +310,7 @@
                 </ul>
             </div>
         @endif
+
         @if($country or $tag or $month)
             <div class="sidebar-city-tour">
                 <div class="sidebar-tour-subtitle">
