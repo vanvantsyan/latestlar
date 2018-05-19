@@ -11,6 +11,7 @@ use App\Models\Ways;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Sunra\PhpSimple\HtmlDomParser;
 
 class BladeHelper
@@ -244,7 +245,10 @@ class BladeHelper
 
     public static function tourImg($img, $id)
     {
-        return asset(config('main.imgPath.tour') . 'full/' . substr($id, 0, 2) . '/' . $img);
+        if(File::exist(public_path((config('main.imgPath.tour') . 'full/' . substr($id, 0, 2) . '/' . $img)))) {
+            return asset(config('main.imgPath.tour') . 'full/' . substr($id, 0, 2) . '/' . $img);
+        }
+        return false;
     }
 
     public static function tourThumb($img, $id)
