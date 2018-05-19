@@ -48,7 +48,7 @@ class BladeHelper
         $arr = file_get_contents($file);
         $arr = !empty($arr) ? json_decode($arr, true) : [];
 
-        if (!array_key_exists($text, $arr)) {
+        if (!array_key_exists($text, $arr) || (array_key_exists($text, $arr) && !array_key_exists($padeg, $arr[$text]))) {
 
             if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/declension?s=" . str_replace(' ', '%20', $text) . "&token=896aa1e5-2780-4fe2-8b50-f69a631f63b0")) === false) {
                 return $text;
