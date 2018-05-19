@@ -253,7 +253,10 @@ class BladeHelper
 
     public static function tourThumb($img, $id)
     {
-        return asset(config('main.imgPath.tour') . 'thumbs/' . substr($id, 0, 2) . '/' . $img);
+        if(File::exist(public_path((config('main.imgPath.tour') . 'thumbs/' . substr($id, 0, 2) . '/' . $img)))) {
+            return asset(config('main.imgPath.tour') . 'thumbs/' . substr($id, 0, 2) . '/' . $img);
+        }
+        return false;
     }
 
     public static function tourLink($tour)
