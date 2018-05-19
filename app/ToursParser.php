@@ -1102,9 +1102,9 @@ class ToursParser
             $images = json_decode($tour->images);
 
             foreach ($images as $image) {
-                if ($image && !File::exists('public/img/tours/full/' . substr($tour->id, 0, 2) . '/' . $image)) {
+                if ($image) {
 
-                    $img = Image::make('public/img/tours/full/' . substr($tour->id, 0, 2) . '/' . $image);
+                    $img = Image::make(public_path('public/img/tours/full/' . substr($tour->id, 0, 2) . '/' . $image));
                     $img->resize(null, 235, function ($constraint) {
                         $constraint->aspectRatio();
                     });
