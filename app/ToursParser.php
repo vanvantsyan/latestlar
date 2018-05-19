@@ -1104,7 +1104,7 @@ class ToursParser
             foreach ($images as $image) {
                 if ($image) {
 
-                    $img = Image::make(public_path('public/img/tours/full/' . substr($tour->id, 0, 2) . '/' . $image));
+                    $img = Image::make(public_path('img/tours/full/' . substr($tour->id, 0, 2) . '/' . $image));
                     $img->resize(null, 235, function ($constraint) {
                         $constraint->aspectRatio();
                     });
