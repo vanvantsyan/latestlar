@@ -1102,7 +1102,7 @@ class ToursParser
             $images = json_decode($tour->images);
 
             foreach ($images as $image) {
-                if ($image) {
+                if ($image && File::exists(public_path('img/tours/full/' . substr($tour->id, 0, 2) . '/' . $image))) {
                         echo public_path('img/tours/full/' . substr($tour->id, 0, 2) . '/' . $image);
                     $img = Image::make(public_path('img/tours/full/' . substr($tour->id, 0, 2) . '/' . $image));
                     $img->resize(null, 235, function ($constraint) {
