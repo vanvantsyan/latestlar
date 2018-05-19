@@ -245,7 +245,7 @@ class BladeHelper
 
     public static function tourImg($img, $id)
     {
-        if(File::exist(public_path((config('main.imgPath.tour') . 'full/' . substr($id, 0, 2) . '/' . $img)))) {
+        if(File::exists(public_path((config('main.imgPath.tour') . 'full/' . substr($id, 0, 2) . '/' . $img)))) {
             return asset(config('main.imgPath.tour') . 'full/' . substr($id, 0, 2) . '/' . $img);
         }
         return false;
@@ -253,7 +253,7 @@ class BladeHelper
 
     public static function tourThumb($img, $id)
     {
-        if(File::exist(public_path((config('main.imgPath.tour') . 'thumbs/' . substr($id, 0, 2) . '/' . $img)))) {
+        if(File::exists(public_path((config('main.imgPath.tour') . 'thumbs/' . substr($id, 0, 2) . '/' . $img)))) {
             return asset(config('main.imgPath.tour') . 'thumbs/' . substr($id, 0, 2) . '/' . $img);
         }
         return false;
