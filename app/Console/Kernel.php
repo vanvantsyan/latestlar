@@ -31,10 +31,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('tours:start parsOne')->daily()->at('4:00');;
 
         // Еженедельно обновляем данные туроператоров, так как они могут изменить направление
-         $schedule->command('sletat parsOperators')->weekly();
+         //$schedule->command('sletat parsOperators')->weekly();
 
         // Еженедельно обновляем информацию о количестве отелей определенной категории по странам и курортам
-         $schedule->command('sletat parsHotelStars')->weekly();
+         //$schedule->command('sletat parsHotelStars')->weekly();
     }
 
     /**
