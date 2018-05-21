@@ -29,7 +29,7 @@ class BladeHelper
             file_put_contents($file, $current);
         } else {
             $current = file_get_contents($file);
-            $current = !empty($current) ? json_decode($current, true) : [];
+            $current = is_array($current) && count($current) > 0 ? json_decode($current, true) : [];
             if (!array_key_exists($text, $current)) {
                 $current[$text] = $tmp;
             }
