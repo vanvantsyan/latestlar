@@ -27,8 +27,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // Ежедневно обновляем данные туров
-        $schedule->command('tours:start parsMany')->daily()->at('3:00');
-        $schedule->command('tours:start parsOne')->daily()->at('4:00');;
+        //$schedule->command('tours:start parsMany')->daily()->at('3:00');
+        //$schedule->command('tours:start parsOne')->daily()->at('4:00');;
 
         // Еженедельно обновляем данные туроператоров, так как они могут изменить направление
          //$schedule->command('sletat parsOperators')->weekly();
