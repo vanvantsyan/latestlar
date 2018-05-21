@@ -47,7 +47,7 @@ class BladeHelper
 
         $file = public_path("/uploads/morpher.json");
         $arr = file_get_contents($file);
-        $arr = is_array($arr) && count($arr) > 0 ? json_decode($arr, true) : []; dd($arr);
+        $arr = is_array($arr) && count($arr) > 0 ? json_decode($arr, true) : [];
 
         if (!array_key_exists($text, $arr) || (array_key_exists($text, $arr) && (is_array($arr['$text']) && !array_key_exists($padeg, $arr[$text])))) {
 
