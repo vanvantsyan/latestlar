@@ -43,7 +43,7 @@ class BladeHelper
     public static function case($text, $padeg)
     {
 
-//        return $text;
+        return $text;
 
         $file = public_path("/uploads/morpher.json");
         $arr = file_get_contents($file);
@@ -51,7 +51,7 @@ class BladeHelper
 
         if (!array_key_exists($text, $arr) || (array_key_exists($text, $arr) && (is_array($arr['$text']) && !array_key_exists($padeg, $arr[$text])))) {
 
-            if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/declension?s=" . str_replace(' ', '%20', $text) . "&token=ba74fe7f-6eb9-49df-838a-47256aaba301")) === false) {
+            if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/declension?s=" . str_replace(' ', '%20', $text) . "&token=8cfea557-098d-420d-8579-dcfbd0cf636d")) === false) {
                 return $text;
 
             } else {
@@ -77,6 +77,7 @@ class BladeHelper
             return $arr[$text][$padeg];
 
         }
+		return $text;
     }
 
     public static function countTours($link, $debug = 0)
@@ -198,7 +199,7 @@ class BladeHelper
     public static function numeralCase($text, $num, $padeg = "И")
     {
 
-//        return $text;
+        return $text;
 
         $file = public_path("/uploads/morpher.json");
         $arr = file_get_contents($file);
@@ -206,7 +207,7 @@ class BladeHelper
 
         if (!array_key_exists($text . '-' . $num, $arr)) {
 
-            if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/spell?n=" . $num . "&unit=" . str_replace(' ', '%20', $text) . "&token=ba74fe7f-6eb9-49df-838a-47256aaba301")) === false) {
+            if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/spell?n=" . $num . "&unit=" . str_replace(' ', '%20', $text) . "&token=8cfea557-098d-420d-8579-dcfbd0cf636d")) === false) {
                 return $text;
             } else {
                 libxml_use_internal_errors(true);

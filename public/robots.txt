@@ -1,2 +1,27 @@
-User-agent: *
-Disallow:
+User-Agent: *
+Disallow: /admin/
+Disallow: /admin
+Disallow: /?
+Disallow: /*?
+Disallow: /*?*
+Disallow: /{*}/*
+Disallow: /{*}
+
+User-Agent: Yandex
+Disallow: /admin/
+Disallow: /admin
+Disallow: /?
+Disallow: /*?
+Disallow: /*?*
+Disallow: /{*}/*
+Disallow: /{*}
+Host: https://startour.ru
+
+User-agent: Googlebot
+Disallow: /admin/
+Disallow: /admin
+Disallow: /?
+Disallow: /*?
+Disallow: /*?*
+Disallow: /{*}/*
+Disallow: /{*}
