@@ -38,46 +38,66 @@ class BladeHelper
 
         return true;
     }
-
-
-    public static function case($text, $padeg)
+    
+    /**
+     * Склоняет слова и словосочетания в нужные падежи.
+     * Для работы необходим php модуль morpher.
+     * 
+     * @param string $text словосочетание
+     * @param string $case падеж, в который склонять словосочетание
+     * @return string словосочетание в правильном падеже или оригинальное словосочетание, если просклонять не удалось
+     * 
+     */
+    public static function case($text, $case)
     {
-
-        return $text;
-
-        $file = public_path("/uploads/morpher.json");
-        $arr = file_get_contents($file);
-        $arr = is_array($arr) && count($arr) > 0 ? json_decode($arr, true) : [];
-
-        if (!array_key_exists($text, $arr) || (array_key_exists($text, $arr) && (is_array($arr['$text']) && !array_key_exists($padeg, $arr[$text])))) {
-
-            if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/declension?s=" . str_replace(' ', '%20', $text) . "&token=8cfea557-098d-420d-8579-dcfbd0cf636d")) === false) {
-                return $text;
-
-            } else {
-                libxml_use_internal_errors(true);
-                $data = simplexml_load_string($response_xml_data);
-
-
-                self::readData($text, $data);
-
-
-                if (!$data) {
-                    echo "Error loading XML\n";
-                    foreach (libxml_get_errors() as $error) {
-                        echo "\t", $error->message;
-                    }
-                } else {
-                    return (string)$data->$padeg;
-                }
-            }
+        // Проверяем, установлен ли модуль, если нет, то возвращаем оригинальную строку
+        if (!function_exists('morpher_inflect'))
             return $text;
 
-        } else {
-            return $arr[$text][$padeg];
+        $processed = morpher_inflect($text, $case);
+        
+        // Если морферу не удается обработать строку, то он возвращает ошибку в виде строки,
+        // начинающейся на '#ERROR'. В этом случае возвращаем оригинальную строку.
+        if (mb_substr($processed, 0, 6) == '#ERROR')
+            return $text;
+        
+        return $processed;
+        
+    }
 
-        }
-		return $text;
+    /**
+     * Формирует пропись числа и ставит ее в нужный падеж в зависимости 
+     * от переданного текста.
+     * Для работы необходим php модуль morpher.
+     *
+     * @param int|string $num число
+     * @param string $text словосочетание с числом
+     * @param string $case переопределить возвращаемый падеж
+     * @return mixed сформированное словосочетание
+     */
+    public static function numeralCase($text, $num, $case = null)
+    {
+        // Проверяем, установлен ли модуль, если нет, то возвращаем оригинальную строку
+        if (!function_exists('morpher_spell'))
+            return $text;
+ 
+        if ($case)
+            $processed = morpher_spell($num, $text, $case);
+        else
+            $processed = morpher_spell($num, $text);
+        
+        // Если морферу не удается обработать строку, то он возвращает ошибку в виде строки,
+        // начинающейся на '#ERROR'. В этом случае возвращаем оригинальную строку.
+        if (mb_substr($processed, 0, 6) == '#ERROR')
+            return $text;
+        
+        // Отчищаем результирующие данные от цифр
+        $processed = preg_replace('/\d/', '', $processed);
+        // Заглавные буквы так же убираем
+        $processed = mb_strtolower($processed);
+        
+        return $processed;
+
     }
 
     public static function countTours($link, $debug = 0)
@@ -194,44 +214,6 @@ class BladeHelper
     public static function generatedTypeLink($level, $way, $point, $tag, $type)
     {
         return "/$level/" . ($way ? "tury-" . $way->url . "/" : "") . (($point) ? "tury-" . $point->url . "/" : "") . (($tag && in_array($tag->tag->title, ['holiday', 'status'])) ? $tag->value . "/" : "") . ($type->value);
-    }
-
-    public static function numeralCase($text, $num, $padeg = "И")
-    {
-
-        return $text;
-
-        $file = public_path("/uploads/morpher.json");
-        $arr = file_get_contents($file);
-        $arr = !empty($arr) ? json_decode($arr, true) : [];
-
-        if (!array_key_exists($text . '-' . $num, $arr)) {
-
-            if (($response_xml_data = file_get_contents("https://ws3.morpher.ru/russian/spell?n=" . $num . "&unit=" . str_replace(' ', '%20', $text) . "&token=8cfea557-098d-420d-8579-dcfbd0cf636d")) === false) {
-                return $text;
-            } else {
-                libxml_use_internal_errors(true);
-                $data = simplexml_load_string($response_xml_data);
-
-                self::readData($text . '-' . $num, $data);
-
-                if (!$data) {
-                    echo "Error loading XML\n";
-                    foreach (libxml_get_errors() as $error) {
-                        echo "\t", $error->message;
-                    }
-                } else {
-                    return (string)$data->unit->$padeg;
-                }
-            }
-            return $text;
-
-        } else {
-
-            return $arr[$text . '-' . $num]['unit'][$padeg];
-
-        }
-
     }
 
     public static function getTourCountry($ways)
