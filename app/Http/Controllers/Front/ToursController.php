@@ -99,7 +99,7 @@ class ToursController extends Controller
 
         if ($country = array_get($params, 'country', null)) {
 
-            $countrySeo = ($country == "Россия") ? "по " . BladeHelper::case($country, "П") : BladeHelper::case($country, "куда");
+            $countrySeo = ($country == "Россия") ? "по " . BladeHelper::case($country, "П") : "в " . BladeHelper::case($country, "В");
 
             $seo['pTitle'] = "Туры " . $countrySeo;
             $seo['bTitle'] = "Туры из Москвы " . $countrySeo;
@@ -113,7 +113,7 @@ class ToursController extends Controller
                 if (!$resort->url == 'moskva') {
                     $resortSeo = "по " . BladeHelper::case($resort->title, "П");
                 } else {
-                    $resortSeo = BladeHelper::case($resort->title, "куда");;
+                    $resortSeo = "в " . BladeHelper::case($resort->title, "П");;
                 }
 
                 if ($tour_type = array_get($params, 'tour_type', null)) {
@@ -122,7 +122,7 @@ class ToursController extends Controller
                         if ($resort->url == 'moskva') {
                             $resortSeo = "по " . BladeHelper::case($resort->title, "П");
                         } else {
-                            $resortSeo = BladeHelper::case($resort->title, "где");;
+                            $resortSeo = BladeHelper::case($resort->title, "П");;
                         }
                     }
 
@@ -327,7 +327,7 @@ class ToursController extends Controller
 
             // Если без страны
             $country = "Россия";
-            $countrySeo = ($country == "Россия") ? "по " . BladeHelper::case($country, "П") : BladeHelper::case($country, "куда");
+            $countrySeo = ($country == "Россия") ? "по " . BladeHelper::case($country, "П") : "в " . BladeHelper::case($country, "В");
 
             // Курорт
             if ($resort = array_get($params, 'resort', null)) {
@@ -335,7 +335,7 @@ class ToursController extends Controller
                 if (!$resort->url == 'moskva') {
                     $resortSeo = "по " . BladeHelper::case($resort->title, "П");
                 } else {
-                    $resortSeo = BladeHelper::case($resort->title, "куда");;
+                    $resortSeo = "в " . BladeHelper::case($resort->title, "П");;
                 }
 
                 if ($tour_type = array_get($params, 'tour_type', null)) {
@@ -785,7 +785,7 @@ class ToursController extends Controller
                 'tour_type' => $tour_type ?? '',
             ]);
         }
-
+        return dd($seo);
         // Get base query by tours
         $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
 
@@ -960,7 +960,7 @@ class ToursController extends Controller
             ]);
         }
 
-       
+        return dd($seo);
         // Get base query by tours
         $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
 
