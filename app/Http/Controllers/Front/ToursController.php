@@ -942,18 +942,25 @@ class ToursController extends Controller
             }
         }
 
-        // Set seo elements
-        $seo = $this->getSeo([
-            'country' => is_object($country) ? $country->country : null,
-            'resort' => is_object($resort) ? $resort : null,
-            'tag' => is_object($tag) ? $tag : null,
-            'month' => $month ? $monthsRus[$month] : '',
-            'duration' => $duration ?? '',
-            'holiday' => $holiday ?? '',
-            'status' => $status ?? '',
-            'tour_type' => $tour_type ?? '',
-        ]);
+        // If isset exact seo get it
+        $currentLink = preg_replace('~[\S]+.ru\/~i', "", url()->current());
+        $seo = GeneratedSeo::where('url', $currentLink)->first();
+        
+        if (!$seo) {
+            // Set seo elements
+            $seo = $this->getSeo([
+                'country' => is_object($country) ? $country->country : null,
+                'resort' => is_object($resort) ? $resort : null,
+                'tag' => is_object($tag) ? $tag : null,
+                'month' => $month ? $monthsRus[$month] : '',
+                'duration' => $duration ?? '',
+                'holiday' => $holiday ?? '',
+                'status' => $status ?? '',
+                'tour_type' => $tour_type ?? '',
+            ]);
+        }
 
+       
         // Get base query by tours
         $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
 

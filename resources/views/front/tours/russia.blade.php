@@ -37,7 +37,7 @@
                          'citiesGolden' => $citiesGolden,
                          'tourTypes' => $tourTypes,
                          'countries' => $countries,
-                         'subText' => $seo['subText'],
+                         'subText' => isset($seo['subText']) ? Gliss::templateVars($seo['subText']) : '',
                          'tag' => $tag,
                          'way' => isset($way) ? $way : '',
                          'point' => isset($point) ? $point : '',
@@ -59,9 +59,13 @@
                         </h1>
                         <div class="tour-preview-desc">
                             <div class="stroke-desc">
-                                Компания STARTOUR предлагает лучшие туры
-                                по {{Gliss::case($country->country, "Д")}}. Только самые
-                                интересные и проверенные маршруты!
+                                @if (isset($seo['topText']) && $seo['topText'])
+                                    {!! Gliss::templateVars($seo['topText']) !!}
+                                @else
+                                    Компания STARTOUR предлагает лучшие туры
+                                    по {{Gliss::case($country->country, "Д")}}. Только самые
+                                    интересные и проверенные маршруты!
+                                @endif
                             </div>
                         </div>
                         <a href="#" class="btn btn-yellow" data-toggle="modal" data-target="#tourOrderModal">Отправить
@@ -349,15 +353,19 @@
             </div>
             <div class="clear"></div>
             <div class="seo-txt">
-                <h2>О стране</h2>
-                @php
-                    $colSimbols = strlen(Str::words($country->description, 50, '...'));
-                @endphp
-                {!! Str::words($country->description, 50, '...') !!}
-                <div class="seo-txt-more">
-                    {!! substr($country->description, $colSimbols) !!}
-                </div>
-                <a href="#" class="seo-txt-btn">Больше информации</a>
+                @if (isset($seo['bottomText']) && $seo['bottomText'])
+                    {!! Gliss::templateVars($seo['bottomText']) !!}
+                @else
+                    <h2>О стране</h2>
+                    @php
+                        $colSimbols = strlen(Str::words($country->description, 50, '...'));
+                    @endphp
+                    {!! Str::words($country->description, 50, '...') !!}
+                    <div class="seo-txt-more">
+                        {!! substr($country->description, $colSimbols) !!}
+                    </div>
+                    <a href="#" class="seo-txt-btn">Больше информации</a>
+                @endif
             </div>
         </div>
         {{--@include('front.modules.subscription')--}}
