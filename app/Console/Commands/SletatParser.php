@@ -12,7 +12,7 @@ class SletatParser extends Command
      *
      * @var string
      */
-    protected $signature = 'sletat {action}';
+    protected $signature = 'sletat:start {action}';
 
     /**
      * The console command description.
@@ -39,8 +39,10 @@ class SletatParser extends Command
      */
     public function handle()
     {
-        $action = $this->argument('action');
-
-        $this->parser->$action();
+        switch ($this->argument('action')) {
+            case('getAll'):
+                $this->parser->getAll();
+                break;
+        }
     }
 }
