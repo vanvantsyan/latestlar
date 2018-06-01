@@ -785,7 +785,7 @@ class ToursController extends Controller
                 'tour_type' => $tour_type ?? '',
             ]);
         }
-        return dd($seo);
+       
         // Get base query by tours
         $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
 
@@ -960,7 +960,7 @@ class ToursController extends Controller
             ]);
         }
 
-        return dd($seo);
+      
         // Get base query by tours
         $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
 
