@@ -74,7 +74,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('removeImage', 'ImageController@removeImage')->name('image.remove');
         Route::post('get-images', 'ImageController@getImages')->name('image.get');
 
-        Route::resource('services', 'Admin\ServicesController');
+        //Route::resource('services', 'Admin\ServicesController');
 
         Route::get('blog/upload-images', 'Admin\BlogController@uploadImages');
         Route::get('blog/categories/{id}/delete', 'Admin\BlogController@deleteCategory');
