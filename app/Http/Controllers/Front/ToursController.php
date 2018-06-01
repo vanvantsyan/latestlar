@@ -113,17 +113,15 @@ class ToursController extends Controller
                 if (!$resort->url == 'moskva') {
                     $resortSeo = "по " . BladeHelper::case($resort->title, "П");
                 } else {
-                    $resortSeo = "в " . BladeHelper::case($resort->title, "П");;
+                    $resortSeo = "в " . BladeHelper::case($resort->title, "В");;
                 }
 
                 if ($tour_type = array_get($params, 'tour_type', null)) {
-
-                    if ($tour_type == "Экскурсии") {
-                        if ($resort->url == 'moskva') {
-                            $resortSeo = "по " . BladeHelper::case($resort->title, "П");
-                        } else {
-                            $resortSeo = BladeHelper::case($resort->title, "П");;
-                        }
+                    
+                    if ($resort->url == 'moskva') {
+                        $resortSeo = "по " . BladeHelper::case($resort->title, "П");
+                    } else {
+                        $resortSeo = "в " . BladeHelper::case($resort->title, "П");;
                     }
 
                     $seo['pTitle'] = "$tour_type " . date("Y") . " " . $resortSeo . "";
@@ -335,10 +333,17 @@ class ToursController extends Controller
                 if (!$resort->url == 'moskva') {
                     $resortSeo = "по " . BladeHelper::case($resort->title, "П");
                 } else {
-                    $resortSeo = "в " . BladeHelper::case($resort->title, "П");;
+                    $resortSeo = "в " . BladeHelper::case($resort->title, "В");;
                 }
 
                 if ($tour_type = array_get($params, 'tour_type', null)) {
+
+                    if ($resort->url == 'moskva') {
+                        $resortSeo = "по " . BladeHelper::case($resort->title, "П");
+                    } else {
+                        $resortSeo = "в " . BladeHelper::case($resort->title, "П");;
+                    }
+                    
                     $seo['pTitle'] = "$tour_type " . date("Y") . " " . $resortSeo . "";
                     $seo['bTitle'] = "$tour_type " . date("Y") . " " . $resortSeo . " из Москвы";
                     $seo['metaKey'] = "купить $tour_type " . date("Y") . "  " . $resortSeo . " из Москвы, цена, $country";
