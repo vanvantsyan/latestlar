@@ -23,6 +23,14 @@
                     </div>
                 @endif
 
+                @if ($errors->any())
+                    <ul class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
+
                 @php
                     $link = isset($item) ? url('admin/seo/'.$item->id) : url('admin/seo') ;
                 @endphp

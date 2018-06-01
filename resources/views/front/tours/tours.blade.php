@@ -37,7 +37,7 @@
                         'citiesGolden' => $citiesGolden,
                         'tourTypes' => $tourTypes,
                         'countries' => $countries,
-                        'subText' => Gliss::templateVars($seo['subText']),
+                        'subText' => isset ($seo['subText']) ? Gliss::templateVars($seo['subText']) : '',
                         'tag' => $tag,
                         'way' => isset($way) ? $way : '',
                         'point' => isset($point) ? $point : '',

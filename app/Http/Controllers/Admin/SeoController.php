@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Admin\SeoRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\GeneratedSeo;
@@ -17,7 +18,7 @@ class SeoController extends Controller
         return view('admin.seo.form');
     }
 
-    public function store(Request $request){
+    public function store(SeoRequest $request){
 
         $data = $request->all();
         unset($data['_token']);
@@ -36,7 +37,7 @@ class SeoController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(SeoRequest $request, GeneratedSeo $seo)
     {
         $data = $request->all();
 
@@ -45,7 +46,7 @@ class SeoController extends Controller
 
         $data['url'] = preg_replace('~[\S]+.ru\/~i',"", $data['url']);
 
-        GeneratedSeo::where('id', $id)->update($data);
+        $seo->update($data);
 
         return redirect('admin/seo')
             ->with('message', 'Сео для  "' . $request->get('url') . '"успешно обновлено');
