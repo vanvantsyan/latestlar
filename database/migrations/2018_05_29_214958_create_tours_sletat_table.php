@@ -16,6 +16,7 @@ class CreateToursSletatTable extends Migration
         Schema::create('tours_sletat', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('price_id');
+            $table->text('title');
             $table->integer('cityFrom_id');
             $table->integer('way_id');
             $table->string('leaveDate');
@@ -28,8 +29,7 @@ class CreateToursSletatTable extends Migration
             $table->integer('children_count');
             $table->string('meal_type');
             $table->string('hotel_category');
-            $table->string('hotel_desc');
-            $table->string('title');
+            $table->text('hotel_desc');
             $table->string('price');
             $table->tinyInteger('duration');
             $table->string('source');
