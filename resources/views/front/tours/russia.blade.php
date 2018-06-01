@@ -51,11 +51,7 @@
                     <div class="tour-preview">
                         <span class="country-tour-count">{{$country->count_tours}} {{Gliss::numeralCase('тур', $country->count_tours)}}</span>
                         <h1 class="stroke-h">
-                            @if($country->slug == 'russia')
-                                Туры {{Gliss::case($country->country, "Д")}}
-                            @else
-                                Туры {{Gliss::case($country->country, "куда")}}
-                            @endif
+                            {!!  Gliss::templateVars($seo['pTitle'])  !!}
                         </h1>
                         <div class="tour-preview-desc">
                             <div class="stroke-desc">
