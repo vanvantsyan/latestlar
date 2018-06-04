@@ -103,25 +103,25 @@
                     @if($layer == 3)
                         @if($countTours = Gliss::countTours("/russia/tury-moskva"))
                             <li>
-                                <a href="/russia/tury-moskva">Туры в Москве</a>
+                                <a href="/russia/tury-moskva">Туры в Москву</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
                         @if($countTours = Gliss::countTours("/russia/tury-sankt-peterburg"))
                             <li>
-                                <a href="/russia/tury-sankt-peterburg">Туры в Санкт-Петербурге</a>
+                                <a href="/russia/tury-sankt-peterburg">Туры в Санкт-Петербург</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
                         @if($countTours = Gliss::countTours("/russia/tury-ekaterinburg"))
                             <li>
-                                <a href="/russia/tury-ekaterinburg">Туры в Екатеринбурге</a>
+                                <a href="/russia/tury-ekaterinburg">Туры в Екатеринбург</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
                         @if($countTours = Gliss::countTours("/russia/tury-kazani"))
                             <li>
-                                <a href="/russia/tury-kazan">Туры в Казани</a>
+                                <a href="/russia/tury-kazan">Туры в Казань</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
@@ -135,28 +135,28 @@
                         @if($countTours = Gliss::countTours(Gliss::generatedCityLink("/russia/tury-moskva", $tag, $month, $duration)))
                             <li>
                                 <a href="{{Gliss::generatedCityLink("/russia/tury-moskva", $tag, $month, $duration)}}">Туры
-                                    в Москве</a>
+                                    в Москву</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
                         @if($countTours = Gliss::countTours(Gliss::generatedCityLink("/russia/tury-sankt-peterburg", $tag, $month, $duration)))
                             <li>
                                 <a href="{{Gliss::generatedCityLink("/russia/tury-sankt-peterburg", $tag, $month, $duration)}}">Туры
-                                    в Санкт-Петербурге</a>
+                                    в Санкт-Петербург</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
                         @if($countTours = Gliss::countTours(Gliss::generatedCityLink("/russia/tury-ekaterinburg", $tag, $month, $duration)))
                             <li>
                                 <a href="{{Gliss::generatedCityLink("/russia/tury-ekaterinburg", $tag, $month, $duration)}}">Туры
-                                    в Екатеринбурге</a>
+                                    в Екатеринбург</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
                         @if($countTours = Gliss::countTours(Gliss::generatedCityLink("/russia/tury-kazani", $tag, $month, $duration)))
                             <li>
                                 <a href="{{Gliss::generatedCityLink("/russia/tury-kazani", $tag, $month, $duration)}}">Туры
-                                    в Казани</a>
+                                    в Казань</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
@@ -200,31 +200,31 @@
                     @if($layer == 3)
                         @if($countTours = Gliss::countTours("/russia/tury-vladimir"))
                             <li>
-                                <a href="/russia/tury-vladimir">Туры в Владимире</a>
+                                <a href="/russia/tury-vladimir">Туры в Владимир</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
                         @if($countTours = Gliss::countTours("/russia/tury-rostov-velikiy"))
                             <li>
-                                <a href="/russia/tury-rostov-velikiy">Туры в Ростове Великом</a>
+                                <a href="/russia/tury-rostov-velikiy">Туры в Ростов Великий</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
                         @if($countTours = Gliss::countTours("/russia/tury-sergiev-posad"))
                             <li>
-                                <a href="/russia/tury-sergiev-posad">Туры в Сергиевом Посаде</a>
+                                <a href="/russia/tury-sergiev-posad">Туры в Сергиев Посад</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
                         @if($countTours = Gliss::countTours("/russia/tury-suzdal"))
                             <li>
-                                <a href="/russia/tury-suzdal">Туры в Суздале</a>
+                                <a href="/russia/tury-suzdal">Туры в Суздаль</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
                         @if($countTours = Gliss::countTours("/russia/tury-yaroslavl"))
                             <li>
-                                <a href="/russia/tury-yaroslavl">Туры в Ярославле</a>
+                                <a href="/russia/tury-yaroslavl">Туры в Ярославль</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
@@ -232,35 +232,35 @@
                         @if($countTours = Gliss::countTours(Gliss::generatedCityLink("/russia/tury-vladimir", $tag, $month, $duration)))
                             <li>
                                 <a href="{{Gliss::generatedCityLink("/russia/tury-vladimir", $tag, $month, $duration)}}">Туры
-                                    во Владимире</a>
+                                    во Владимир</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
                         @if($countTours = Gliss::countTours(Gliss::generatedCityLink("/russia/tury-rostov-velikiy", $tag, $month, $duration)))
                             <li>
                                 <a href="{{Gliss::generatedCityLink("/russia/tury-rostov-velikiy", $tag, $month, $duration)}}">Туры
-                                    в Ростове Великом</a>
+                                    в Ростов Великий</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
                         @if($countTours = Gliss::countTours(Gliss::generatedCityLink("/russia/tury-sergiev-posad", $tag, $month, $duration)))
                             <li>
                                 <a href="{{Gliss::generatedCityLink("/russia/tury-sergiev-posad", $tag, $month, $duration)}}">Туры
-                                    в Сергиевом Посаде</a>
+                                    в Сергиев Посад</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
                         @if($countTours = Gliss::countTours(Gliss::generatedCityLink("/russia/tury-suzdal", $tag, $month, $duration)))
                             <li>
                                 <a href="{{Gliss::generatedCityLink("/russia/tury-suzdal", $tag, $month, $duration)}}">Туры
-                                    в Суздале</a>
+                                    в Суздаль</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
                         @if($countTours = Gliss::countTours(Gliss::generatedCityLink("/russia/tury-yaroslavl", $tag, $month, $duration)))
                             <li>
                                 <a href="{{Gliss::generatedCityLink("/russia/tury-yaroslavl", $tag, $month, $duration)}}">Туры
-                                    в Ярославле</a>
+                                    в Ярославль</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
@@ -274,7 +274,7 @@
 
             <div class="sidebar-city-tour">
                 <div class="sidebar-tour-subtitle">
-                    Туры @if($way) {{Gliss::case($way->title, "куда")}} @endif @if($point) {{Gliss::case($point->title, "куда")}} @endif
+                    Туры @if($way) {{"в " . Gliss::case($way->title, "В")}} @endif @if($point) {{"в " . Gliss::case($point->title, "В")}} @endif
                     по месяцам
                 </div>
                 <ul>
@@ -314,7 +314,7 @@
         @if($country or $tag or $month)
             <div class="sidebar-city-tour">
                 <div class="sidebar-tour-subtitle">
-                    Туры @if($way) {{Gliss::case($way->title, "куда")}} @endif @if($point) {{Gliss::case($point->title, "куда")}} @endif
+                    Туры @if($way)  {{"в " . Gliss::case($way->title, "В")}} @endif @if($point) {{"в " . Gliss::case($point->title, "В")}} @endif
                     по длительности
                 </div>
                 <ul class="restType">
@@ -463,7 +463,7 @@
                                             <img width="15"
                                                  src="/uploads/countries/flags/{{$countryItem->country->flag}}"/>
                                         @endif
-                                        Туры в {{Gliss::case($countryItem->title, "П")}}
+                                        Туры в {{Gliss::case($countryItem->title, "В")}}
                                     </a>
                                     <span>{{$countryItem->country->count_tours}}</span>
                                 </li>
@@ -482,7 +482,7 @@
                                     @if($countryItem->country->flag)
                                         <img width="15" src="/uploads/countries/flags/{{$countryItem->country->flag}}"/>
                                     @endif
-                                    Туры в {{Gliss::case($countryItem->title, "П")}}
+                                    Туры в {{Gliss::case($countryItem->title, "В")}}
                                 </a>
                                 <span>{{$countryItem->country->count_tours}}</span>
                             </li>
