@@ -11,6 +11,8 @@ use App\Models\SlHotelStars as hotelStars;
 use App\Models\SlMeals as meals;
 use App\Models\SlOperators as operators;
 use App\Models\SlResorts as resort;
+
+use App\Models\ToursSletat;
 use Mockery\Exception;
 
 
@@ -336,4 +338,106 @@ class SletatParser
 
         }
     }
+
+    public function statusCheck($req, $country)
+    {
+        $touroperatorProccessed = $this->api->GetLoadState($req)
+            ->GetLoadStateResult
+            ->Data;
+
+        foreach ($touroperatorProccessed as $tour) {
+            if ($tour->IsProcessed == true) {
+                $process = true;
+                continue;
+            } else {
+                sleep(1.5);
+                echo "Waiting for touroperator's response for (" . $country . "). Trying again ... \n";
+                return false;
+            }
+        }
+        echo "Full response. Getting tours in (" . $country . ")... \n";
+        return $process;
+
+    }
+
+    public function getAll()
+    {
+        $filters['cityFromId'] = '832';
+        $filters['pageSize'] = 1000;
+        $filters['includeOilTaxesAndVisa'] = '1';
+        $countries = countriesWay::all();
+        foreach ($countries as $country) {
+            unset($filters['updateResult']);
+            unset($filters['requestId']);
+
+            //1.Создаётся поисковый запрос методом GetTours. Сохраняется идентификатор запроса, полученный в ответе.
+            $filters['countryId'] = $country['id'];
+            $filters['requestId'] = $this->api->GetTours($filters)->GetToursResult->Data->requestId;
+            $filters['updateResult'] = 1;
+
+            //2.Создаётся цикл для получения статуса поискового запроса. В цикле вызывается метод GetLoadState с использованием идентификатора запроса. 
+            do {
+                $result = $this->statusCheck($filters['requestId'], $country['name']);
+            } while (!$result);
+
+            if ($result) {
+                //3.Снова вызывается метод GetTours, но уже с использованием полученного ранее идентификатора и параметра updateResult=1.
+                //Метод вернет все найденные туры в рамках поискового запроса.
+                $countryTours = $this->api->GetTours($filters)->GetToursResult->Data->aaData;
+                $oilTaxes = $this->api->GetTours($filters)->GetToursResult->Data->oilTaxes;
+                foreach ($countryTours as $eachTour) {
+                    // Price_id ???? NEED TO DEFINE A UNIQUE IDENTIFICATOR FOR COMPARING
+                    $tour = ToursSletat::where('price_id', '=', $eachTour[0])->first();
+                    //- - - - - - - -- - - - - - -- - - - - - -- - - - - -- - - - - - -- 
+                    // Добавить новый тур
+
+                    if ($tour === null) {
+                        $newTour = new ToursSletat();
+                        $newTour->price_id = $eachTour[0];
+                        $newTour->cityFrom_id = $eachTour[32];
+                        $newTour->way_id = $eachTour[30];
+                        $newTour->leaveDate = $eachTour[12];
+                        $newTour->departDate = $eachTour[13];
+                        $newTour->resort_id = $eachTour[5];
+                        $newTour->hotel_id = $eachTour[3];
+                        $newTour->operator_id = $oilTaxes[0][0];
+                        $newTour->hash_operator_id = $eachTour[1];
+                        $newTour->adults_count = $eachTour[16];
+                        $newTour->children_count = $eachTour[17];
+                        $newTour->meal_type = $eachTour[10];
+                        $newTour->hotel_category = $eachTour[8];
+                        $newTour->hotel_desc = $eachTour[38];
+                        $newTour->title = $eachTour[6];
+                        $newTour->price = $eachTour[15];
+                        $newTour->duration = $eachTour[14];
+                        $newTour->source = 'sletat';
+                        $newTour->image_url = $eachTour[29];
+                        $newTour->finish_date = $eachTour[28];
+                        $newTour->tour_id_cash = $eachTour[79];
+                        try {
+                            $newTour->save();
+                            // Logging
+                            echo "Добавлено: Страна - " . $eachTour[31] . ', Тур - ' . $newTour->title . "\n";
+                        } catch (Exception $e) {
+                            print_r($e);
+                        }
+                        // Обновить существующий тур
+                    } else {
+                        $tour->price = $eachTour[15];
+                        $tour->title = $eachTour[6];
+                        $tour->duration = $eachTour[14];
+                        $tour->finish_date = $eachTour[28];
+                        try {
+                            $tour->save();
+                            // Logging
+                            echo "Обновлено: Страна - " . $eachTour[31] . ', Тур - ' . $tour->title . "\n";
+                        } catch (Exception $e) {
+                            print_r($e);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }

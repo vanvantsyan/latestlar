@@ -241,7 +241,7 @@ class Sletat
 
         $params = $this->setParams($paramsArr);
 
-        $output = $this->curlRequest('http://module.sletat.ru/Main.svc/GetTours' . $params . "&login=" . $this->login . "&password=" . $this->password . "");
+        $output = $this->curlRequest('https://module.sletat.ru/Main.svc/GetTours' . $params . "&login=" . $this->login . "&password=" . $this->password . "");
 
         return json_decode($output);
 
@@ -255,7 +255,7 @@ class Sletat
      */
     public function GetLoadState($requestId){
 
-        $output = $this->curlRequest('http://module.sletat.ru/Main.svc/GetLoadState?requestId=' . $requestId);
+        $output = $this->curlRequest('https://module.sletat.ru/Main.svc/GetLoadState?requestId=' . $requestId);
         return json_decode($output);
     }
 
