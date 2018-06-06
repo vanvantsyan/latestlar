@@ -38,6 +38,7 @@
 @include('front.modules.scripts')
 
 @yield('js')
+@stack('js')
 
 </body>
 
