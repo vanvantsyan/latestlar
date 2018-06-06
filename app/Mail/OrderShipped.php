@@ -30,8 +30,10 @@ class OrderShipped extends Mailable
      */
     public function build()
     {
+        $name = $this->fields['name'] ?? '';
+
         return $this->from('no-reply@glissmedia.ru', 'Заявка с сайта ' . env('APP_NAME'))
-            ->subject('Заказ тура | ' . $this->fields['name'])
+            ->subject('Заказ тура | ' . $name)
             ->view('emails.order', ['fields' => $this->fields]);
     }
 }
