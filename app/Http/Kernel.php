@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\isAdmin;
 use App\Http\Middleware\isOwner;
 use App\Http\Middleware\Permissions;
+use App\Http\Middleware\RedirectDirtyUrls;
 use App\Http\Middleware\Roles;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -70,7 +71,7 @@ class Kernel extends HttpKernel
         'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
         'Permissions' => Permissions::class,
-        'Roles' => Roles::class
-
+        'Roles' => Roles::class,
+        'redirect-dirty-urls' => RedirectDirtyUrls::class,
     ];
 }

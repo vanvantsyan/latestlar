@@ -162,9 +162,9 @@ Route::get('search/autocomplete', 'Front\ToursController@autocomplete');
 Route::get('{country}/{action}/{url}', 'Front\ToursController@unit')->where('url', '.+-?-\d{2,8}');
 Route::get('{country}/{url}', 'Front\ToursController@unitCountry')->where('url', '.+-?-\d{2,8}');
 
-Route::any('tury/{slug2?}/{slug3?}', 'Front\ToursController@list')->name('tour.list');
-Route::get('{country}', 'Front\ToursController@countryMain')->name('countryMain');
-Route::get('{country}/{slug2?}/{slug3?}', 'Front\ToursController@list')->name('tourCountry')->where('slug3','[^./]*')->where('slug2','[^./]*'); //->where('country', 'russia')
+Route::any('tury/{slug2?}/{slug3?}', 'Front\ToursController@list')->name('tour.list')->middleware('redirect-dirty-urls');
+Route::get('{country}', 'Front\ToursController@countryMain')->name('countryMain')->middleware('redirect-dirty-urls');
+Route::get('{country}/{slug2?}/{slug3?}', 'Front\ToursController@list')->name('tourCountry')->where('slug3','[^./]*')->where('slug2','[^./]*')->middleware('redirect-dirty-urls'); //->where('country', 'russia')
 
 Route::post('moreTours', 'Front\ToursController@getMore')->name('moreTours');
 Route::post('filterTours', 'Front\ToursController@filters')->name('filterTours');

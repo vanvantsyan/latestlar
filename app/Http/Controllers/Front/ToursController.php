@@ -696,11 +696,18 @@ class ToursController extends Controller
     }
 
     /**
-     * Display tours list with parameters
+     * Метод для обработки агрегаций по разным направлениям:
+     * tury/{slug2?}/{slug3?}
+     * {country}/{slug2?}/{slug3?}
+     *
+     * @param string $country
+     * @param string $slug2
+     * @param string $slug3
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function list($country = '', $slug2 = '', $slug3 = '', Request $request)
+    public function list(Request $request, $country = '', $slug2 = '', $slug3 = '')
     {
-
         $countryUrl = $request->route('country');
 
         // If isset country parametr in uri row
@@ -903,6 +910,17 @@ class ToursController extends Controller
         ]);
     }
 
+    /**
+     * Метод для обработки агрегаций по странам:
+     * {country}
+     * Несмотря на то, что в методе пытаются получить $slug2, $slug3 -- 
+     * по факту они не используются, потому что запросы со slug2 и slug3 
+     * идут по другому маршруту.
+     *
+     * @param Request $request
+     * @param string $country
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function countryMain(Request $request, $country = 'russia')
     {
         $countryUrl = $request->route('country') ?? $country;
