@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Validator::extend('phone', function($attribute, $value, $parameters)
         {
-            return preg_match('%^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$%i', $value) && strlen($value) >= 10;
+            return preg_match('/^\s*((\+7|8)?([0-9]){10})\s*$/i', $value) && strlen($value) >= 10;
         });
     }
 
