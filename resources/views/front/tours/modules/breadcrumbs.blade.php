@@ -14,13 +14,11 @@
             </div>
             @if(Route::currentRouteName() == "countryMain")
                 <div itemscope itemtype="http://star.glissmedia.ru/Breadcrumb">
-                    <a href="/{{$country->slug}}" itemprop="url">
-                        @if($country->slug == 'russia')
-                            <span itemprop="title">Туры по {{Gliss::case($country->country, "П")}}</span>
-                        @else
-                            <span itemprop="title">Туры {{Gliss::case($country->country, "куда")}}</span>
-                        @endif
-                    </a>
+                    @if($country->slug == 'russia')
+                        <span itemprop="title">Туры по {{Gliss::case($country->country, "П")}}</span>
+                    @else
+                        <span itemprop="title">Туры в {{Gliss::case($country->country, "В")}}</span>
+                    @endif
                 </div>
             @else
 
