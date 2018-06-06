@@ -140,7 +140,7 @@
                                             <form>
                                                 <div class="popular-item-phone" id="phone">
                                                     <i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>
-                                                    <input name="phone" type="text" placeholder="+7 (095) 322-44-54">
+                                                    <input name="phone" type="text" placeholder="+7 (___) ___-__-__">
                                                 </div>
                                                 <input class="btn btn-blue" type="submit" value="Жду звонка">
                                             </form>
