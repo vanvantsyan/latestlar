@@ -16,7 +16,7 @@
                     </div>
                     <div class="phones">
                         <div class="phone">
-                            <a href="tel:+74994904412" itemprop="telephone">+7 (499) <b>490-44-12</b></a>
+                            <a href="tel:+74994904412" itemprop="telephone">8 (499) <b>490-44-12</b></a>
                             <span class="phone-notice">пн-пт с 9:00 до 18:00</span>
                         </div>
                         <div class="phone tablet-hide">
