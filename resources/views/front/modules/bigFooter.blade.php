@@ -70,8 +70,8 @@
                 <div class="row">
                     <div class="sitemap-item" itemscope itemtype="http://schema.org/Organization">
                         <div class="phone">
-                            <a href="tel:+74994904412" itemprop="telephone">+7 (499) <b>490-44-12</b></a>
-                            <a href="tel:+78007700622" itemprop="telephone">+7 (800) <b>770-06-22</b></a>
+                            <a href="tel:+74994904412" itemprop="telephone">8 (499) <b>490-44-12</b></a>
+                            <a href="tel:+78007700622" itemprop="telephone">8 (800) <b>770-06-22</b></a>
                         </div>
                         <a href="#" class="mail" itemprop="email">travel@startour.ru</a>
                         <p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">Адрес:
