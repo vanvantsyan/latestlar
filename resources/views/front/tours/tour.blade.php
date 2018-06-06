@@ -48,84 +48,79 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <div class="row">
-
-                    <div class="card-slider">
-                        @forelse(json_decode($tour->images) as $image)
-                            <div class="card-slider-item">
-                                <img src="{{Gliss::tourImg($image, $tour->id)}}" alt="">
-                                <div class="card-slider-item-cont">
-                                    <a href="{{route('tour.list')}}" class="back-tours-list">< Вернуться назад к
-                                        списку</a>
-                                    @if($loop->first)
-                                        @if(Gliss::wordsCount($tour->title) > 5)
-                                            <h1 class="font38">{{$tour->title}}</h1>
-                                        @else
-                                            <h1>{{$tour->title}}</h1>
-                                        @endif
-                                    @else
-                                        @if(Gliss::wordsCount($tour->title) > 5)
-                                            <div class="h1 font38">{{$tour->title}}</div>
-                                        @else
-                                            <div class="h1">{{$tour->title}}</div>
-                                        @endif
-                                    @endif
-                                    <div>
-                                        <div class="slider-tour-price">
-
-                                            @if($tour->price > 0)
-                                                <span>
-                                                    Стоимость: от {{number_format($tour['price'], 0, '.',' ')}}
-                                                    <span class="glyphicon glyphicon-rub" aria-hidden="true"></span>
-                                                    за человека
-                                                    </span>
-                                            @else
-                                                <span class="no-dots">
-                                                    Стоимость уточняйте у операторов
-                                                    </span>
-                                            @endif
-
-                                        </div>
-                                    </div>
-                                    <a href="#" class="btn btn-yellow" data-toggle="modal"
-                                       data-target="#tourOrderModal">Отправить заявку на тур</a>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="card-slider-item">
-                                <img src="" alt="Фон тура">
-                                <div class="card-slider-item-cont">
-                                    <a href="{{route('tour.list')}}" class="back-tours-list">< Вернуться назад к
-                                        списку</a>
-
+                    <div class="card-wrapper">
+                        <div class="card-caption">
+                            <div class="card-slider-item-cont">
+                                <a href="{{route('tour.list')}}" class="back-tours-list">< Вернуться назад к
+                                    списку</a>
                                     @if(Gliss::wordsCount($tour->title) > 5)
                                         <h1 class="font38">{{$tour->title}}</h1>
                                     @else
                                         <h1>{{$tour->title}}</h1>
                                     @endif
-                                    <div>
-                                        <div class="slider-tour-price">
-
-                                            @if($tour->price > 0)
-                                                <span>
+                                <div>
+                                    <div class="slider-tour-price">
+                                        @if($tour->price > 0)
+                                            <span>
                                                     Стоимость: от {{number_format($tour['price'], 0, '.',' ')}}
-                                                    <span class="glyphicon glyphicon-rub" aria-hidden="true"></span>
+                                                <span class="glyphicon glyphicon-rub" aria-hidden="true"></span>
                                                     за человека
                                                     </span>
-                                            @else
-                                                <span class="no-dots">
+                                        @else
+                                            <span class="no-dots">
                                                     Стоимость уточняйте у операторов
                                                     </span>
-                                            @endif
+                                        @endif
 
-                                        </div>
                                     </div>
-                                    <a href="#" class="btn btn-yellow" data-toggle="modal"
-                                       data-target="#tourOrderModal">Отправить заявку на тур</a>
                                 </div>
+                                <a href="#" class="btn btn-yellow" data-toggle="modal"
+                                   data-target="#tourOrderModal">Отправить заявку на тур</a>
                             </div>
-                        @endforelse
+                        </div>
+                        <div class="card-slider">
+                            @forelse(json_decode($tour->images) as $image)
+                                <div class="card-slider-item">
+                                    <img src="{{Gliss::tourImg($image, $tour->id)}}" alt="">
+                                </div>
+                            @empty
+                                <div class="card-slider-item">
+                                    <img src="" alt="Фон тура">
+                                    <div class="card-slider-item-cont">
+                                        <a href="{{route('tour.list')}}" class="back-tours-list">< Вернуться назад к
+                                            списку</a>
 
+                                        @if(Gliss::wordsCount($tour->title) > 5)
+                                            <h1 class="font38">{{$tour->title}}</h1>
+                                        @else
+                                            <h1>{{$tour->title}}</h1>
+                                        @endif
+                                        <div>
+                                            <div class="slider-tour-price">
+
+                                                @if($tour->price > 0)
+                                                    <span>
+                                                    Стоимость: от {{number_format($tour['price'], 0, '.',' ')}}
+                                                        <span class="glyphicon glyphicon-rub" aria-hidden="true"></span>
+                                                    за человека
+                                                    </span>
+                                                @else
+                                                    <span class="no-dots">
+                                                    Стоимость уточняйте у операторов
+                                                    </span>
+                                                @endif
+
+                                            </div>
+                                        </div>
+                                        <a href="#" class="btn btn-yellow" data-toggle="modal"
+                                           data-target="#tourOrderModal">Отправить заявку на тур</a>
+                                    </div>
+                                </div>
+                            @endforelse
+
+                        </div>
                     </div>
+                    
 
                     @php
                         $textData = Gliss::parsTourDescription($tour->text);

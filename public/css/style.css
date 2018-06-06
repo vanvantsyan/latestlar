@@ -1980,6 +1980,10 @@ div.dp-popup h2 {
 .tours-card-page {
 	padding-top: 0;
 }
+
+.card-wrapper {
+	position: relative;
+}
 .card-slider-item {
 	position: relative;
 	height: 355px;
