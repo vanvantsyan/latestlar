@@ -218,6 +218,69 @@
     @include('front.tours.modules.list-scripts')
     <script src="{{asset('/js/tours.js')}}"></script>
     <script>
+        
+        // Вешаем на scroll ajax подгрузку туров
+        $(window).scroll(function () {
+            
+            let btn = $('.btn-more-tours');
+            
+            // Если кнопки нет, дальше ничего выполнять не надо, подгрузки больше нет
+            if (btn.length == 0)
+                return;
+            
+            let scrollPosition = $(window).scrollTop() + ($(window).height()/2);
+            let scrollTo = $('.btn-more-tours').position().top;
+            
+            if (scrollPosition >= scrollTo) {
+                
+                // Проверяем, если уже идет загрузка (висит прелоадер, то стопим)
+                if (btn.find('img').length > 0)
+                    return;
+                
+                btn.html('<img style="padding-bottom: 8px" src="/img/preloader.svg">');
+
+                var countTours = $('.search-completed-item').length;
+
+                var filters = {};
+
+                $.each($('.tour-filter form').serializeArray(), function () {
+                    filters[this.name] = this.value;
+                });
+
+                // Add data to params array
+                filters['sort'] = $('.tours-sorting a:first').attr('data-sort');
+
+                if (filters['tourCountry']) {
+                    filters['country'] = filters['tourCountry'];
+                }
+                else {
+                    filters['country'] = '{{ $country->slug or ""}}';
+                }
+                
+                // ajax call get data from server and append to the div
+                $.ajax({
+                    url: "/moreTours",
+                    cache: false,
+                    data: {offset: countTours, limit: 15, params: filters},
+                    type: "POST",
+
+                }).done(function (data) {
+                    $('.search-completed-item').last().after(data);
+                    // Если удалось загрузить полный объем данных, то оставляем подгрузку
+                    if ($(data).filter('.search-completed-item').length == 15) 
+                        btn.html('Показать еще туры');
+                    // Иначе убираем кнопку и дальнейшую подгрузку
+                    else 
+                        btn.remove();
+                    
+                }).error(function () {
+                    btn.html('Показать еще туры');
+                    $('.search-completed-item').last().after('<p class="alert">ошибка</p>');
+                });
+
+                return false
+            }
+        })
 
         // Get more tours in tour list
         $('.btn-more-tours').on('click', function () {
