@@ -6,9 +6,9 @@
 
                 @if($layer == 3)
                     {{--<li><a class="march-icon" href="/{{$level}}/8-marta">Туры на 8 марта</a></li>--}}
-                    @if($countTours = Gliss::countTours("/$level/mayskie-prazdniki"))
+                    @if($countTours = Gliss::countTours("/$level/iyunskie-prazdniki"))
                         <li>
-                            <a class="may-icon" href="/{{$level}}/mayskie-prazdniki">На майские праздники</a>
+                            <a class="may-icon" href="/{{$level}}/iyunskie-prazdniki">На июньские праздники</a>
                             <span>{{$countTours}}</span>
                         </li>
                     @endif
@@ -18,12 +18,12 @@
                     {{--href="/{{$level}}/{{($tag && $tag->tag->title == "status") ? $tag->value . "/" : ""}}{{$way ? "tury-" . $way->url ."/" : ""}}{{($point) ? "tury-" . $point->url ."/" : ""}}8-marta{{($tag && in_array($tag->tag->title, ["tour_type"])) ? "/" . $tag->value : ''}}{{$duration ? "/". $duration : ""}}/">Туры--}}
                     {{--на 8 марта</a></li>--}}
                     @if($countTours = Gliss::countTours(
-                    "/$level/" . (($tag && $tag->tag->title == "status") ? $tag->value . "/" : "") . ($way ? "tury-" . $way->url ."/" : "") . (($point) ? "tury-" . $point->url ."/" : "") . "mayskie-prazdniki" . (($tag && in_array($tag->tag->title, ["tour_type"])) ? "/" . $tag->value : '') . ($duration ? "/". $duration : "") . "/"
+                    "/$level/" . (($tag && $tag->tag->title == "status") ? $tag->value . "/" : "") . ($way ? "tury-" . $way->url ."/" : "") . (($point) ? "tury-" . $point->url ."/" : "") . "iyunskie-prazdniki" . (($tag && in_array($tag->tag->title, ["tour_type"])) ? "/" . $tag->value : '') . ($duration ? "/". $duration : "") . "/"
                     ))
                         <li>
                             <a class="may-icon"
-                               href="/{{$level}}/{{($tag && $tag->tag->title == "status") ? $tag->value . "/" : ""}}{{$way ? "tury-" . $way->url ."/" : ""}}{{($point) ? "tury-" . $point->url ."/" : ""}}mayskie-prazdniki{{($tag && in_array($tag->tag->title, ["tour_type"])) ? "/" . $tag->value : ''}}{{$duration ? "/". $duration : ""}}/">
-                                На майские праздники</a>
+                               href="/{{$level}}/{{($tag && $tag->tag->title == "status") ? $tag->value . "/" : ""}}{{$way ? "tury-" . $way->url ."/" : ""}}{{($point) ? "tury-" . $point->url ."/" : ""}}iyunskie-prazdniki{{($tag && in_array($tag->tag->title, ["tour_type"])) ? "/" . $tag->value : ''}}{{$duration ? "/". $duration : ""}}/">
+                                На июньские праздники</a>
                             <span>{{$countTours}}</span>
                         </li>
                     @endif
