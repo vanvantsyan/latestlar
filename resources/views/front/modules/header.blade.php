@@ -79,7 +79,7 @@
                         <li><a href="http://startour.ru/countries/">Все страны</a></li>
                     </ul>
                 </li>
-                <li class="hidden-sm"><a href="#">Бонусная STAR-карта</a></li>
+                {{--<li class="hidden-sm"><a href="#">Бонусная STAR-карта</a></li>--}}
                 <li class="hidden-sm"><a href="http://startour.ru/blog">Блог</a></li>
                 <li><a href="http://startour.ru/kompaniya/">О компании</a></li>
             </ul>
