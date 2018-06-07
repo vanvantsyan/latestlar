@@ -1002,6 +1002,10 @@ h2, .h2 {
 	margin-bottom: 30px;
 	font-family: 'pantonbold';
 }
+.subscription input {
+	color: black;
+}
+
 .subscription input,
 .subscription .jq-selectbox {
 	width: 435px;
@@ -1021,6 +1025,7 @@ h2, .h2 {
 	margin-right: 0;
 	border: none;
 	margin-top: -3px;
+	color: black;
 }
 .info-company {
 	margin-top: 70px;

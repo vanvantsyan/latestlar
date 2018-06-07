@@ -8,8 +8,8 @@
                     <option>{!! $country->title !!}</option>
                 @endforeach
             </select>
-            <input type="email" placeholder="Ваша электронная почта">
-            <input class="btn btn-blue" type="submit" value="Подписаться">
+            <input type="email" placeholder="Ваша электронная почта" required>
+            <input class="btn btn-yellow" type="submit" value="Подписаться">
         </form>
     </div>
 </div>
