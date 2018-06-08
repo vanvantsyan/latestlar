@@ -145,6 +145,7 @@ class Tours extends Base
 
     public function scopeForDate($tours, $dateFrom, $dateTo)
     {
+        /*
         $dateRelation = ToursTagsRelation::join('tours', 'tours.id', '=', 'tour_tags_relations.tour_id', 'right outer')
             ->where(function ($query) use ($dateFrom, $dateTo) {
                 $query->where(function ($query) use ($dateFrom, $dateTo) {
@@ -160,6 +161,19 @@ class Tours extends Base
             $query->on('ttrDate.tour_id', '=', 'tours.id')
                 ->where('ttrDate.tag_id', '=', 2);
         })->whereIn('ttrDate.tour_id', array_unique($dateRelation));
+        */
+        
+        $subquery = ToursTagsRelation::from('tour_tags_relations as ttr')->select('ttr.tour_id')
+            ->where('ttr.tag_id', 2)
+            ->where('ttr.value', '>=', strtotime($dateFrom))
+            ->where('ttr.value', '<=', strtotime($dateTo))
+            ->groupBy('ttr.tour_id');
+
+        $tours->join(DB::raw("({$subquery->toSql()}) AS ttrDates"),
+            function ($query) use ($subquery) {
+                $query->on('ttrDates.tour_id', 'tours.id')
+                    ->addBinding($subquery->getBindings());
+            });
 
         return $tours;
 //            $tours->addSelect('ttrDate.value','ttrDate.tour_id');

@@ -1294,8 +1294,8 @@ class ToursController extends Controller
 
         // Месяцы
         if ($month = array_get($filters, 'month', null)) {
-            $dateFrom = strtotime("1 " . $month);
-            $dateTo = strtotime("last day of " . $month);
+            $dateFrom = date('Y-m-d', strtotime("1 " . $month));
+            $dateTo = date('Y-m-d', strtotime("last day of " . $month));
         }
 
         // Заданные даты
