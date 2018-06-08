@@ -88,11 +88,11 @@
             <input name="priceTo" type="text" placeholder="до 12000000"
                    @if(isset($postData['priceTo'])) value="{{$postData['priceTo']}}@endif">
         </div>
-        <div class="tour-filter-item date-mob filterDate" style="display:none">
+        <div class="tour-filter-item date-mob filterDate">
             <label>Даты начала тура <span data-toggle="tooltip" title="Укажите желаемые даты выезда">?</span>
-                <div id="dateFilterToggle" class="off">включить</div>
+                <div id="dateFilterToggle" class="on">очистить</div>
             </label>
-            <input name="tourDate" id="tourDate" class="date-pick dp-applied" value="" disabled>
+            <input name="tourDate" id="tourDate" class="date-pick dp-applied" value="" placeholder="Любая">
             <label class="icon-calendar" for="tourDate">
                 <img src="/img/icon-date.png" alt="date-icon" title="Выберите даты выезда"/>
             </label>
@@ -115,11 +115,12 @@
                 @endisset
             </select>
         </div>
-
+        {{-- 
         <a href="#" class="tour-filter-more"><span>Расширенный поиск</span>
             <div> &#9660;</div>
         </a>
+        --}}
         <input id="filterTours" type="submit" class="btn btn-blue" value="Подобрать варианты">
-
+        <div class="clearfix"></div>
     </form>
 </div>

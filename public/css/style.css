@@ -2558,6 +2558,10 @@ div.dp-popup h2 {
 	font-size: 0;
 	margin-bottom: 0;
 }
+#filterTours {
+	float: right;
+}
+
 .modal-footer .btn {
 	-webkit-appearance: initial;
 	background: #ff5500;

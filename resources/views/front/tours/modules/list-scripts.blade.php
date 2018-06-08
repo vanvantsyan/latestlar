@@ -34,8 +34,8 @@
         minDate: moment().format('DD.MM.YY'),
         @if(isset($month) && $month)
 
-        startDate: '{!! date('d.m.Y', strtotime("1 " . $month)) !!}',
-        endDate: '{!! date('d.m.Y', strtotime("last day of " . $month)) !!}',
+        startDate: '{!! date('d.m.y', strtotime("1 " . $month)) !!}',
+        endDate: '{!! date('d.m.y', strtotime("last day of " . $month)) !!}',
         @elseif(isset($tourDate) && !empty($tourDate))
                 @php
                     $datesArr = explode('-', $tourDate);
@@ -43,10 +43,14 @@
         startDate: '{{trim(head($datesArr))}}',
         endDate: '{{trim(last($datesArr))}}',
         @else
-        startDate: moment().format('DD.MM.YY'),
-        endDate: moment().add(30, 'day').format('DD.MM.YY'),
+        //startDate: moment().format('DD.MM.YY'),
+        //endDate: moment().add(30, 'day').format('DD.MM.YY'),
         @endif
         "autoApply": true,
     });
-
+    
+    // Если нет данных по фильтру, то делаем поле пустым
+    @if (!(isset($month) && $month) && !(isset($tourDate) && $tourDate))
+        $('#tourDate').val(null);
+    @endif
 </script>

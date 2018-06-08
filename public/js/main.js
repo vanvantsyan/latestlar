@@ -169,6 +169,7 @@ $(document).ready(function() {
         axis:"x",
         scrollbarPosition: "inside"
     });
+    /*
     $('.tour-filter-more').on("click", function(e){
 
     	e.preventDefault();
@@ -184,6 +185,7 @@ $(document).ready(function() {
 			}
 		});
 	});
+	*/
 });
 
 
