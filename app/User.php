@@ -34,6 +34,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * Override caching.
+     * 
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function cachedRoles()
+    {
+        return $this->roles()->get();
+    }
+
     const perpage = 15;
 
     public function sendPasswordResetNotification($token)
