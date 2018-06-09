@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Jenssegers\Date\Date;
 use Sunra\PhpSimple\HtmlDomParser;
 
 class BladeHelper
@@ -396,5 +397,40 @@ class BladeHelper
             $arr[] = $content;
         }
         return $arr;
+    }
+
+    /**
+     * Расширяет границы диапазона дат на задданное количество времени.
+     * 
+     * @param $range строка промежутка дат формата 'dd.mm.yy - dd.mm.yy'
+     * @param mixed $interval расширяет диапазон на заданный интервал
+     * @param int $breakpoint предел диапазоно, после которого он сбросится
+     * @return string
+     */
+    public static function expandDatesRange($range, $interval = '14 days', $breakpoint = 12)
+    {
+        $dates = explode('-', $range);
+        try {
+            $dateFrom = Date::createFromFormat('d.m.y', trim($dates[0]));
+            $dateTo = Date::createFromFormat('d.m.y', trim($dates[1]));
+        }
+        catch (\Exception $exception) {
+            $dateFrom = $dateTo = null;
+        }
+        
+        if ($dateFrom && $dateTo)
+        {
+            $dateFrom->modify("-{$interval}");
+            $dateTo->modify("+{$interval}");
+            
+            $newRange = $dateFrom->diff($dateTo);
+            // Если диапазон превышает пороговое значение, сбрасываем его.
+            if ($newRange->m + ($newRange->y * 12) >= $breakpoint)
+                return '';
+            
+            return $dateFrom->format('d.m.y') . ' - ' . $dateTo->format('d.m.y');
+        }
+        
+        return '';
     }
 }

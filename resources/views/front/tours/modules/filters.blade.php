@@ -93,6 +93,7 @@
                 <div id="dateFilterToggle" class="on">очистить</div>
             </label>
             <input name="tourDate" id="tourDate" class="date-pick dp-applied" value="" placeholder="Любая">
+            <input name="expandedTourDate" id="expandedTourDate" type="hidden">
             <label class="icon-calendar" for="tourDate">
                 <img src="/img/icon-date.png" alt="date-icon" title="Выберите даты выезда"/>
             </label>

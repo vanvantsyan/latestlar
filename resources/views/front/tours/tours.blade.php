@@ -78,11 +78,18 @@
                     <div class="search-completed">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
-                                <div class="title"><span
-                                            id="toursFrom">{!! Gliss::templateVars($seo['pTitle']) !!}</span> из г.
-                                    Москва,
-                                    найдено: <span
-                                            id="countFound">{{$countTours}}</span></div>
+                                <div id="toursOriginal" class="title">
+                                    <span class="toursForm">{!! Gliss::templateVars($seo['pTitle']) !!}</span> 
+                                    из г. Москва, найдено: 
+                                    <span class="countFound">{{$countTours}}</span>
+                                </div>
+                                <div id="toursExpanded" class="title" style="display: none;">
+                                    <span class="toursForm">{!! Gliss::templateVars($seo['pTitle']) !!}</span>
+                                    из г. Москва на <span class="toursRequestedDate"></span>: туры не найдены.
+                                    Показаны результаты на ближайшие даты:
+                                    <span class="countFound">{{$countTours}}</span>
+                                </div>
+                                    
                                 <a href="#" class="btn sorting-btn">Кратко</a>
                                 <div class="tours-sorting mobile-hide">
                                     Сортировать по: <a href="#"
@@ -335,7 +342,14 @@
             filterBtn.removeClass('btn-blue');
             filterBtn.addClass('preloader');
             filterBtn.attr('value', 'Идет подбор туров...');
-
+            
+            // Устанавливаем фильтр дат в заголовке, если нужно будет вывести 
+            // расширеные результаты поиска.
+            $('.toursRequestedDate').text($('#tourDate').val());
+            // Обнуляем диапазон расширенного поиска дат, если был
+            $('#expandedTourDate').val('');
+            $('#toursExpanded').hide();
+            $('#toursOriginal').show();
 
             // Avoid the jump
             e.preventDefault();
@@ -390,6 +404,7 @@
                 /* Get inscription data */
 
                 // Get count tours for inscription
+                /*
                 $.ajax({
                     url: "/getCountTours",
                     cache: false,
@@ -410,7 +425,8 @@
                     }
 
                 });
-
+                */
+                
                 // Get seo tours for inscription
                 $.ajax({
                     url: "{{route('tours.seo')}}",
@@ -419,7 +435,7 @@
                     type: "POST",
 
                 }).done(function (seo) {
-                    $('#toursFrom').text(seo.pTitle);
+                    $('.toursFrom').text(seo.pTitle);
                 });
 
             }).error(function () {

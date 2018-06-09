@@ -163,7 +163,7 @@ class Tours extends Base
         })->whereIn('ttrDate.tour_id', array_unique($dateRelation));
         */
         
-        $subquery = ToursTagsRelation::from('tour_tags_relations as ttr')->select('ttr.tour_id')
+        $subquery = ToursTagsRelation::from('tour_tags_relations as ttr')->selectRaw('ttr.tour_id, min(ttr.value) as nearestDate')
             ->where('ttr.tag_id', 2)
             ->where('ttr.value', '>=', strtotime($dateFrom))
             ->where('ttr.value', '<=', strtotime($dateTo))

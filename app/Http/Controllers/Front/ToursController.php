@@ -837,7 +837,7 @@ class ToursController extends Controller
             'duration' => $duration,
             'month' => $month ?? ''
         ]);
-
+        
         // Join with dates by sorting
         $toursIds = $tours->pluck('tours.id')->toArray();
 
@@ -1181,37 +1181,18 @@ class ToursController extends Controller
     public function getMore(Request $request)
     {
         $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
-        $tours = $this->applyFilters($tours, $request->input('params'));
+        
+        // Проверяем, ведется ли поиск по расширенному диапазону дат.
+        $filters = $request->input('params');
+        $filters['tourDate'] = $filters['expandedTourDate'] ? $filters['expandedTourDate'] : $filters['tourDate'];
+        
+        $tours = $this->applyFilters($tours, $filters);
+        
+        // Apply limits
+        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')->groupBy('tours.id');
 
-
-        // Join with dates by sorting
-        $toursIds = $tours->pluck('tours.id')->toArray();
-
-        if ($toursIds) {
-            $tours->leftJoin(
-                DB::raw("
-            (
-            SELECT tour_id, MIN(value) as nearestDate 
-                FROM tour_tags_relations 
-                
-                WHERE tag_id = 2 
-                AND value > " . time() . " 
-                AND tour_id IN(" . implode(',', $toursIds) . ")
-            GROUP BY tour_id
-            ) as dv
-            ")
-                ,
-                'tours.id', '=', 'dv.tour_id'
-            );
-
-            $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration', DB::raw("MIN(dv.nearestDate) as nearestDate"));
-
-            $tours->groupBy('tours.id', 'dv.nearestDate');
-            $tours->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '99999999999999' ELSE dv.nearestDate END");
-
-        } else {
-
-        }
+        if ($filters['tourDate'])
+            $tours->orderBy('nearestDate');
 
         // SET limits
         $limit = $request->input('limit');
@@ -1235,52 +1216,47 @@ class ToursController extends Controller
 
     public function filters(Request $request)
     {
+        // Флаг, для определения был ли использован расширенный диапазон дат.
+        $expanded = null;
+        $filters = $request->all();
+        
         $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
-        $tours = $this->applyFilters($tours, $request->all());
+        $tours = $this->applyFilters($tours, $filters);
 
-        // Join with dates by sorting
-        $toursIds = $tours->pluck('tours.id')->toArray();
-
-        if ($toursIds) {
-            $tours->leftJoin(
-                DB::raw("
-            (
-            SELECT tour_id, MIN(value) as nearestDate 
-                FROM tour_tags_relations 
-                
-                WHERE tag_id = 2 
-                AND value > " . time() . " 
-                AND tour_id IN(" . implode(',', $toursIds) . ")
-            GROUP BY tour_id
-            ) as dv
-            ")
-                ,
-                'tours.id', '=', 'dv.tour_id'
-            );
-
-            $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration', DB::raw("MIN(dv.nearestDate) as nearestDate"));
-            $tours->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '99999999999999999999999' ELSE dv.nearestDate END");
-
-        } else {
-
-            $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration');
+        // Если туры по заданным фильтрам не найдены, пробуем расширить диапазон дат.
+        if (!$tours->count()) {
+            
+            while ($filters['tourDate']) {
+                $filters['tourDate'] = BladeHelper::expandDatesRange($filters['tourDate']);
+                $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
+                $tours = $this->applyFilters($tours, $filters);
+                if ($tours->count()) {
+                    $expanded = $filters['tourDate'];
+                    break;
+                }
+            }
         }
 
-        $tours->groupBy('tours.id'); // dv.nearestDate ??
-
-
         // Apply limits
+        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')->groupBy('tours.id');
+        
+        if ($filters['tourDate'])
+            $tours->orderBy('nearestDate');
+        
+        $count = $tours->get()->count();
+        
         $limit = $request->input('limit', 15);
         $offset = $request->input('offset', 0);
         $tours->skip($offset)->take($limit);
 
         $list = $tours->get();
 
+        
         if ($list->count()) {
-            return view('front.tours.more', ['tours' => $list->toArray()]);
+            return view('front.tours.filtered', ['tours' => $list->toArray(), 'expanded' => $expanded, 'count' => $count]);
         } else {
             return view('front.tours.empty');
-        };
+        }
     }
 
     public function applyFilters($tours, $filters)
