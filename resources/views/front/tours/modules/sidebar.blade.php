@@ -316,12 +316,13 @@
                     по месяцам
                 </div>
                 <ul>
+                    @php ($monthDisplayed = 1) @endphp
                     @forelse(config('main.month') as $key => $value)
 
-                        @if(in_array($key, ['january', 'february']))
+                        @if ($loop->iteration < now()->format('n'))
                             @continue
                         @endif
-
+                        {{-- 
                         @if($layer == 3)
                             @if($countTours = Gliss::countTours("/$level/$key"))
                                 <li>
@@ -337,12 +338,20 @@
                                 </li>
                             @endif
                         @endif
-
-                        @if($loop->iteration == 8)
-
+                        --}}
+                        @if($countTours = Gliss::countTours(Gliss::generatedMonthLink($level, $way, $point, $tag,$key,$duration)))
+                            <li>
+                                <a href="{{Gliss::generatedMonthLink($level, $way, $point, $tag,$key,$duration)}}">{{$value}}</a>
+                                <span>{{$countTours}}</span>
+                            </li>
+                        @endif
+                        
+                        @if ($monthDisplayed >= 6)
                             @break
                         @endif
 
+                        @php ($monthDisplayed++) @endphp
+                        
                     @empty
                     @endforelse
                 </ul>
