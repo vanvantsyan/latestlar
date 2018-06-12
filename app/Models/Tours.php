@@ -10,7 +10,7 @@ class Tours extends Base
     protected $table = 'tours';
     protected $fillable = ['id', 'title', 'description', 'text', 'price', 'duration', 'source', 'url', 'created_at', 'updated_at'];
 
-    protected $appends = ['dates', 'country']; //,'nearestDate'
+    protected $appends = ['country']; //,'nearestDate'
 //    protected $casts = ['nearestDate' => 'string'];
 
     public function tourTags()
@@ -18,9 +18,9 @@ class Tours extends Base
         return $this->hasMany('App\Models\ToursTagsRelation', 'tour_id');
     }
 
-    public function getDatesAttribute()
+    public function dates()
     {
-        return $this->tourTags->where('tag_id', 2)->sortBy('value');
+        return $this->hasMany('App\Models\ToursTagsRelation', 'tour_id')->where('tag_id', 2)->orderBy('value');
     }
 
     public function getCountryAttribute()
@@ -106,6 +106,21 @@ class Tours extends Base
         return $tours;
     }
 
+    /**
+     * Получить туры с датами в заданном диапазоне.
+     * 
+     * @param $query
+     * @param $dateFrom диапазон даты "от"
+     * @param $dateTo диапазон даты "до"
+     */
+    public function scopeWithDatesInRange($query, $dateFrom, $dateTo)
+    {
+        $query->with(['dates' => function ($subquery) use ($dateFrom, $dateTo) {
+            $subquery->where('value', '>=', $dateFrom ? $dateFrom : 0)
+                ->where('value', '<=', $dateTo ? $dateTo : PHP_INT_MAX);
+        }]);
+    }
+
     public function scopeActualDate($tours)
     {
         $tours->leftJoin(
@@ -163,10 +178,10 @@ class Tours extends Base
         })->whereIn('ttrDate.tour_id', array_unique($dateRelation));
         */
         
-        $subquery = ToursTagsRelation::from('tour_tags_relations as ttr')->selectRaw('ttr.tour_id, min(ttr.value) as nearestDate')
+        $subquery = ToursTagsRelation::from('tour_tags_relations as ttr')->selectRaw('ttr.tour_id, min(ttr.value) as minDate')
             ->where('ttr.tag_id', 2)
-            ->where('ttr.value', '>=', strtotime($dateFrom))
-            ->where('ttr.value', '<=', strtotime($dateTo))
+            ->where('ttr.value', '>=', strtotime($dateFrom) ? strtotime($dateFrom) : now()->getTimestamp())
+            ->where('ttr.value', '<=', strtotime($dateTo) ? strtotime($dateTo) : PHP_INT_MAX)
             ->groupBy('ttr.tour_id');
 
         $tours->join(DB::raw("({$subquery->toSql()}) AS ttrDates"),

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 use Intervention\Image\Facades\Image;
+use Jenssegers\Date\Date;
 
 class ToursController extends Controller
 {
@@ -799,7 +800,7 @@ class ToursController extends Controller
         }
        
         // Get base query by tours
-        $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
+        $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates']);
 
         // Exceptions in duration
         if ($duration == "8-10") {
@@ -819,7 +820,7 @@ class ToursController extends Controller
             $duration = null;
             $durationFrom = 15;
         }
-
+        
         // Apply filters by tours
         $tours = $this->applyFilters($tours, [
             'tourDate' => $tourDate ?? '',
@@ -848,17 +849,15 @@ class ToursController extends Controller
         // Select count for counter
         $countTours = $tours->count(DB::raw('DISTINCT tours.id'));
 
-        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration');
+        // Выбираем нужные даты для туров
+        $dates = $this->extractDatesFromFilters(compact('tourDate', 'month'));
+        $tours->withDatesInRange(strtotime($dates['dateFrom']), strtotime($dates['dateTo']));
 
-        if (count($toursIds)) {
-
-            $tours->addSelect(DB::raw("MIN(dv.nearestDate) as nearestDate"));
-            $tours->orderByRaw("CASE WHEN dv.nearestDate is NULL THEN '9999999999' ELSE dv.nearestDate END");
-        }
-
-        $tours->groupBy('tours.id');
-
-
+        // Сортируем по дате
+        $tours->orderByRaw('-minDate DESC');
+     
+        $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')->groupBy('tours.id');
+        
         // Get tours object list
         $tours = $tours->take(15)->get();
 
@@ -1187,13 +1186,17 @@ class ToursController extends Controller
         $filters['tourDate'] = $filters['expandedTourDate'] ? $filters['expandedTourDate'] : $filters['tourDate'];
         
         $tours = $this->applyFilters($tours, $filters);
+
+        // Выбираем нужные даты для туров
+        $dates = $this->extractDatesFromFilters($filters);
+        $tours->withDatesInRange(strtotime($dates['dateFrom']), strtotime($dates['dateTo']));
+    
+        // Сортируем по дате
+        $tours->orderByRaw('-minDate DESC');
         
         // Apply limits
         $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')->groupBy('tours.id');
-
-        if ($filters['tourDate'])
-            $tours->orderBy('nearestDate');
-
+        
         // SET limits
         $limit = $request->input('limit');
         $offset = $request->input('offset');
@@ -1237,11 +1240,15 @@ class ToursController extends Controller
             }
         }
 
+        // Выбираем нужные даты для туров
+        $dates = $this->extractDatesFromFilters($filters);
+        $tours->withDatesInRange(strtotime($dates['dateFrom']), strtotime($dates['dateTo']));
+
+        // Сортируем по датам
+        $tours->orderByRaw('-minDate DESC');
+        
         // Apply limits
         $tours->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')->groupBy('tours.id');
-        
-        if ($filters['tourDate'])
-            $tours->orderBy('nearestDate');
         
         $count = $tours->get()->count();
         
@@ -1286,9 +1293,7 @@ class ToursController extends Controller
         }
 
         // Применяем фильтр дат
-        if ($dateFrom or $dateTo) {
-            $tours->forDate($dateFrom, $dateTo);
-        }
+        $tours->forDate($dateFrom, $dateTo);
 
         $tours->fromResort(array_get($filters, 'resort', null));
         $tours->fromWay($tourWay = array_get($filters, 'tourWay', null));
@@ -1317,6 +1322,34 @@ class ToursController extends Controller
         }
 
         return $tours;
+    }
+
+    /**
+     * @param $filters
+     * @return array
+     */
+    protected function extractDatesFromFilters($filters)
+    {
+        $dateFrom = $dateTo = null;
+
+        // Месяцы
+        if ($month = array_get($filters, 'month', null)) {
+            $dateFrom = date('Y-m-d', strtotime("1 " . $month));
+            $dateTo = date('Y-m-d', strtotime("last day of " . $month));
+        }
+
+        // Заданные даты
+        if ($tourDate = array_get($filters, 'tourDate', null)) {
+
+            $dateArr = explode('-', $tourDate);
+
+            list($d, $m, $y) = explode('.', head($dateArr));
+            $dateFrom = trim("$d.$m.20$y");
+            list($d, $m, $y) = explode('.', last($dateArr));
+            $dateTo = trim("$d.$m.20$y");
+        }
+        
+        return compact('dateFrom', 'dateTo');
     }
 
     public function autocomplete(Request $request)

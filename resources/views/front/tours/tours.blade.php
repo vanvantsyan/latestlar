@@ -225,7 +225,6 @@
     @include('front.tours.modules.list-scripts')
     <script src="{{asset('/js/tours.js')}}"></script>
     <script>
-        
         // Вешаем на scroll ajax подгрузку туров
         $(window).scroll(function () {
             
@@ -331,10 +330,8 @@
 
             return false
         });
-
-
+        
         /* Tours filter apply */
-
         $('#filterTours').on('click', function (e) {
 
             var filterBtn = $(this);
@@ -442,8 +439,7 @@
                 // If errors
             });
         });
-
-
+        
         // Sort tours
         $('.tours-sorting-items a').on('click', function () {
 
