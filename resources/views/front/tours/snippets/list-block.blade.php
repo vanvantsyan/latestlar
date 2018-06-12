@@ -6,7 +6,6 @@
                     <div class="search-completed-item-title" onclick="window.open('{{Gliss::tourLink($tour)}}','_blank')">{{$tour['title']}}</div>
                     <ul>
                         <li>{{count($tour['par_points']) ?: 1}} {!! Gliss::numeralCase('город', count($tour['par_points']) ?: 1) !!}</li>
-                        <li>14 экскурсий</li>
                         <li>Поездка на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</li>
                     </ul>
                 </div>
@@ -66,7 +65,6 @@
                 <div class="tour-list-about">
                     <ul>
                         <li>{{count($tour['par_points']) ?: 1}} {!! Gliss::numeralCase('город', count($tour['par_points']) ?: 1) !!}</li>
-                        <li>14 экскурсий</li>
                         <li>Поездка на {{$tour['duration']}} {!! Gliss::numeralCase('день', $tour['duration']) !!}</li>
                     </ul>
                 </div>
