@@ -75,7 +75,7 @@
                                     <label for="title">Заголовок тура</label>
                                     <input type="text" class="form-control m-input m-input--square" id="title"
                                            name="title"
-                                           value="{{$item->title or old('title')}}">
+                                           value="{{$item->title ?? old('title')}}">
                                 </div>
                             </div>
 
@@ -84,7 +84,7 @@
                                     <label for="price">Цена тура</label>
                                     <input type="text" class="form-control m-input m-input--square" id="price"
                                            name="price"
-                                           value="{{$item->price or old('price')}}">
+                                           value="{{$item->price ?? old('price')}}">
                                 </div>
 
                                 <div class="col-md-6 col-xs-6">
@@ -99,14 +99,14 @@
                                 <div class="col-md-12 col-xs-12">
                                     <label for="">Краткое описание</label>
                                     <textarea class="summernote"
-                                              name="description">{{$item->description or ''}}</textarea>
+                                              name="description">{{$item->description ?? ''}}</textarea>
                                 </div>
                             </div>
 
                             <div class="form-group m-form__group row">
                                 <div class="col-md-12 col-xs-12">
                                     <label for="">Полное описание</label>
-                                    <textarea class="summernote" name="text">{{$item->text or ''}}</textarea>
+                                    <textarea class="summernote" name="text">{{$item->text ?? ''}}</textarea>
                                 </div>
                             </div>
                             @isset($item)
@@ -195,12 +195,12 @@
 
                                     <label for="seo_title">SEO title</label>
                                     <input type="text" class="form-control m-input m-input--square" id="seo_title"
-                                           name="seo_title" value="{{$item->seo_title or ''}}">
+                                           name="seo_title" value="{{$item->seo_title ?? ''}}">
                                 </div>
                                 <div class="col-md-6 col-xs-12">
                                     <label for="seo_keywords">SEO keywords</label>
                                     <input type="text" class="form-control m-input m-input--square" id="seo_keywords"
-                                           name="seo_keywords" value="{{$item->seo_keywords or ''}}">
+                                           name="seo_keywords" value="{{$item->seo_keywords ?? ''}}">
                                 </div>
                                 {{--<div class="col-md-6 col-xs-12">--}}
                                 {{--<label for="url">URL (Только английские буквы + )</label>--}}
@@ -210,7 +210,7 @@
                                 <div class="col-md-6 col-xs-12">
                                     <label for="seo_desc">SEO Description</label>
                                     <textarea class="form-control m-input m-input--square" id="seo_desc" name="seo_desc"
-                                              rows="5">{{$item->seo_desc or ''}}</textarea>
+                                              rows="5">{{$item->seo_desc ?? ''}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -226,7 +226,7 @@
                                             <option value="0">Не указана</option>
 
                                             @foreach($countries as $country)
-                                                @if($item->country && $item->country->id == $country->id)
+                                                @if(isset ($item) && $item->country && $item->country->id == $country->id)
                                                     <option value="{{$country->id}}"
                                                             selected="selected">{{$country->country}}</option>
                                                 @else

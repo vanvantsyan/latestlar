@@ -126,7 +126,10 @@ class ToursController extends Controller
     public function create()
     {
         return view('admin.tours.form', [
-            'types' => ToursTagsValues::where('tag_id', 4)->get()
+            'types' => ToursTagsValues::where('tag_id', 4)->get(),
+            'countries' => Geo::all(),
+            'ways' => Ways::where('status', '!=', 'country')->get(),
+            'cities' => Points::where('status', 'city')->where('off', 0)->get(),
         ]);
     }
 
@@ -160,10 +163,14 @@ class ToursController extends Controller
 
         $data = $request->all();
 
-        $tourTypes = $data['tourType'] or [];
+        $tourTypes = $data['tourType'] ?? [];
+        $country = $data['country'];
 
         unset($data['_token']);
         unset($data['tourType']);
+        unset($data['country']);
+        
+        
 
         $tour = new Tours();
 
@@ -182,6 +189,22 @@ class ToursController extends Controller
                 'tag_id' => 4,
                 'value' => $type,
                 'not_update' => 1
+            ]);
+        }
+
+        if ($country) {
+
+            GeoRelation::where([
+                'sub_id' => $tour->id,
+                'sub_ess' => 'tour',
+                'par_ess' => 'country',
+            ])->delete();
+
+            GeoRelation::insert([
+                'sub_id' => $tour->id,
+                'sub_ess' => 'tour',
+                'par_ess' => 'country',
+                'par_id' => $country,
             ]);
         }
 
