@@ -44,7 +44,7 @@ class ToursController extends Controller
 
     public function edit($id)
     {
-        $item = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])->find($id);
+        $item = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates'])->find($id);
         $images = json_decode($item->images);
         return view('admin.tours.form', [
             'types' => ToursTagsValues::where('tag_id', 4)->get(),

@@ -606,7 +606,7 @@ class ToursController extends Controller
         $country = Geo::where('slug', $country)->first();
 
         // Similar tours
-        $similars = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])->join('geo_relation AS gr', function ($query) use ($country) {
+        $similars = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates'])->join('geo_relation AS gr', function ($query) use ($country) {
             $query->on('gr.sub_id', 'tours.id')
                 ->where('sub_ess', 'tour')
                 ->where('par_ess', 'country')
@@ -669,7 +669,7 @@ class ToursController extends Controller
         $tour = Tours::with('parWays.waysPar')->findOrFail($id);
 
         // Similar tours
-        $similars = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])->join('geo_relation AS gr', function ($query) use ($tour) {
+        $similars = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates'])->join('geo_relation AS gr', function ($query) use ($tour) {
             $query->on('gr.sub_id', 'tours.id')
                 ->where('sub_ess', 'tour')
                 ->where('par_ess', 'way')
@@ -984,7 +984,7 @@ class ToursController extends Controller
 
       
         // Get base query by tours
-        $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
+        $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates']);
 
         // Apply filters by tours
         $tours = $this->applyFilters($tours, [
@@ -1038,7 +1038,7 @@ class ToursController extends Controller
 
         $hotToursAny = Cache::remember('hotToursAny-'. $country->slug, 1440, function() use($country){
             $hotToursAny = Tours::take(8)
-                ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])
+                ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates'])
                 ->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')
                 ->join('geo_relation as geo_r', function ($join) use ($country) {
                     $join->on('geo_r.sub_id', '=', 'tours.id')
@@ -1066,7 +1066,7 @@ class ToursController extends Controller
 
         $hotToursOne = Cache::remember('hotToursOne-'.$country->slug, 1440, function() use($country) {
             $hotToursOne = Tours::where('duration', 1)
-                ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])
+                ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates'])
                 ->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')
                 ->join('geo_relation as geo_r', function ($join) use ($country) {
                     $join->on('geo_r.sub_id', '=', 'tours.id')
@@ -1094,7 +1094,7 @@ class ToursController extends Controller
 
         $hotToursMany = Cache::remember('hotToursMany-'.$country->slug, 1440, function() use($country) {
             $hotToursMany = Tours::where('duration', '>', 1)
-                ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])
+                ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates'])
                 ->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')
                 ->join('geo_relation as geo_r', function ($join) use ($country) {
                     $join->on('geo_r.sub_id', '=', 'tours.id')
@@ -1121,7 +1121,7 @@ class ToursController extends Controller
 
         $hotToursActive = Cache::remember('hotToursActive-' . $country->slug, 1440, function () use($country){
             $hotToursActive = Tours::join('tour_tags_relations AS ttr', 'ttr.tour_id', '=', 'tours.id')
-                ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar'])
+                ->with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates'])
                 ->where('ttr.tag_id', 4)
                 ->where('ttr.value', 13)
                 ->select('tours.id', 'tours.title', 'tours.description', 'tours.price', 'tours.url', 'tours.images', 'tours.duration')
@@ -1179,7 +1179,7 @@ class ToursController extends Controller
 
     public function getMore(Request $request)
     {
-        $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
+        $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates']);
         
         // Проверяем, ведется ли поиск по расширенному диапазону дат.
         $filters = $request->input('params');
@@ -1223,7 +1223,7 @@ class ToursController extends Controller
         $expanded = null;
         $filters = $request->all();
         
-        $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
+        $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates']);
         $tours = $this->applyFilters($tours, $filters);
 
         // Если туры по заданным фильтрам не найдены, пробуем расширить диапазон дат.
@@ -1231,7 +1231,7 @@ class ToursController extends Controller
             
             while ($filters['tourDate']) {
                 $filters['tourDate'] = BladeHelper::expandDatesRange($filters['tourDate']);
-                $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
+                $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates']);
                 $tours = $this->applyFilters($tours, $filters);
                 if ($tours->count()) {
                     $expanded = $filters['tourDate'];

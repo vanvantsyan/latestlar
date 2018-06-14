@@ -176,7 +176,7 @@ class BladeHelper
 
             }
 
-            $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar']);
+            $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates']);
 
             $toursController = new ToursController();
             $tours = $toursController->applyFilters($tours, [
