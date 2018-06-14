@@ -117,7 +117,7 @@ class Tours extends Base
     {
         $query->with(['dates' => function ($subquery) use ($dateFrom, $dateTo) {
             $subquery->where('value', '>=', $dateFrom ? $dateFrom : 0)
-                ->where('value', '<=', $dateTo ? $dateTo : PHP_INT_MAX);
+                ->where('value', '<=', $dateTo ? $dateTo : (string) PHP_INT_MAX);
         }]);
     }
 
