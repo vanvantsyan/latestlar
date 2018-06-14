@@ -78,14 +78,14 @@
                     <div class="form-group m-form__group row">
                         <div class="col-md-6 col-xs-12">
                             <label for="">Краткое описание</label>
-                            <textarea class="summernote" name="description">{{$item->description or ''}}</textarea>
+                            <textarea class="rich-editor" name="description">{{$item->description or ''}}</textarea>
                         </div>
                     </div>
 
                     <div class="form-group m-form__group row">
                         <div class="col-md-6 col-xs-12">
                             <label for="">Полное описание</label>
-                            <textarea class="summernote" name="content">{{$item->content or ''}}</textarea>
+                            <textarea class="rich-editor" name="content">{{$item->content or ''}}</textarea>
                         </div>
                     </div>
 

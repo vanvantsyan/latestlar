@@ -96,7 +96,7 @@
                     <div class="form-group m-form__group row {{ $errors->has('docs') ? ' has-danger' : '' }}">
                         <div class="col-md-6 col-xs-12">
                             <label for="">Необходимые документы *</label>
-                            <textarea class="summernote" name="docs">{{$visa->docs or ''}}</textarea>
+                            <textarea class="rich-editor" name="docs">{{$visa->docs or ''}}</textarea>
                             @if($errors->has('docs'))
                                 <div class="form-control-feedback">{{$errors->first('docs')}}</div>
                             @endif
@@ -116,7 +116,7 @@
                                 <div class="form-group m-form__group row">
                                     <div class="col-md-6 col-xs-12">
                                         <label for="">Описание</label>
-                                        <textarea class="summernote" name="add_docs[{{$i}}][text]">{{$docs->text or ''}}</textarea>
+                                        <textarea class="rich-editor" name="add_docs[{{$i}}][text]">{{$docs->text or ''}}</textarea>
                                     </div>
                                 </div>
                             </div>

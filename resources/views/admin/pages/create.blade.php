@@ -40,14 +40,14 @@
                     <div class="form-group m-form__group row">
                         <div class="col-md-6 col-xs-12">
                             <label for="">Краткое описание</label>
-                            <textarea class="summernote" name="description"></textarea>
+                            <textarea class="rich-editor" name="description"></textarea>
                         </div>
                     </div>
 
                     <div class="form-group m-form__group row">
                         <div class="col-md-6 col-xs-12">
                             <label for="">Полное описание</label>
-                            <textarea class="summernote" name="content"></textarea>
+                            <textarea class="rich-editor" name="content"></textarea>
                         </div>
                     </div>
 

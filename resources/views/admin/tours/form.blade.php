@@ -98,7 +98,7 @@
                             <div class="form-group m-form__group row">
                                 <div class="col-md-12 col-xs-12">
                                     <label for="">Краткое описание</label>
-                                    <textarea class="summernote"
+                                    <textarea class="rich-editor"
                                               name="description">{{$item->description ?? ''}}</textarea>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@
                             <div class="form-group m-form__group row">
                                 <div class="col-md-12 col-xs-12">
                                     <label for="">Полное описание</label>
-                                    <textarea class="summernote" name="text">{{$item->text ?? ''}}</textarea>
+                                    <textarea class="rich-editor" name="text">{{$item->text ?? ''}}</textarea>
                                 </div>
                             </div>
                             @isset($item)

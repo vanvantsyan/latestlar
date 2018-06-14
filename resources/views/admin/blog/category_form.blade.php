@@ -40,7 +40,7 @@
                         <div class="form-group m-form__group row">
                             <div class="col-md-6 col-xs-12">
                                 <label for="name">Описание категории</label>
-                                <textarea name="description" class="summernote">{{$category->description or ''}}</textarea>
+                                <textarea name="description" class="rich-editor">{{$category->description or ''}}</textarea>
                             </div>
                         </div>
 

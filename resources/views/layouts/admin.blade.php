@@ -645,9 +645,12 @@
 <script src="{{asset('assets/vendors/base/vendors.bundle.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/demo/default/base/scripts.bundle.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/demo/default/base/scripts.bundle.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/vendors/ckeditor/ckeditor.js')}}"></script>
+<script src="{{asset('assets/vendors/ckeditor/adapters/jquery.js')}}"></script>
 <script src="{{asset('js/admin.js')}}" type="text/javascript"></script>
 <script>
     $('.datepicker').datepicker();
+    $('.rich-editor').ckeditor();
 </script>
 
 @if (session('status'))

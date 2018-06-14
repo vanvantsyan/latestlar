@@ -42,7 +42,7 @@
                     <div class="form-group m-form__group row">
                         <div class="col-md-6 col-xs-12">
                             <label for="">Ответ</label>
-                            <textarea class="summernote" name="answer">{{$question->answer or ''}}</textarea>
+                            <textarea class="rich-editor" name="answer">{{$question->answer or ''}}</textarea>
                         </div>
                     </div>
 

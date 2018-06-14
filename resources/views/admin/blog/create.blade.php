@@ -72,7 +72,7 @@
 
                     <div class="col-lg-6 col-md-9 col-sm-12">
                         <label for="">Краткое описание</label>
-                        <textarea class="summernote" name="description">{{$post->description or ''}}</textarea>
+                        <textarea class="rich-editor" name="description">{{$post->description or ''}}</textarea>
                     </div>
                     <br><br>
 
@@ -97,7 +97,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-9 col-sm-12">
                                         <label for="">Контент</label>
-                                        <textarea class="summernote" name="text[]">{{$text->text or ''}}</textarea>
+                                        <textarea class="rich-editor" name="text[]">{{$text->text or ''}}</textarea>
                                     </div>
                                     <div class="col-lg-6 col-md-9 col-sm-12">
                                         <br>
@@ -137,7 +137,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-9 col-sm-12">
                                     <label for="">Контент</label>
-                                    <textarea class="summernote" name="text[]">{{$post->text or ''}}</textarea>
+                                    <textarea class="rich-editor" name="text[]">{{$post->text or ''}}</textarea>
                                 </div>
                                 <div class="col-lg-6 col-md-9 col-sm-12">
                                     <br>
