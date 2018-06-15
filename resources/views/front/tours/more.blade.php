@@ -3,7 +3,7 @@
 @endforeach
 
 <script>
-
+    $(".search-completed-item-preview > div:first-child").unbind('click');
     $(".search-completed-item-preview > div:first-child").click(function () {
         $(this).closest('.search-completed-item').find('.search-completed-item-more').slideToggle();
         return false;
