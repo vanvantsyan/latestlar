@@ -130,6 +130,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('articles', 'Admin\ArticlesController');
 
         Route::resource('seo', 'Admin\SeoController');
+        Route::resource('periods', 'Admin\PeriodsController');
 
         Route::get('cases', 'Admin\CaseController@list');
         Route::get('cases/{id}/edit', 'Admin\CaseController@edit');
