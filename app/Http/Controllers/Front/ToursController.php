@@ -173,19 +173,19 @@ class ToursController extends Controller
                     $period = array_get($params, 'period', null);
                         
                     if ($month)
-                        $intervalSeo = " в " . BladeHelper::case($month, "П");
+                        $intervalSeo = "в " . BladeHelper::case($month, "П");
                     elseif ($period) {
-                        $intervalSeo = $period->title_cases['p'] ?? (" в " . BladeHelper::case($month, "П"));
+                        $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($month, "П"));
                         $period_v = $period->title_cases['v'] ?? BladeHelper::case($period, "В");
                     }
                     else 
                         $intervalSeo = '';
                     
-                    $seo['pTitle'] = "Туры " . $resortSeo . $intervalSeo . " " . date("Y") . "";
-                    $seo['bTitle'] = "Туры " . $resortSeo . $intervalSeo . " " . date("Y") . " из Москвы";
-                    $seo['metaKey'] = "купить туры " . $resortSeo . $intervalSeo . " " . date("Y") . " из Москвы, цена, $country";
-                    $seo['metaDesc'] = "Дешевые туры " . $resortSeo . $intervalSeo . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
-                    $seo['subText'] = "Туры " . $resortSeo . " ($country) из Москвы" . $intervalSeo . " " . date("Y") . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проведите " .  $month ?? $period_v ?? '' . ", отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    $seo['pTitle'] = "Туры " . $resortSeo . " " . $intervalSeo . " " . date("Y") . "";
+                    $seo['bTitle'] = "Туры " . $resortSeo . " " . $intervalSeo . " " . date("Y") . " из Москвы";
+                    $seo['metaKey'] = "купить туры " . $resortSeo . " " . $intervalSeo . " " . date("Y") . " из Москвы, цена, $country";
+                    $seo['metaDesc'] = "Дешевые туры " . $resortSeo . " " . $intervalSeo . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
+                    $seo['subText'] = "Туры " . $resortSeo . " ($country) из Москвы" . " " . $intervalSeo . " " . date("Y") . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проведите " .  $month ?? $period_v ?? '' . ", отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
                     return $seo;
                 }
 
@@ -209,46 +209,46 @@ class ToursController extends Controller
                 $period = array_get($params, 'period', null);
 
                 if ($month)
-                    $intervalSeo = " в " . BladeHelper::case($month, "П");
+                    $intervalSeo = "в " . BladeHelper::case($month, "П");
                 elseif ($period) {
-                    $intervalSeo = $period->title_cases['p'] ?? (" в " . BladeHelper::case($month, "П"));
+                    $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($month, "П"));
                     $period_v = $period->title_cases['v'] ?? BladeHelper::case($period, "В");
                 }
                 else
                     $intervalSeo = '';
 
                 if ($duration = array_get($params, 'duration', null)) {
-                    $seo['pTitle'] = "Туры" . $countrySeo . $intervalSeo . " " . date("Y") . "";
-                    $seo['bTitle'] = "Туры" . $intervalSeo . " " . date("Y") . " " . $countrySeo . " на " . durationNum($duration) . " " . durationCase($duration) . "  из Москвы";
-                    $seo['metaKey'] = "купить туры" . $intervalSeo . " " . date("Y") . " " . $countrySeo . " из Москвы на " . durationNum($duration) . " " . durationCase($duration) . ", цена, $country";
-                    $seo['metaDesc'] = "Дешевые туры" . $intervalSeo . " " . date("Y") . " " . $countrySeo . " с вылетом из Москвы на " . durationNum($duration) . " " . durationCase($duration) . " от турагентства STARTOUR.";
-                    $seo['subText'] = "Туры " . $countrySeo . $intervalSeo . " " . date("Y") . " года из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Проведите " . $month ?? $period_v ?? '' . " на лучших курортах " . BladeHelper::case($country, "Р") . ".";
+                    $seo['pTitle'] = "Туры " . $countrySeo . " " . $intervalSeo . " " . date("Y") . "";
+                    $seo['bTitle'] = "Туры " . " " . $intervalSeo . " " . date("Y") . " " . $countrySeo . " на " . durationNum($duration) . " " . durationCase($duration) . "  из Москвы";
+                    $seo['metaKey'] = "купить туры " . " " . $intervalSeo . " " . date("Y") . " " . $countrySeo . " из Москвы на " . durationNum($duration) . " " . durationCase($duration) . ", цена, $country";
+                    $seo['metaDesc'] = "Дешевые туры " . " " . $intervalSeo . " " . date("Y") . " " . $countrySeo . " с вылетом из Москвы на " . durationNum($duration) . " " . durationCase($duration) . " от турагентства STARTOUR.";
+                    $seo['subText'] = "Туры " . $countrySeo . " " . $intervalSeo . " " . date("Y") . " года из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Проведите " . $month ?? $period_v ?? '' . " на лучших курортах " . BladeHelper::case($country, "Р") . ".";
                     return $seo;
                 }
 
                 if ($tour_type = array_get($params, 'tour_type', null)) {
-                    $seo['pTitle'] = "$tour_type " . $countrySeo . $intervalSeo . " " . date("Y") . "";
-                    $seo['bTitle'] = "$tour_type " . $countrySeo . $intervalSeo . " " . date("Y") . " из Москвы";
-                    $seo['metaKey'] = "купить $tour_type " . $countrySeo . " из Москвы" . $intervalSeo . " " . date("Y") . ", цена, $country";
-                    $seo['metaDesc'] = "Дешевые $tour_type " . $countrySeo . " с вылетом из Москвы" . $intervalSeo . " " . date("Y") . " года от турагентства STARTOUR.";
-                    $seo['subText'] = "$tour_type " . $countrySeo . " из Москвы" . $intervalSeo . " " . date("Y") . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проводите " . $month ?? $period_v ?? '' . " на лучших курортах " . BladeHelper::case($country, "Р") . ".";
+                    $seo['pTitle'] = "$tour_type " . $countrySeo . " " . $intervalSeo . " " . date("Y") . "";
+                    $seo['bTitle'] = "$tour_type " . $countrySeo . " " . $intervalSeo . " " . date("Y") . " из Москвы";
+                    $seo['metaKey'] = "купить $tour_type " . $countrySeo . " из Москвы" . " " . $intervalSeo . " " . date("Y") . ", цена, $country";
+                    $seo['metaDesc'] = "Дешевые $tour_type " . $countrySeo . " с вылетом из Москвы" . " " . $intervalSeo . " " . date("Y") . " года от турагентства STARTOUR.";
+                    $seo['subText'] = "$tour_type " . $countrySeo . " из Москвы" . " " . $intervalSeo . " " . date("Y") . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проводите " . $month ?? $period_v ?? '' . " на лучших курортах " . BladeHelper::case($country, "Р") . ".";
                     return $seo;
                 }
 
                 if ($status = array_get($params, 'status', null)) {
-                    $seo['pTitle'] = "$status " . $countrySeo . $intervalSeo . " " . date("Y") . "";
-                    $seo['bTitle'] = "$status " . $countrySeo . $intervalSeo . " " . date("Y") . " из Москвы";
-                    $seo['metaKey'] = "купить $status " . $countrySeo . " из Москвы" . $intervalSeo . " " . date("Y") . ", цена, $country";
-                    $seo['metaDesc'] = "Дешевые $status " . $countrySeo . " с вылетом из Москвы" . $intervalSeo . " " . date("Y") . " года от турагентства STARTOUR.";
-                    $seo['subText'] = "$status " . $countrySeo . " из Москвы" . $intervalSeo . " " . date("Y") . " дешево от компании STARTOUR. Профессиональный подбор туров. Проводите " . $month ?? $period_v ?? '' . " на лучших курортах " . BladeHelper::case($country, "Р") . ".";
+                    $seo['pTitle'] = "$status " . $countrySeo . " " . $intervalSeo . " " . date("Y") . "";
+                    $seo['bTitle'] = "$status " . $countrySeo . " " . $intervalSeo . " " . date("Y") . " из Москвы";
+                    $seo['metaKey'] = "купить $status " . $countrySeo . " из Москвы" . " " . $intervalSeo . " " . date("Y") . ", цена, $country";
+                    $seo['metaDesc'] = "Дешевые $status " . $countrySeo . " с вылетом из Москвы" . " " . $intervalSeo . " " . date("Y") . " года от турагентства STARTOUR.";
+                    $seo['subText'] = "$status " . $countrySeo . " из Москвы" . " " . $intervalSeo . " " . date("Y") . " дешево от компании STARTOUR. Профессиональный подбор туров. Проводите " . $month ?? $period_v ?? '' . " на лучших курортах " . BladeHelper::case($country, "Р") . ".";
                     return $seo;
                 }
 
-                $seo['pTitle'] = "Туры " . $countrySeo . $intervalSeo . " " . date("Y") . "";
-                $seo['bTitle'] = "Туры " . $countrySeo . $intervalSeo . " " . date("Y") . " из Москвы";
-                $seo['metaKey'] = "купить тур " . $countrySeo . $intervalSeo . " " . date("Y") . " из Москвы, цена";
-                $seo['metaDesc'] = "Дешевые туры " . $countrySeo . $intervalSeo . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR.";
-                $seo['subText'] = "Туры из Москвы " . $countrySeo . $intervalSeo . " " . date("Y") . " года дешево от компании STARTOUR. Профессиональный подбор туров.";
+                $seo['pTitle'] = "Туры " . $countrySeo . " " . $intervalSeo . " " . date("Y") . "";
+                $seo['bTitle'] = "Туры " . $countrySeo . " " . $intervalSeo . " " . date("Y") . " из Москвы";
+                $seo['metaKey'] = "купить тур " . $countrySeo . " " . $intervalSeo . " " . date("Y") . " из Москвы, цена";
+                $seo['metaDesc'] = "Дешевые туры " . $countrySeo . " " . $intervalSeo . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR.";
+                $seo['subText'] = "Туры из Москвы " . $countrySeo . " " . $intervalSeo . " " . date("Y") . " года дешево от компании STARTOUR. Профессиональный подбор туров.";
                 return $seo;
             }
 
@@ -433,22 +433,22 @@ class ToursController extends Controller
                     $period = array_get($params, 'period', null);
 
                     if ($month)
-                        $intervalSeo = " в " . BladeHelper::case($month, "П");
+                        $intervalSeo = "в " . BladeHelper::case($month, "П");
                     elseif ($period) {
-                        $intervalSeo = $period->title_cases['p'] ?? (" в " . BladeHelper::case($month, "П"));
+                        $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($month, "П"));
                         $period_v = $period->title_cases['v'] ?? BladeHelper::case($period, "В");
                     }
                     else
                         $intervalSeo = '';
 
-                    $seo['pTitle'] = "Туры " . $resortSeo . $intervalSeo . " " . date("Y") . "";
-                    $seo['bTitle'] = "Туры " . $resortSeo . $intervalSeo . " " . date("Y") . " из Москвы";
+                    $seo['pTitle'] = "Туры " . $resortSeo . " " . $intervalSeo . " " . date("Y") . "";
+                    $seo['bTitle'] = "Туры " . $resortSeo . " " . $intervalSeo . " " . date("Y") . " из Москвы";
 
-                    $seo['metaKey'] = "купить туры " . $resortSeo . $intervalSeo . " " . date("Y") . " из Москвы, цена, $country";
+                    $seo['metaKey'] = "купить туры " . $resortSeo . " " . $intervalSeo . " " . date("Y") . " из Москвы, цена, $country";
 
-                    $seo['metaDesc'] = "Дешевые туры " . $resortSeo . $intervalSeo . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
+                    $seo['metaDesc'] = "Дешевые туры " . $resortSeo . " " . $intervalSeo . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
 
-                    $seo['subText'] = "Туры " . $resortSeo . " ($country) из Москвы" . $intervalSeo . " " . date("Y") . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проведите " . $month ?? $period_v ?? '' . ", отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    $seo['subText'] = "Туры " . $resortSeo . " ($country) из Москвы" . " " . $intervalSeo . " " . date("Y") . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проведите " . $month ?? $period_v ?? '' . ", отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
                     return $seo;
                 }
 
@@ -514,19 +514,19 @@ class ToursController extends Controller
                         $period = array_get($params, 'period', null);
 
                         if ($month)
-                            $intervalSeo = " в " . BladeHelper::case($month, "П");
+                            $intervalSeo = "в " . BladeHelper::case($month, "П");
                         elseif ($period) {
-                            $intervalSeo = $period->title_cases['p'] ?? (" в " . BladeHelper::case($month, "П"));
+                            $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($month, "П"));
                             $period_v = $period->title_cases['v'] ?? BladeHelper::case($period, "В");
                         }
                         else
                             $intervalSeo = '';
 
-                        $seo['pTitle'] = "$tag->alias " . $intervalSeo . " " . date("Y") . "";
-                        $seo['bTitle'] = "$tag->alias " . $intervalSeo . " " . date("Y") . " из Москвы";
-                        $seo['metaKey'] = "купить $tag->alias " . $intervalSeo . " " . date("Y") . " из Москвы, цена";
+                        $seo['pTitle'] = "$tag->alias " . " " . $intervalSeo . " " . date("Y") . "";
+                        $seo['bTitle'] = "$tag->alias " . " " . $intervalSeo . " " . date("Y") . " из Москвы";
+                        $seo['metaKey'] = "купить $tag->alias " . " " . $intervalSeo . " " . date("Y") . " из Москвы, цена";
                         $seo['metaDesc'] = "Дешевые $tag->alias на " . $tag->alias . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR.";
-                        $seo['subText'] = "$tag->alias  из Москвы " . $intervalSeo . " " . date("Y") . " год дешево от компании STARTOUR. Профессиональный подбор туров. Проведите " . $month ?? $period_v ?? '' . ", отдыхая на лучших курортах.";
+                        $seo['subText'] = "$tag->alias  из Москвы " . " " . $intervalSeo . " " . date("Y") . " год дешево от компании STARTOUR. Профессиональный подбор туров. Проведите " . $month ?? $period_v ?? '' . ", отдыхая на лучших курортах.";
                         return $seo;
                     }
 
@@ -556,19 +556,19 @@ class ToursController extends Controller
                         $period = array_get($params, 'period', null);
 
                         if ($month)
-                            $intervalSeo = " в " . BladeHelper::case($month, "П");
+                            $intervalSeo = "в " . BladeHelper::case($month, "П");
                         elseif ($period) {
-                            $intervalSeo = $period->title_cases['p'] ?? (" в " . BladeHelper::case($month, "П"));
+                            $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($month, "П"));
                             $period_v = $period->title_cases['v'] ?? BladeHelper::case($period, "В");
                         }
                         else
                             $intervalSeo = '';
                         
-                        $seo['pTitle'] = "$tag->alias " . $intervalSeo . " " . date("Y") . "";
-                        $seo['bTitle'] = "$tag->alias " . $intervalSeo . " " . date("Y") . " из Москвы";
-                        $seo['metaKey'] = "купить $tag->alias " . $intervalSeo . " " . date("Y") . " из Москвы, цена";
+                        $seo['pTitle'] = "$tag->alias " . " " . $intervalSeo . " " . date("Y") . "";
+                        $seo['bTitle'] = "$tag->alias " . " " . $intervalSeo . " " . date("Y") . " из Москвы";
+                        $seo['metaKey'] = "купить $tag->alias " . " " . $intervalSeo . " " . date("Y") . " из Москвы, цена";
                         $seo['metaDesc'] = "Дешевые $tag->alias на " . $tag->alias . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR.";
-                        $seo['subText'] = "$tag->alias из Москвы " . $intervalSeo . " " . date("Y") . " год дешево от компании STARTOUR. Профессиональный подбор туров. Проведите " . $month ?? $period_v ?? '' . ", отдыхая на лучших курортах.";
+                        $seo['subText'] = "$tag->alias из Москвы " . " " . $intervalSeo . " " . date("Y") . " год дешево от компании STARTOUR. Профессиональный подбор туров. Проведите " . $month ?? $period_v ?? '' . ", отдыхая на лучших курортах.";
                         return $seo;
                     }
 
@@ -610,9 +610,9 @@ class ToursController extends Controller
                 $period = array_get($params, 'period', null);
 
                 if ($month)
-                    $intervalSeo = " в " . BladeHelper::case($month, "П");
+                    $intervalSeo = "в " . BladeHelper::case($month, "П");
                 elseif ($period) {
-                    $intervalSeo = $period->title_cases['p'] ?? (" в " . BladeHelper::case($month, "П"));
+                    $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($month, "П"));
                     $period_v = $period->title_cases['v'] ?? BladeHelper::case($period, "В");
                 }
                 else
