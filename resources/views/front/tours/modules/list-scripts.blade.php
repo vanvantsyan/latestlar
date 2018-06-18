@@ -42,7 +42,7 @@
                 @endphp
         startDate: '{{trim(head($datesArr))}}',
         endDate: '{{trim(last($datesArr))}}',
-        @elseif(isset($period))
+        @elseif(isset($period) && $period)
         startDate: '{!! $period->date_from->format('d.m.y') !!}',
         endDate: '{!! $period->date_to->format('d.m.y') !!}',
         //startDate: moment().format('DD.MM.YY'),
@@ -52,7 +52,7 @@
     });
     
     // Если нет данных по фильтру, то делаем поле пустым
-    @if (!(isset($month) && $month) && !(isset($tourDate) && $tourDate) && !isset($period))
+    @if (!(isset($month) && $month) && !(isset($tourDate) && $tourDate) && !(isset($period) && $period))
         $('#tourDate').val(null);
     @endif
 </script>
