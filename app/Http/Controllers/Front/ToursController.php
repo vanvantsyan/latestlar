@@ -6,6 +6,7 @@ use App\Helpers\BladeHelper;
 use App\Http\Controllers\Controller;
 use App\Models\GeneratedSeo;
 use App\Models\Geo;
+use App\Models\Period;
 use App\Models\Points;
 use App\Models\Tours;
 use App\Models\ToursTagsValues;
@@ -96,8 +97,10 @@ class ToursController extends Controller
         $seo['metaDesc'] = "";
         $seo['subText'] = "";
 
-        // Есть страна
 
+        /**
+         * Алгоритм построение SEO в случае присутствия страны.
+         */
         if ($country = array_get($params, 'country', null)) {
 
             $countrySeo = ($country == "Россия") ? "по " . BladeHelper::case($country, "П") : "в " . BladeHelper::case($country, "В");
@@ -108,7 +111,10 @@ class ToursController extends Controller
             $seo['metaDesc'] = "Купить тур из Москвы " . $countrySeo . " в " . date("Y") . " году по низкой цене от компании STARTOUR. Профессиональный подбор туров " . $countrySeo;
             $seo['subText'] = "Поиск и подбор туров " . $countrySeo . " в " . date("Y") . " году на сайте турагенства STARTOUR. Все туры по направлению $country в одном месте.";
 
-            // Курорт
+            /**
+             * Построение SEO, когда в параметрах присутствует курорт.
+             * Внутри проверка на тип тура, продолжительность, праздники, статус, месяц и период.
+             */
             if ($resort = array_get($params, 'resort', null)) {
 
                 if (!$resort->url == 'moskva') {
@@ -170,6 +176,20 @@ class ToursController extends Controller
                     return $seo;
                 }
 
+                /**
+                 * SEO с учетом передаваемого временного периода.
+                 */
+                if ($period = array_get($params, 'period', null)) {
+                    $period_title = $period->title_cases['p'] ?? (" в " . BladeHelper::case($month, "П"));
+                    
+                    $seo['pTitle'] = "Туры " . $resortSeo . ' ' . $period_title . " " . date("Y") . "";
+                    $seo['bTitle'] = "Туры " . $resortSeo . ' ' . $period_title . " " . date("Y") . " из Москвы";
+                    $seo['metaKey'] = "купить туры " . $resortSeo . ' ' . $period_title . " " . date("Y") . " из Москвы, цена, $country";
+                    $seo['metaDesc'] = "Дешевые туры " . $resortSeo . ' ' . $period_title . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
+                    $seo['subText'] = "Туры " . $resortSeo . " ($country) из Москвы " . $period_title . " " . date("Y") . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $month, отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    return $seo;
+                }
+
                 $seo['pTitle'] = "Туры " . $resortSeo;
                 $seo['bTitle'] = "Туры " . $resortSeo . " ($country) из Москвы в " . date("Y") . " году по низкой цене";
                 $seo['metaKey'] = "Туры " . $resortSeo . ", ($country), вылет из Москвы, от всех туроператоров, цена, купить";
@@ -180,7 +200,10 @@ class ToursController extends Controller
 
             }
 
-            // Месяц
+            /**
+             * Если курорта нет, тогда проверка для построения SEO идет по месяцу.
+             * Внутри проверка на продолжительность, типа тура и статус.
+             */
             if ($month = mb_strtolower(array_get($params, 'month', null))) {
 
                 if ($duration = array_get($params, 'duration', null)) {
@@ -218,7 +241,10 @@ class ToursController extends Controller
                 return $seo;
             }
 
-            // Длительность
+            /**
+             * Если нет и месяца, тогда проверка построения SEO идет по продолжительности тура.
+             * Внутри проверка на тип тура, статус и праздники.
+             */
             if ($duration = array_get($params, 'duration', null)) {
 
                 if ($tour_type = array_get($params, 'tour_type', null)) {
@@ -256,7 +282,10 @@ class ToursController extends Controller
                 return $seo;
             }
 
-            // Перебор тегов
+            /**
+             * Если нет продолжительности, тогда идет проверка типа тура.
+             * Внутри проверка на статус и праздники.
+             */
             if ($tag = array_get($params, 'tag', null)) {
 
 
@@ -322,13 +351,20 @@ class ToursController extends Controller
 
             /* — — — — — — — — — — — — — — — — — — —  tours — — — — — — — — — — — — — — — — — — — — */
 
-        } else {
+        } 
+        /**
+         * Алгорит построения SEO при отсутствии страны.
+         */
+        else {
 
-            // Если без страны
+            // При отсутствии страны в параметрах, подразумевается Россия по умолчанию.
             $country = "Россия";
             $countrySeo = ($country == "Россия") ? "по " . BladeHelper::case($country, "П") : "в " . BladeHelper::case($country, "В");
 
-            // Курорт
+            /**
+             * Построение SEO, когда в параметрах присутствует курорт.
+             * Внутри проверка на тип тура, продолжительность, праздники, статус, месяц и период.
+             */
             if ($resort = array_get($params, 'resort', null)) {
 
                 if (!$resort->url == 'moskva') {
@@ -392,6 +428,20 @@ class ToursController extends Controller
                     $seo['subText'] = "Туры " . $resortSeo . " ($country) из Москвы в " . BladeHelper::case($month, "П") . " " . date("Y") . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $month, отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
                     return $seo;
                 }
+                
+                if ($period = array_get($params, 'period', null)) {
+                    $period_title = $period->title_cases['p'] ?? (" в " . BladeHelper::case($month, "П"));
+                    
+                    $seo['pTitle'] = "Туры " . $resortSeo . ' ' . $period_title . " " . date("Y") . "";
+                    $seo['bTitle'] = "Туры " . $resortSeo . ' ' . $period_title . " " . date("Y") . " из Москвы";
+
+                    $seo['metaKey'] = "купить туры " . $resortSeo . ' ' . $period_title . " " . date("Y") . " из Москвы, цена, $country";
+
+                    $seo['metaDesc'] = "Дешевые туры " . $resortSeo . ' ' . $period_title . " " . date("Y") . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
+
+                    $seo['subText'] = "Туры " . $resortSeo . " ($country) из Москвы " . ' ' . $period_title . " " . date("Y") . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $month, отдыхая на лучших курортах " . BladeHelper::case($resort->title, "Р") . ".";
+                    return $seo;
+                }
 
                 $seo['pTitle'] = "Туры в " . $resort->title;
                 $seo['bTitle'] = "Туры " . $resortSeo . " ($country) из Москвы в " . date("Y") . " году по низкой цене";
@@ -401,7 +451,10 @@ class ToursController extends Controller
                 return $seo;
             }
 
-            // Перебор тегов
+            /**
+             * Если курорта нет, тогда проверка для построения SEO идет по типу тура.
+             * Внутри проверка на праздники, статус, продолжительность, месяц и тип тура.
+             */
             if ($tag = array_get($params, 'tag', null)) {
 
                 /* Праздники */
@@ -513,6 +566,10 @@ class ToursController extends Controller
                 }
             }
 
+            /**
+             * Если типа тура нет, тогда проверка для построения SEO идет по месяцам.
+             * Внутри проверка только на продолжительность.
+             */
             if ($month = mb_strtolower(array_get($params, 'month', null))) {
 
                 if ($duration = array_get($params, 'duration', null)) {
@@ -738,7 +795,7 @@ class ToursController extends Controller
         $monthsRus = config('main.month');
         $months = array_flip($monthsRus);
 
-        $month = $resort = $tag = $duration = $tourDate = null;
+        $month = $resort = $tag = $duration = $tourDate = $period = null;
 
         // Get form params
         $postParams = $request->all();
@@ -775,6 +832,8 @@ class ToursController extends Controller
 
             } elseif (in_array($slug, $months)) {
                 $month = $slug;
+            } elseif (Period::where('slug', $slug)->exists()) {
+                $period = Period::where('slug', $slug)->first();
             }
         }
 
@@ -796,6 +855,7 @@ class ToursController extends Controller
                 'holiday' => $holiday ?? '',
                 'status' => $status ?? '',
                 'tour_type' => $tour_type ?? '',
+                'period' => $period,
             ]);
         }
        
@@ -836,7 +896,8 @@ class ToursController extends Controller
             'priceTo' => $priceTo,
 
             'duration' => $duration,
-            'month' => $month ?? ''
+            'month' => $month ?? '',
+            'period' => $period ?? '',
         ]);
         
         // Join with dates by sorting
@@ -850,7 +911,7 @@ class ToursController extends Controller
         $countTours = $tours->count(DB::raw('DISTINCT tours.id'));
 
         // Выбираем нужные даты для туров
-        $dates = $this->extractDatesFromFilters(compact('tourDate', 'month'));
+        $dates = $this->extractDatesFromFilters(compact('tourDate', 'month', 'period'));
         $tours->withDatesInRange(strtotime($dates['dateFrom']), strtotime($dates['dateTo']));
 
         // Сортируем по дате
@@ -896,6 +957,8 @@ class ToursController extends Controller
             'resort' => $resort,
 
             'month' => $month ?? '',
+            
+            'period' => $period ?? '',
 
             'duration' => $durationUrl ?? '',
             'durationFrom' => $durationFrom ?? '',
@@ -1273,27 +1336,11 @@ class ToursController extends Controller
         $tours->priceFrom(array_get($filters, 'priceFrom', null));
         $tours->priceTo(array_get($filters, 'priceTo', null));
 
-        $dateFrom = $dateTo = null;
-
-        // Месяцы
-        if ($month = array_get($filters, 'month', null)) {
-            $dateFrom = date('Y-m-d', strtotime("1 " . $month));
-            $dateTo = date('Y-m-d', strtotime("last day of " . $month));
-        }
-
-        // Заданные даты
-        if ($tourDate = array_get($filters, 'tourDate', null)) {
-
-            $dateArr = explode('-', $tourDate);
-
-            list($d, $m, $y) = explode('.', head($dateArr));
-            $dateFrom = trim("$d.$m.20$y");
-            list($d, $m, $y) = explode('.', last($dateArr));
-            $dateTo = trim("$d.$m.20$y");
-        }
+        // Извлекаем даты из фильтров
+        $dates = $this->extractDatesFromFilters($filters);
 
         // Применяем фильтр дат
-        $tours->forDate($dateFrom, $dateTo);
+        $tours->forDate($dates['dateFrom'], $dates['dateTo']);
 
         $tours->fromResort(array_get($filters, 'resort', null));
         $tours->fromWay($tourWay = array_get($filters, 'tourWay', null));
@@ -1339,7 +1386,7 @@ class ToursController extends Controller
         }
 
         // Заданные даты
-        if ($tourDate = array_get($filters, 'tourDate', null)) {
+        elseif ($tourDate = array_get($filters, 'tourDate', null)) {
 
             $dateArr = explode('-', $tourDate);
 
@@ -1347,6 +1394,12 @@ class ToursController extends Controller
             $dateFrom = trim("$d.$m.20$y");
             list($d, $m, $y) = explode('.', last($dateArr));
             $dateTo = trim("$d.$m.20$y");
+        }
+        
+        // Период
+        elseif ($period = array_get($filters, 'period', null)) {
+            $dateFrom = $period->date_from->format('d.m.Y');
+            $dateTo = $period->date_to->format('d.m.Y');
         }
         
         return compact('dateFrom', 'dateTo');
