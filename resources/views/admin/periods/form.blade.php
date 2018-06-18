@@ -60,7 +60,7 @@
                             <div class="form-group m-form__group row">
                                 <div class="col-md-12 col-xs-12">
                                     <label for="title">Заголовок периода</label>
-                                    <input type="text" class="form-control m-input m-input--square" id="title" name="title" value="{{old('title', $period->title) ?? ''}}">
+                                    <input type="text" class="form-control m-input m-input--square" id="title" name="title" value="{{old('title', $period->title ?? '') }}">
                                 </div>
                             </div>
 
@@ -68,12 +68,12 @@
                                 <div class="col-md-6 col-xs-12">
                                     <label for="date_from">Начало периода</label>
                                     <input class="form-control form-control-inline input-medium datepicker-input" id="date_from"
-                                           value="{{ isset($period) ? old('date_to', $period->date_from) : old('date_to')}}" name="date_from" type="text">
+                                           value="{{ isset($period) ? old('date_to', $period->date_from->format('Y-m-d')) : old('date_to')}}" name="date_from" type="text">
                                 </div>
                                 <div class="col-md-6 col-xs-12">
                                     <label for="date_to">Конец периода</label>
                                     <input class="form-control form-control-inline input-medium datepicker-input" id="date_to"
-                                           value="{{ isset($period) ? old('date_to', $period->date_to) : old('date_to')}}" name="date_to" type="text">
+                                           value="{{ isset($period) ? old('date_to', $period->date_to->format('Y-m-d')) : old('date_to')}}" name="date_to" type="text">
                                 </div>
                             </div>
 
@@ -81,7 +81,7 @@
                                 <div class="col-md-12 col-xs-12">
                                     <label for="slug">Slug</label>
                                     <input type="text" class="form-control m-input m-input--square" id="slug" name="slug"
-                                           value="{{old('slug', $period->slug) ?? ''}}">
+                                           value="{{old('slug', $period->slug ?? '')}}">
                                 </div>
                             </div>
                         </div>
@@ -128,7 +128,7 @@
             $('.datepicker-input').datepicker({
                 format: 'yyyy-mm-dd',
                 defaultDate: new Date(),
-            }).datepicker("setDate", 'now');
+            });
         });
 
         Dropzone.options.wayDropzone = {
