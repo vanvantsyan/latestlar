@@ -135,6 +135,10 @@ input[name=tourDate] {
     display: initial;
 }
 
+.stroke-desc p {
+    display: initial;
+}
+
 .sort-open {
     z-index: -1;
 }
