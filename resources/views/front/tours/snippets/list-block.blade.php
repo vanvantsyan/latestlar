@@ -110,8 +110,6 @@
 
                         @foreach($tour['dates'] as $date)
 
-                            @if(Carbon\Carbon::createFromTimestamp($date['value'])->format('m') >= $dateTime->format('m') && time() < $date['value'])
-
                                 @if ($num > 4)
                                     @break
                                 @endif
@@ -122,8 +120,6 @@
                                 </a>
 
                                 @php $num++; @endphp
-
-                            @endif
 
                         @endforeach
 

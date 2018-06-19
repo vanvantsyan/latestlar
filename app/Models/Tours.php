@@ -116,7 +116,7 @@ class Tours extends Base
     public function scopeWithDatesInRange($query, $dateFrom, $dateTo)
     {
         $query->with(['dates' => function ($subquery) use ($dateFrom, $dateTo) {
-            $subquery->where('value', '>=', $dateFrom ? $dateFrom : 0)
+            $subquery->where('value', '>=', $dateFrom ? $dateFrom : now()->getTimestamp())
                 ->where('value', '<=', $dateTo ? $dateTo : (string) PHP_INT_MAX);
         }]);
     }
