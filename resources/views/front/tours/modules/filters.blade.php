@@ -13,8 +13,8 @@
         </div>
         <div class="tour-filter-item" class="filterPoint">
             <label>Город или достопримечательность</label>
-            <input name="tourPoint" id="tourPoint" type="text" placeholder="Введите название"
-                   value="{{$point->title or ''}}">
+            <input name="place" id="tourPoint" type="text" placeholder="Введите название"
+                   value="{{$point->title ?? $way->title ?? ''}}">
         </div>
         <div class="tour-filter-item" style="display: none">
             <label>Направление</label>
