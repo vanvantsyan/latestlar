@@ -175,7 +175,7 @@ class ToursController extends Controller
                     if ($month)
                         $intervalSeo = "в " . BladeHelper::case($month, "П");
                     elseif ($period) {
-                        $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($month, "П"));
+                        $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($period->title, "П"));
                         $period_v = $period->title_cases['v'] ?? BladeHelper::case($period, "В");
                     }
                     else 
@@ -211,7 +211,7 @@ class ToursController extends Controller
                 if ($month)
                     $intervalSeo = "в " . BladeHelper::case($month, "П");
                 elseif ($period) {
-                    $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($month, "П"));
+                    $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($period->title, "П"));
                     $period_v = $period->title_cases['v'] ?? BladeHelper::case($period, "В");
                 }
                 else
@@ -435,7 +435,7 @@ class ToursController extends Controller
                     if ($month)
                         $intervalSeo = "в " . BladeHelper::case($month, "П");
                     elseif ($period) {
-                        $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($month, "П"));
+                        $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($period->title, "П"));
                         $period_v = $period->title_cases['v'] ?? BladeHelper::case($period, "В");
                     }
                     else
@@ -516,7 +516,7 @@ class ToursController extends Controller
                         if ($month)
                             $intervalSeo = "в " . BladeHelper::case($month, "П");
                         elseif ($period) {
-                            $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($month, "П"));
+                            $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($period->title, "П"));
                             $period_v = $period->title_cases['v'] ?? BladeHelper::case($period, "В");
                         }
                         else
@@ -558,7 +558,7 @@ class ToursController extends Controller
                         if ($month)
                             $intervalSeo = "в " . BladeHelper::case($month, "П");
                         elseif ($period) {
-                            $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($month, "П"));
+                            $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($period->title, "П"));
                             $period_v = $period->title_cases['v'] ?? BladeHelper::case($period, "В");
                         }
                         else
@@ -612,7 +612,7 @@ class ToursController extends Controller
                 if ($month)
                     $intervalSeo = "в " . BladeHelper::case($month, "П");
                 elseif ($period) {
-                    $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($month, "П"));
+                    $intervalSeo = $period->title_cases['p'] ?? ("в " . BladeHelper::case($period->title, "П"));
                     $period_v = $period->title_cases['v'] ?? BladeHelper::case($period, "В");
                 }
                 else
