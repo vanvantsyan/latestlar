@@ -650,11 +650,13 @@ class ToursController extends Controller
     public function getSeoTours(Request $request)
     {
         $data = $request->all();
-        $resort = $tag = null;
+        $tag = null;
 
         if ($data['tourType']) {
             $tag = ToursTagsValues::with('tag')->find($data['tourType']);
         }
+
+        $resort = isset($data['place']) ? Points::make(['title' => $data['place']]) : null;
 
         if ($point = $this->extractTourPointFromFilters($data)) {
             $resort = Points::where('title', $point)->first();
@@ -849,6 +851,8 @@ class ToursController extends Controller
 
         // Get form params
         $postParams = $request->all();
+        
+        $resort = isset($postParams['place']) ? Points::make(['title' => $postParams['place']]) : null;
 
         if ($point = $this->extractTourPointFromFilters($postParams)) {
             $resort = Points::where('title', $point)->first();
@@ -897,7 +901,7 @@ class ToursController extends Controller
         // If isset exact seo get it
         $currentLink = preg_replace('~[\S]+.ru\/~i', "", url()->current());
         $seo = GeneratedSeo::where('url', $currentLink)->first();
-        
+
         // Else create seo by algorithm
         if (!$seo) {
             $seo = $this->getSeo([
@@ -1305,7 +1309,7 @@ class ToursController extends Controller
         // Учитываем поиск по направлению или достопримечательности в одном поле фильтра (место).
         $filters['tourWay'] = $this->extractTourWayFromFilters($filters);
         if (!$filters['tourWay'])
-            $filters['tourPoint'] = $this->extractTourPointFromFilters($filters);
+            $filters['tourPoint'] = $this->extractTourPointFromFilters($filters) ?? $filters['place'] ?? null;
         
         $tours = $this->applyFilters($tours, $filters);
 
@@ -1341,18 +1345,19 @@ class ToursController extends Controller
 
     public function filters(Request $request)
     {
+        $filters = $request->all();
+        
         // Флаг, для определения был ли использован расширенный диапазон дат.
         $expanded = null;
-        $filters = $request->all();
 
         // Учитываем поиск по направлению или достопримечательности в одном поле фильтра (место).
         $filters['tourWay'] = $this->extractTourWayFromFilters($filters);
         if (!$filters['tourWay'])
-            $filters['tourPoint'] = $this->extractTourPointFromFilters($filters);
+            $filters['tourPoint'] = $this->extractTourPointFromFilters($filters) ?? $filters['place'] ?? null;
         
         $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates']);
         $tours = $this->applyFilters($tours, $filters);
-
+        
         // Если туры по заданным фильтрам не найдены, пробуем расширить диапазон дат.
         if (!$tours->count()) {
             
@@ -1382,9 +1387,9 @@ class ToursController extends Controller
         $limit = $request->input('limit', 15);
         $offset = $request->input('offset', 0);
         $tours->skip($offset)->take($limit);
-
+        
         $list = $tours->get();
-
+        
         
         if ($list->count()) {
             return view('front.tours.filtered', ['tours' => $list->toArray(), 'expanded' => $expanded, 'count' => $count]);
@@ -1407,8 +1412,8 @@ class ToursController extends Controller
         $tours->forDate($dates['dateFrom'], $dates['dateTo']);
 
         $tours->fromResort(array_get($filters, 'resort', null));
-        $tours->fromWay($tourWay = array_get($filters, 'tourWay', null));
-        $tours->fromPoint($tourPoint = array_get($filters, 'tourPoint', null));
+        $tours->fromWay(array_get($filters, 'tourWay', null));
+        $tours->fromPoint(array_get($filters, 'tourPoint', null));
 
         if ($sort = array_get($filters, 'sort', null)) {
             if ($sort != 'date-asc') {

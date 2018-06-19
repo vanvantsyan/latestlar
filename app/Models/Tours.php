@@ -197,9 +197,8 @@ class Tours extends Base
 
     public function scopeFromResort($tours, $resort)
     {
-
         if ($resort) {
-            $tours->leftJoin('geo_relation AS geo_w', function ($query) use ($resort) {
+            $tours->join('geo_relation AS geo_w', function ($query) use ($resort) {
                 $query->on('geo_w.sub_id', '=', 'tours.id')
                     ->where('geo_w.sub_ess', 'tour')
                     ->where('geo_w.par_ess', substr(strtolower(class_basename($resort)), 0, -1));
@@ -211,14 +210,14 @@ class Tours extends Base
 
     public function scopeFromWay($tours, $tourWay)
     {
+        $way = Ways::where('title', $tourWay)->select('id')->first();
+        
         if ($tourWay) {
-            $way = Ways::where('title', $tourWay)->select('id')->first();
-
-            $tours->leftJoin('geo_relation AS geo_w', function ($query) {
+            $tours->join('geo_relation AS geo_w', function ($query) use ($way) {
                 $query->on('geo_w.sub_id', '=', 'tours.id')
                     ->where('geo_w.sub_ess', 'tour')
                     ->where('geo_w.par_ess', 'way');
-            })->where('geo_w.par_id', $way->id);
+            })->where('geo_w.par_id', $way->id ?? $tourWay);
         }
 
         return $tours;
@@ -226,14 +225,14 @@ class Tours extends Base
 
     public function scopeFromPoint($tours, $tourPoint)
     {
-        if ($tourPoint) {
-            $point = Points::where('title', $tourPoint)->select('id')->first();
+        $point = Points::where('title', $tourPoint)->select('id')->first();
 
-            $tours->leftJoin('geo_relation AS geo_r', function ($query) {
+        if ($tourPoint) {
+            $tours->join('geo_relation AS geo_r', function ($query) use ($point) {
                 $query->on('geo_r.sub_id', '=', 'tours.id')
                     ->where('geo_r.sub_ess', 'tour')
                     ->where('geo_r.par_ess', 'point');
-            })->where('geo_r.par_id', $point->id);
+            })->where('geo_r.par_id', $point->id ?? $tourPoint);
         }
 
         return $tours;

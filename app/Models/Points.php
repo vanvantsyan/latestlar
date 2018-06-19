@@ -9,6 +9,8 @@ class Points extends Base
     protected $table = 'points';
 
     protected $appends = ['count_tours'];
+    
+    protected $guarded = ['id'];
 
     public function geoRelationSub()
     {

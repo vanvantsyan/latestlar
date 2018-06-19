@@ -433,11 +433,10 @@
 
                 }).done(function (seo) {
                     $('.toursForm').text(seo.pTitle);
-                    /*
                     $('.stroke-h').text(seo.bTitle);
                     $('.stroke-desc').text(seo.subText);
                     document.title = seo.bTitle;
-                    */
+                    
                 });
 
             }).error(function () {
