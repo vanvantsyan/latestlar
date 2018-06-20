@@ -226,7 +226,8 @@ class ToursParser
                 ToursTagsRelation::join('tours_tags AS tt', 'tt.id', '=', 'tag_id')
                     ->where('tour_id', $id)
                     ->where('tt.title', 'data_viezda')
-                    ->where('not_update', 0)
+                    ->whereNull('not_update')
+                    ->orWhere('not_update', 0)
                     ->delete();
 
                 if (count($matchesDate[0])) {
@@ -320,18 +321,6 @@ class ToursParser
 
                 // If tour already exist
 
-                if (Tours::find($id)) {
-
-                    $existTour = Tours::find($id);
-                    $existTour->price = $minPrice;
-                    $existTour->title = TourHelper::cutTourName(htmlspecialchars($name));
-                    $existTour->duration = $duration;
-                    $existTour->save();
-
-                    echo "Update " . $id . "\n";
-                    continue;
-                }
-
                 // Get full tour page
                 $parcingSinglePage = file_get_contents('https://magturyview.ru/mday.php' . $href);
                 $singlePage = HtmlDomParser::str_get_html(iconv("windows-1251", "utf-8", $parcingSinglePage));
@@ -406,6 +395,19 @@ class ToursParser
                 $images = json_encode($imagesArr);
 
                 // — — — COPY IMAGE END— — — \\
+
+                if (Tours::find($id)) {
+
+                    $existTour = Tours::find($id);
+                    $existTour->price = $minPrice;
+                    $existTour->title = TourHelper::cutTourName(htmlspecialchars($name));
+                    $existTour->duration = $duration;
+                    $existTour->images = $images;
+                    $existTour->save();
+
+                    echo "Update " . $id . "\n";
+                    continue;
+                }
 
                 // Clear further
 
@@ -535,6 +537,8 @@ class ToursParser
                 ToursTagsRelation::join('tours_tags AS tt', 'tt.id', '=', 'tag_id')
                     ->where('tour_id', $id)
                     ->where('tt.title', 'travel_type')
+                    ->whereNull('not_update')
+                    ->orWhere('not_update', 0)
                     ->delete();
             }
 
@@ -557,7 +561,7 @@ class ToursParser
 
             if ($routeBlock) preg_match('/Маршрут: (.*)/u', $routeBlock->plaintext, $matches);
 
-            if (isset($matches[1]) && !empty($matches[1]) && count($matches[1])) {
+            if (isset($matches[1]) && !empty($matches[1]) && (is_array($matches[1]) || is_object($matches[1])) && count($matches[1])) {
 
                 $route = $matches[1];
 
@@ -651,6 +655,8 @@ class ToursParser
             ToursTagsRelation::join('tours_tags AS tt', 'tt.id', '=', 'tag_id')
                 ->where('tour_id', $id)
                 ->where('tt.title', 'data_viezda')
+                ->whereNull('not_update')
+                ->orWhere('not_update', 0)
                 ->delete();
 
             if (count($matchesDate[0])) {
@@ -736,20 +742,6 @@ class ToursParser
                 $geoRel->save();
             }
 
-            // If tour already exist
-
-            if (Tours::find($id)) {
-
-                $existTour = Tours::find($id);
-                $existTour->price = $minPrice;
-                $existTour->title = TourHelper::cutTourName(htmlspecialchars($name));
-                $existTour->duration = $duration;
-                $existTour->save();
-
-                echo "Update " . $id . "\n";
-                continue;
-            }
-
             // Get full tour page
             $parcingSinglePage = file_get_contents('https://magturyview.ru/1day.php' . $href);
             $singlePage = HtmlDomParser::str_get_html(iconv("windows-1251", "utf-8", $parcingSinglePage));
@@ -792,27 +784,27 @@ class ToursParser
                     $folder = substr($id, 0, 2);
                     $imageName = $matches[1] . '.' . $matches[2];
 
-                    if (!is_dir(base_path('/public/img/tours/full/' . $folder))) {
-                        mkdir(base_path('/public/img/tours/full/' . $folder));
+                    if (!is_dir(base_path('public/img/tours/full/' . $folder))) {
+                        mkdir(base_path('public/img/tours/full/' . $folder));
                     }
-                    $path = base_path('/public/img/tours/full/' . $folder . '/' . $imageName);
+                    $path = base_path('public/img/tours/full/' . $folder . '/' . $imageName);
 
-                    if (!file_exists(base_path('/public/img/tours/full/' . $folder . '/' . $imageName))) {
+                    if (!file_exists(base_path('public/img/tours/full/' . $folder . '/' . $imageName))) {
 
                         $workingImage = Image::make($img);
                         $workingImage->flip();
                         $workingImage->save($path, 75);
 
-                        if (!File::exists(base_path('/public/img/tours/thumbs/' . $folder . '/' . $imageName))) {
+                        if (!File::exists(base_path('public/img/tours/thumbs/' . $folder . '/' . $imageName))) {
                             $workingImage->resize(null, 235, function ($constraint) {
                                 $constraint->aspectRatio();
                             });
 
-                            if (!is_dir(base_path('/public/img/tours/thumbs/' . $folder))) {
-                                mkdir(base_path('/public/img/tours/thumbs/' . $folder));
+                            if (!is_dir(base_path('public/img/tours/thumbs/' . $folder))) {
+                                mkdir(base_path('public/img/tours/thumbs/' . $folder));
                             }
 
-                            $workingImage->save(base_path('/public/img/tours/thumbs/' . $folder . '/' . $imageName), 75);
+                            $workingImage->save(base_path('public/img/tours/thumbs/' . $folder . '/' . $imageName), 75);
                         }
                     }
 
@@ -823,6 +815,23 @@ class ToursParser
             $images = json_encode($imagesArr);
 
             // — — — COPY IMAGE END— — — \\
+
+            // If tour already exist
+
+            if (Tours::find($id)) {
+
+                $existTour = Tours::find($id);
+                $existTour->price = $minPrice;
+                $existTour->title = TourHelper::cutTourName(htmlspecialchars($name));
+                $existTour->duration = $duration;
+                $existTour->images = $images;
+                $existTour->save();
+
+                echo "Update " . $id . "\n";
+                continue;
+            }
+
+
 
             // Clear further
 
@@ -915,7 +924,7 @@ class ToursParser
         foreach ($types as $type) {
 
             // Удаляю все связи подобного типа где нет not_update
-            ToursTagsRelation::where('tag_id', 4)->where('value', $type->id)->where('not_update', 0)->delete();
+            ToursTagsRelation::where('tag_id', 4)->where('value', $type->id)->whereNull('not_update')->orWhere('not_update', 0)->delete();
 
             if ($type->keys) {
 
