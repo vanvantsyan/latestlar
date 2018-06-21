@@ -74,6 +74,7 @@
                     'month' => '',
                     'tourTypes' => [],
                     'countries' => [],
+                    'duration' => '',
                     'subText' => '',
                          'layer' => 3,
                       ])
