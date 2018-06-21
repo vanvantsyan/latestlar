@@ -41,7 +41,7 @@
                          'tag' => $tag,
                          'way' => isset($way) ? $way : '',
                          'point' => isset($point) ? $point : '',
-                         'duration' => $duration,
+                         'duration' => $duration ?? '',
                          'layer' => $layer,
                       ])
                 </div>
