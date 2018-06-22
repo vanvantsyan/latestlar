@@ -60,7 +60,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <a href="#" class="btn btn-yellow" data-toggle="modal" data-target="#tourOrderModal">Отправить
+                            <a id="tourOrderButton" href="#" class="btn btn-yellow" data-toggle="modal" data-target="#tourOrderModal">Отправить
                                 заявку<span> на подбор тура</span></a>
                         </div>
                     </div>

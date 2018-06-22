@@ -75,14 +75,15 @@ $('.search-completed-item-route a').on('click', function (e) {
 
 // Set hidden fields
 $('#tourOrderModal').on('show.bs.modal', function (e) {
-
-    var tourBlock = $(e.relatedTarget).closest('.search-completed-item');
+    var target = $(e.relatedTarget);
+    var tourBlock = target.closest('.search-completed-item');
     if (tourBlock.length) {
         var tourName = tourBlock.find('.search-completed-item-preview .search-completed-item-title').text();
 
         var route = (tourBlock.find('.search-completed-item-route').html()).trim();
         var href = tourBlock.find('.btn-blue').attr('href');
         var source = "magput";
+        var date = target.data('date');
 
         $('input[name=source]').attr('value', source);
         $('input[name=href]').attr('value', 'http://russia.startour.ru' + href);
@@ -90,6 +91,16 @@ $('#tourOrderModal').on('show.bs.modal', function (e) {
         $('input[name=route]').attr('value', route);
 
         $('#tourName').html('"<strong>' + tourName + '</strong>"');
+        if (date)
+            $('#tourDateOrder').text('на ' + date);
+    }
+    else {
+        $('input[name=source]').attr('value', '');
+        $('input[name=href]').attr('value', '');
+        $('input[name=tourName]').attr('value', '');
+        $('input[name=route]').attr('value', '');
+        $('#tourName').html('');
+        $('#tourDateOrder').html('');
     }
 });
 
