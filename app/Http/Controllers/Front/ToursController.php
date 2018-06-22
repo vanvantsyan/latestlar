@@ -1451,6 +1451,9 @@ class ToursController extends Controller
         // Месяцы
         if ($month = array_get($filters, 'month', null)) {
             $dateFrom = date('Y-m-d', strtotime("1 " . $month));
+            // Если фильтр идет по текущему месяцу, то выводим его с текущего дня, а не с первого
+            if (now()->getTimestamp() > strtotime("1 " . $month))
+                $dateFrom = date(now()->format('Y-m-d'));
             $dateTo = date('Y-m-d', strtotime("last day of " . $month));
         }
 
