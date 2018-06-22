@@ -231,7 +231,7 @@
             let btn = $('.btn-more-tours');
             
             // Если кнопки нет, дальше ничего выполнять не надо, подгрузки больше нет
-            if (btn.length == 0)
+            if (btn.css('display') == 'none')
                 return;
             
             let scrollPosition = $(window).scrollTop() + ($(window).height()/2);
@@ -272,12 +272,10 @@
 
                 }).done(function (data) {
                     $('.search-completed-item').last().after(data);
+                    btn.html('Показать еще туры');
                     // Если удалось загрузить полный объем данных, то оставляем подгрузку
-                    if ($(data).filter('.search-completed-item').length == 15) 
-                        btn.html('Показать еще туры');
-                    // Иначе убираем кнопку и дальнейшую подгрузку
-                    else 
-                        btn.remove();
+                    if ($(data).filter('.search-completed-item').length != 15)
+                        btn.hide();
                     
                 }).error(function () {
                     btn.html('Показать еще туры');
@@ -396,6 +394,9 @@
                 filterBtn.removeClass('preloader');
                 filterBtn.addClass('btn-blue');
                 filterBtn.attr('value', 'Подобрать варианты');
+                
+                // Показывать кнопку подгрузки туров
+                $('.btn-more-tours').show();
 
 
                 /* Get inscription data */
