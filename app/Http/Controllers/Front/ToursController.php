@@ -750,7 +750,7 @@ class ToursController extends Controller
     public function unit($country = 'russia', $action = '', $url)
     {
         $start = microtime(true);
-        preg_match('/[\d]{2,8}/', $url, $extractId);
+        preg_match('/[\d]{2,8}$/', $url, $extractId);
 
         if (count($extractId)) {
             $id = $extractId[0];
