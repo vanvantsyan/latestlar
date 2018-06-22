@@ -193,8 +193,9 @@
                 </div>
             </div>
             <div class="clear"></div>
+      
             <div class="seo-txt">
-                @isset($seo['bottomText'])
+                @if ($seo instanceof \App\Models\GeneratedSeo)
                     {!! Gliss::templateVars($seo['bottomText']) !!}
                 @else
                     <h2>Подбор туров</h2>
