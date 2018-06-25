@@ -2560,6 +2560,7 @@ div.dp-popup h2 {
 }
 #filterTours {
 	float: right;
+	margin-bottom: 15px;
 }
 
 .modal-footer .btn {
