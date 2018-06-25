@@ -38,7 +38,7 @@
 
                     @isset($resort)
                         <div itemscope itemtype="http://star.glissmedia.ru/Breadcrumb">
-                            <a href="/{{$country->slug}}/tury-{{$resort->url}}" itemprop="url">
+                            <a href="/{{optional($country)->slug ?? 'tury'}}/tury-{{$resort->url}}" itemprop="url">
                                 @if($resort->url == 'moskva')
                                     <span itemprop="title">Туры по {{Gliss::case($resort->title, "П")}}</span>
                                 @else
