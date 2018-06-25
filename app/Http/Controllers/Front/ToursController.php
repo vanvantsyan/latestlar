@@ -901,7 +901,7 @@ class ToursController extends Controller
 
             if (preg_match('/tury-(.*)/', $slug, $match)) {
 
-                $resort = Ways::where('url', last($match))->first() ?? Points::where('url', last($match))->first();
+                $resort = Ways::where('url', last($match))->first() ?? Points::where('url', last($match))->firstOrFail();
 
             } elseif (ToursTagsValues::with('tag')->where('value', $slug)->exists()) {
 
@@ -918,6 +918,10 @@ class ToursController extends Controller
                 $month = $slug;
             } elseif (Period::where('slug', $slug)->exists()) {
                 $period = Period::where('slug', $slug)->first();
+            } elseif ($slug) {
+                abort(404);
+            } else {
+                
             }
         }
 
