@@ -15,9 +15,9 @@
     </style>
 @endsection
 
-@section('title', Gliss::templateVars($seo['bTitle']))
-@section('description', Gliss::templateVars($seo['metaDesc']))
-@section('keywords', Gliss::templateVars($seo['metaKey']))
+@section('title', templates($seo['bTitle']))
+@section('description', templates($seo['metaDesc']))
+@section('keywords', templates($seo['metaKey']))
 
 @section('breadcrumbs')
     <div class="breadcrumbs">
@@ -37,7 +37,7 @@
                          'citiesGolden' => $citiesGolden,
                          'tourTypes' => $tourTypes,
                          'countries' => $countries,
-                         'subText' => isset($seo['subText']) ? Gliss::templateVars($seo['subText']) : '',
+                         'subText' => isset($seo['subText']) ? templates($seo['subText']) : '',
                          'tag' => $tag,
                          'way' => isset($way) ? $way : '',
                          'point' => isset($point) ? $point : '',
@@ -51,12 +51,12 @@
                     <div class="tour-preview">
                         <span class="country-tour-count">{{$country->count_tours}} {{Gliss::numeralCase('тур', $country->count_tours)}}</span>
                         <h1 class="stroke-h">
-                            {!!  Gliss::templateVars($seo['pTitle'])  !!}
+                            {!!  templates($seo['pTitle'])  !!}
                         </h1>
                         <div class="tour-preview-desc">
                             <div class="stroke-desc">
                                 @if (isset($seo['topText']) && $seo['topText'])
-                                    {!! Gliss::templateVars($seo['topText']) !!}
+                                    {!! templates($seo['topText']) !!}
                                 @else
                                     Компания STARTOUR предлагает лучшие туры
                                     по {{Gliss::case($country->country, "Д")}}. Только самые
@@ -350,7 +350,7 @@
             <div class="clear"></div>
             <div class="seo-txt">
                 @if (isset($seo['bottomText']) && $seo['bottomText'])
-                    {!! Gliss::templateVars($seo['bottomText']) !!}
+                    {!! templates($seo['bottomText']) !!}
                 @else
                     <h2>О стране</h2>
                     @php

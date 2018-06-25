@@ -178,7 +178,7 @@ class BladeHelper
 
             $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates']);
 
-            $toursController = new ToursController();
+            $toursController = app()->make(ToursController::class);
             $tours = $toursController->applyFilters($tours, [
                 'tourDate' => $tourDate ?? '',
                 'country' => is_object($country) ? $country->slug : null,
@@ -335,11 +335,6 @@ class BladeHelper
             $data['rest'] = self::removeTags(['span', 'span', 'br', 'strong'], preg_replace("!<a.*?href=\"?'? ?([^ \"'>]+)\"?'?.*?>!is", "", $descBlock->innertext));
 
         return $data;
-    }
-
-    public static function templateVars($text)
-    {
-        return preg_replace("!(\|year\|)!is", date('Y'), $text);
     }
 
     public static function removeTags(array $tags, $text)

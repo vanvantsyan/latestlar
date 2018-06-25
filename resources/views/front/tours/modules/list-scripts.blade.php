@@ -32,6 +32,11 @@
             ],
         },
         minDate: moment().format('DD.MM.YY'),
+        @if (!empty($dateFrom) && !empty($dateTo))
+            startDate: '{!! $dateFrom->format('d.m.y') !!}',
+            endDate: '{!! $dateTo->format('d.m.y') !!}',
+        @endif
+        {{-- 
         @if(isset($month) && $month)
 
         startDate: '{!! date('d.m.y', strtotime("1 " . $month)) !!}',
@@ -48,11 +53,17 @@
         //startDate: moment().format('DD.MM.YY'),
         //endDate: moment().add(30, 'day').format('DD.MM.YY'),
         @endif
+        --}}
         "autoApply": true,
     });
     
     // Если нет данных по фильтру, то делаем поле пустым
+    {{-- 
     @if (!(isset($month) && $month) && !(isset($tourDate) && $tourDate) && !(isset($period) && $period))
+        $('#tourDate').val(null);
+    @endif
+    --}}
+    @if (empty($dateFrom) && empty($dateTo))
         $('#tourDate').val(null);
     @endif
 </script>

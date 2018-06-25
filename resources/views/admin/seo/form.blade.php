@@ -63,6 +63,14 @@
                             <input type="text" class="form-control m-input m-input--square" id="bTitle" name="bTitle" value="{{$item->bTitle or ''}}">
                         </div>
                     </div>
+                    
+                    <div class="form-group m-form__group row">
+                        <div class="col-md-6 col-xs-12">
+                            <label for="date_from">Дата проведения</label>
+                            <input class="form-control form-control-inline input-medium datepicker-input" id="date"
+                                   value="{{ isset($item) ? old('date', optional($item->date)->format('Y-m-d')) : old('date')}}" name="date" type="text">
+                        </div>
+                    </div>
 
                     <div class="form-group m-form__group row">
                         <div class="col-md-12 col-xs-12">
@@ -123,6 +131,13 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+
+        $(function () {
+            $('.datepicker-input').datepicker({
+                format: 'yyyy-mm-dd',
+                defaultDate: new Date(),
+            });
         });
         
         Dropzone.options.wayDropzone = {

@@ -15,13 +15,13 @@
     </style>
 @endsection
 
-@section('title', Gliss::templateVars($seo['bTitle']))
-@section('description', Gliss::templateVars($seo['metaDesc']))
-@section('keywords', Gliss::templateVars($seo['metaKey']))
+@section('title', $transformer->transform($seo['bTitle']))
+@section('description', $transformer->transform($seo['metaDesc']))
+@section('keywords', $transformer->transform($seo['metaKey']))
 
 @section('breadcrumbs')
     <div class="breadcrumbs">
-        @include('front.tours.modules.breadcrumbs', ['pTitle' => Gliss::templateVars($seo['pTitle'])])
+        @include('front.tours.modules.breadcrumbs', ['pTitle' => $transformer->transform($seo['pTitle'])])
     </div>
 @endsection
 
@@ -37,7 +37,7 @@
                         'citiesGolden' => $citiesGolden,
                         'tourTypes' => $tourTypes,
                         'countries' => $countries,
-                        'subText' => isset ($seo['subText']) ? Gliss::templateVars($seo['subText']) : '',
+                        'subText' => isset ($seo['subText']) ? $transformer->transform($seo['subText']) : '',
                         'tag' => $tag,
                         'way' => isset($way) ? $way : '',
                         'point' => isset($point) ? $point : '',
@@ -50,11 +50,11 @@
                 <div class="row">
                     <div class="tour-preview-wrap @if(!$country) back-tours @endif">
                         <div class="tour-preview">
-                            <h1 class="stroke-h">{!! Gliss::templateVars($seo['pTitle']) !!}</h1>
+                            <h1 class="stroke-h">{!! $transformer->transform($seo['pTitle']) !!}</h1>
                             <div class="tour-preview-desc">
                                 <div class="stroke-desc">
                                     @if(isset($seo['topText']) && $seo['topText'])
-                                        {!! Gliss::templateVars($seo['topText']) !!}
+                                        {!! $transformer->transform($seo['topText']) !!}
                                     @else
                                         Компания STARTOUR предлагает лучшие туры по России. <span>Только самые интересные и проверенные маршруты!</span>
                                     @endif
@@ -79,12 +79,12 @@
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
                                 <div id="toursOriginal" class="title">
-                                    <span class="toursForm">{!! Gliss::templateVars($seo['pTitle']) !!}</span> 
+                                    <span class="toursForm">{!! $transformer->transform($seo['pTitle']) !!}</span> 
                                     из г. Москва, найдено: 
                                     <span class="countFound">{{$countTours}}</span>
                                 </div>
                                 <div id="toursExpanded" class="title" style="display: none;">
-                                    <span class="toursForm">{!! Gliss::templateVars($seo['pTitle']) !!}</span>
+                                    <span class="toursForm">{!! $transformer->transform($seo['pTitle']) !!}</span>
                                     из г. Москва на <span class="toursRequestedDate"></span>: туры не найдены.
                                     Показаны результаты на ближайшие даты:
                                     <span class="countFound">{{$countTours}}</span>
@@ -196,7 +196,7 @@
       
             <div class="seo-txt">
                 @if ($seo instanceof \App\Models\GeneratedSeo)
-                    {!! Gliss::templateVars($seo['bottomText']) !!}
+                    {!! $transformer->transform($seo['bottomText']) !!}
                 @else
                     <h2>Подбор туров</h2>
                     <p>Бронирование туров онлайн: быстро и дешево. Подбор отличных туров от всех туроператоров на сайте

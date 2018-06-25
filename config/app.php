@@ -242,6 +242,8 @@ return [
         'Gliss' => App\Helpers\BladeHelper::class,
         'Sletat' => App\Helpers\SletatHelper::class,
         'Date' => Jenssegers\Date\Date::class,
+        // Real-time Facade
+        'Template' => Facades\App\Helpers\TemplateTransformer::class,
     ],
 
 ];

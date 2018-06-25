@@ -180,8 +180,8 @@ class Tours extends Base
         
         $subquery = ToursTagsRelation::from('tour_tags_relations as ttr')->selectRaw('ttr.tour_id, min(ttr.value) as minDate')
             ->where('ttr.tag_id', 2)
-            ->where('ttr.value', '>=', strtotime($dateFrom) ? strtotime($dateFrom) : now()->getTimestamp())
-            ->where('ttr.value', '<=', strtotime($dateTo) ? strtotime($dateTo) : (string) PHP_INT_MAX)
+            ->where('ttr.value', '>=', $dateFrom ? $dateFrom : now()->getTimestamp())
+            ->where('ttr.value', '<=', $dateTo ? $dateTo : (string) PHP_INT_MAX)
             ->groupBy('ttr.tour_id');
 
         $tours->join(DB::raw("({$subquery->toSql()}) AS ttrDates"),
