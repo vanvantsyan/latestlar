@@ -112,7 +112,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('geo/removeBanner', 'Admin\GeoController@setBanner')->name('geo.remove.banner');
 
 
-
+        
         Route::resource('geo', 'Admin\GeoController');
         Route::resource('users', 'Admin\UsersController');
         Route::resource('roles', 'Admin\RolesController');
@@ -131,6 +131,12 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('seo', 'Admin\SeoController');
         Route::resource('periods', 'Admin\PeriodsController');
+
+        /**
+         * Points Routes.
+         */
+        Route::resource('points', 'Admin\PointsController');
+        Route::post('points/search', 'Admin\PointsController@search');
 
         Route::get('cases', 'Admin\CaseController@list');
         Route::get('cases/{id}/edit', 'Admin\CaseController@edit');
