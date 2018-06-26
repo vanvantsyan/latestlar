@@ -114,14 +114,18 @@ class ToursController extends Controller
         $seo['metaDesc'] = "";
         $seo['subText'] = "";
 
-        // Устанавливаем параметры трансформера
+        // Устанавливаем дефолтные параметры трансформера
         $seo['temp_params'] = [];
         
-        // Вытаскиваем год запроса на основании дат
+        // Если есть дата, то устанаилваем параметр трансформации года
         $filters = $params;
         $filters['month'] = array_search($params['month'] ?? '', config('main.month'));
         $dates = $this->extractDatesFromFilters($filters, $datetime = true);
-        $year = optional($dates['dateTo'])->format('Y') ?? date('Y');
+        if ($dates['dateTo'] && $dates['dateTo']->format('Y') > now()->format('Y'))
+            $seo['temp_params']['breakpoint-date'] = now()->subDay(1)->format('Y-m-d');
+        
+        // Ставим год в виде шаблона
+        $year = '|year|';
 
         /**
          * Алгоритм построение SEO в случае присутствия страны.
@@ -698,7 +702,12 @@ class ToursController extends Controller
             'tour_type' => $tour_type ?? '',
             'tourDate' => $data['tourDate'] ?? '',
         ]);
-
+        
+        // Ставим параметры трансформера и трансформируем seo
+        $this->transformer->setParameters($seo['temp_params']);
+        foreach ($seo as $key => $value)
+            $seo[$key] = $this->transformer->transform($value);
+        
         return $seo;
     }
 
@@ -930,24 +939,25 @@ class ToursController extends Controller
 
         // If isset exact seo get it
         $currentLink = preg_replace('~[\S]+.ru\/~i', "", url()->current());
-        $seo = GeneratedSeo::where('url', $currentLink)->first();
-
-        // Else create seo by algorithm
-        if (!$seo) {
-            $seo = $this->getSeo([
-                'country' => is_object($country) ? $country->country : null,
-                'resort' => is_object($resort) ? $resort : null,
-                'tag' => is_object($tag) ? $tag : null,
-                'month' => $month ? $monthsRus[$month] : '',
-                'duration' => $duration ?? '',
-                'holiday' => $holiday ?? '',
-                'status' => $status ?? '',
-                'tour_type' => $tour_type ?? '',
-                'period' => $period,
-            ]);
-        }
         
+        $seo = $this->getSeo([
+            'country' => is_object($country) ? $country->country : null,
+            'resort' => is_object($resort) ? $resort : null,
+            'tag' => is_object($tag) ? $tag : null,
+            'month' => $month ? $monthsRus[$month] : '',
+            'duration' => $duration ?? '',
+            'holiday' => $holiday ?? '',
+            'status' => $status ?? '',
+            'tour_type' => $tour_type ?? '',
+            'period' => $period,
+        ]);
+        $seoOverrides = GeneratedSeo::where('url', $currentLink)->first();
+        $seo = $this->applySeoOverrides($seo, $seoOverrides);
+        
+        // Ставим параметры трансформера и трансформируем seo
         $this->transformer->setParameters($seo['temp_params']);
+        foreach ($seo as $key => $value)
+            $seo[$key] = $this->transformer->transform($value);
         
         // Get base query by tours
         $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates']);
@@ -1127,22 +1137,25 @@ class ToursController extends Controller
 
         // If isset exact seo get it
         $currentLink = preg_replace('~[\S]+.ru\/~i', "", url()->current());
-        $seo = GeneratedSeo::where('url', $currentLink)->first();
         
-        if (!$seo) {
-            // Set seo elements
-            $seo = $this->getSeo([
-                'country' => is_object($country) ? $country->country : null,
-                'resort' => is_object($resort) ? $resort : null,
-                'tag' => is_object($tag) ? $tag : null,
-                'month' => $month ? $monthsRus[$month] : '',
-                'duration' => $duration ?? '',
-                'holiday' => $holiday ?? '',
-                'status' => $status ?? '',
-                'tour_type' => $tour_type ?? '',
-            ]);
-        }
+        // Set seo elements
+        $seo = $this->getSeo([
+            'country' => is_object($country) ? $country->country : null,
+            'resort' => is_object($resort) ? $resort : null,
+            'tag' => is_object($tag) ? $tag : null,
+            'month' => $month ? $monthsRus[$month] : '',
+            'duration' => $duration ?? '',
+            'holiday' => $holiday ?? '',
+            'status' => $status ?? '',
+            'tour_type' => $tour_type ?? '',
+        ]);
+        $seoOverrides = GeneratedSeo::where('url', $currentLink)->first();
+        $seo = $this->applySeoOverrides($seo, $seoOverrides);
 
+        // Ставим параметры трансформера и трансформируем seo
+        $this->transformer->setParameters($seo['temp_params']);
+        foreach ($seo as $key => $value)
+            $seo[$key] = $this->transformer->transform($value);
       
         // Get base query by tours
         $tours = Tours::with(['tourTags.fixValue', 'parPoints.pointsPar', 'parWays.waysPar', 'dates']);
@@ -1596,6 +1609,26 @@ class ToursController extends Controller
         $total = $ways->merge($points)->unique();
         
         return Response::json($total->toArray());
+    }
+
+    /**
+     * Применяет переопределения seo и возвращает итоговый результат.
+     * 
+     * @param $seo
+     * @param $overrides
+     * @return mixed
+     */
+    protected function applySeoOverrides($seo, $overrides)
+    {
+        // Если переопределений нет, тогда просто возвращаем что есть
+        if (!$overrides)
+            return $seo;
+        
+        // Переопределяем, только если значение поля не пустое
+        foreach ($seo as $property => $value)
+            $seo[$property] = !empty($overrides[$property]) ? $overrides[$property] : $seo[$property];
+        
+        return $seo;
     }
 
     public function getImages(Request $request)
