@@ -136,8 +136,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('cases/{id}/edit', 'Admin\CaseController@edit');
         Route::post('cases/store', 'Admin\CaseController@store');
 
-        Route::post('tours/dates/destroy', 'Admin\ToursController@destroyDate')->name('dates.remove');;
-        Route::post('tours/dates/add', 'Admin\ToursController@addDate')->name('dates.add');;
+        Route::post('tours/dates/destroy', 'Admin\ToursController@destroyDate')->name('dates.remove');
+        Route::post('tours/dates/add', 'Admin\ToursController@addDate')->name('dates.add');
+
+        Route::post('tour/getImage', 'Admin\ToursController@getImages')->name('getTourImages');
+        Route::post('tour/uploadImage', 'Admin\ToursController@uploadImage')->name('uploadTourImage');
+        Route::post('tour/removeImage', 'Admin\ToursController@removeImage')->name('removeTourImage');
 
     });
 });
@@ -170,10 +174,6 @@ Route::get('{country}/{slug2?}/{slug3?}', 'Front\ToursController@list')->name('t
 Route::post('moreTours', 'Front\ToursController@getMore')->name('moreTours');
 Route::post('filterTours', 'Front\ToursController@filters')->name('filterTours');
 Route::post('getCountTours', 'Front\ToursController@getCount')->name('getCountTours');
-
-Route::post('tour/getImage', 'Front\ToursController@getImages')->name('getTourImages');
-Route::post('tour/uploadImage', 'Front\ToursController@uploadImage')->name('uploadTourImage');
-Route::post('tour/removeImage', 'Front\ToursController@removeImage')->name('removeTourImage');
 
 Route::post('tour/order', 'Front\MailController@sendOrder')->name('mail.order');
 Route::post('tour/phone', 'Front\MailController@sendPhone')->name('mail.phone');

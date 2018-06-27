@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\BladeHelper;
 use App\Helpers\TourHelper;
 use App\Http\CBRAgent;
 use App\Http\Controllers\Controller;
@@ -15,6 +16,7 @@ use App\Models\ToursTagsRelation;
 use App\Models\ToursTagsValues;
 use App\Models\Ways;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
@@ -631,5 +633,99 @@ class ToursController extends Controller
             return $this->$action($request);
         }
         return abort(404);
+    }
+
+    public function getImages(Request $request)
+    {
+        $tour = Tours::find($request->id);
+        $dropzone = [];
+
+        foreach (json_decode($tour->images) as $image) {
+
+            $filePath = public_path(config('main.imgPath.tour') . 'full/' . substr($tour->id, 0, 2) . '/' . $image);
+
+            if (File::exists($filePath)) {
+
+                $obj = [];
+
+                $obj['name'] = $image;
+                $obj['size'] = File::size($filePath);
+                $obj['thumb'] = BladeHelper::tourThumb($image, $tour->id);
+
+                $dropzone[] = $obj;
+            }
+
+        }
+        return json_encode($dropzone);
+    }
+
+    public function uploadImage(Request $request)
+    {
+
+        $image = $request->file('file');
+        $imgObj = Image::make($image);
+        $imageName = time() . '.jpg';
+        $tour = Tours::find($request->tourId);
+
+        $folderFullPath = public_path('img/tours/full/' . substr($tour->id, 0, 2));
+
+        if (!File::exists($folderFullPath)) {
+            File::makeDirectory($folderFullPath, $mode = 0777, true, true);
+        }
+
+        if ($imgObj->width() > 600) {
+
+            $imgObj->resize(600, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+
+        $imgObj->save($folderFullPath . '/' . $imageName, 100);
+
+        $folderThumbPath = public_path('img/tours/thumbs/' . substr($tour->id, 0, 2));
+
+        if (!File::exists($folderThumbPath)) {
+            File::makeDirectory($folderThumbPath, $mode = 0777, true, true);
+        }
+
+        if ($imgObj->height() > 235) {
+
+            $imgObj->resize(null, 235, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+
+        $imgObj->save($folderThumbPath . '/' . $imageName, 75);
+
+        $imagesList = $tour->images ? json_decode($tour->images, true) : [];
+        $imagesList[] = $imageName;
+        $tour->images = json_encode($imagesList);
+
+
+        if ($tour->save()) {
+            return response()->json(['success' => $imageName]);
+        } else {
+            return response()->json(['error' => 'images not saved', 'success' => 0]);
+        }
+
+    }
+
+    public function removeImage(Request $request)
+    {
+
+        $tour = Tours::find($request->id);
+
+        $images = json_decode($tour->images, true);
+
+        foreach ($images as $key => $value) {
+            if ($value == $request->name) unset($images[$key]);
+        }
+
+        $tour->images = json_encode($images);
+
+        if ($tour->save()) {
+            File::delete(public_path(config('main.imgPath.tour') . 'full/' . substr($tour->id, 0, 2) . '/' . $request->name));
+            File::delete(public_path(config('main.imgPath.tour') . 'thumbs/' . substr($tour->id, 0, 2) . '/' . $request->name));
+        }
     }
 }

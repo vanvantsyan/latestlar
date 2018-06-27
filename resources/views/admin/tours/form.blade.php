@@ -121,7 +121,7 @@
                                             Загрузить изображение
                                         </label>
                                         <div class="m-dropzone dropzone dz-clickable"
-                                             action="{{url('/tour/uploadImage')}}"
+                                             action="{{url('/admin/tour/uploadImage')}}"
                                              id="tour-dropzone">
 
                                             <div class="m-dropzone__msg dz-message needsclick"
@@ -409,7 +409,7 @@
                 thisDropzone = this;
 
                 $.ajax({
-                    url: "/tour/getImage",
+                    url: "/admin/tour/getImage",
                     cache: false,
                     data: {id: '{{$item->id ?? ""}}'},
                     type: "POST",
@@ -439,7 +439,7 @@
                     }
 
                     $.ajax({
-                        url: "/tour/removeImage",
+                        url: "/admin/tour/removeImage",
                         cache: false,
                         data: {id: '{{$item->id ?? ""}}', name: file.name},
                         type: "POST",
