@@ -1663,7 +1663,7 @@ class ToursController extends Controller
         $imageName = time() . '.jpg';
         $tour = Tours::find($request->tourId);
 
-        $folderFullPath = public_path('img\tours\full/' . substr($tour->id, 0, 2));
+        $folderFullPath = public_path('img/tours/full/' . substr($tour->id, 0, 2));
 
         if (!File::exists($folderFullPath)) {
             File::makeDirectory($folderFullPath, $mode = 0777, true, true);
@@ -1678,7 +1678,7 @@ class ToursController extends Controller
 
         $imgObj->save($folderFullPath . '/' . $imageName, 100);
 
-        $folderThumbPath = public_path('img\tours\thumbs/' . substr($tour->id, 0, 2));
+        $folderThumbPath = public_path('img/tours/thumbs/' . substr($tour->id, 0, 2));
 
         if (!File::exists($folderThumbPath)) {
             File::makeDirectory($folderThumbPath, $mode = 0777, true, true);
@@ -1693,7 +1693,7 @@ class ToursController extends Controller
 
         $imgObj->save($folderThumbPath . '/' . $imageName, 75);
 
-        $imagesList = $tour->images ? get_object_vars(json_decode($tour->images)) : [];
+        $imagesList = $tour->images ? json_decode($tour->images, true) : [];
         $imagesList[] = $imageName;
         $tour->images = json_encode($imagesList);
 
