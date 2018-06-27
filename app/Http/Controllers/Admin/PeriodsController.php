@@ -75,14 +75,6 @@ class PeriodsController extends Controller
      */
     public function update(PeriodsRequest $request, Period $period)
     {
-        $request['title_cases'] = [
-            'r' => $request->title_r,
-            'd' => $request->title_d,
-            'v' => $request->title_v,
-            't' => $request->title_t,
-            'p' => $request->title_p,
-        ];
-    
         $period->update($request->validated());
 
         return redirect()->route('periods.edit', $period->id)->with('message', 'Период сохранен!');

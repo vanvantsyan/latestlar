@@ -88,7 +88,7 @@
 
                         <div class="tab-pane" id="m_tabs_2" role="tabpanel">
                             @if (isset($period))
-                                @include('admin.components.case-input', ['element' => $period, 'field' => 'title', 'case_field' => 'title_cases'])
+                                @include('admin.components.case-input', ['element' => $period, 'pattern' => 'title', 'cases' => 'title_cases'])
                             @else 
                                 <p>Для редактирования склонений сохраните период</p>
                             @endif

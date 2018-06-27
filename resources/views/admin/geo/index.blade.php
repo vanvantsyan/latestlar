@@ -74,9 +74,10 @@
     @parent
 
     <script type="text/javascript">
+        let countries = @json($countries);
         var DatatableMenu = function() {
             var e = function() {
-                var e = JSON.parse('<?php echo $countries; ?>')
+                var e = countries
                     , a = $(".m_datatable").mDatatable({
                     data: {
                         type: "local",

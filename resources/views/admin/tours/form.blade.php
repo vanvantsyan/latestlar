@@ -56,6 +56,11 @@
                                 Детали тура
                             </a>
                         </li>
+                        <li class="nav-item m-tabs__item">
+                            <a href="#m_tabs_5" class="nav-link m-tabs__link" role="tab" data-toggle="tab">
+                                Склонения
+                            </a>
+                        </li>
                     </ul>
 
                     @if ($errors->any())
@@ -116,7 +121,7 @@
                                             Загрузить изображение
                                         </label>
                                         <div class="m-dropzone dropzone dz-clickable"
-                                             action="{{url('/tour/uploadImage')}}"
+                                             action="{{url('/admin/tour/uploadImage')}}"
                                              id="tour-dropzone">
 
                                             <div class="m-dropzone__msg dz-message needsclick"
@@ -301,6 +306,16 @@
                                 <hr>
                             </div>
                         </div>
+                        <div class="tab-pane" id="m_tabs_5" role="tabpanel">
+                            <div class="col-md-12">
+                                <h5>Склонения</h5>
+                                @if (isset($item))
+                                    @include('admin.components.case-input', ['element' => $item, 'pattern' => 'title', 'cases' => 'title_cases'])
+                                @else
+                                    <p>Для редактирования склонений сохраните период</p>
+                                @endif
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-success">Сохранить</button>
                             <a href="{{url('admin/tours')}}" class="btn btn-danger">Отмена</a>
@@ -394,7 +409,7 @@
                 thisDropzone = this;
 
                 $.ajax({
-                    url: "/tour/getImage",
+                    url: "/admin/tour/getImage",
                     cache: false,
                     data: {id: '{{$item->id ?? ""}}'},
                     type: "POST",
@@ -424,7 +439,7 @@
                     }
 
                     $.ajax({
-                        url: "/tour/removeImage",
+                        url: "/admin/tour/removeImage",
                         cache: false,
                         data: {id: '{{$item->id ?? ""}}', name: file.name},
                         type: "POST",

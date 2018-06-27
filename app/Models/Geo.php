@@ -10,13 +10,14 @@ class Geo extends Base
     use Cachable;
 
     protected $table = 'geo_countries';
-    protected $fillable = ['country', 'description', 'slug'];
+    protected $fillable = ['country', 'description', 'slug', 'country_cases'];
 
     public $timestamps = false;
 
     protected $casts = [
         'flag' => 'array',
         'banner' => 'array',
+        'country_cases' => 'array',
     ];
 
     protected $appends = ['count_tours'];
@@ -54,7 +55,7 @@ class Geo extends Base
         unset($country['_method']);
         unset($country['_token']);
         unset($country['cities']);
-        DB::table('geo_countries')->where('id', $id)->update($country);
+        Geo::find($id)->update($country);
 
         if(isset($data['cities'])) {
             $cities = preg_split("/\\r\\n|\\r|\\n/", $data['cities']);

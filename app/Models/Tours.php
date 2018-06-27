@@ -8,10 +8,13 @@ class Tours extends Base
 {
 
     protected $table = 'tours';
-    protected $fillable = ['id', 'title', 'description', 'text', 'price', 'duration', 'source', 'url', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'title', 'description', 'text', 'price', 'duration', 'source', 'url', 'created_at', 'updated_at', 'title_cases'];
 
     protected $appends = ['country']; //,'nearestDate'
 //    protected $casts = ['nearestDate' => 'string'];
+    protected $casts = [
+        'title_cases' => 'array',
+    ];
 
     public function tourTags()
     {

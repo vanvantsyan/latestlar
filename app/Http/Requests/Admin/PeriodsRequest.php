@@ -32,7 +32,7 @@ class PeriodsRequest extends FormRequest
             'slug' => 'required|unique:periods,slug' . $slug,
             'date_from' => 'date',
             'date_to' => 'date',
-            'title_cases' => 'json|nullable'
+            'title_cases' => 'array|nullable'
         ];
     }
 }

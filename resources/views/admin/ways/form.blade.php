@@ -34,6 +34,19 @@
                         <input type="hidden" name="_method" value="PUT">
                     @endif
 
+                    <ul class="nav nav-tabs  m-tabs-line m-tabs-line--primary" role="tablist">
+                        <li class="nav-item m-tabs__item">
+                            <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_1" role="tab">
+                                Данные направления
+                            </a>
+                        </li>
+                        <li class="nav-item m-tabs__item">
+                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_2" role="tab">
+                                Склонения
+                            </a>
+                        </li>
+                    </ul>
+
                     {{--<div class="form-group m-form__group row">--}}
                     {{--<div class="col-md-6 col-xs-12">--}}
                     {{--<select name="category_id" id="" class="form-control">--}}
@@ -46,77 +59,94 @@
                     {{--</div>--}}
                     {{--</div>--}}
 
-                    <div class="form-group m-form__group row">
-                        <div class="col-md-12 col-xs-12">
-                            <label for="title">Заголовок</label>
-                            <input type="text" class="form-control m-input m-input--square" id="title" name="title"
-                                   value="{{$item->title or ''}}">
-                        </div>
-                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="m_tabs_1" role="tabpanel">
 
-                    <div class="form-group m-form__group row">
-                        <div class="col-md-12 col-xs-12">
-                            <label for="status">Статус</label>
-                            <input type="text" class="form-control m-input m-input--square" id="status" name="status"
-                                   value="{{$item->status or ''}}">
-                        </div>
-                    </div>
-
-                    <div class="form-group m-form__group row">
-                        <div class="col-md-12 col-xs-12">
-                            <label for="">Краткое описание</label>
-                            <textarea class="rich-editor" name="description">{{$item->description or ''}}</textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group m-form__group row">
-                        <div class="col-lg-12 col-md-9 col-sm-12">
-                            <label class="">
-                                Загрузить изображение
-                            </label>
-                            <div class="m-dropzone dropzone dz-clickable" action="{{route('image.save.for')}}"
-                                 id="way-dropzone">
-
-                                <div class="m-dropzone__msg dz-message needsclick"
-                                     @if(isset($item) && !empty($item->image)) style="display: none;" @endif>
-                                    <h3 class="m-dropzone__msg-title">
-                                        Перетащите файл изображения сюда или кликните для загрузки с компьютера
-                                    </h3>
+                            <div class="form-group m-form__group row">
+                                <div class="col-md-12 col-xs-12">
+                                    <label for="title">Заголовок</label>
+                                    <input type="text" class="form-control m-input m-input--square" id="title" name="title"
+                                           value="{{$item->title or ''}}">
                                 </div>
                             </div>
+
+                            <div class="form-group m-form__group row">
+                                <div class="col-md-12 col-xs-12">
+                                    <label for="status">Статус</label>
+                                    <input type="text" class="form-control m-input m-input--square" id="status" name="status"
+                                           value="{{$item->status or ''}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group m-form__group row">
+                                <div class="col-md-12 col-xs-12">
+                                    <label for="">Краткое описание</label>
+                                    <textarea class="rich-editor" name="description">{{$item->description or ''}}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-12 col-md-9 col-sm-12">
+                                    <label class="">
+                                        Загрузить изображение
+                                    </label>
+                                    <div class="m-dropzone dropzone dz-clickable" action="{{route('image.save.for')}}"
+                                         id="way-dropzone">
+
+                                        <div class="m-dropzone__msg dz-message needsclick"
+                                             @if(isset($item) && !empty($item->image)) style="display: none;" @endif>
+                                            <h3 class="m-dropzone__msg-title">
+                                                Перетащите файл изображения сюда или кликните для загрузки с компьютера
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="col-md-12">
+                                <h5>SEO</h5>
+                            </div>
+                            <hr>
+                            <div class="form-group m-form__group row">
+
+                                <div class="col-md-6 col-xs-12">
+
+                                    <label for="seo_title">SEO title</label>
+                                    <input type="text" class="form-control m-input m-input--square" id="seo_title"
+                                           name="seo_title" value="{{$item->seo_title or ''}}">
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <label for="seo_keywords">SEO keywords</label>
+                                    <input type="text" class="form-control m-input m-input--square" id="seo_keywords"
+                                           name="seo_keywords" value="{{$item->seo_keywords or ''}}">
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <label for="url">URL</label>
+                                    <input type="text" class="form-control m-input m-input--square" id="url" name="url"
+                                           value="{{$item->url or ''}}">
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <label for="seo_desc">SEO Description</label>
+                                    <textarea class="form-control m-input m-input--square" id="seo_desc" name="seo_desc"
+                                              rows="5">{{$item->seo_desc or ''}}</textarea>
+                                </div>
+                            </div>
+                            
                         </div>
+
+                        <div class="tab-pane" id="m_tabs_2" role="tabpanel">
+                            <div class="col-md-12">
+                                <h5>Склонения</h5>
+                                @if (isset($item))
+                                    @include('admin.components.case-input', ['element' => $item, 'pattern' => 'title', 'cases' => 'title_cases'])
+                                @else
+                                    <p>Для редактирования склонений сохраните период</p>
+                                @endif
+                            </div>
+                        </div>
+
                     </div>
-
-                    <br>
-                    <div class="col-md-12">
-                        <h5>SEO</h5>
-                    </div>
-                    <hr>
-                    <div class="form-group m-form__group row">
-
-                        <div class="col-md-6 col-xs-12">
-
-                            <label for="seo_title">SEO title</label>
-                            <input type="text" class="form-control m-input m-input--square" id="seo_title"
-                                   name="seo_title" value="{{$item->seo_title or ''}}">
-                        </div>
-                        <div class="col-md-6 col-xs-12">
-                            <label for="seo_keywords">SEO keywords</label>
-                            <input type="text" class="form-control m-input m-input--square" id="seo_keywords"
-                                   name="seo_keywords" value="{{$item->seo_keywords or ''}}">
-                        </div>
-                        <div class="col-md-6 col-xs-12">
-                            <label for="url">URL</label>
-                            <input type="text" class="form-control m-input m-input--square" id="url" name="url"
-                                   value="{{$item->url or ''}}">
-                        </div>
-                        <div class="col-md-6 col-xs-12">
-                            <label for="seo_desc">SEO Description</label>
-                            <textarea class="form-control m-input m-input--square" id="seo_desc" name="seo_desc"
-                                      rows="5">{{$item->seo_desc or ''}}</textarea>
-                        </div>
-                    </div>
-
 
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-success">Сохранить</button>

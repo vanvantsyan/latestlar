@@ -99,7 +99,7 @@ class GeoController extends Controller
 //        $this->validateCountry($request);
 
         $this->model->updateCountry($id, $request->all());
-        return redirect('admin/geo')->with('message', 'Country "' . $request->get('country') . '" has been updated');
+        return redirect('admin/geo')->with('message', 'Страна "' . $request->get('country') . '" обновлена!');
     }
 
     /**

@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <div class="card-slider">
-                            @forelse(json_decode($tour->images) as $image)
+                            @forelse(json_decode($tour->images, true) as $image)
                                 <div class="card-slider-item">
                                     <img src="{{Gliss::tourImg($image, $tour->id)}}" alt="">
                                 </div>
@@ -127,7 +127,7 @@
                     @endphp
 
                     <div class="card-tour-filter">
-                        @if(count(json_decode($tour->images)))<a href="#card-tour-desc" class="active">Описание и фото
+                        @if(count(json_decode($tour->images, true)))<a href="#card-tour-desc" class="active">Описание и фото
                             тура</a>@endif
                         @if(count($tour->dates))<a href="#card-tour-dates">Даты начала тура</a>@endif
                         <a href="#card-schedule">Программа тура</a>
@@ -141,7 +141,7 @@
                                 <div class="title">Описание и фото тура</div>
                                 <div class="card-tour-photo" data-images="{{ $tour['images'] }}"
                                      data-tour-id="{{ $tour['id'] }}">
-                                    @foreach(json_decode($tour->images) as $key => $image)
+                                    @foreach(json_decode($tour->images, true) as $key => $image)
                                         <img height="150" src="{{Gliss::tourThumb($image, $tour->id)}}"
                                              alt="{{$tour->title}}" data-image-id="{{$key}}" data-toggle="modal"
                                              data-target="#tourImagesModal">
