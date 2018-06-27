@@ -12,6 +12,11 @@ class Ways extends Base
 
     protected $appends = ['count_tours'];
 
+    protected $casts = [
+        
+        'title_cases' => 'array',
+    ];
+
     public function relGeoSub()
     {
         return $this->hasMany('App\Models\GeoRelation', 'sub_id')->where('sub_id', 'way');

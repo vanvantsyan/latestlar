@@ -52,7 +52,7 @@ class WaysController extends Controller
         unset($data['_method']);
         unset($data['files']);
 
-        Ways::where('id', $id)->update($data);
+        Ways::find($id)->update($data);
         return redirect('admin/ways')
             ->with('message', 'Направление "'.$request->get('title').'" успешно обновлено');
     }

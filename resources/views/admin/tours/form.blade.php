@@ -56,6 +56,11 @@
                                 Детали тура
                             </a>
                         </li>
+                        <li class="nav-item m-tabs__item">
+                            <a href="#m_tabs_5" class="nav-link m-tabs__link" role="tab" data-toggle="tab">
+                                Склонения
+                            </a>
+                        </li>
                     </ul>
 
                     @if ($errors->any())
@@ -299,6 +304,16 @@
                                     <div class="col-md-6 col-xs-12"></div>
                                 </div>
                                 <hr>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="m_tabs_5" role="tabpanel">
+                            <div class="col-md-12">
+                                <h5>Склонения</h5>
+                                @if (isset($item))
+                                    @include('admin.components.case-input', ['element' => $item, 'pattern' => 'title', 'cases' => 'title_cases'])
+                                @else
+                                    <p>Для редактирования склонений сохраните период</p>
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-12">

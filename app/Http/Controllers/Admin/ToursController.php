@@ -78,9 +78,9 @@ class ToursController extends Controller
         unset($data['country']);
         unset($data['way']);
         unset($data['cities']);
-
+        
         try {
-            Tours::where('id', $id)->update($data);
+            Tours::find($id)->update($data);
         } catch (\Exception $e) {
             return $e->getMessage();
         }

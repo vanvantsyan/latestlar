@@ -34,6 +34,11 @@
                                 Описание и СЕО
                             </a>
                         </li>
+                        <li class="nav-item m-tabs__item">
+                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_3" role="tab">
+                                Склонения
+                            </a>
+                        </li>
                     </ul>
 
                     <div class="tab-content">
@@ -192,6 +197,17 @@
                             </div>
 
                         </div>
+                        
+                        <div class="tab-pane" id="m_tabs_3" role="tabpanel">
+                            <div class="col-md-12">
+                                <h5>Склонения</h5>
+                                @if (isset($country))
+                                    @include('admin.components.case-input', ['element' => $country, 'pattern' => 'country', 'cases' => 'country_cases'])
+                                @else
+                                    <p>Для редактирования склонений сохраните период</p>
+                                @endif
+                            </div>
+                        </div>
                     </div>
 
                     <div class="m-portlet__foot m-portlet__foot--fit">
@@ -299,16 +315,22 @@
 
                 thisDropzone = this;
 
-                        @php
-                            $images = json_decode($country->images);
+                @php
+                    $images = json_decode($country->images);
 
-                        @endphp
-
-                        @if(count($images))
-
-                        @php
-                            $size = filesize(public_path("uploads/tmp/$images"));
-                        @endphp
+                @endphp
+     
+                @if($images)
+                
+                @php
+                if (file_exists(public_path("uploads/tmp/$images"))) {
+                    $size = filesize(public_path("uploads/tmp/$images"));
+                }
+                else {
+                    $size = 0;
+                }
+                    
+                @endphp
 
                 var mockFile = {name: '{{$images}}', 'size': '{{$size}}'};
 
@@ -384,7 +406,13 @@
                         @if($image)
 
                         @php
+                        if (file_exists(public_path("uploads/countries/flags/$image"))) {
                             $size = filesize(public_path("uploads/countries/flags/$image"));
+                        }
+                        else {
+                            $size = 0;
+                        }
+                            
                         @endphp
 
                 var mockFile = {name: '{{$image}}', 'size': '{{$size}}'};
@@ -470,7 +498,13 @@
                         @if($image)
 
                         @php
+                        if (file_exists(public_path("uploads/countries/banners/$image"))) {
                             $size = filesize(public_path("uploads/countries/banners/$image"));
+                        }
+                        else {
+                            $size = 0;
+                        }
+                            
                         @endphp
 
                 var mockFile = {name: '{{$image}}', 'size': '{{$size}}'};
