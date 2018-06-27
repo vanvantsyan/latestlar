@@ -28,6 +28,7 @@ class PointsRequest extends FormRequest
         return [
             'title' => 'required',
             'url' => 'required',
+            'title_cases' => 'nullable|array'
         ];
     }
 }

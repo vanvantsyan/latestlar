@@ -11,6 +11,10 @@ class Points extends Base
     protected $appends = ['count_tours'];
     
     protected $guarded = ['id'];
+    
+    protected $casts = [
+        'title_cases' => 'array'
+    ];
 
     public function geoRelationSub()
     {

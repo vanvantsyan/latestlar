@@ -50,7 +50,7 @@
                         </li>
                         <li class="nav-item m-tabs__item">
                             <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_2" role="tab">
-                                Отношения
+                                Склонения
                             </a>
                         </li>
                     </ul>
@@ -74,7 +74,14 @@
                         </div>
 
                         <div class="tab-pane" id="m_tabs_2" role="tabpanel">
-              
+                            <div class="col-md-12">
+                                <h5>Склонения</h5>
+                                @if (isset($point))
+                                    @include('admin.components.case-input', ['element' => $point, 'pattern' => 'title', 'cases' => 'title_cases'])
+                                @else
+                                    <p>Для редактирования склонений сохраните период</p>
+                                @endif
+                            </div>
                         </div>
 
                         <div class="col-md-12">
