@@ -204,6 +204,10 @@ class BladeHelper
 
     public static function generatedMonthLink($level, $way, $point, $tag, $month, $duration)
     {
+        // Если у нас уже имеются три части для генерации ссылок, сбрасываем продолжительность
+        if ($level && (optional($way)->url || optional($point)->url) && $month)
+            $duration = null;
+        
         return "/$level/" . ($way ? "tury-" . $way->url . "/" : "") . (($point) ? "tury-" . $point->url . "/" : "") . (($tag) ? $tag->value . "/" : "") . ($month) . ($duration ? "/" . $duration : "");
     }
 
