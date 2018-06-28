@@ -7,7 +7,7 @@
     <div class="col-md-6 col-xs-12">
         <label for="{{ $pattern }}_r_morpher">Морфер</label>
         <p class="form-control-static m-input m-input--square" id="{{ $pattern }}_r_morpher">
-            {{ 'в ' . Gliss::case($element->$pattern, 'П') }}
+            {{ '' . Gliss::case($element->$pattern, 'Р') }}
         </p>
     </div>
 </div>
@@ -20,7 +20,7 @@
     <div class="col-md-6 col-xs-12">
         <label for="{{ $pattern }}_d_morpher">Морфер</label>
         <p class="form-control-static m-input m-input--square" id="{{ $pattern }}_d_morpher">
-            {{ Gliss::case($element->$pattern, 'Д') }}
+            {{ 'по ' . Gliss::case($element->$pattern, 'Д') }}
         </p>
     </div>
 </div>
@@ -59,7 +59,7 @@
     <div class="col-md-6 col-xs-12">
         <label for="{{ $pattern }}_p_morpher">Морфер</label>
         <p class="form-control-static m-input m-input--square" id="{{ $pattern }}_p_morpher">
-            {{ 'о ' . Gliss::case($element->$pattern, 'П') }}
+            {{ 'в ' . Gliss::case($element->$pattern, 'П') }}
         </p>
     </div>
 </div>

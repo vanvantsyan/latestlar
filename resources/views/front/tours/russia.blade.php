@@ -21,7 +21,7 @@
 
 @section('breadcrumbs')
     <div class="breadcrumbs">
-        @include('front.tours.modules.breadcrumbs', ['pTitle' => "Туры по " . Gliss::case($country->country, "Д")])
+        @include('front.tours.modules.breadcrumbs', ['pTitle' => "Туры " . morph($country->country, 'В', $country->country_cases)])
     </div>
 @endsection
 
@@ -46,6 +46,7 @@
                       ])
                 </div>
             </div>
+            
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <div class="row">
                     <div class="tour-preview">
@@ -59,8 +60,8 @@
                                     {!! $seo['topText'] !!}
                                 @else
                                     Компания STARTOUR предлагает лучшие туры
-                                    по {{Gliss::case($country->country, "Д")}}. Только самые
-                                    интересные и проверенные маршруты!
+                                    {{ morph($country->country, 'В', $country->country_cases) }}. 
+                                    Только самые интересные и проверенные маршруты!
                                 @endif
                             </div>
                         </div>
@@ -77,7 +78,7 @@
                     @if($country->id == 1)
                         <div class="popular-tours">
                             <h2>Самые популярные туры в {{Gliss::case(Date::now()->format('F'), "П")}}
-                                в {{Gliss::case($country->country, "П")}}</h2>
+                                {{ morph($country->country, 'В', $country->country_cases) }}</h2>
                             <div class="popular-tours-items">
                                 <table>
                                     <tbody>
@@ -266,7 +267,7 @@
                     @endif
                     <div class="burning-tours">
                         <div class="burning-tours-filter-wrap">
-                            <h2 class="hot">Горящие туры по {{Gliss::case($country->country, "Д")}} из <a href="#">Москвы</a>
+                            <h2 class="hot">Горящие туры {{ morph($country->country, 'В', $country->country_cases) }} из <a href="#">Москвы</a>
                             </h2>
                             <div class="burning-tours-filter" id="toursTab">
                                 @if(count($hotToursAny))<a class="active" href="#hotToursAny" class="active"

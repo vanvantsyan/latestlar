@@ -14,22 +14,18 @@
             </div>
             @if(Route::currentRouteName() == "countryMain")
                 <div itemscope itemtype="http://star.glissmedia.ru/Breadcrumb">
-                    @if($country->slug == 'russia')
-                        <span itemprop="title">Туры по {{Gliss::case($country->country, "П")}}</span>
-                    @else
-                        <span itemprop="title">Туры в {{Gliss::case($country->country, "В")}}</span>
-                    @endif
+                    <span itemprop="title">
+                        Туры {{ morph($country->country, 'В', $country->country_cases) }}
+                    </span>
                 </div>
             @else
 
                 @if($country)
                     <div itemscope itemtype="http://star.glissmedia.ru/Breadcrumb">
                         <a href="/{{$country->slug}}" itemprop="url">
-                            @if($country->slug == 'russia')
-                                <span itemprop="title">Туры по {{Gliss::case($country->country, "П")}}</span>
-                            @else
-                                <span itemprop="title">Туры {{Gliss::case($country->country, "куда")}}</span>
-                            @endif
+                            <span itemprop="title">
+                                Туры {{ morph($country->country, 'В', $country->country_cases) }}
+                            </span>
                         </a>
                     </div>
                 @endif
@@ -39,11 +35,9 @@
                     @isset($resort)
                         <div itemscope itemtype="http://star.glissmedia.ru/Breadcrumb">
                             <a href="/{{optional($country)->slug ?? 'tury'}}/tury-{{$resort->url}}" itemprop="url">
-                                @if($resort->url == 'moskva')
-                                    <span itemprop="title">Туры по {{Gliss::case($resort->title, "П")}}</span>
-                                @else
-                                    <span itemprop="title">Туры {{Gliss::case($resort->title, "куда")}}</span>
-                                @endif
+                                <span itemprop="title">
+                                    Туры {{ morph($resort->title, 'В', $resort->title_cases) }}
+                                </span>
                             </a>
                         </div>
                     @endif
@@ -56,11 +50,9 @@
 
                     @isset($resort)
                         <div itemscope itemtype="http://star.glissmedia.ru/Breadcrumb">
-                            @if($resort->url == 'moskva')
-                                <span itemprop="title">Туры по {{Gliss::case($resort->title, "П")}}</span>
-                            @else
-                                <span itemprop="title">Туры {{Gliss::case($resort->title, "где")}}</span>
-                            @endif
+                            <span itemprop="title">
+                                Туры {{ morph($resort->title, 'В', $resort->title_cases) }}
+                            </span>
                         </div>
                     @else
 
