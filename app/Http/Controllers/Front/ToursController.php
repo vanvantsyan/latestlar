@@ -139,7 +139,7 @@ class ToursController extends Controller
             $seo['bTitle'] = "Туры из Москвы " . $countrySeo;
             $seo['metaKey'] = "туры " . $countrySeo . ", " . $year . " год, из Москвы, купить, поиск";
             $seo['metaDesc'] = "Купить тур из Москвы " . $countrySeo . " в " . $year . " году по низкой цене от компании STARTOUR. Профессиональный подбор туров " . $countrySeo;
-            $seo['subText'] = "Поиск и подбор туров " . $countrySeo . " в " . $year . " году на сайте турагенства STARTOUR. Все туры по направлению $country в одном месте.";
+            $seo['subText'] = "Поиск и подбор туров " . $countrySeo . " в " . $year . " году на сайте турагенства STARTOUR. Все туры по направлению $countryP в одном месте.";
 
             /**
              * Построение SEO, когда в параметрах присутствует курорт.
@@ -156,9 +156,9 @@ class ToursController extends Controller
 
                     $seo['pTitle'] = "$tour_type " . $year . " " . $resortSeo . "";
                     $seo['bTitle'] = "$tour_type " . $year . " " . $resortSeo . " из Москвы";
-                    $seo['metaKey'] = "купить $tour_type " . $year . "  в " . $resortSeo . " из Москвы, цена, $country";
+                    $seo['metaKey'] = "купить $tour_type " . $year . "  в " . $resortSeo . " из Москвы, цена, $country->country";
                     $seo['metaDesc'] = "Дешевые $tour_type " . $year . " в " . $resortSeo . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
-                    $seo['subText'] = "$tour_type " . $year . " " . $resortSeo . " ($country) из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Отдыхайте на лучших курортах " . $resortP . ".";
+                    $seo['subText'] = "$tour_type " . $year . " " . $resortSeo . " ($country->country) из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Отдыхайте на лучших курортах " . $resortP . ".";
 
                     return $seo;
                 }
@@ -166,27 +166,27 @@ class ToursController extends Controller
                 if ($duration = array_get($params, 'duration', null)) {
                     $seo['pTitle'] = "Туры " . $resortSeo . " на " . durationNum($duration) . " " . durationCase($duration) . "";
                     $seo['bTitle'] = "Туры " . $resortSeo . " на " . durationNum($duration) . " " . durationCase($duration) . " из Москвы";
-                    $seo['metaKey'] = "купить туры " . $resortSeo . " на " . durationNum($duration) . " " . durationCase($duration) . " из Москвы, цена, $country";
+                    $seo['metaKey'] = "купить туры " . $resortSeo . " на " . durationNum($duration) . " " . durationCase($duration) . " из Москвы, цена, $country->country";
                     $seo['metaDesc'] = "Дешевые туры " . $resortSeo . " на " . durationNum($duration) . " " . durationCase($duration) . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
-                    $seo['subText'] = "Туры " . $resortSeo . " ($country) из Москвы на " . durationNum($duration) . " " . durationCase($duration) . " дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $duration " . durationCase($duration) . ", отдыхая на лучших курортах " . $resortP . ".";
+                    $seo['subText'] = "Туры " . $resortSeo . " ($country->country) из Москвы на " . durationNum($duration) . " " . durationCase($duration) . " дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $duration " . durationCase($duration) . ", отдыхая на лучших курортах " . $resortP . ".";
                     return $seo;
                 }
 
                 if ($holiday = array_get($params, 'holiday', null)) {
                     $seo['pTitle'] = "Туры " . $resortSeo . " на " . $holiday . " " . $year . "";
                     $seo['bTitle'] = "Туры " . $resortSeo . " на " . $holiday . " " . $year . " из Москвы";
-                    $seo['metaKey'] = "купить туры " . $resortSeo . " на " . $holiday . " " . $year . " из Москвы, цена, $country";
+                    $seo['metaKey'] = "купить туры " . $resortSeo . " на " . $holiday . " " . $year . " из Москвы, цена, $country->country";
                     $seo['metaDesc'] = "Дешевые туры " . $resortSeo . " на " . $holiday . " " . $year . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
-                    $seo['subText'] = "Туры " . $resortSeo . " ($country) из Москвы на " . $holiday . " " . $year . " год дешево от компании STARTOUR. Профессиональный подбор туров. Проведите праздники, отдыхая на лучших курортах " . $resortP . ".";
+                    $seo['subText'] = "Туры " . $resortSeo . " ($country->country) из Москвы на " . $holiday . " " . $year . " год дешево от компании STARTOUR. Профессиональный подбор туров. Проведите праздники, отдыхая на лучших курортах " . $resortP . ".";
                     return $seo;
                 }
 
                 if ($status = array_get($params, 'status', null)) {
                     $seo['pTitle'] = "$status " . $year . " " . $resortSeo . "";
                     $seo['bTitle'] = "$status " . $year . " " . $resortSeo . " из Москвы";
-                    $seo['metaKey'] = "купить $status " . $year . "  " . $resortSeo . " из Москвы, цена, $country";
+                    $seo['metaKey'] = "купить $status " . $year . "  " . $resortSeo . " из Москвы, цена, $country->country";
                     $seo['metaDesc'] = "Дешевые $status " . $year . " " . $resortSeo . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
-                    $seo['subText'] = "$status " . $year . " " . $resortSeo . " ($country) из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Отдыхайте на лучших курортах " . $resortP . ".";
+                    $seo['subText'] = "$status " . $year . " " . $resortSeo . " ($country->country) из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Отдыхайте на лучших курортах " . $resortP . ".";
                     return $seo;
                 }
 
@@ -206,17 +206,17 @@ class ToursController extends Controller
                     
                     $seo['pTitle'] = "Туры " . $resortSeo . " " . $intervalSeo . " " . $year . "";
                     $seo['bTitle'] = "Туры " . $resortSeo . " " . $intervalSeo . " " . $year . " из Москвы";
-                    $seo['metaKey'] = "купить туры " . $resortSeo . " " . $intervalSeo . " " . $year . " из Москвы, цена, $country";
+                    $seo['metaKey'] = "купить туры " . $resortSeo . " " . $intervalSeo . " " . $year . " из Москвы, цена, $country->country";
                     $seo['metaDesc'] = "Дешевые туры " . $resortSeo . " " . $intervalSeo . " " . $year . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
-                    $seo['subText'] = "Туры " . $resortSeo . " ($country) из Москвы" . " " . $intervalSeo . " " . $year . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проведите " .  $month ?? $period_v ?? '' . ", отдыхая на лучших курортах " . $resortP . ".";
+                    $seo['subText'] = "Туры " . $resortSeo . " ($country->country) из Москвы" . " " . $intervalSeo . " " . $year . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проведите " .  $month ?? $period_v ?? '' . ", отдыхая на лучших курортах " . $resortP . ".";
                     return $seo;
                 }
 
                 $seo['pTitle'] = "Туры " . $resortSeo;
-                $seo['bTitle'] = "Туры " . $resortSeo . " ($country) из Москвы в " . $year . " году по низкой цене";
-                $seo['metaKey'] = "Туры " . $resortSeo . ", ($country), вылет из Москвы, от всех туроператоров, цена, купить";
+                $seo['bTitle'] = "Туры " . $resortSeo . " ($country->country) из Москвы в " . $year . " году по низкой цене";
+                $seo['metaKey'] = "Туры " . $resortSeo . ", ($country->country), вылет из Москвы, от всех туроператоров, цена, купить";
                 $seo['metaDesc'] = "Купить тур " . $resortSeo . " " . $year . " от наиболее известных туроператоров. Удобный поиск туров в " . $resort->title . " из Москвы.";
-                $seo['subText'] = "Подбор туров " . $resortSeo . " ($country) в турагентстве STARTOUR. Мы поможем Вам найти тур по оптимальной цене.";
+                $seo['subText'] = "Подбор туров " . $resortSeo . " ($country->country) в турагентстве STARTOUR. Мы поможем Вам найти тур по оптимальной цене.";
 
                 return $seo;
 
@@ -243,7 +243,7 @@ class ToursController extends Controller
                 if ($duration = array_get($params, 'duration', null)) {
                     $seo['pTitle'] = "Туры " . $countrySeo . " " . $intervalSeo . " " . $year . "";
                     $seo['bTitle'] = "Туры " . " " . $intervalSeo . " " . $year . " " . $countrySeo . " на " . durationNum($duration) . " " . durationCase($duration) . "  из Москвы";
-                    $seo['metaKey'] = "купить туры " . " " . $intervalSeo . " " . $year . " " . $countrySeo . " из Москвы на " . durationNum($duration) . " " . durationCase($duration) . ", цена, $country";
+                    $seo['metaKey'] = "купить туры " . " " . $intervalSeo . " " . $year . " " . $countrySeo . " из Москвы на " . durationNum($duration) . " " . durationCase($duration) . ", цена, $country->country";
                     $seo['metaDesc'] = "Дешевые туры " . " " . $intervalSeo . " " . $year . " " . $countrySeo . " с вылетом из Москвы на " . durationNum($duration) . " " . durationCase($duration) . " от турагентства STARTOUR.";
                     $seo['subText'] = "Туры " . $countrySeo . " " . $intervalSeo . " " . $year . " года из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Проведите " . $month ?? $period_v ?? '' . " на лучших курортах " . $countryP . ".";
                     return $seo;
@@ -254,7 +254,7 @@ class ToursController extends Controller
                     
                     $seo['pTitle'] = "$tour_type " . $countrySeo . " " . $intervalSeo . " " . $year . "";
                     $seo['bTitle'] = "$tour_type " . $countrySeo . " " . $intervalSeo . " " . $year . " из Москвы";
-                    $seo['metaKey'] = "купить $tour_type " . $countrySeo . " из Москвы" . " " . $intervalSeo . " " . $year . ", цена, $country";
+                    $seo['metaKey'] = "купить $tour_type " . $countrySeo . " из Москвы" . " " . $intervalSeo . " " . $year . ", цена, $country->country";
                     $seo['metaDesc'] = "Дешевые $tour_type " . $countrySeo . " с вылетом из Москвы" . " " . $intervalSeo . " " . $year . " года от турагентства STARTOUR.";
                     $seo['subText'] = "$tour_type " . $countrySeo . " из Москвы" . " " . $intervalSeo . " " . $year . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проводите " . $month ?? $period_v ?? '' . " на лучших курортах " . $countryP . ".";
                     return $seo;
@@ -263,7 +263,7 @@ class ToursController extends Controller
                 if ($status = array_get($params, 'status', null)) {
                     $seo['pTitle'] = "$status " . $countrySeo . " " . $intervalSeo . " " . $year . "";
                     $seo['bTitle'] = "$status " . $countrySeo . " " . $intervalSeo . " " . $year . " из Москвы";
-                    $seo['metaKey'] = "купить $status " . $countrySeo . " из Москвы" . " " . $intervalSeo . " " . $year . ", цена, $country";
+                    $seo['metaKey'] = "купить $status " . $countrySeo . " из Москвы" . " " . $intervalSeo . " " . $year . ", цена, $country->country";
                     $seo['metaDesc'] = "Дешевые $status " . $countrySeo . " с вылетом из Москвы" . " " . $intervalSeo . " " . $year . " года от турагентства STARTOUR.";
                     $seo['subText'] = "$status " . $countrySeo . " из Москвы" . " " . $intervalSeo . " " . $year . " дешево от компании STARTOUR. Профессиональный подбор туров. Проводите " . $month ?? $period_v ?? '' . " на лучших курортах " . $countryP . ".";
                     return $seo;
@@ -289,7 +289,7 @@ class ToursController extends Controller
                     
                     $seo['pTitle'] = "$tour_type " . $year . " " . $countrySeo . " на " . durationNum($duration) . " " . durationCase($duration) . "";
                     $seo['bTitle'] = "$tour_type " . $year . " " . $countrySeo . " на " . durationNum($duration) . " " . durationCase($duration) . "  из Москвы";
-                    $seo['metaKey'] = "купить $tour_type " . $year . " " . $countrySeo . " из Москвы на " . durationNum($duration) . " " . durationCase($duration) . ", цена, $country";
+                    $seo['metaKey'] = "купить $tour_type " . $year . " " . $countrySeo . " из Москвы на " . durationNum($duration) . " " . durationCase($duration) . ", цена, $country->country";
                     $seo['metaDesc'] = "Дешевые $tour_type " . $year . " " . $countrySeo . " с вылетом из Москвы на " . durationNum($duration) . " " . durationCase($duration) . " от турагентства STARTOUR.";
                     $seo['subText'] = "$tour_type на " . $year . " год " . $countrySeo . " на " . durationNum($duration) . " " . durationCase($duration) . "  из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Проводите $duration " . durationCase($duration) . " на лучших курортах " . $countryP . ".";
                     return $seo;
@@ -298,7 +298,7 @@ class ToursController extends Controller
                 if ($holiday = array_get($params, 'holiday', null)) {
                     $seo['pTitle'] = "Туры на " . $holiday . " " . $year . " " . $countrySeo . " на " . durationNum($duration) . " " . durationCase($duration) . "";
                     $seo['bTitle'] = "Туры на " . $holiday . " " . $year . " " . $countrySeo . " на " . durationNum($duration) . " " . durationCase($duration) . " из Москвы";
-                    $seo['metaKey'] = "купить туры на " . $holiday . " " . $year . " " . $countrySeo . " из Москвы на " . durationNum($duration) . " " . durationCase($duration) . ", цена, $country";
+                    $seo['metaKey'] = "купить туры на " . $holiday . " " . $year . " " . $countrySeo . " из Москвы на " . durationNum($duration) . " " . durationCase($duration) . ", цена, $country->country";
                     $seo['metaDesc'] = "Дешевые туры на " . $holiday . " " . $year . " " . $countrySeo . " с вылетом из Москвы на " . durationNum($duration) . " " . durationCase($duration) . " от турагентства STARTOUR.";
                     $seo['subText'] = "Туры на " . $holiday . " " . $year . " год " . $countrySeo . " на " . durationNum($duration) . " " . durationCase($duration) . "  из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $duration праздничных " . durationCase($duration) . " на лучших курортах " . $countryP . ".";
                     return $seo;
@@ -307,7 +307,7 @@ class ToursController extends Controller
                 if ($status = array_get($params, 'status', null)) {
                     $seo['pTitle'] = "$status " . $year . " " . $countrySeo . " на " . durationNum($duration) . " " . durationCase($duration) . "";
                     $seo['bTitle'] = "$status " . $year . " " . $countrySeo . " на " . durationNum($duration) . " " . durationCase($duration) . "  из Москвы";
-                    $seo['metaKey'] = "купить $status " . $year . " " . $countrySeo . " из Москвы на " . durationNum($duration) . " " . durationCase($duration) . ", цена, $country";
+                    $seo['metaKey'] = "купить $status " . $year . " " . $countrySeo . " из Москвы на " . durationNum($duration) . " " . durationCase($duration) . ", цена, $country->country";
                     $seo['metaDesc'] = "Дешевые $status " . $year . " " . $countrySeo . " с вылетом из Москвы на " . durationNum($duration) . " " . durationCase($duration) . " от турагентства STARTOUR.";
                     $seo['subText'] = "$status на " . $year . " год " . $countrySeo . " на " . durationNum($duration) . " " . durationCase($duration) . "  из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Проводите$duration " . durationCase($duration) . " на лучших курортах " . $countryP . ".";
                     return $seo;
@@ -334,7 +334,7 @@ class ToursController extends Controller
                     if ($status = array_get($params, 'status', null)) {
                         $seo['pTitle'] = "$status на " . $tag->alias . " " . $year . " " . $countrySeo . "";
                         $seo['bTitle'] = "$status на " . $tag->alias . " " . $year . " " . $countrySeo . " из Москвы";
-                        $seo['metaKey'] = "купить $status на " . $tag->alias . " " . $year . "  " . $countrySeo . " из Москвы, цена, $country";
+                        $seo['metaKey'] = "купить $status на " . $tag->alias . " " . $year . "  " . $countrySeo . " из Москвы, цена, $country->country";
                         $seo['metaDesc'] = "Дешевые $status на " . $tag->alias . " " . $year . " " . $countrySeo . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
                         $seo['subText'] = "$status на " . $tag->alias . " " . $year . " " . $countrySeo . " из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Проводите " . $tag->alias . " на лучших курортах " . $countryP . ".";
                         return $seo;
@@ -364,7 +364,7 @@ class ToursController extends Controller
 
                         $seo['pTitle'] = "" . $tag->alias . " на " . $holiday . " " . $year . " " . $countrySeo . "";
                         $seo['bTitle'] = "" . $tag->alias . " на " . $holiday . " " . $year . " " . $countrySeo . " из Москвы";
-                        $seo['metaKey'] = "купить " . $tag->alias . " на " . $holiday . " " . $year . "  " . $countrySeo . " из Москвы, цена, $country";
+                        $seo['metaKey'] = "купить " . $tag->alias . " на " . $holiday . " " . $year . "  " . $countrySeo . " из Москвы, цена, $country->country";
                         $seo['metaDesc'] = "Дешевые " . $tag->alias . " на " . $holiday . " " . $year . " " . $countrySeo . " с вылетом из Москвы от турагентства STARTOUR.";
                         $seo['subText'] = "" . $tag->alias . " на " . $holiday . " " . $year . " " . $countrySeo . " из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Встречайте праздники на лучших курортах " . $countryP . ".";
                         return $seo;
@@ -373,7 +373,7 @@ class ToursController extends Controller
                     if ($status = array_get($params, 'status', null)) {
                         $seo['pTitle'] = "$status $tag->alias " . $year . " " . $countrySeo . "";
                         $seo['bTitle'] = "$status $tag->alias " . $year . " " . $countrySeo . " из Москвы";
-                        $seo['metaKey'] = "купить $status $tag->alias " . $year . " " . $countrySeo . " из Москвы, цена, $country";
+                        $seo['metaKey'] = "купить $status $tag->alias " . $year . " " . $countrySeo . " из Москвы, цена, $country->country";
                         $seo['metaDesc'] = "Дешевые $status $tag->alias " . $year . " " . $countrySeo . " с вылетом из Москвы от турагентства STARTOUR.";
                         $seo['subText'] = "$status $tag->alias " . $year . " " . $countrySeo . " из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Проводите отдых на лучших курортах " . $countryP . ".";
                         return $seo;
@@ -398,7 +398,7 @@ class ToursController extends Controller
         else {
 
             // При отсутствии страны в параметрах, подразумевается Россия по умолчанию.
-            $country = "Россия";
+            $country = Geo::where('country', "Россия")->first();
             $countrySeo = morph($country->country, 'В', $country->country_cases);
 
             /**
@@ -416,36 +416,36 @@ class ToursController extends Controller
                     
                     $seo['pTitle'] = "$tour_type " . $year . " " . $resortSeo . "";
                     $seo['bTitle'] = "$tour_type " . $year . " " . $resortSeo . " из Москвы";
-                    $seo['metaKey'] = "купить $tour_type " . $year . "  " . $resortSeo . " из Москвы, цена, $country";
+                    $seo['metaKey'] = "купить $tour_type " . $year . "  " . $resortSeo . " из Москвы, цена, $country->country";
                     $seo['metaDesc'] = "Дешевые $tour_type " . $year . " " . $resortSeo . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
-                    $seo['subText'] = "$tour_type " . $year . " " . $resortSeo . " ($country) из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Отдыхайте на лучших курортах " . $resortP . ".";
+                    $seo['subText'] = "$tour_type " . $year . " " . $resortSeo . " ($country->country) из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Отдыхайте на лучших курортах " . $resortP . ".";
                     return $seo;
                 }
 
                 if ($duration = array_get($params, 'duration', null)) {
                     $seo['pTitle'] = "Туры " . $resortSeo . " на " . durationNum($duration) . " " . durationCase($duration) . "";
                     $seo['bTitle'] = "Туры " . $resortSeo . " на " . durationNum($duration) . " " . durationCase($duration) . " из Москвы";
-                    $seo['metaKey'] = "купить туры " . $resortSeo . " на " . durationNum($duration) . " " . durationCase($duration) . " из Москвы, цена, $country";
+                    $seo['metaKey'] = "купить туры " . $resortSeo . " на " . durationNum($duration) . " " . durationCase($duration) . " из Москвы, цена, $country->country";
                     $seo['metaDesc'] = "Дешевые туры " . $resortSeo . " на " . durationNum($duration) . " " . durationCase($duration) . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
-                    $seo['subText'] = "Туры " . $resortSeo . " ($country) из Москвы на " . durationNum($duration) . " " . durationCase($duration) . " дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $duration " . durationCase($duration) . ", отдыхая на лучших курортах " . $resortP . ".";
+                    $seo['subText'] = "Туры " . $resortSeo . " ($country->country) из Москвы на " . durationNum($duration) . " " . durationCase($duration) . " дешево от компании STARTOUR. Профессиональный подбор туров. Проведите $duration " . durationCase($duration) . ", отдыхая на лучших курортах " . $resortP . ".";
                     return $seo;
                 }
 
                 if ($holiday = array_get($params, 'holiday', null)) {
                     $seo['pTitle'] = "Туры " . $resortSeo . " на " . $holiday . " " . $year . "";
                     $seo['bTitle'] = "Туры " . $resortSeo . " на " . $holiday . " " . $year . " из Москвы";
-                    $seo['metaKey'] = "купить туры " . $resortSeo . " на " . $holiday . " " . $year . " из Москвы, цена, $country";
+                    $seo['metaKey'] = "купить туры " . $resortSeo . " на " . $holiday . " " . $year . " из Москвы, цена, $country->country";
                     $seo['metaDesc'] = "Дешевые туры " . $resortSeo . " на " . $holiday . " " . $year . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
-                    $seo['subText'] = "Туры " . $resortSeo . " ($country) из Москвы на " . $holiday . " " . $year . " год дешево от компании STARTOUR. Профессиональный подбор туров. Проведите праздники, отдыхая на лучших курортах " . $resortP . ".";
+                    $seo['subText'] = "Туры " . $resortSeo . " ($country->country) из Москвы на " . $holiday . " " . $year . " год дешево от компании STARTOUR. Профессиональный подбор туров. Проведите праздники, отдыхая на лучших курортах " . $resortP . ".";
                     return $seo;
                 }
 
                 if ($status = array_get($params, 'status', null)) {
                     $seo['pTitle'] = "$status " . $year . " " . $resortSeo . "";
                     $seo['bTitle'] = "$status " . $year . " " . $resortSeo . " из Москвы";
-                    $seo['metaKey'] = "купить $status " . $year . "  " . $resortSeo . " из Москвы, цена, $country";
+                    $seo['metaKey'] = "купить $status " . $year . "  " . $resortSeo . " из Москвы, цена, $country->country";
                     $seo['metaDesc'] = "Дешевые $status " . $year . " " . $resortSeo . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
-                    $seo['subText'] = "$status " . $year . " " . $resortSeo . " ($country) из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Отдыхайте на лучших курортах " . $resortP . ".";
+                    $seo['subText'] = "$status " . $year . " " . $resortSeo . " ($country->country) из Москвы дешево от компании STARTOUR. Профессиональный подбор туров. Отдыхайте на лучших курортах " . $resortP . ".";
                     return $seo;
                 }
 
@@ -466,19 +466,19 @@ class ToursController extends Controller
                     $seo['pTitle'] = "Туры " . $resortSeo . " " . $intervalSeo . " " . $year . "";
                     $seo['bTitle'] = "Туры " . $resortSeo . " " . $intervalSeo . " " . $year . " из Москвы";
 
-                    $seo['metaKey'] = "купить туры " . $resortSeo . " " . $intervalSeo . " " . $year . " из Москвы, цена, $country";
+                    $seo['metaKey'] = "купить туры " . $resortSeo . " " . $intervalSeo . " " . $year . " из Москвы, цена, $country->country";
 
                     $seo['metaDesc'] = "Дешевые туры " . $resortSeo . " " . $intervalSeo . " " . $year . " с вылетом из Москвы от турагентства STARTOUR. Отдых " . $countrySeo . ".";
 
-                    $seo['subText'] = "Туры " . $resortSeo . " ($country) из Москвы" . " " . $intervalSeo . " " . $year . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проведите " . $month ?? $period_v ?? '' . ", отдыхая на лучших курортах " . $resortP . ".";
+                    $seo['subText'] = "Туры " . $resortSeo . " ($country->country) из Москвы" . " " . $intervalSeo . " " . $year . " года дешево от компании STARTOUR. Профессиональный подбор туров. Проведите " . $month ?? $period_v ?? '' . ", отдыхая на лучших курортах " . $resortP . ".";
                     return $seo;
                 }
 
                 $seo['pTitle'] = "Туры в " . $resort->title;
-                $seo['bTitle'] = "Туры " . $resortSeo . " ($country) из Москвы в " . $year . " году по низкой цене";
-                $seo['metaKey'] = "Туры " . $resortSeo . ", ($country), вылет из Москвы, от всех туроператоров, цена, купить";
+                $seo['bTitle'] = "Туры " . $resortSeo . " ($country->country) из Москвы в " . $year . " году по низкой цене";
+                $seo['metaKey'] = "Туры " . $resortSeo . ", ($country->country), вылет из Москвы, от всех туроператоров, цена, купить";
                 $seo['metaDesc'] = "Купить тур в " . $resort->title . " " . $year . " от наиболее известных туроператоров. Удобный поиск туров в " . $resort->title . " из Москвы.";
-                $seo['subText'] = "Подбор туров  " . $resortSeo . " ($country) в турагентстве STARTOUR. Мы поможем Вам найти тур по оптимальной цене.";
+                $seo['subText'] = "Подбор туров  " . $resortSeo . " ($country->country) в турагентстве STARTOUR. Мы поможем Вам найти тур по оптимальной цене.";
                 return $seo;
             }
 
