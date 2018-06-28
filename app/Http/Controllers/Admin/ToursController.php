@@ -653,6 +653,14 @@ class ToursController extends Controller
                 $obj['thumb'] = BladeHelper::tourThumb($image, $tour->id);
 
                 $dropzone[] = $obj;
+            } else {
+                $obj = [];
+                
+                $obj['name'] = $image;
+                $obj['size'] = 0;
+                $obj['thumb'] = null;
+                
+                $dropzone[] = $obj;
             }
 
         }

@@ -107,7 +107,7 @@
                     @if($layer == 3)
                         @if($countTours = Gliss::countTours("/russia/tury-moskva"))
                             <li>
-                                <a href="/russia/tury-moskva">Туры в Москву</a>
+                                <a href="/russia/tury-moskva">Туры по Москве</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
@@ -139,7 +139,7 @@
                         @if($countTours = Gliss::countTours(Gliss::generatedCityLink("/russia/tury-moskva", $tag, $month, $duration)))
                             <li>
                                 <a href="{{Gliss::generatedCityLink("/russia/tury-moskva", $tag, $month, $duration)}}">Туры
-                                    в Москву</a>
+                                    по Москве</a>
                                 <span>{{$countTours}}</span>
                             </li>
                         @endif
@@ -316,7 +316,7 @@
 
             <div class="sidebar-city-tour">
                 <div class="sidebar-tour-subtitle">
-                    Туры @if($way) {{"в " . Gliss::case($way->title, "В")}} @endif @if($point) {{"в " . Gliss::case($point->title, "В")}} @endif
+                    Туры @if($way) {{ morph($way->title, 'В', $way->title_cases) }} @endif @if($point) {{ morph($point->title, 'В', $point->title_cases) }} @endif
                     по месяцам
                 </div>
                 <ul>
@@ -365,7 +365,7 @@
         @if($country or $tag or $month)
             <div class="sidebar-city-tour">
                 <div class="sidebar-tour-subtitle">
-                    Туры @if($way)  {{"в " . Gliss::case($way->title, "В")}} @endif @if($point) {{"в " . Gliss::case($point->title, "В")}} @endif
+                    Туры @if($way)  {{ morph($way->title, 'В', $way->title_cases) }} @endif @if($point) {{ morph($point->title, 'В', $point->title_cases) }} @endif
                     по длительности
                 </div>
                 <ul class="restType">
@@ -405,7 +405,7 @@
         @if(count($tourTypes))
             <div class="sidebar-city-tour">
                 <div class="sidebar-tour-title">Виды
-                    отдыха @if($way) {{Gliss::case($way->title, "где")}} @endif @if($point) {{Gliss::case($point->title, "где")}} @endif</div>
+                    отдыха @if($way) {{ morph($way->title, 'В', $way->title_cases) }} @endif @if($point) {{ morph($point->title, 'В', $point->title_cases) }} @endif</div>
                 <ul>
                     @forelse($tourTypes as $type)
                         @if($layer == 3)
@@ -450,7 +450,7 @@
         @if(count($tourTypes))
             <div class="sidebar-city-tour">
                 <div class="sidebar-tour-title">Типы
-                    туров @if($way) {{Gliss::case($way->title, "где")}} @endif @if($point) {{Gliss::case($point->title, "где")}} @endif</div>
+                    туров @if($way) {{ morph($way->title, 'В', $way->title_cases) }} @endif @if($point) {{ morph($point->title, 'В', $point->title_cases) }} @endif</div>
                 <ul>
                     @forelse($tourTypes as $type)
 
@@ -514,7 +514,7 @@
                                             <img width="15"
                                                  src="/uploads/countries/flags/{{$countryItem->country->flag}}"/>
                                         @endif
-                                        Туры в {{Gliss::case($countryItem->title, "В")}}
+                                        Туры {{ morph($countryItem->country->country, 'В', $countryItem->country->country_cases) }}
                                     </a>
                                     <span>{{$countryItem->country->count_tours}}</span>
                                 </li>
@@ -533,7 +533,7 @@
                                     @if($countryItem->country->flag)
                                         <img width="15" src="/uploads/countries/flags/{{$countryItem->country->flag}}"/>
                                     @endif
-                                    Туры в {{Gliss::case($countryItem->title, "В")}}
+                                    Туры {{ morph($countryItem->country->country, 'В', $countryItem->country->country_cases) }}
                                 </a>
                                 <span>{{$countryItem->country->count_tours}}</span>
                             </li>
